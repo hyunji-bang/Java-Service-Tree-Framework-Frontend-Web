@@ -128,7 +128,7 @@
     // 초기 개발 및 확인 용도
     $(function () {
 
-        $.ajax( "/auth-user/api/arms/pdVersionService/getChildNode.do?c_id=1")
+        $.ajax( "/auth-user/api/arms/pdversion/getChildNode.do?c_id=1")
         .done(function(json) {
             console.log(json);
             $("#versionAccordion").jsonMenu("set", json,{speed:5000});

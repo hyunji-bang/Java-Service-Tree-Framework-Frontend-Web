@@ -47,7 +47,7 @@ function jstreeDataTableReload() {
 
     var tempDataTable = $('#jstreeTable').DataTable({
         "ajax": {
-            "url": isDevelopingToRoute + "/api/arms/pdService/getMonitor.do",
+            "url": isDevelopingToRoute + "/api/arms/pdservice/getMonitor.do",
             "dataSrc": ""
         },
         "destroy": true,

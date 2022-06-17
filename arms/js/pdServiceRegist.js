@@ -157,7 +157,7 @@ function jsTreeBuild(){
             // All the options are almost the same as jQuery's AJAX (read the docs)
             "ajax": {
                 // the URL to fetch the data
-                "url": isDevelopingToRoute + "/api/arms/pdService/getChildNode.do",
+                "url": isDevelopingToRoute + "/api/arms/pdservice/getChildNode.do",
                 // the `data` function is executed in the instance's scope
                 // the parameter is the node being loaded
                 // (may be -1, 0, or undefined when loading the root nodes)
@@ -178,7 +178,7 @@ function jsTreeBuild(){
             // As this has been a common question - async search
             // Same as above - the `ajax` config option is actually jQuery's AJAX object
             "ajax": {
-                "url": isDevelopingToRoute + "/api/arms/pdService/searchNode.do",
+                "url": isDevelopingToRoute + "/api/arms/pdservice/searchNode.do",
                 // You get the search string as a parameter
                 "data": function(str) {
                     return {
@@ -249,7 +249,7 @@ function jsTreeBuild(){
             "initially_open": ["node_2", "node_3"]
         }
     }).bind("create.jstree", function(e, data) {
-        $.post(isDevelopingToRoute + "/api/arms/pdService/addNode.do", {
+        $.post(isDevelopingToRoute + "/api/arms/pdservice/addNode.do", {
             "ref": data.rslt.parent.attr("id").replace("node_", "").replace("copy_", ""),
             "c_position": data.rslt.position,
             "c_title": data.rslt.name,
@@ -273,7 +273,7 @@ function jsTreeBuild(){
             $.ajax({
                 async: false,
                 type: 'POST',
-                url: isDevelopingToRoute + "/api/arms/pdService/removeNode.do",
+                url: isDevelopingToRoute + "/api/arms/pdservice/removeNode.do",
                 data: {
                     "c_id": this.id.replace("node_", "").replace("copy_", "")
                 },
@@ -289,7 +289,7 @@ function jsTreeBuild(){
             });
         });
     }).bind("rename.jstree", function(e, data) {
-        $.post(isDevelopingToRoute + "/api/arms/pdService/alterNode.do", {
+        $.post(isDevelopingToRoute + "/api/arms/pdservice/alterNode.do", {
             "c_id": data.rslt.obj.attr("id").replace("node_", "").replace("copy_", ""),
             "c_title": data.rslt.new_name,
             "c_type": data.rslt.obj.attr("rel")
@@ -306,7 +306,7 @@ function jsTreeBuild(){
             jsTreeBuild();
         });
     }).bind("set_type.jstree", function(e, data) {
-        $.post(isDevelopingToRoute + "/api/arms/pdService/alterNodeType.do", {
+        $.post(isDevelopingToRoute + "/api/arms/pdservice/alterNodeType.do", {
             "c_id": data.rslt.obj.attr("id").replace("node_", "").replace("copy_", ""),
             "c_title": data.rslt.new_name,
             "c_type": data.rslt.obj.attr("rel")
@@ -324,7 +324,7 @@ function jsTreeBuild(){
             $.ajax({
                 async: false,
                 type: 'POST',
-                url: isDevelopingToRoute + "/api/arms/pdService/moveNode.do",
+                url: isDevelopingToRoute + "/api/arms/pdservice/moveNode.do",
                 data: {
                     "c_id": $(this).attr("id").replace("node_", "").replace("copy_", ""),
                     "ref": data.rslt.cr === -1 ? 1 : data.rslt.np.attr("id").replace("node_", "").replace("copy_", ""),
