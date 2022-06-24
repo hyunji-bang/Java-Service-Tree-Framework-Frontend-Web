@@ -47,7 +47,7 @@ function jstreeDataTableReload() {
 
     var tempDataTable = $('#jstreeTable').DataTable({
         "ajax": {
-            "url": isDevelopingToRoute + "/api/arms/pdServiceJira/getMonitor.do",
+            "url": isDevelopingToRoute + "/api/arms/pdjira/getMonitor.do",
             "dataSrc": ""
         },
         "destroy": true,
@@ -64,12 +64,12 @@ function jstreeDataTableReload() {
             { "data": "c_title" },
             { "data": "c_type" },
 
-            { "data": "c_pdservicejira_detail" },
-            { "data": "c_pdservicejira_con_name" },
-            { "data": "c_pdservicejira_con_user" },
-            { "data": "c_pdservicejira_con_pass" },
-            { "data": "c_pdservicejira_con_token" },
-            { "data": "c_pdservicejira_con_jql" },
+            { "data": "c_pdjira_detail" },
+            { "data": "c_pdjira_con_name" },
+            { "data": "c_pdjira_con_user" },
+            { "data": "c_pdjira_con_pass" },
+            { "data": "c_pdjira_con_token" },
+            { "data": "c_pdjira_con_jql" },
             { "data": "jiraConPassMode" }
         ]
     });
