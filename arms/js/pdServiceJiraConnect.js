@@ -1,6 +1,5 @@
 $(function () {
     setSideMenu();
-    jsTreeBuild();
 });
 
 function setSideMenu() {
@@ -19,6 +18,9 @@ function setSideMenu() {
     },1000);
 }
 
+$(function () {
+    jsTreeBuild();
+});
 /* -------------------------------- jstree 설정 ------------------------------- */
 function jsTreeBuild(){
 
@@ -370,6 +372,67 @@ function jsTreeBuild(){
                 break;
         }
     });
+}
+
+
+$(function () {
+    jstreeDataTableReload();
+    $('.dataTables_length').find('select:eq(0)').addClass("darkBack");
+    $('.dataTables_length').find('select:eq(0)').css('min-height','30px');
+    //min-height: 30px;
+
+    $("body").find("[aria-controls='jstreeTable']").css('width', '100px');
+});
+// --- 데이터 테이블 설정 --- //
+function jstreeDataTableReload() {
+
+    console.log("href: "+$(location).attr('href'));
+    console.log("protocol: "+$(location).attr('protocol'));
+    console.log("host: "+$(location).attr('host'));
+    console.log("pathname: "+$(location).attr('pathname'));
+    console.log("search: "+$(location).attr('search'));
+    console.log("hostname: "+$(location).attr('hostname'));
+    console.log("port: "+$(location).attr('port'));
+
+    var isDevelopingToRoute = "/auth-user";
+
+    var tempDataTable = $('#jstreeTable').DataTable({
+        "ajax": {
+            "url": isDevelopingToRoute + "/api/arms/pdjira/getMonitor.do",
+            "dataSrc": ""
+        },
+        "destroy": true,
+        "processing": true,
+        "responsive": true,
+        "select": {
+            "style": 'multi'
+        },
+        "columns": [
+            { "data": "c_id" },
+            { "data": "c_parentid" },
+            { "data": "c_position" },
+            { "data": "c_left" },
+            { "data": "c_right" },
+            { "data": "c_level" },
+            { "data": "c_title" },
+            { "data": "c_type" },
+
+            { "data": "c_pdjira_detail" },
+            { "data": "c_pdjira_con_name" },
+            { "data": "c_pdjira_con_user" },
+            { "data": "c_pdjira_con_pass" },
+            { "data": "c_pdjira_con_token" },
+            { "data": "c_pdjira_con_jql" },
+            { "data": "jiraConPassMode" }
+        ]
+    });
+
+    $('#jstreeTable tbody').on('click', 'tr', function () {
+        var data = tempDataTable.row( this ).data();
+        console.log(data);
+        //alert( 'You clicked on '+ data.c_title +'\'s row' );
+    } );
+
 }
 
 /* ---------------------------------------- d3 config ------------------------------------ */
