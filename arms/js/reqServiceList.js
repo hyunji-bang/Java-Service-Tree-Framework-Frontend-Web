@@ -1,26 +1,10 @@
-$(function() {
-    jstreeDataTableReload();
-
-    $('.dataTables_length').find('select:eq(0)').addClass("darkBack");
-    $('.dataTables_length').find('select:eq(0)').css('min-height','30px');
-    //min-height: 30px;
-});
-
+// --- 사이드 메뉴 -- //
 $(function () {
     setSideMenu();
 });
 
-// --- 사이드 메뉴 설정 --- //
 function setSideMenu() {
     setTimeout(function(){
-        $('#sidebar_menu_product').attr("class","accordion-toggle collapsed");
-        $('#sidebar_menu_product').attr("aria-expanded","false");
-        $('#sidebar_menu_product').css({'color':'#ffffff'});
-        $('#sidebar_menu_product').css({'font-weight':'300'});
-
-        $('#product-elements-collapse').attr("class","panel-collapse collapse collapse");
-        $('#product-elements-collapse').attr("aria-expanded","false");
-
         $('#sidebar_menu_requirement').attr("class","accordion-toggle active");
         $('#sidebar_menu_requirement').attr("aria-expanded","true");
         $('#sidebar_menu_requirement').css({'color':'lightblue'});
@@ -35,18 +19,16 @@ function setSideMenu() {
     },1000);
 }
 
-// --- 에디터 설정 --- //
-CKEDITOR.replace( 'editor' );
-CKEDITOR.replace( 'modal-editor' );
+// --- jstree 설정 -- //
+function jsTreeClick(selectedNodeID) {
+    console.log(selectedNodeID);
+}
 
-// --- 팝업 띄울때 사이즈 조정 -- //
-$( "#modalPopupId" ).click(function() {
-    var height = $( document ).height() -400;
-    $('.modal-body').find('.cke_contents:eq(0)').css('height',height+'px');
+$(function() {
+    pdServiceJsTreeBuild();
 });
 
-// --- jstree 설정 -- //
-function jsTreeBuild(){
+function pdServiceJsTreeBuild(){
 
     console.log("href: "+$(location).attr('href'));
     console.log("protocol: "+$(location).attr('protocol'));
@@ -57,7 +39,7 @@ function jsTreeBuild(){
     console.log("port: "+$(location).attr('port'));
     var isDevelopingToRoute = "/auth-user";
 
-    $("#demo").bind(
+    $("#pdServiceTree").bind(
         "before.jstree",
         function(e, data) {
             $("#alog").append(data.func + "<br />");
@@ -173,7 +155,7 @@ function jsTreeBuild(){
             // All the options are almost the same as jQuery's AJAX (read the docs)
             "ajax": {
                 // the URL to fetch the data
-                "url": isDevelopingToRoute + "/api/arms/pdService/getChildNode.do",
+                "url": isDevelopingToRoute + "/api/arms/pdservice/getChildNode.do",
                 // the `data` function is executed in the instance's scope
                 // the parameter is the node being loaded
                 // (may be -1, 0, or undefined when loading the root nodes)
@@ -194,7 +176,7 @@ function jsTreeBuild(){
             // As this has been a common question - async search
             // Same as above - the `ajax` config option is actually jQuery's AJAX object
             "ajax": {
-                "url": isDevelopingToRoute + "/api/arms/pdService/searchNode.do",
+                "url": isDevelopingToRoute + "/api/arms/pdservice/searchNode.do",
                 // You get the search string as a parameter
                 "data": function(str) {
                     return {
@@ -265,7 +247,7 @@ function jsTreeBuild(){
             "initially_open": ["node_2", "node_3"]
         }
     }).bind("create.jstree", function(e, data) {
-        $.post(isDevelopingToRoute + "/api/arms/pdService/addNode.do", {
+        $.post(isDevelopingToRoute + "/api/arms/pdservice/addNode.do", {
             "ref": data.rslt.parent.attr("id").replace("node_", "").replace("copy_", ""),
             "c_position": data.rslt.position,
             "c_title": data.rslt.name,
@@ -289,7 +271,7 @@ function jsTreeBuild(){
             $.ajax({
                 async: false,
                 type: 'POST',
-                url: isDevelopingToRoute + "/api/arms/pdService/removeNode.do",
+                url: isDevelopingToRoute + "/api/arms/pdservice/removeNode.do",
                 data: {
                     "c_id": this.id.replace("node_", "").replace("copy_", "")
                 },
@@ -305,7 +287,7 @@ function jsTreeBuild(){
             });
         });
     }).bind("rename.jstree", function(e, data) {
-        $.post(isDevelopingToRoute + "/api/arms/pdService/alterNode.do", {
+        $.post(isDevelopingToRoute + "/api/arms/pdservice/alterNode.do", {
             "c_id": data.rslt.obj.attr("id").replace("node_", "").replace("copy_", ""),
             "c_title": data.rslt.new_name,
             "c_type": data.rslt.obj.attr("rel")
@@ -322,7 +304,7 @@ function jsTreeBuild(){
             jsTreeBuild();
         });
     }).bind("set_type.jstree", function(e, data) {
-        $.post(isDevelopingToRoute + "/api/arms/pdService/alterNodeType.do", {
+        $.post(isDevelopingToRoute + "/api/arms/pdservice/alterNodeType.do", {
             "c_id": data.rslt.obj.attr("id").replace("node_", "").replace("copy_", ""),
             "c_title": data.rslt.new_name,
             "c_type": data.rslt.obj.attr("rel")
@@ -340,7 +322,7 @@ function jsTreeBuild(){
             $.ajax({
                 async: false,
                 type: 'POST',
-                url: isDevelopingToRoute + "/api/arms/pdService/moveNode.do",
+                url: isDevelopingToRoute + "/api/arms/pdservice/moveNode.do",
                 data: {
                     "c_id": $(this).attr("id").replace("node_", "").replace("copy_", ""),
                     "ref": data.rslt.cr === -1 ? 1 : data.rslt.np.attr("id").replace("node_", "").replace("copy_", ""),
@@ -380,129 +362,79 @@ function jsTreeBuild(){
         switch (this.id) {
             case "add_default":
             case "add_folder":
-                $("#demo").jstree("create", null, "last", {
+                $("#pdServiceTree").jstree("create", null, "last", {
                     "attr": {
                         "rel": this.id.toString().replace("add_", "")
                     }
                 });
                 break;
             case "search":
-                $("#demo").jstree("search", document.getElementById("text").value);
+                $("#pdServiceTree").jstree("search", document.getElementById("text").value);
                 break;
             case "text":
                 break;
             default:
-                $("#demo").jstree(this.id);
+                $("#pdServiceTree").jstree(this.id);
                 break;
         }
     });
 }
 
-function jsTreeClick(selectedNodeID) {
-    console.log(selectedNodeID);
-}
+// --- 데이터 테이블 설정 --- //
+$(function () {
+    jstreeDataTableReload();
+    $('.dataTables_length').find('select:eq(0)').addClass("darkBack");
+    $('.dataTables_length').find('select:eq(0)').css('min-height','30px');
+    //min-height: 30px;
 
-$(function() {
-    jsTreeBuild();
+    $("body").find("[aria-controls='jstreeTable']").css('width', '100px');
 });
 
-// --- select2 설정 --- //
-$(".js-example-basic-multiple-limit").select2({
-    maximumSelectionLength: 2,
-    ajax: {
-        url: "https://api.github.com/search/repositories",
-        dataType: 'json',
-        delay: 250,
-        data: function (params) {
-            return {
-                q: params.term, // search term
-                page: params.page
-            };
+function jstreeDataTableReload() {
+
+    console.log("href: "+$(location).attr('href'));
+    console.log("protocol: "+$(location).attr('protocol'));
+    console.log("host: "+$(location).attr('host'));
+    console.log("pathname: "+$(location).attr('pathname'));
+    console.log("search: "+$(location).attr('search'));
+    console.log("hostname: "+$(location).attr('hostname'));
+    console.log("port: "+$(location).attr('port'));
+
+    var isDevelopingToRoute = "/auth-user";
+
+    var tempDataTable = $('#jstreeTable').DataTable({
+        "ajax": {
+            "url": isDevelopingToRoute + "/api/arms/pdjira/getMonitor.do",
+            "dataSrc": ""
         },
-        processResults: function (data, params) {
-            // parse the results into the format expected by Select2
-            // since we are using custom formatting functions we do not need to
-            // alter the remote JSON data, except to indicate that infinite
-            // scrolling can be used
-            params.page = params.page || 1;
+        "destroy": true,
+        "processing": true,
+        "responsive": true,
+        "select": true,
+        "columns": [
+            { "data": "c_id" },
+            { "data": "c_parentid" },
+            { "data": "c_position" },
+            { "data": "c_left" },
+            { "data": "c_right" },
+            { "data": "c_level" },
+            { "data": "c_title" },
+            { "data": "c_type" },
 
-            return {
-                results: data.items,
-                pagination: {
-                    more: (params.page * 30) < data.total_count
-                }
-            };
-        },
-        cache: true
-    },
-    placeholder: '제품(서비스)의 오너를 등록해 주세요',
-    minimumInputLength: 1,
-    templateResult: formatRepo,
-    templateSelection: formatRepoSelection
-});
+            { "data": "c_pdjira_detail" },
+            { "data": "c_pdjira_con_name" },
+            { "data": "c_pdjira_con_user" },
+            { "data": "c_pdjira_con_pass" },
+            { "data": "c_pdjira_con_token" },
+            { "data": "c_pdjira_con_jql" },
+            { "data": "jiraConPassMode" }
+        ]
+    });
 
-$(".js-data-example-ajax").select2({
-    ajax: {
-        url: "https://api.github.com/search/repositories",
-        dataType: 'json',
-        delay: 250,
-        data: function (params) {
-            return {
-                q: params.term, // search term
-                page: params.page
-            };
-        },
-        processResults: function (data, params) {
-            // parse the results into the format expected by Select2
-            // since we are using custom formatting functions we do not need to
-            // alter the remote JSON data, except to indicate that infinite
-            // scrolling can be used
-            params.page = params.page || 1;
+    $('#jstreeTable tbody').on('click', 'tr', function () {
+        var data = tempDataTable.row( this ).data();
+        console.log(data);
+        //alert( 'You clicked on '+ data.c_title +'\'s row' );
+    } );
 
-            return {
-                results: data.items,
-                pagination: {
-                    more: (params.page * 30) < data.total_count
-                }
-            };
-        },
-        cache: true
-    },
-    placeholder: '제품(서비스)의 Default 리뷰어를 등록해 주세요',
-    minimumInputLength: 1,
-    templateResult: formatRepo,
-    templateSelection: formatRepoSelection
-});
-
-function formatRepo (repo) {
-    if (repo.loading) {
-        return repo.text;
-    }
-
-    var $container = $(
-        "<div class='select2-result-repository clearfix'>" +
-        "<div class='select2-result-repository__meta'>" +
-        "<div class='select2-result-repository__title'></div>" +
-        "<div class='select2-result-repository__description'></div>" +
-        "<div class='select2-result-repository__statistics'>" +
-        "<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> </div>" +
-        "<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> </div>" +
-        "<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> </div>" +
-        "</div>" +
-        "</div>" +
-        "</div>"
-    );
-
-    $container.find(".select2-result-repository__title").text(repo.full_name);
-    $container.find(".select2-result-repository__description").text(repo.description);
-    $container.find(".select2-result-repository__forks").append(repo.forks_count + " Forks");
-    $container.find(".select2-result-repository__stargazers").append(repo.stargazers_count + " Stars");
-    $container.find(".select2-result-repository__watchers").append(repo.watchers_count + " Watchers");
-
-    return $container;
 }
-
-function formatRepoSelection (repo) {
-    return repo.full_name || repo.text;
-}
-// Code for the menu buttons
