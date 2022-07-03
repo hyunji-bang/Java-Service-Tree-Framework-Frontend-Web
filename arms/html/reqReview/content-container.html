@@ -1,76 +1,39 @@
-<div class="col-lg-4">
+<div class="col-lg-2">
     <section class="widget">
         <header>
             <h4>
                 <span class="font13" style="font-weight: bold;">
-                    <i class="fa fa-sort-amount-asc"></i> 제품(서비스) 조회
+                    <i class="fa fa-sort-amount-asc"></i> Reviews
                 </span>
             </h4>
-            <div class="actions">
-                <button class="btn btn-transparent btn-xs" onclick="$('#demo').jstree('open_all');">Show All
-                    <i class="fa fa-arrow-down"></i>
-                </button>
-            </div>
         </header>
         <div class="body">
             <div class="wrapper">
-                <div id="mmenu" style="padding-bottom: 5px;">
-                    <form class="form-search no-margin" role="form">
-                        <div class="input-group">
-                            <input type="search" id="text" class="form-control searchDarkBack" style="color: #f8f8f8;" placeholder="찾을 노드 이름 입력" data-tooltip="Press Enter To Node To Search">
-                            <span class="input-group-btn">
-                                <button type="button" id="search" title="Search" class="btn btn-default btn-sm">
-                                    Search
-                                </button>
-                            </span>
-                        </div>
-                    </form>
-                </div>
-                <div id="pdServiceTree" style="padding-top: 5px;" class="darkBack"></div>
-                <div style="margin-top: 10px;" class="darkBack">
-                    설명
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="widget">
-        <header>
-            <h5>
-                <i class="fa fa-check-square-o"></i>
-                제품(서비스) Version 조회
-            </h5>
-        </header>
-        <div class="body">
-            <div class="panel-group" id="versionAccordion">
+                <ul>
+                    <li><i class="fa fa-tasks"></i><span class="ml-xs" style="display: inline-block; width:100%; max-width: 100px">전체</span><span>0</span></li>
+                    <li><i class="fa fa-paper-plane-o"></i><span class="ml-xs" style="display: inline-block; width:100%; max-width: 100px">요청한 리뷰</span><span>0</span></li>
+                    <li><i class="fa fa-pencil-square-o"></i><span class="ml-xs" style="display: inline-block; width:100%; max-width: 100px">요청받은 리뷰</span><span>0</span></li>
+                    <li><i class="fa fa-exclamation-triangle"></i><span class="ml-xs" style="display: inline-block; width:100%; max-width: 100px">중요 리뷰</span><span>0</span></li>
+                </ul>
             </div>
         </div>
     </section>
 </div>
 
 
-<div class="col-lg-8">
+<div class="col-lg-10">
     <section class="widget">
         <header>
             <h4>
                 <span class="font13" style="font-weight: bold;">
-                    <i class="fa fa-edit"></i> 요구사항 리스트
+                    <i class="fa fa-edit"></i> 리뷰 리스트
                 </span>
             </h4>
-            <div class="widget-controls">
-                <a title="Options" href="#"><i class="glyphicon glyphicon-cog"></i></a>
-                <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
-                <a data-widgster="collapse" title="Collapse" href="#"><i
-                        class="glyphicon glyphicon-chevron-down"></i></a>
-                <a data-widgster="close" title="Close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
-            </div>
         </header>
         <div class="body">
-            <blockquote class="font13">
-                상세 보기는 리스트 클릭
-            </blockquote>
             <div class="box box-primary" style="background: rgba(51, 51, 51, 0.225); margin-bottom: 5px !important;">
                 <div class="box-body">
-                    <table id="jstreeTable" class="display responsive no-wrap" cellspacing="0">
+                    <table id="jstreeTable" class="display nowrap" style="margin: 0">
                     </table>
                 </div>
             </div>
@@ -80,26 +43,6 @@
         </div>
     </section>
 </div>
-
-<!-- Modal -->
-<div class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h5 class="modal-title"></h5>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <!-- page specific application css/js -->
 <style type="text/css">
@@ -115,78 +58,5 @@
         outline-offset: -2px;
     }
 </style>
-<script type="text/javascript" charset="utf-8">
-    //<![CDATA[
 
-    // 초기 개발 및 확인 용도
-    (function( $ ){
-
-                    let menu;
-
-                    function draw(main){
-
-                        main.html("");
-
-                        let data = `
-                                        <li class='list-group-item json-menu-header'>
-                                            product name
-                                        </li>
-                                    `;
-
-                        for(let i = 0; i < menu.length; i++){
-
-                            data += `
-                                        <div class="panel">
-                                            <div class="panel-heading">
-                                                <a class="accordion-toggle collapsed" data-toggle="collapse" href="#jsonItem${i}">
-                                                    ${menu[i].c_title}
-                                                </a>
-                                            </div>
-                                            <div id="jsonItem${i}" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    ${menu[i].c_type}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    `;
-
-                        }
-
-                        main.html(data);
-
-                    }
-
-                    $.fn.jsonMenu = function(action, items, options){
-                        $(this).addClass("json-menu")
-                        if(action == "add"){
-                            menu.body.push(items);
-                            draw($(this));
-                        } else if(action == "set"){
-                            menu = items;
-                            draw($(this));
-                        }
-                        return this;
-                    }
-                 })( jQuery );
-
-    $(function () {
-
-        $.ajax( "/auth-user/api/arms/pdversion/getChildNode.do?c_id=1")
-        .done(function(json) {
-            console.log(json);
-            $("#versionAccordion").jsonMenu("set", json,{speed:5000});
-        })
-        .fail(function(jqXHR) {
-            console.log( "error" );
-        })
-        .always(function(jqXHR) {
-            console.log( "finished" );
-        });
-
-
-    });
-
-
-    //]]>
-</script>
 <script type="text/javascript" src='js/reqReview.js' charset="utf-8"></script>
