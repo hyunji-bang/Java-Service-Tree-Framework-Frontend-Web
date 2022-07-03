@@ -1,6 +1,6 @@
 // --- 사이드 메뉴 -- //
 $(function () {
-	setSideMenu("regist");
+	setSideMenu("sidebar_menu_product", "sidebar_menu_product_regist");
 });
 
 // --- 에디터 설정 --- //

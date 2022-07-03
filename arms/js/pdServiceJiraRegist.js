@@ -17,7 +17,7 @@ var dataList = [
 	{ data: "jiraConPassMode" },
 ];
 $(function () {
-	setSideMenu("jira_regist");
+	setSideMenu("sidebar_menu_product", "sidebar_menu_product_jira_regist");
 	setTable(tableUrl, dataList);
 	$("body").find("[aria-controls='jstreeTable']").css("width", "100px");
 });

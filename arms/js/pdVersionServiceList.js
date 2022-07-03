@@ -11,7 +11,7 @@ var dataList = [
 	{ data: "c_pdservice_link" },
 ];
 $(function () {
-	setSideMenu("version_list");
+	setSideMenu("sidebar_menu_product", "sidebar_menu_product_version_list");
 	setTable(tableUrl, dataList);
 });
 

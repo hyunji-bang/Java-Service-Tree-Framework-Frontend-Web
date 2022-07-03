@@ -10,7 +10,7 @@ var dataList = [
 	{ data: "c_type" },
 ];
 $(function () {
-	setSideMenu("list");
+	setSideMenu("sidebar_menu_product", "sidebar_menu_product_list");
 	setTable(tableUrl, dataList);
 });
 

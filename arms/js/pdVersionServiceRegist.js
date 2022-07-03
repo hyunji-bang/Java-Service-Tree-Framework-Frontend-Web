@@ -1,5 +1,5 @@
 $(function () {
-	setSideMenu("version_regist");
+	setSideMenu("sidebar_menu_product", "sidebar_menu_product_version_regist");
 });
 
 // --- 에디터 설정 --- //
