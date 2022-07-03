@@ -465,7 +465,7 @@ function jstreeDataTableReload() {
 
     $('#jstreeTable tbody').on('click', 'tr', function () {
         var data = tempDataTable.row( this ).data();
-        console.log(data);
+        console.log(tempDataTable, data);
         //alert( 'You clicked on '+ data.c_title +'\'s row' );
         rowData = data
     } );
@@ -478,13 +478,14 @@ $( "#selectView" ).click(function() {
 
 function modal(data) {
     console.log('#### modal data ::', data)
+    const th = ['제품(서비스)', '요구사항', 'JIRA Project', 'Issue', 'QA', 'Status-Test']
     if (!data) return
-    $('.modal-title').text(data.c_title);
+    $('.modal-title').text(data[1]);
     $('.modal-body').html(() => {
         let text = '';
-        for(let key in data) {
-            text += `${key} : ${data[key]}<br />`;
-        }
+        th.forEach(function (name, index) {
+            text += `${name} : ${data[index]}<br />`;
+        })
 
         return text;
     })
