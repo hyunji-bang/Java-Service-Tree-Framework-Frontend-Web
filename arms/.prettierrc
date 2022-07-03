@@ -1,0 +1,9 @@
+{
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"formatOnSave": true,
+	"tabWidth": 1,
+	"proseWrap": "always",
+	"enableDebugLogs": true,
+	"useTabs": true,
+	"endOfLine": "auto"
+}
