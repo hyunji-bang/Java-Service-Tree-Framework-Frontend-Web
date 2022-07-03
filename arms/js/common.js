@@ -63,34 +63,34 @@ setTimeout(function () {
 }, 1500);
 
 // --- 사이드 메뉴 설정 --- //
-function setSideMenu(listName) {
+function setSideMenu(categoryName, listName) {
 	console.log(listName);
 	setTimeout(function () {
-		$("#sidebar_menu_product").attr("class", "accordion-toggle active");
-		$("#sidebar_menu_product").attr("aria-expanded", "true");
-		$("#sidebar_menu_product").css({ color: "lightblue" });
-		$("#sidebar_menu_product").css({ "font-weight": "900" });
+		$(`#${categoryName}`).attr("class", "accordion-toggle active");
+		$(`#${categoryName}`).attr("aria-expanded", "true");
+		$(`#${categoryName}`).css({ color: "lightblue" });
+		$(`#${categoryName}`).css({ "font-weight": "900" });
 
 		$("#product-elements-collapse").attr("class", "panel-collapse collapse in");
 		$("#product-elements-collapse").attr("aria-expanded", "true");
 
-		$(`#sidebar_menu_product_${listName}`).addClass("active");
-		$(`#sidebar_menu_product_${listName}`).css({ color: "lightblue" });
-		$(`#sidebar_menu_product_${listName}`).css({ "font-weight": "900" });
+		$(`#${listName}`).addClass("active");
+		$(`#${listName}`).css({ color: "lightblue" });
+		$(`#${listName}`).css({ "font-weight": "900" });
 	}, 1000);
 }
 
 // --- 데이터 테이블 설정 --- //
 
-function setTable(tableDataUrl, dataList) {
-	jstreeDataTableReload(tableDataUrl, dataList);
+function setTable(tableDataUrl, dataList, options = null) {
+	jstreeDataTableReload(tableDataUrl, dataList, options);
 
 	//datatable 좌상단 datarow combobox style
 	$(".dataTables_length").find("select:eq(0)").addClass("darkBack");
 	$(".dataTables_length").find("select:eq(0)").css("min-height", "30px");
 }
 
-function jstreeDataTableReload(tableDataUrl, dataList) {
+function jstreeDataTableReload(tableDataUrl, dataList, options) {
 	console.log("href: " + $(location).attr("href"));
 	console.log("protocol: " + $(location).attr("protocol"));
 	console.log("host: " + $(location).attr("host"));
@@ -100,16 +100,21 @@ function jstreeDataTableReload(tableDataUrl, dataList) {
 	console.log("port: " + $(location).attr("port"));
 
 	var isDevelopingToRoute = "/auth-user";
+	var tableOptions = options
+		? options
+		: {
+				ajax: {
+					url: isDevelopingToRoute + tableDataUrl,
+					dataSrc: "",
+				},
+				destroy: true,
+				processing: true,
+				responsive: true,
+				select: true,
+		  };
 
 	var tempDataTable = $("#jstreeTable").DataTable({
-		ajax: {
-			url: isDevelopingToRoute + tableDataUrl,
-			dataSrc: "",
-		},
-		destroy: true,
-		processing: true,
-		responsive: true,
-		select: true,
+		...tableOptions,
 		columns: dataList,
 	});
 
