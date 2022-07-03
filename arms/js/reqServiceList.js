@@ -380,6 +380,11 @@ function pdServiceJsTreeBuild(){
     });
 }
 
+// 요구사항 상세 보기 클릭 이벤트
+$( "#selectView" ).click(function() {
+    location.href="reqServiceListView.html";
+});
+
 // --- 데이터 테이블 설정 --- //
 $(function () {
     jstreeDataTableReload();
