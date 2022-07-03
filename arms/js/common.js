@@ -111,11 +111,11 @@ function jstreeDataTableReload(tableDataUrl, dataList, options) {
 				processing: true,
 				responsive: true,
 				select: true,
+				columns: dataList,
 		  };
 
 	var tempDataTable = $("#jstreeTable").DataTable({
 		...tableOptions,
-		columns: dataList,
 	});
 
 	$("#jstreeTable tbody").on("click", "tr", function () {
