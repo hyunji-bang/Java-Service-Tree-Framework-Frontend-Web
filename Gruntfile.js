@@ -20,7 +20,7 @@ module.exports = function (grunt) { // jshint ignore:line
         proxies: [
           {
             context: ['/auth-anon','/auth-user','/auth-admin','/auth-check','/sso','/dwr','/logout'],
-            host: 'localhost',
+            host: 'www.313.co.kr',
             port: 13131,
             https: false,
             changeOrigin: true
