@@ -1,0 +1,75 @@
+<div class="col-lg-4">
+	<section class="widget">
+		<header>
+			<h4>
+				<span class="font13" style="font-weight: bold">
+					<i class="fa fa-list"></i> 리뷰 히스토리
+				</span>
+			</h4>
+		</header>
+		<div class="body">
+			<div class="wrapper">
+				<ul class="review-history"></ul>
+			</div>
+		</div>
+	</section>
+</div>
+
+<div class="col-lg-8">
+	<section class="widget">
+		<header>
+			<h4>
+				<span class="font13" style="font-weight: bold">
+					<i class="fa fa-edit"></i> 리뷰 상세
+				</span>
+			</h4>
+		</header>
+		<div class="body">
+			<div
+				class="box box-primary"
+				style="background: rgba(51, 51, 51, 0.225); margin-bottom: 5px !important"
+			>
+				<div class="box-body"></div>
+			</div>
+			<div
+				class="modal-footer"
+				style="
+					background-color: transparent;
+					padding: 5px;
+					text-align: right;
+					border-top: 0px;
+				"
+			>
+				<button id="selectView" type="button" class="btn btn-primary">
+					Select View
+				</button>
+			</div>
+		</div>
+	</section>
+</div>
+
+<!-- page specific application css/js -->
+<style type="text/css">
+	.btn-transparent.active {
+		color: white;
+		background: rgba(51, 51, 51, 0.55);
+		color: #ffffff;
+		background-color: #e5603b;
+		border-color: rgba(0, 0, 0, 0.15);
+	}
+	.btn:focus,
+	.btn.focus,
+	.btn:active:focus,
+	.btn:active.focus,
+	.btn.active:focus,
+	.btn.active.focus {
+		outline: 0px auto -webkit-focus-ring-color;
+		outline-offset: -2px;
+	}
+</style>
+
+<script
+	type="text/javascript"
+	src="js/reqReviewDetail.js"
+	charset="utf-8"
+></script>

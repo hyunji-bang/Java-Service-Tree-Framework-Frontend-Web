@@ -152,5 +152,5 @@ $(function () {
 
 // 요구사항 상세 보기 클릭 이벤트
 $("#selectView").click(function () {
-	console.log("#### selectView click!!");
+	location.href = "reqReviewDetail.html";
 });
