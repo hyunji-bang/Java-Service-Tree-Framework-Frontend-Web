@@ -63,7 +63,11 @@ setTimeout(function () {
 }, 1500);
 
 // --- 사이드 메뉴 설정 --- //
-function setSideMenu(categoryName, listName) {
+function setSideMenu(
+	categoryName,
+	listName,
+	collapse = "product-elements-collapse"
+) {
 	console.log(listName);
 	setTimeout(function () {
 		$(`#${categoryName}`).attr("class", "accordion-toggle active");
@@ -71,8 +75,8 @@ function setSideMenu(categoryName, listName) {
 		$(`#${categoryName}`).css({ color: "lightblue" });
 		$(`#${categoryName}`).css({ "font-weight": "900" });
 
-		$("#product-elements-collapse").attr("class", "panel-collapse collapse in");
-		$("#product-elements-collapse").attr("aria-expanded", "true");
+		$(`#${collapse}`).attr("class", "panel-collapse collapse in");
+		$(`#${collapse}`).attr("aria-expanded", "true");
 
 		$(`#${listName}`).addClass("active");
 		$(`#${listName}`).css({ color: "lightblue" });

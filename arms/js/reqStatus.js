@@ -154,7 +154,11 @@ const tableOptions = {
 };
 // --- 사이드 메뉴 -- //
 $(function () {
-	setSideMenu("sidebar_menu_requirement", "sidebar_menu_requirement_status");
+	setSideMenu(
+		"sidebar_menu_requirement",
+		"sidebar_menu_requirement_status",
+		"requirement-elements-collapse"
+	);
 	setTable("", [], tableOptions);
 });
 

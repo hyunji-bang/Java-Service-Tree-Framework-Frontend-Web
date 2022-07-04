@@ -11,7 +11,11 @@ var dataList = [
 ];
 // --- 사이드 메뉴 -- //
 $(function () {
-	setSideMenu("sidebar_menu_requirement", "sidebar_menu_requirement_list");
+	setSideMenu(
+		"sidebar_menu_requirement",
+		"sidebar_menu_requirement_list",
+		"requirement-elements-collapse"
+	);
 	setTable(tableUrl, dataList);
 });
 

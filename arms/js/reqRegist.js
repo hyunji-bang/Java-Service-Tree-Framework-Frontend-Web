@@ -1,5 +1,9 @@
 $(function () {
-	setSideMenu("sidebar_menu_requirement", "sidebar_menu_requirement_regist");
+	setSideMenu(
+		"sidebar_menu_requirement",
+		"sidebar_menu_requirement_regist",
+		"requirement-elements-collapse"
+	);
 });
 
 // --- 에디터 설정 --- //

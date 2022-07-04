@@ -7,7 +7,11 @@ $(function () {
 		$(".cke_contents").css("height", height + "px");
 	});
 
-	setSideMenu("sidebar_menu_requirement", "sidebar_menu_requirement_list");
+	setSideMenu(
+		"sidebar_menu_requirement",
+		"sidebar_menu_requirement_list",
+		"requirement-elements-collapse"
+	);
 });
 
 // 요구사항 조회 돌아가기 클릭 이벤트
