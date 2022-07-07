@@ -8,4 +8,7 @@ $(function () {
 	});
 
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_jira_list");
+	$("#selectList").on("click",function(){
+		location.href = "pdServiceJiraList.html"
+	})
 });

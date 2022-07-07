@@ -8,4 +8,7 @@ $(function () {
 	});
 
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_list");
+	$("#selectList").on("click",function(){
+		location.href = "pdServiceList.html"
+	})
 });
