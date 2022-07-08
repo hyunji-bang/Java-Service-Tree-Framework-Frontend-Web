@@ -2,7 +2,10 @@ $(function () {
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_regist");
 	jsTreeBuild("#demo");
 	//서비스 등록
-	$(".btn-info").on("click", registNewServie);
+	$(".btn-info").on("click", function () {
+		var index = $("label.btn-sm.active").index()
+		index === 0 ? registNewServie() : updateServie()
+	});
 });
 
 // --- 에디터 설정 --- //
@@ -131,8 +134,8 @@ function formatRepoSelection(repo) {
 }
 
 // Code for the menu buttons
- function registNewServie ()  {
-	 var refNum;
+function registNewServie() {
+	var refNum;
 	var checkedService = $("#demo").find("a.jstree-clicked").parent()
 	checkedService.attr("rel") === "default" ? refNum = checkedService.parent().closest("li") : refNum = checkedService;
 	var positionIndex = refNum.children().find("li").length;
@@ -156,7 +159,35 @@ function formatRepoSelection(repo) {
 					console.log("성공!")
 					jsTreeBuild("#demo")
 				},
-				400:function() {}
+				400: function () {}
+			}
+
+		})
+
+	}
+
+}
+
+function updateServie() {
+	var checkedService = $("#demo").find("a.jstree-clicked").parent();
+	if (!$("#prepended-input").val() || $("#prepended-input").val().trim() === "") {
+		alert("Please write service name!");
+		$("#prepended-input").focus();
+	} else {
+		$.ajax({
+			url: "http://localhost:9999/auth-user/api/arms/pdservice/alterNode.do",
+			type: "POST",
+			data: {
+				c_id: checkedService.attr("id").replace("node_", "").replace("copy_", ""),
+				c_title: $("#prepended-input").val(),
+				c_type: checkedService.attr("rel"),
+			},
+			statusCode: {
+				200: function () {
+					console.log("성공!")
+					jsTreeBuild("#demo")
+				},
+				400: function () {}
 			}
 
 		})
