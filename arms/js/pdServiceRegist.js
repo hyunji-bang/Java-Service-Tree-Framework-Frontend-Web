@@ -143,7 +143,7 @@ function formatRepoSelection(repo) {
 		$("#prepended-input").focus();
 	} else {
 		$.ajax({
-			url: "http://www.313.co.kr:31313/auth-user/api/arms/pdservice/addNode.do",
+			url: "http://localhost:9999/auth-user/api/arms/pdservice/addNode.do",
 			type: "POST",
 			data: {
 				ref: refNum,
