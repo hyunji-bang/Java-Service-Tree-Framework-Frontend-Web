@@ -10,3 +10,6 @@
 ad.js
 TODO
 test.html
+package-lock.json
+*.log*
+*.yarn.lock
