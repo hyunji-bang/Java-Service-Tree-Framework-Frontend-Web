@@ -8,7 +8,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "R2": "^1.4.3",
     "grunt": "^1.5.2",
     "grunt-bootlint": "^0.12.4",
     "grunt-connect-proxy": "^0.2.0",
@@ -31,14 +30,11 @@
     "grunt-serve": "^0.1.6",
     "grunt-text-replace": "^0.4.0",
     "less": "^3",
+    "R2": "^1.4.3",
     "serve-static": "^1.15.0"
   },
   "dependencies": {
-    "bootstrap": "^3.4",
-    "bootstrap-colorpicker": "^2.5.3",
-    "bootstrap-datepicker": "^1.8",
-    "bootstrap-daterangepicker": "^2.1.25",
-    "bootstrap-slider": "^9.10.0",
+    "bootstrap": "^5.2.0-beta1",
     "chart.js": "^1",
     "ckeditor": "^4.11.2",
     "d3-mitch-tree": "^1.1.2",
