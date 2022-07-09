@@ -1,15 +1,30 @@
 {
-  "name": "admin-lte",
-  "version": "v2.4.18",
-  "main": "dist/js/adminlte.min.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/ColorlibHQ/AdminLTE.git"
+  "name": "jstf",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
-  "license": "MIT",
+  "dependencies": {
+    "core-js": "^3.8.3",
+    "vue": "^3.2.13",
+    "vue-router": "^4.0.3"
+  },
   "devDependencies": {
-    "grunt": "^1.5.2",
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-router": "^5.0.8",
+    "@vue/cli-service": "~5.0.0",
+    "R2": "^1.4.3",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "grunt": "^1.5.3",
     "grunt-bootlint": "^0.12.4",
+    "grunt-cli": "^1.4.3",
     "grunt-connect-proxy": "^0.2.0",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-compass": "^1.1.1",
@@ -30,33 +45,26 @@
     "grunt-serve": "^0.1.6",
     "grunt-text-replace": "^0.4.0",
     "less": "^3",
-    "R2": "^1.4.3",
     "serve-static": "^1.15.0"
   },
-  "dependencies": {
-    "bootstrap": "^5.2.0-beta1",
-    "chart.js": "^1",
-    "ckeditor": "^4.11.2",
-    "d3-mitch-tree": "^1.1.2",
-    "datatables.net": "^1.10.19",
-    "datatables.net-bs": "^1.10.19",
-    "fastclick": "^1.0.6",
-    "flot": "^0.8.3",
-    "font-awesome": "^4.7",
-    "fullcalendar": "^3.10",
-    "inputmask": "^3.3.7",
-    "ion-rangeslider": "^2.3",
-    "ionicons": "^3",
-    "jquery": "^3.4.1",
-    "jquery-knob": "^1.2.11",
-    "jquery-sparkline": "^2.4",
-    "jquery-ui": "^1.12.1",
-    "jvectormap": "^1.2.2",
-    "moment": "^2.24",
-    "morris.js": "^0.5",
-    "pace": "0.0.4",
-    "raphael": "^2.2.7",
-    "select2": "^4.0.3",
-    "slimscroll": "^0.9.1"
-  }
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
 }
