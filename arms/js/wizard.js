@@ -4,6 +4,11 @@ $(function () {
     jsTreeBuild("#pdService");
 });
 
+// --- jstree 설정 -- //
+function jsTreeClick(selectedNodeID) {
+    console.log(selectedNodeID);
+}
+
 function setSideMenu() {
     setTimeout(function(){
         $('#sidebar_menu_wizard').addClass("active");
