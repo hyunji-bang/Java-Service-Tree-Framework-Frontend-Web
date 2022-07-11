@@ -1,5 +1,4 @@
 ---project setting command ---
-npm install bower -g
 npm install grunt-cli --save-dev
 npm install grunt --save-dev
 npm install grunt-contrib-concat --save-dev
@@ -23,8 +22,6 @@ npm install serve-static --save-dev
 npm install grunt-contrib-compass --save-dev
 
 npm install -g d3-mitch-tree --save
-
-bower update
 
 Introduction
 ============
