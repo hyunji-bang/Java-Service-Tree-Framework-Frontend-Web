@@ -127,6 +127,8 @@ function jstreeDataTableReload(tableDataUrl, dataList, options) {
 		console.log(data);
 		//alert( 'You clicked on '+ data.c_title +'\'s row' );
 	});
+
+    $("#jstreeTable").css("width","100%");
 }
 
 // --- jstree 설정 -- //

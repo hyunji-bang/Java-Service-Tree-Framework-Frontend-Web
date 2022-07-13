@@ -925,3 +925,6 @@ const tableOptions = {
         2,
     ],
 };
+$(function () {
+    setTable("", [], tableOptions);
+});
