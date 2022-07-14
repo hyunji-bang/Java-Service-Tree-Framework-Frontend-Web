@@ -66,7 +66,7 @@ $(function(){
 
             model: Folder,
 
-            url: 'js/folders.json',
+            url: '/reference/light-blue/js/folders.json',
 
 
             comparator: 'order',
@@ -116,7 +116,7 @@ $(function(){
 
             model: Email,
 
-            url: 'js/emails.json',
+            url: '/reference/light-blue/js/emails.json',
 
 
             comparator: function(mail){

@@ -447,15 +447,16 @@ var updateTempConnector = function () {
 // Function to center node when clicked/dropped so node doesn't get lost when collapsing/moving with large amount of children.
 function centerNode(source) {
     scale = zoomListener.scale();
+    scale = 1.5;
     x = -source.y0;
     y = -source.x0;
     x = x * scale + viewerWidth / 2;
     y = y * scale + viewerHeight / 2;
 
+    x = x + 200;
     //edit 313devops
-    x = $("#tree-container").outerWidth() / 3;
-    y = $("#tree-container").outerHeight() / 3;
-    scale = 1.4;
+    //x = $("#tree-container").outerWidth() / 3;
+    //y = $("#tree-container").outerHeight() / 3;
 
     d3
         .select("g")

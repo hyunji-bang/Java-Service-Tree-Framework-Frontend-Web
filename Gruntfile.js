@@ -10,6 +10,15 @@ module.exports = function (grunt) { // jshint ignore:line
           port:9999,
           hostname: '0.0.0.0',
           middleware: function (connect, options, defaultMiddleware) {
+
+            defaultMiddleware.unshift(function(req, res, next) {
+              res.setHeader('Access-Control-Allow-Credentials', true);
+              res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+              res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+              if (req.method.toUpperCase() == 'POST') req.method='GET';
+              return next();
+            });
+
             var proxy = require('grunt-connect-proxy/lib/utils').proxyRequest;
             return [
               // Include the proxy first
