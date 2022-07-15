@@ -7,7 +7,9 @@
     <HomeContent />
     <h2 class="thanks text-align-center">Thanks for watching!</h2>
     <p class="lead text-align-center">
-      <a class="back-to-top" href="/"> back to top <i class="fa fa-angle-up"></i></a>
+      <a class="back-to-top" href="/">
+        back to top <i class="bi bi-arrow-up-square"></i>
+      </a>
     </p>
   </div>
 </template>
