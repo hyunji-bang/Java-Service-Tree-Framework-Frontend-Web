@@ -13,9 +13,6 @@
 </template>
 
 <script lang="ts">
-import '../assets/css/normalize.css';
-import '../assets/css/application.min.css';
-import '../assets/css/override.css';
 import HomeHeader from '../components/Home/HomeHeader.vue';
 import HomeSlider from '../components/Home/HomeSlider.vue';
 import HomeContent from '../components/Home/HomeContent.vue';
@@ -38,7 +35,7 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss">
 body {
   padding-bottom: 0;
 }

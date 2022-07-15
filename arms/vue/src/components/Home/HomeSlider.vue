@@ -43,7 +43,7 @@
             <div class="col-xs-6">
               <div class="text-align-center animated fadeInRightBig">
                 <img
-                  src="../../assets/light-blue/img/jpeg/light-blue-preview-1.png"
+                  src="../../assets/images/home/slider/light-blue-preview-1.png"
                   alt="Second slide"
                 />
               </div>
@@ -68,7 +68,7 @@
                 <p>
                   <router-link to="/main">
                     <img
-                      src="../../assets/light-blue/img/jpeg/light-blue-laptop-transparent.png"
+                      src="../../assets/images/home/slider/light-blue-laptop-transparent.png"
                       alt=""
                   /></router-link>
                 </p>
@@ -87,7 +87,7 @@
                 <p>
                   <a href="http://www.313.co.kr">
                     <img
-                      src="../../assets/light-blue/img/jpeg/light-blue-laptop-white.png"
+                      src="../../assets/images/home/slider/light-blue-laptop-white.png"
                       alt=""
                     />
                   </a>
@@ -130,7 +130,7 @@
             </div>
             <div class="col-xs-6">
               <p class="animated fadeInUp" style="margin-top: 20px">
-                <img src="../../assets/light-blue/img/jpeg/light-blue-phone.png" alt="" />
+                <img src="../../assets/images/home/slider/light-blue-phone.png" alt="" />
               </p>
             </div>
           </div>
@@ -154,8 +154,14 @@
   </div>
 </template>
 
-<style scoped>
-.carousel-indicators li {
-  margin-right: 4px;
+<style lang="scss">
+.carousel-indicators {
+  margin-left: calc(-30% + 2px);
+  li {
+    margin-right: 5px;
+    &.active {
+      margin-right: 4px;
+    }
+  }
 }
 </style>

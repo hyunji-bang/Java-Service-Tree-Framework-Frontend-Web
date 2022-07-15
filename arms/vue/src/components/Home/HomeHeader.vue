@@ -12,8 +12,8 @@
       <ul class="navbar-buttons pull-right">
         <li>
           <router-link to="/main" class="btn btn-sm btn-transparent">
-            Preview&nbsp; <i class="fa fa-arrow-right"></i
-          ></router-link>
+            Preview&nbsp; <i class="fa fa-arrow-right"></i>
+          </router-link>
         </li>
         <li>
           <a href="http://www.313.co.kr" class="btn btn-sm btn-transparent">
@@ -25,3 +25,5 @@
     </div>
   </header>
 </template>
+
+<style lang="scss"></style>
