@@ -1,5 +1,5 @@
-<div class="col-lg-4">
-	<section class="widget">
+<section class="col-lg-4">
+	<div class="widget">
 		<header>
 			<h4>
 				<span class="font13" style="font-weight: bold">
@@ -7,95 +7,253 @@
 				</span>
 			</h4>
 		</header>
-		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-			<div class="panel panel-default">
-				<div class="panel-heading" role="tab" id="headingOne">
-					<h4 class="panel-title">
-						<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-							Collapsible Group Item #1
-						</a>
-					</h4>
-				</div>
-				<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-					<div class="panel-body">
-						Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-					</div>
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading" role="tab" id="headingTwo">
-					<h4 class="panel-title">
-						<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-							Collapsible Group Item #2
-						</a>
-					</h4>
-				</div>
-				<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-					<div class="panel-body">
-						Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-					</div>
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading" role="tab" id="headingThree">
-					<h4 class="panel-title">
-						<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-							Collapsible Group Item #3
-						</a>
-					</h4>
-				</div>
-				<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-					<div class="panel-body">
-						Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-					</div>
-				</div>
-			</div>
+		<!-- Section: Timeline -->
+		<div style="padding: 3rem">
+			<ul
+				class="review-history timeline-with-icons"
+				id="accordion"
+				role="tablist"
+				aria-multiselectable="true"
+			></ul>
 		</div>
-	</section>
-</div>
+		<!-- Section: Timeline -->
+	</div>
+</section>
 
 <div class="col-lg-8">
 	<section class="widget">
 		<header>
-			<h4>
-				<span class="font13" style="font-weight: bold">
-					<i class="fa fa-edit"></i> 리뷰 상세
-				</span>
-			</h4>
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a href="#specification" data-toggle="tab">Specification</a>
+				</li>
+				<li>
+					<a href="#diff" data-toggle="tab">Code diff</a>
+				</li>
+			</ul>
 		</header>
-		<div class="body">
-			<div
-				class="box box-primary"
-				style="background: rgba(51, 51, 51, 0.225); margin-bottom: 5px !important"
-			>
-				<div class="box-body"></div>
+		<div class="body no-margin tab-content">
+			<div id="specification" class="tab-pane active">
+				<div class="row">
+					<div class="col-sm-12 col-print-12">
+						<div class="invoice-number text-align-right">#4346345 / 14 Aug 2013</div>
+						<div class="invoice-number-info text-align-right">
+							Some Invoice number description or whatever
+						</div>
+					</div>
+				</div>
+				<hr />
+				<section class="invoice-info well">
+					<div class="row">
+						<div class="col-sm-6 col-print-6">
+							<h4 class="details-title">Company Information</h4>
+							<h3 class="company-name">Wrapbootstrap LLC</h3>
+							<address>
+								<strong>2 Infinite Loop</strong><br />
+								Minsk, Belarus 220004<br />
+								088.253.5345<br />
+								<abbr title="Work email">e-mail:</abbr>
+								<a href="mailto:#">email@example.com</a><br />
+								<abbr title="Work Phone">phone:</abbr> (012) 345-678-901<br />
+								<abbr title="Work Fax">fax:</abbr> (012) 678-132-901
+							</address>
+						</div>
+						<div class="col-sm-6 col-print-6 client-details">
+							<h4 class="details-title">Client Information</h4>
+							<h3 class="client-name">Veronica Niasvizhskaja</h3>
+							<address>
+								<strong>Consultant</strong> at <strong><a href="#">Allspana</a></strong
+								><br />
+								<abbr title="Work email">e-mail:</abbr>
+								<a href="mailto:#">maryna@allspana.by</a><br />
+								<abbr title="Work Phone">phone:</abbr> (012) 345-678-901<br />
+								<abbr title="Work Fax">fax:</abbr> (012) 678-132-901
+								<div class="separator line"></div>
+								<p class="margin-none">
+									<strong>Note:</strong><br />Some nights I stay up cashing in my bad
+									luck. Some nights I call it a draw
+								</p>
+							</address>
+						</div>
+					</div>
+				</section>
+				<section class="widget">
+					<header>
+						<h4>
+							<i class="eicon-chat"></i>
+							Reply
+						</h4>
+					</header>
+					<div class="body">
+						<div id="chat" class="chat">
+							<div id="chat-messages" class="chat-messages">
+								<div class="chat-message">
+									<div class="sender pull-left">
+										<div class="icon">
+											<img
+												src="../reference/light-blue/img/2.jpg"
+												class="img-circle"
+												alt=""
+											/>
+										</div>
+										<div class="time">4 min</div>
+									</div>
+									<div class="chat-message-body">
+										<span class="arrow"></span>
+										<div class="sender"><a href="#">Tikhon Laninga</a></div>
+										<div class="text">
+											Hey Sam, how is it going? But I must explain to you how all this
+											mistaken idea of denouncing of a pleasure and praising pain was born
+										</div>
+									</div>
+								</div>
+								<div class="chat-message">
+									<div class="sender pull-left">
+										<div class="icon">
+											<img
+												src="../reference/light-blue/img/1.jpg"
+												class="img-circle"
+												alt=""
+											/>
+										</div>
+										<div class="time">3 min</div>
+									</div>
+									<div class="chat-message-body">
+										<span class="arrow"></span>
+										<div class="sender"><a href="#">Cenhelm Houston</a></div>
+										<div class="text">
+											Pretty good. Doing my homework.. No one rejects, dislikes, or avoids
+											pleasure itself, because it is pleasure, but because
+										</div>
+									</div>
+								</div>
+								<div class="chat-message">
+									<div class="sender pull-left">
+										<div class="icon">
+											<img
+												src="../reference/light-blue/img/2.jpg"
+												class="img-circle"
+												alt=""
+											/>
+										</div>
+										<div class="time">2 min</div>
+									</div>
+									<div class="chat-message-body">
+										<span class="arrow"></span>
+										<div class="sender"><a href="#">Tikhon Laninga</a></div>
+										<div class="text">
+											Any chance to go out? To take a trivial example, which of us ever
+											undertakes laborious physical exercise, except to obtain some
+											advantage
+										</div>
+									</div>
+								</div>
+								<div class="chat-message">
+									<div class="sender pull-left">
+										<div class="icon">
+											<img
+												src="../reference/light-blue/img/15.jpg"
+												class="img-circle"
+												alt=""
+											/>
+										</div>
+										<div class="time">2 min</div>
+									</div>
+									<div class="chat-message-body">
+										<span class="arrow"></span>
+										<div class="sender"><a href="#">Cenhelm Houston</a></div>
+										<div class="text">
+											.. Maybe 40-50 mins. I don't know exactly. On the other hand, we
+											denounce with righteous indignation and dislike men who are so
+											beguiled
+										</div>
+									</div>
+								</div>
+								<div class="chat-message">
+									<div class="sender pull-left">
+										<div class="icon">
+											<img
+												src="../reference/light-blue/img/3.jpg"
+												class="img-circle"
+												alt=""
+											/>
+										</div>
+										<div class="time">1 min</div>
+									</div>
+									<div class="chat-message-body">
+										<span class="arrow"></span>
+										<div class="sender"><a href="#">Tikhon Laninga</a></div>
+										<div class="text">
+											Anyway sounds great! These cases are perfectly simple and easy to
+											distinguish.
+										</div>
+									</div>
+								</div>
+							</div>
+							<footer class="chat-footer row">
+								<div class="col-xs-9">
+									<input
+										id="new-message"
+										type="text"
+										class="form-control input-transparent"
+										placeholder="Enter your message.."
+									/>
+								</div>
+								<div class="col-xs-3">
+									<button
+										type="button"
+										id="new-message-btn"
+										class="btn btn-transparent btn-block"
+									>
+										Send
+									</button>
+								</div>
+							</footer>
+						</div>
+					</div>
+				</section>
 			</div>
-			<div
-				class="modal-footer"
-				style="
-					background-color: transparent;
-					padding: 5px;
-					text-align: right;
-					border-top: 0px;
-				"
-			>
-				<button id="selectView" type="button" class="btn btn-primary">
-					Select View
-				</button>
-			</div>
+			<div id="diff" class="tab-pane"></div>
 		</div>
 	</section>
 </div>
 
 <!-- page specific application css/js -->
 <style type="text/css">
-.panel-group .panel-heading {
-    padding: 10px 15px;
-}
-.panel-default > .panel-heading {
-				background-color: unset;
-}
+	.timeline-with-icons {
+		padding-left: 3rem;
+		border-left: 1px solid hsl(0, 0%, 90%);
+		position: relative;
+		list-style: none;
+	}
 
+	.timeline-with-icons .timeline-item {
+		position: relative;
+		margin-bottom: 20px;
+	}
+
+	.timeline-with-icons .timeline-item:after {
+		position: absolute;
+		display: block;
+		top: 0;
+	}
+
+	.timeline-with-icons .timeline-icon {
+		position: absolute;
+		left: -74px;
+		height: 20px;
+		width: 60px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.panel-group .panel-heading {
+		padding: 10px 15px;
+	}
+	.panel-default > .panel-heading {
+		background-color: unset;
+	}
 </style>
 
 <script

@@ -128,7 +128,7 @@ function jstreeDataTableReload(tableDataUrl, dataList, options) {
 		//alert( 'You clicked on '+ data.c_title +'\'s row' );
 	});
 
-    $("#jstreeTable").css("width","100%");
+	$("#jstreeTable").css("width", "100%");
 }
 
 // --- jstree 설정 -- //
@@ -325,7 +325,8 @@ function jsTreeBuild(jsTreeBox) {
 						valid_children: "none",
 						// If we specify an icon for the default type it WILL OVERRIDE the theme icons
 						icon: {
-							image: "../reference/jquery-plugins/jstree-v.pre1.0/themes/attibutes.png",
+							image:
+								"../reference/jquery-plugins/jstree-v.pre1.0/themes/attibutes.png",
 						},
 					},
 					// The `folder` type
@@ -333,7 +334,8 @@ function jsTreeBuild(jsTreeBox) {
 						// can have files and other folders inside of it, but NOT `drive` nodes
 						valid_children: ["default", "folder"],
 						icon: {
-							image: "../reference/jquery-plugins/jstree-v.pre1.0/themes/ic_explorer.png",
+							image:
+								"../reference/jquery-plugins/jstree-v.pre1.0/themes/ic_explorer.png",
 						},
 					},
 					// The `drive` nodes
@@ -535,3 +537,10 @@ function jsTreeBuild(jsTreeBox) {
 	});
 }
 
+function createdUUID() {
+	return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+		const r = (Math.random() * 16) | 0;
+		const v = c === "x" ? r : (r & 0x3) | 0x8;
+		return v.toString(16);
+	});
+}
