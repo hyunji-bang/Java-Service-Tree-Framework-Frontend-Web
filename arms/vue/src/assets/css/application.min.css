@@ -1,12 +1,10 @@
 @charset "IBM866";
 /* @import url(../lib/nvd3/src/nv.d3.css); */
 @import url(../font/fontello/css/fontello.css);
-
-@font-face {
-  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+:root {
+  --font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
     'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic',
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
-  font-style: normal;
 }
 
 article,
@@ -269,7 +267,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-family);
   font-size: 13px;
   line-height: 20px;
   color: #f8f8f8;
