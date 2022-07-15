@@ -42,54 +42,45 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  data() {
-    return {
-      armsServiceList: [
-        {
-          title: 'Scope',
-          subTitle: '제품(서비스)의 요구사항이 Jira의 END USER 까지 공유',
-          iconClassName: 'background-danger',
-          iconImagePath: 'fa fa-bold',
-        },
-        {
-          title: 'Cost',
-          subTitle: '제품(서비스)의 Jira 분석<br />&#10132; 정확한 Resource 통계',
-          iconClassName: 'background-warning',
-          iconImagePath: 'fa fa-magic',
-        },
-        {
-          title: 'Time',
-          subTitle: '제품(서비스) Jira Project 맵핑<br />&#10132; 실질적인 진척도 측정',
-          iconClassName: 'background-success',
-          iconImagePath: 'fa fa-wrench',
-        },
-        {
-          title: '제품(서비스)',
-          subTitle:
-            '<p>aRMS는 제품과 서비스를 기준 <br />&#10132; 데이터를 구조화 합니다.</p>',
-          iconClassName: 'background-primary',
-          iconImagePath: 'fa fa-superscript',
-        },
-        {
-          title: '요구사항',
-          subTitle:
-            '<p>ARMS는 제품과 서비스를 기준<br />&#10132; 요구사항을 관리합니다.</p>',
-          iconClassName: 'background-lime',
-          iconImagePath: 'fa fa-check',
-        },
-        {
-          title: 'Test(QA)',
-          subTitle:
-            '<p>ARMS는 제품과 서비스를 기준<br />&#10132; 요구사항의 테스트를 관리</p>',
-          iconClassName: 'background-info',
-          iconImagePath: 'fa fa-css3',
-        },
-      ],
-    };
+<script setup lang="ts">
+const armsServiceList = [
+  {
+    title: 'Scope',
+    subTitle: '제품(서비스)의 요구사항이 Jira의 END USER 까지 공유',
+    iconClassName: 'background-danger',
+    iconImagePath: 'fa fa-bold',
   },
-};
+  {
+    title: 'Cost',
+    subTitle: '제품(서비스)의 Jira 분석<br />&#10132; 정확한 Resource 통계',
+    iconClassName: 'background-warning',
+    iconImagePath: 'fa fa-magic',
+  },
+  {
+    title: 'Time',
+    subTitle: '제품(서비스) Jira Project 맵핑<br />&#10132; 실질적인 진척도 측정',
+    iconClassName: 'background-success',
+    iconImagePath: 'fa fa-wrench',
+  },
+  {
+    title: '제품(서비스)',
+    subTitle: '<p>aRMS는 제품과 서비스를 기준 <br />&#10132; 데이터를 구조화 합니다.</p>',
+    iconClassName: 'background-primary',
+    iconImagePath: 'fa fa-superscript',
+  },
+  {
+    title: '요구사항',
+    subTitle: '<p>ARMS는 제품과 서비스를 기준<br />&#10132; 요구사항을 관리합니다.</p>',
+    iconClassName: 'background-lime',
+    iconImagePath: 'fa fa-check',
+  },
+  {
+    title: 'Test(QA)',
+    subTitle: '<p>ARMS는 제품과 서비스를 기준<br />&#10132; 요구사항의 테스트를 관리</p>',
+    iconClassName: 'background-info',
+    iconImagePath: 'fa fa-css3',
+  },
+];
 </script>
 
 <style scoped>

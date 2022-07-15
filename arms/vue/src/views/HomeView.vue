@@ -12,28 +12,18 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import HomeHeader from '../components/Home/HomeHeader.vue';
 import HomeSlider from '../components/Home/HomeSlider.vue';
 import HomeContent from '../components/Home/HomeContent.vue';
-import { mapActions, mapGetters, mapMutations, mapState } from 'vuex';
 import { useStore } from '@/store';
-import { ActionKeys, MutationTypes, StateKeys } from '@/constants/enums/StoreKeys';
+import { ActionKeys } from '@/constants/enums/StoreKeys';
+import { onMounted } from 'vue';
 
-export default {
-  components: {
-    HomeHeader,
-    HomeSlider,
-    HomeContent,
-  },
-  computed: {
-    ...mapGetters([StateKeys.USER_INFO]),
-  },
-  created() {
-    const store = useStore();
-    store.dispatch(ActionKeys.GET_USER, { name: 'test' });
-  },
-};
+const store = useStore();
+onMounted(() => {
+  store.dispatch(ActionKeys.GET_USER, { name: 'test!' });
+});
 </script>
 <style lang="scss">
 body {
