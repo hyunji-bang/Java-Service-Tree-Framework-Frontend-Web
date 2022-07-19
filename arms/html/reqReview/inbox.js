@@ -63,7 +63,7 @@ $(function () {
 		var FolderList = Backbone.Collection.extend({
 			model: Folder,
 
-			url: "/reference/light-blue/js/folders.json",
+			url: "js/folders.do",
 
 			comparator: "order",
 
@@ -107,7 +107,7 @@ $(function () {
 		var EmailList = Backbone.Collection.extend({
 			model: Email,
 
-			url: "/reference/light-blue/js/emails.json",
+			url: "js/emails.do",
 
 			comparator: function (mail) {
 				return -mail.get("timestamp");
