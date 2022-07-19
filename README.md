@@ -21,8 +21,6 @@ npm install grunt-connect-proxy --save-dev
 npm install serve-static --save-dev 
 npm install grunt-contrib-compass --save-dev
 
-npm install -g d3-mitch-tree --save
-
 Introduction
 ============
 
