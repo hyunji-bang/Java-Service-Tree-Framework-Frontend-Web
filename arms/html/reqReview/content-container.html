@@ -4,15 +4,11 @@
 			<h4>Inbox App</h4>
 		</header>
 		<div class="body">
-			<div id="mailbox-app" class="mailbox">
+			<div id="review-box-app" class="review-box">
 				<div class="row">
 					<div class="col-sm-2">
 						<button id="compose-btn" class="btn btn-danger btn-block">Compose</button>
-						<ul id="folders-list" class="mailbox-folders">
-							<li class="active"><a href="#">Inbox</a></li>
-							<li><a href="#">Sent</a></li>
-							<li><a href="#">Drafts</a></li>
-						</ul>
+						<ul id="review-classify" class="review-classify"></ul>
 					</div>
 					<div class="col-sm-10">
 						<h2 id="folder-title" class="folder-title">
@@ -22,33 +18,17 @@
 							<label>
 								<input
 									type="search"
-									id="mailbox-search"
+									id="review-box-search"
 									class="input-transparent input-search"
 									placeholder="Search folder..."
 								/>
 							</label>
 						</form>
-						<div id="mailbox-content" class="mailbox-content">
+						<div id="review-content" class="review-content">
 							<table id="folder-view" class="folder-view table table-striped">
 								<thead>
 									<tr>
-										<th colspan="3" id="folder-actions">
-											<input id="toggle-all" type="checkbox" />
-											<span class="btn-group">
-												<a class="btn btn-default btn-sm" href="#" data-toggle="dropdown">
-													Select
-													<i class="fa fa-angle-down"></i>
-												</a>
-												<ul class="dropdown-menu">
-													<li><a href="#">All</a></li>
-													<li><a href="#">None</a></li>
-													<li class="divider"></li>
-													<li><a href="#">Read</a></li>
-													<li><a href="#">Unread</a></li>
-												</ul>
-											</span>
-										</th>
-										<th colspan="3" class="total-pages">
+										<th colspan="4" class="total-pages">
 											1-30 of 1,421
 											<button class="btn btn-default btn-xs">
 												<i class="fa fa-angle-left fa-lg"></i>
@@ -59,16 +39,7 @@
 										</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<td class="tiny-column"><input type="checkbox" /></td>
-										<td class="tiny-column"><i class="fa fa-star"></i></td>
-										<td class="name hidden-xs">Philip Daineka</td>
-										<td class="subject">Light Blue template</td>
-										<td class="tiny-column"><i class="fa fa-paper-clip"></i></td>
-										<td class="date">Aug 13</td>
-									</tr>
-								</tbody>
+								<tbody id="review-list"></tbody>
 							</table>
 						</div>
 					</div>
@@ -83,10 +54,10 @@
 	.btn {
 		transition: background-color 0.2s;
 	}
-	.mailbox-folders {
+	.review-classify {
 		margin-top: 20px;
 	}
-	.mailbox-folders li a {
+	.review-classify li a {
 		display: block;
 		padding: 6px 15px;
 		color: #d2d2d2;
@@ -96,17 +67,17 @@
 		-o-transition: color 0.2s;
 		transition: color 0.2s;
 	}
-	.mailbox-folders .active a {
+	.review-classify .active a {
 		border-left: 5px solid #db2a34;
 		padding-left: 10px;
 		color: #f8f8f8;
 	}
-	.mailbox .folder-title {
+	.review-box .folder-title {
 		margin: 0;
 		line-height: 30px;
 		float: left;
 	}
-	.mailbox .input-search {
+	.review-box .input-search {
 		width: 140px;
 		min-height: 30px;
 		-webkit-transition: width 0.2s;
@@ -120,10 +91,10 @@
 		font-weight: 300;
 	}
 
-	.mailbox-content {
+	.review-content {
 		margin-top: 20px;
 	}
-	.mailbox-content .folder-view .icheckbox_square-grey {
+	.review-content .folder-view .icheckbox_square-grey {
 		display: inline-block !important;
 		vertical-align: middle;
 		margin: 0 5px !important;
@@ -137,9 +108,24 @@
 		cursor: pointer;
 		transform: scale(0.72);
 	}
-	.mailbox-content .folder-view .icheckbox_square-grey.checked {
+	.review-content .folder-view .icheckbox_square-grey.checked {
 		background-position: -48px 0;
 	}
+	.review-content .folder-view .icheckbox_square-grey input {
+		position: absolute;
+		left: -100%;
+	}
+	.review-content .folder-view .tiny-column {
+		width: 20px;
+	}
+	.review-content .folder-view .name {
+		width: 140px;
+	}
+	.review-content .folder-view .date {
+		text-align: right;
+		width: 100px;
+	}
+
 	.dropdown-menu {
 		position: absolute;
 		top: 100%;
@@ -163,163 +149,9 @@
 	.open > .dropdown-menu {
 		display: block;
 	}
-	.mailbox-content .folder-view .total-pages {
+	.review-content .folder-view .total-pages {
 		text-align: right;
 	}
 </style>
-<script type="text/javascript" charset="utf-8">
-	//<![CDATA[
-
-	// 초기 개발 및 확인 용도
-	(function ($) {});
-
-	//]]>
-</script>
-
-<!-- jquery and friends -->
-<script src="../../../reference/light-blue/lib/jquery/jquery-2.0.3.min.js"></script>
-
-<!-- jquery plugins -->
-<script src="../../../reference/light-blue/lib/jquery-maskedinput/jquery.maskedinput.js"></script>
-<script src="../../../reference/light-blue/lib/parsley/parsley.js"></script>
-<script src="../../../reference/light-blue/lib/icheck.js/jquery.icheck.js"></script>
-<script src="../../../reference/light-blue/lib/select2.js"></script>
-
-<!--backbone and friends -->
-<script src="../../../reference/light-blue/lib/backbone/underscore-min.js"></script>
-<script src="../../../reference/light-blue/lib/backbone/backbone.js"></script>
-<script src="../../../reference/light-blue/lib/backbone/backbone.localStorage-min.js"></script>
-
-<!-- bootstrap default plugins -->
-<script src="../../../reference/light-blue/lib/bootstrap/transition.js"></script>
-<script src="../../../reference/light-blue/lib/bootstrap/collapse.js"></script>
-<script src="../../../reference/light-blue/lib/bootstrap/alert.js"></script>
-<script src="../../../reference/light-blue/lib/bootstrap/tooltip.js"></script>
-<script src="../../../reference/light-blue/lib/bootstrap/popover.js"></script>
-<script src="../../../reference/light-blue/lib/bootstrap/button.js"></script>
-<script src="../../../reference/light-blue/lib/bootstrap/dropdown.js"></script>
-<script src="../../../reference/light-blue/lib/bootstrap/modal.js"></script>
-<script src="../../../reference/light-blue/lib/bootstrap/tab.js"></script>
-
-<!-- page-specifix js-->
-<script src="html/reqReview/inbox.js"></script>
-
-<!-- Page Specific Templates -->
-<script type="text/template" id="folder-actions-template">
-	<input id="toggle-all" type="checkbox" <%= allSelected ? 'checked' : '' %>/>
-	<span class="btn-group">
-	    <a class="btn btn-default btn-sm" href="#" data-toggle="dropdown">
-	        Select
-	        <i class="fa fa-angle-down "></i>
-	    </a>
-	    <ul class="dropdown-menu">
-	        <li><a id="select-all" href="#">All</a></li>
-	        <li><a id="select-none" href="#">None</a></li>
-	        <li class="divider"></li>
-	        <li><a id="select-read" href="#">Read</a></li>
-	        <li><a id="select-unread" href="#">Unread</a></li>
-	    </ul>
-	</span>
-	<% if (anySelected) { %>
-	<span class="btn-group">
-	        <a class="btn btn-sm btn-inverse" href="#" data-toggle="dropdown">
-	            Actions
-	            <i class="fa fa-angle-down "></i>
-	        </a>
-	        <ul class="dropdown-menu">
-	            <li><a id="reply" href="#">Reply</a></li>
-	            <li><a id="forward" href="#">Forward</a></li>
-	            <li><a id="archive" href="#">Archive</a></li>
-	            <li class="divider"></li>
-	            <li><a id="mark-as-read" href="#">Mark As Read</a></li>
-	            <li><a id="mark-as-unread" href="#">Mark As Unread</a></li>
-	            <li class="divider"></li>
-	            <li><a id="delete" href="#">Delete</a></li>
-	        </ul>
-	    </span>
-	<% } %>
-</script>
-
-<script type="text/template" id="mail-item-template">
-	<td class="tiny-column"><input class="selected-checkbox" type="checkbox" <%= selected ? ' checked="ckeched"' : ''%>/></td>
-	<td class="tiny-column"><span class="starred"><i class="<%= starred ? 'fa fa-star color-orange' : 'fa fa-star-o'%>"></i></span></td>
-	<td class="name hidden-xs"><%= sender ? sender : senderMail %></td>
-	<td class="subject"><%= subject %></td>
-	<td class="tiny-column"><% if (attachment) {%><i class="fa fa-paper-clip"><% } %></i></td>
-	<td class="date"><%= this.formatDate(timestamp) %></td>
-</script>
-
-<script type="text/template" id="folder-template">
-	<a href="#"><%= name %></a>
-</script>
-
-<script type="text/template" id="folders-view-template">
-	<table id="folder-view" class="folder-view table table-striped">
-	    <thead>
-	    <tr>
-	        <th colspan="3" id="folder-actions">
-	            <input id="toggle-all" type="checkbox"/>
-	            <span class="btn-group">
-	                <a class="btn btn-default btn-sm" href="#" data-toggle="dropdown">
-	                    Select
-	                    <i class="fa fa-angle-down "></i>
-	                </a>
-	                <ul class="dropdown-menu">
-	                    <li><a href="#">All</a></li>
-	                    <li><a href="#">None</a></li>
-	                    <li class="divider"></li>
-	                    <li><a href="#">Read</a></li>
-	                    <li><a href="#">Unread</a></li>
-	                </ul>
-	            </span>
-	        </th>
-	        <th colspan="3" class="total-pages">
-	            1-30 of 1,421
-	            <button class="btn btn-default btn-xs">
-	                <i class="fa fa-angle-left fa-lg"></i>
-	            </button>
-	            <button class="btn btn-default btn-xs">
-	                <i class="fa fa-angle-right fa-lg"></i>
-	            </button>
-	        </th>
-	    </tr>
-	    </thead>
-	    <tbody>
-	    </tbody>
-	</table>
-</script>
-
-<script type="text/template" id="email-view-template"></script>
-
-<script type="text/template" id="compose-view-template">
-	<form id="email-compose" class="form-horizontal form-email-compose" method="POST" enctype="multipart/form-data">
-	    <div class="control-group">
-	        <input type="email" id="input-to" placeholder="To" class="input-transparent form-control"
-	               value="<%= receiver %>">
-	    </div>
-	    <div class="control-group">
-	        <input type="text" id="input-subject" placeholder="Subject" class="input-transparent form-control"
-	               value="<%= subject %>">
-	    </div>
-	    <div class="control-group">
-	        <textarea rows="12" class="input-transparent" id="email-body"><%- body %></textarea>
-	    </div>
-	    <div class="control-group">
-	        <div class="fileupload-buttonbar">
-	            <span class="btn btn-sm btn-transparent fileinput-button">
-	                <i class="fa fa-paper-clip"></i>
-	                Attach files...
-	                <input type="file" name="files[]" multiple="">
-	            </span>
-	        </div>
-	        <table role="presentation" class="table table-striped no-margin"><tbody class="files"></tbody></table>
-	    </div>
-	    <div class="control-group">
-	        <button type="submit" id="compose-send-button" class="btn btn-sm btn-primary">&nbsp;&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;</button>
-	        <button type="button" id="compose-save-button" class="btn btn-sm btn-transparent">&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
-	        <button type="reset" id="compose-discard-button" class="btn btn-sm btn-transparent">Discard</button>
-	    </div>
-	</form>
-</script>
 
 <script type="text/javascript" src="js/reqReview.js" charset="utf-8"></script>
