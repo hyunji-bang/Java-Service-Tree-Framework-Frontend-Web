@@ -6,13 +6,23 @@ $(function () {
 		"requirement-elements-collapse"
 	);
 
-	makeReviewClassify();
-	makeReviewContents();
+	makeTemplate("./js/reviewClassify.do", makeClassifyMenus);
+	makeTemplate("./js/reviewList.do", makeReviewList);
 });
-async function makeReviewClassify() {
-	const data = await getData("./js/reviewClassify.do");
-	makeClassifyMenus(data);
+
+function makeTemplate(url, bindTemplate) {
+	getData(url).then((data) => bindTemplate(data));
 }
+
+const getData = (url) => {
+	const data = fetch(url).then((response) => {
+		return response.json();
+	});
+
+	return data;
+};
+
+// make review classify menu
 function makeClassifyMenus(data) {
 	const reviewClassify = document.getElementById("review-classify");
 	let menus = "";
@@ -26,18 +36,8 @@ function makeClassifyMenus(data) {
 	);
 	reviewClassify.innerHTML = menus;
 }
-// review list define
-async function makeReviewContents() {
-	const data = await getData("./js/reviewList.do");
-	makeReviewList(data);
-}
-const getData = (url) => {
-	const data = fetch(url).then((response) => {
-		return response.json();
-	});
 
-	return data;
-};
+// make review list
 function makeReviewList(data) {
 	const reviewList = document.getElementById("review-list");
 	let list = "";
@@ -69,11 +69,20 @@ $("#review-list").click(function (ev) {
 
 // side menu click
 $("#review-classify").click(async function (ev) {
+	const li = ev.target.parentNode;
 	for (const item of ev.currentTarget.children) {
 		item.classList.remove("active");
 	}
 
-	ev.target.parentNode.classList.add("active");
+	li.classList.add("active");
 
-	// const data = await getReviewList("./js/reviewList.do");
+	// 서버에서 필터 될 때 사용
+	// makeTemplate("./js/reviewList.do", makeReviewList);
+
+	// 분류 예제 코드
+	const data = await getData("./js/reviewList.do");
+	const order = Number(li.dataset.order);
+	makeReviewList(
+		order ? data.filter((item) => item.order === Number(li.dataset.order)) : data
+	);
 });
