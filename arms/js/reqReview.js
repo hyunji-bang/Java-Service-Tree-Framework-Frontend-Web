@@ -10,9 +10,9 @@ $(function () {
 	makeTemplate("./js/reviewList.do", makeReviewList);
 });
 
-function makeTemplate(url, bindTemplate) {
+const makeTemplate = function (url, bindTemplate) {
 	getData(url).then((data) => bindTemplate(data));
-}
+};
 
 const getData = (url) => {
 	const data = fetch(url).then((response) => {
@@ -23,7 +23,7 @@ const getData = (url) => {
 };
 
 // make review classify menu
-function makeClassifyMenus(data) {
+const makeClassifyMenus = function (data) {
 	const reviewClassify = document.getElementById("review-classify");
 	let menus = "";
 	data.forEach(
@@ -35,10 +35,10 @@ function makeClassifyMenus(data) {
 	`)
 	);
 	reviewClassify.innerHTML = menus;
-}
+};
 
 // make review list
-function makeReviewList(data) {
+const makeReviewList = function (data) {
 	const reviewList = document.getElementById("review-list");
 	let list = "";
 	data.forEach(
@@ -54,7 +54,7 @@ function makeReviewList(data) {
 	);
 
 	reviewList.innerHTML = list;
-}
+};
 
 const dateFormat = (time = 0) => {
 	let date = time ? new Date(time).toISOString() : new Date().toISOString();
