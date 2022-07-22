@@ -1,15 +1,3 @@
-// --- 사이드 메뉴 -- //
-$(function () {
-	setSideMenu(
-		"sidebar_menu_requirement",
-		"sidebar_menu_requirement_review",
-		"requirement-elements-collapse"
-	);
-
-	makeTemplate("./js/reviewClassify.do", makeClassifyMenus);
-	makeTemplate("./js/reviewList.do", makeReviewList);
-});
-
 const makeTemplate = function (url, bindTemplate) {
 	getData(url).then((data) => bindTemplate(data));
 };
@@ -60,6 +48,18 @@ const dateFormat = (time = 0) => {
 	let date = time ? new Date(time).toISOString() : new Date().toISOString();
 	return date.split("T")[0];
 };
+
+// --- 사이드 메뉴 -- //
+$(function () {
+	setSideMenu(
+		"sidebar_menu_requirement",
+		"sidebar_menu_requirement_review",
+		"requirement-elements-collapse"
+	);
+
+	makeTemplate("./js/reviewClassify.do", makeClassifyMenus);
+	makeTemplate("./js/reviewList.do", makeReviewList);
+});
 
 // reviwe click
 $("#review-list").click(function (ev) {
