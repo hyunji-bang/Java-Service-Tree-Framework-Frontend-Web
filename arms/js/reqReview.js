@@ -57,8 +57,8 @@ $(function () {
 		"requirement-elements-collapse"
 	);
 
-	makeTemplate("./js/reviewClassify.do", makeClassifyMenus);
-	makeTemplate("./js/reviewList.do", makeReviewList);
+	makeTemplate("./js/reviewClassify.json", makeClassifyMenus);
+	makeTemplate("./js/reviewList.json", makeReviewList);
 });
 
 // reviwe click
@@ -77,10 +77,10 @@ $("#review-classify").click(async function (ev) {
 	li.classList.add("active");
 
 	// 서버에서 필터 될 때 사용
-	// makeTemplate("./js/reviewList.do", makeReviewList);
+	// makeTemplate("./js/reviewList.json", makeReviewList);
 
 	// 분류 예제 코드
-	const data = await getData("./js/reviewList.do");
+	const data = await getData("./js/reviewList.json");
 	const order = Number(li.dataset.order);
 	makeReviewList(
 		order ? data.filter((item) => item.order === Number(li.dataset.order)) : data
