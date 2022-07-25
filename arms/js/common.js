@@ -86,15 +86,15 @@ function setSideMenu(
 
 // --- 데이터 테이블 설정 --- //
 
-function setTable(tableDataUrl, dataList, options = null) {
-	jstreeDataTableReload(tableDataUrl, dataList, options);
+function setTable(tableDataUrl, dataList, options = null, selectedView = null) {
+	jstreeDataTableReload(tableDataUrl, dataList, options, selectedView);
 
 	//datatable 좌상단 datarow combobox style
 	$(".dataTables_length").find("select:eq(0)").addClass("darkBack");
 	$(".dataTables_length").find("select:eq(0)").css("min-height", "30px");
 }
 
-function jstreeDataTableReload(tableDataUrl, dataList, options) {
+function jstreeDataTableReload(tableDataUrl, dataList, options, selectedView) {
 	console.log("href: " + $(location).attr("href"));
 	console.log("protocol: " + $(location).attr("protocol"));
 	console.log("host: " + $(location).attr("host"));
@@ -129,10 +129,17 @@ function jstreeDataTableReload(tableDataUrl, dataList, options) {
 	});
 
 	$("#jstreeTable").css("width", "100%");
+
+	selectedView &&
+		$("#selectView").click(function () {
+			var selectedItem = tempDataTable.rows(".selected").data()[0].c_id;
+			console.log(selectedItem);
+			location.href = `${selectedView}.html?c_id=${selectedItem}`;
+		});
 }
 
 // --- jstree 설정 -- //
-function jsTreeBuild(jsTreeBox) {
+function jsTreeBuild(jsTreeBox, armsServiceName) {
 	console.log("href: " + $(location).attr("href"));
 	console.log("protocol: " + $(location).attr("protocol"));
 	console.log("host: " + $(location).attr("host"));
@@ -272,7 +279,8 @@ function jsTreeBuild(jsTreeBox) {
 				// All the options are almost the same as jQuery's AJAX (read the docs)
 				ajax: {
 					// the URL to fetch the data
-					url: isDevelopingToRoute + "/api/arms/pdservice/getChildNode.do",
+					url:
+						isDevelopingToRoute + "/api/arms/" + armsServiceName + "/getChildNode.do",
 					// the `data` function is executed in the instance's scope
 					// the parameter is the node being loaded
 					// (may be -1, 0, or undefined when loading the root nodes)
@@ -295,7 +303,8 @@ function jsTreeBuild(jsTreeBox) {
 				// As this has been a common question - async search
 				// Same as above - the `ajax` config option is actually jQuery's AJAX object
 				ajax: {
-					url: isDevelopingToRoute + "/api/arms/pdservice/searchNode.do",
+					url:
+						isDevelopingToRoute + "/api/arms/" + armsServiceName + "/searchNode.do",
 					// You get the search string as a parameter
 					data: function (str) {
 						return {
@@ -370,7 +379,7 @@ function jsTreeBuild(jsTreeBox) {
 		})
 		.bind("create.jstree", function (e, data) {
 			$.post(
-				isDevelopingToRoute + "/api/arms/pdservice/addNode.do",
+				isDevelopingToRoute + "/api/arms/" + armsServiceName + "/addNode.do",
 				{
 					ref: data.rslt.parent.attr("id").replace("node_", "").replace("copy_", ""),
 					c_position: data.rslt.position,
@@ -392,7 +401,7 @@ function jsTreeBuild(jsTreeBox) {
 							}
 						);
 					}
-					jsTreeBuild(jsTreeBox);
+					jsTreeBuild(jsTreeBox, armsServiceName);
 				}
 			);
 		})
@@ -401,7 +410,8 @@ function jsTreeBuild(jsTreeBox) {
 				$.ajax({
 					async: false,
 					type: "POST",
-					url: isDevelopingToRoute + "/api/arms/pdservice/removeNode.do",
+					url:
+						isDevelopingToRoute + "/api/arms/" + armsServiceName + "/removeNode.do",
 					data: {
 						c_id: this.id.replace("node_", "").replace("copy_", ""),
 					},
@@ -415,14 +425,14 @@ function jsTreeBuild(jsTreeBox) {
 								}
 							);
 						}
-						jsTreeBuild(jsTreeBox);
+						jsTreeBuild(jsTreeBox, armsServiceName);
 					},
 				});
 			});
 		})
 		.bind("rename.jstree", function (e, data) {
 			$.post(
-				isDevelopingToRoute + "/api/arms/pdservice/alterNode.do",
+				isDevelopingToRoute + "/api/arms/" + armsServiceName + "/alterNode.do",
 				{
 					c_id: data.rslt.obj.attr("id").replace("node_", "").replace("copy_", ""),
 					c_title: data.rslt.new_name,
@@ -441,13 +451,13 @@ function jsTreeBuild(jsTreeBox) {
 							}
 						);
 					}
-					jsTreeBuild(jsTreeBox);
+					jsTreeBuild(jsTreeBox, armsServiceName);
 				}
 			);
 		})
 		.bind("set_type.jstree", function (e, data) {
 			$.post(
-				isDevelopingToRoute + "/api/arms/pdservice/alterNodeType.do",
+				isDevelopingToRoute + "/api/arms/" + armsServiceName + "/alterNodeType.do",
 				{
 					c_id: data.rslt.obj.attr("id").replace("node_", "").replace("copy_", ""),
 					c_title: data.rslt.new_name,
@@ -463,7 +473,7 @@ function jsTreeBuild(jsTreeBox) {
 							}
 						);
 					}
-					jsTreeBuild(jsTreeBox);
+					jsTreeBuild(jsTreeBox, armsServiceName);
 				}
 			);
 		})
@@ -472,7 +482,7 @@ function jsTreeBuild(jsTreeBox) {
 				$.ajax({
 					async: false,
 					type: "POST",
-					url: isDevelopingToRoute + "/api/arms/pdservice/moveNode.do",
+					url: isDevelopingToRoute + "/api/arms/" + armsServiceName + "/moveNode.do",
 					data: {
 						c_id: $(this).attr("id").replace("node_", "").replace("copy_", ""),
 						ref:
@@ -502,7 +512,7 @@ function jsTreeBuild(jsTreeBox) {
 								}
 							);
 						}
-						jsTreeBuild(jsTreeBox);
+						jsTreeBuild(jsTreeBox, armsServiceName);
 					},
 				});
 			});
@@ -511,7 +521,7 @@ function jsTreeBuild(jsTreeBox) {
 			// `data.rslt.obj` is the jquery extended node that was clicked
 			if ($.isFunction(jsTreeClick)) {
 				console.log(data.rslt.obj);
-				jsTreeClick(data.rslt.obj.attr("id"));
+				jsTreeClick(data.rslt.obj);
 			}
 		});
 
@@ -535,6 +545,67 @@ function jsTreeBuild(jsTreeBox) {
 				break;
 		}
 	});
+}
+
+// regist new service
+function registNewServie(serviceName, treeBox) {
+	var refNum;
+	var checkedService = $(treeBox).find("a.jstree-clicked").parent();
+	checkedService.attr("rel") === "default"
+		? (refNum = checkedService.parent().closest("li"))
+		: (refNum = checkedService);
+	var positionIndex = refNum.children().find("li").length;
+	refNum = refNum.attr("id").replace("node_", "").replace("copy_", "");
+
+	if (
+		!$("#prepended-input").val() ||
+		$("#prepended-input").val().trim() === ""
+	) {
+		alert("Please write service name!");
+		$("#prepended-input").focus();
+	} else {
+		$.ajax({
+			url: `/auth-user/api/arms/${serviceName}/addNode.do`,
+			type: "POST",
+			data: {
+				ref: refNum,
+				c_position: positionIndex,
+				c_title: $("#prepended-input").val(),
+				c_type: "default",
+			},
+			statusCode: {
+				200: function () {
+					jsTreeBuild(treeBox, serviceName);
+				},
+			},
+		});
+	}
+}
+
+function updateServie(serviceName, treeBox) {
+	var checkedService = $(treeBox).find("a.jstree-clicked").parent();
+	if (
+		!$("#prepended-input").val() ||
+		$("#prepended-input").val().trim() === ""
+	) {
+		alert("Please write service name!");
+		$("#prepended-input").focus();
+	} else {
+		$.ajax({
+			url: `/auth-user/api/arms/${serviceName}/alterNode.do`,
+			type: "POST",
+			data: {
+				c_id: checkedService.attr("id").replace("node_", "").replace("copy_", ""),
+				c_title: $("#prepended-input").val(),
+				c_type: checkedService.attr("rel"),
+			},
+			statusCode: {
+				200: function () {
+					jsTreeBuild(treeBox, serviceName);
+				},
+			},
+		});
+	}
 }
 
 function createdUUID() {

@@ -1,6 +1,12 @@
 $(function () {
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_version_regist");
-	jsTreeBuild("#productTree")
+	jsTreeBuild("#productTree", "pdversion");
+	$(".btn-info").click(function () {
+		var index = $("label.btn-sm.active").index();
+		index === 0
+			? registNewServie("pdversion", "#productTree")
+			: updateServie("pdversion", "#productTree");
+	});
 });
 
 // --- 에디터 설정 --- //
@@ -15,8 +21,6 @@ $("#modalPopupId").click(function () {
 		.css("height", height + "px");
 });
 
-
-function jsTreeClick(selectedNodeID) {
-	console.log(selectedNodeID);
+function jsTreeClick(selectedNode) {
+	console.log(selectedNode);
 }
-

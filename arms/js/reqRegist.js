@@ -4,7 +4,7 @@ $(function () {
 		"sidebar_menu_requirement_regist",
 		"requirement-elements-collapse"
 	);
-	jsTreeBuild("#productTree")
+	jsTreeBuild("#productTree", "pdservice");
 });
 
 // --- 에디터 설정 --- //
@@ -23,4 +23,3 @@ $("#modalPopupId").click(function () {
 function jsTreeClick(selectedNodeID) {
 	console.log(selectedNodeID);
 }
-

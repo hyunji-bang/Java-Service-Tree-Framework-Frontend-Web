@@ -160,14 +160,13 @@ $(function () {
 		"requirement-elements-collapse"
 	);
 	setTable("", [], tableOptions);
-	jsTreeBuild("#pdServiceTree")
+	jsTreeBuild("#pdServiceTree", "reqspec");
 });
 
 // --- jstree 설정 -- //
 function jsTreeClick(selectedNodeID) {
 	console.log(selectedNodeID);
 }
-
 
 // 요구사항 상세 보기 클릭 이벤트
 $("#selectView").click(function () {
