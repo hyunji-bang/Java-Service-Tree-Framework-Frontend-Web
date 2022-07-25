@@ -13,11 +13,11 @@ var dataList = [
 $(function () {
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_version_list");
 	setTable(tableUrl, dataList);
-	jsTreeBuild("#productTree");
+	jsTreeBuild("#productTree", "pdversion");
 });
 
-function jsTreeClick(selectedNodeID) {
-	console.log(selectedNodeID);
-	$(".dataTables_filter input").val(selectedNodeID).keyup();
+function jsTreeClick(selectedNode) {
+	console.log(selectedNode);
+	var getSelectedText = selectedNode.find("a.jstree-clicked").text().trimStart();
+	$(".dataTables_filter input").val(getSelectedText).keyup();
 }
-

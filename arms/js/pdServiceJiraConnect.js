@@ -1,8 +1,6 @@
-
 $(function () {
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_jira_connect");
-	jsTreeBuild("#demo");
-
+	jsTreeBuild("#demo", "pdjira");
 });
 
 /* -------------------------------- jstree 설정 ------------------------------- */
@@ -740,7 +738,8 @@ function d3Update() {
 	update(root);
 }
 
-function jsTreeClick(selectedNodeID, selectedNodeText) {
-	treeData.name = selectedNodeText;
+function jsTreeClick(selectedNode) {
+	var getSelectedText = selectedNode.find("a.jstree-clicked").text().trimStart();
+	treeData.name = getSelectedText;
 	update(root);
 }

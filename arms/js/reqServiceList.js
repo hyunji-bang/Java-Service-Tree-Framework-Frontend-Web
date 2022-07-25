@@ -17,14 +17,13 @@ $(function () {
 		"requirement-elements-collapse"
 	);
 	setTable(tableUrl, dataList);
-	jsTreeBuild("#pdServiceTree")
+	jsTreeBuild("#pdServiceTree", "pdservice");
 });
 
 // --- jstree 설정 -- //
 function jsTreeClick(selectedNodeID) {
 	console.log(selectedNodeID);
 }
-
 
 // 요구사항 상세 보기 클릭 이벤트
 $("#selectView").click(function () {

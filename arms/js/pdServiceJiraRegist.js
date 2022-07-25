@@ -19,7 +19,7 @@ var dataList = [
 $(function () {
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_jira_regist");
 	setTable(tableUrl, dataList);
-	jsTreeBuild("#pdServiceTree")
+	jsTreeBuild("#pdServiceTree", "pdjira");
 	$("body").find("[aria-controls='jstreeTable']").css("width", "100px");
 });
 

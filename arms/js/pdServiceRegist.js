@@ -1,10 +1,12 @@
 $(function () {
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_regist");
-	jsTreeBuild("#demo");
+	jsTreeBuild("#demo", "pdservice");
 	//서비스 등록
 	$(".btn-info").on("click", function () {
-		var index = $("label.btn-sm.active").index()
-		index === 0 ? registNewServie() : updateServie()
+		var index = $("label.btn-sm.active").index();
+		index === 0
+			? registNewServie("pdservice", "#demo")
+			: updateServie("pdservice", "#demo");
 	});
 });
 
@@ -20,9 +22,8 @@ $("#modalPopupId").click(function () {
 		.css("height", height + "px");
 });
 
-
-function jsTreeClick(selectedNodeID) {
-	console.log(selectedNodeID);
+function jsTreeClick(selectedNode) {
+	console.log(selectedNode);
 }
 
 // --- select2 설정 --- //
@@ -100,16 +101,16 @@ function formatRepo(repo) {
 
 	var $container = $(
 		"<div class='select2-result-repository clearfix'>" +
-		"<div class='select2-result-repository__meta'>" +
-		"<div class='select2-result-repository__title'></div>" +
-		"<div class='select2-result-repository__description'></div>" +
-		"<div class='select2-result-repository__statistics'>" +
-		"<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> </div>" +
-		"<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> </div>" +
-		"<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> </div>" +
-		"</div>" +
-		"</div>" +
-		"</div>"
+			"<div class='select2-result-repository__meta'>" +
+			"<div class='select2-result-repository__title'></div>" +
+			"<div class='select2-result-repository__description'></div>" +
+			"<div class='select2-result-repository__statistics'>" +
+			"<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> </div>" +
+			"<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> </div>" +
+			"<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> </div>" +
+			"</div>" +
+			"</div>" +
+			"</div>"
 	);
 
 	$container.find(".select2-result-repository__title").text(repo.full_name);
@@ -131,67 +132,4 @@ function formatRepo(repo) {
 
 function formatRepoSelection(repo) {
 	return repo.full_name || repo.text;
-}
-
-// Code for the menu buttons
-function registNewServie() {
-	var refNum;
-	var checkedService = $("#demo").find("a.jstree-clicked").parent()
-	checkedService.attr("rel") === "default" ? refNum = checkedService.parent().closest("li") : refNum = checkedService;
-	var positionIndex = refNum.children().find("li").length;
-	refNum = refNum.attr("id").replace("node_", "").replace("copy_", "");
-
-	if (!$("#prepended-input").val() || $("#prepended-input").val().trim() === "") {
-		alert("Please write service name!");
-		$("#prepended-input").focus();
-	} else {
-		$.ajax({
-			url: "http://localhost:9999/auth-user/api/arms/pdservice/addNode.do",
-			type: "POST",
-			data: {
-				ref: refNum,
-				c_position: positionIndex,
-				c_title: $("#prepended-input").val(),
-				c_type: "default",
-			},
-			statusCode: {
-				200: function () {
-					console.log("성공!")
-					jsTreeBuild("#demo")
-				},
-				400: function () {}
-			}
-
-		})
-
-	}
-
-}
-
-function updateServie() {
-	var checkedService = $("#demo").find("a.jstree-clicked").parent();
-	if (!$("#prepended-input").val() || $("#prepended-input").val().trim() === "") {
-		alert("Please write service name!");
-		$("#prepended-input").focus();
-	} else {
-		$.ajax({
-			url: "http://localhost:9999/auth-user/api/arms/pdservice/alterNode.do",
-			type: "POST",
-			data: {
-				c_id: checkedService.attr("id").replace("node_", "").replace("copy_", ""),
-				c_title: $("#prepended-input").val(),
-				c_type: checkedService.attr("rel"),
-			},
-			statusCode: {
-				200: function () {
-					console.log("성공!")
-					jsTreeBuild("#demo")
-				},
-				400: function () {}
-			}
-
-		})
-
-	}
-
 }
