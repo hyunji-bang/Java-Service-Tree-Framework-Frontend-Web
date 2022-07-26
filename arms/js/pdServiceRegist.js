@@ -8,6 +8,7 @@ $(function () {
 			? registNewServie("pdservice", "#demo")
 			: updateServie("pdservice", "#demo");
 	});
+
 });
 
 // --- 에디터 설정 --- //
@@ -24,7 +25,31 @@ $("#modalPopupId").click(function () {
 
 function jsTreeClick(selectedNode) {
 	console.log(selectedNode);
+	var getSelectedText = selectedNode.find("a.jstree-clicked").text().trimStart();
+	console.log(getSelectedText);
+	$("#prepended-input").val(getSelectedText);
+
+	checkEqualSelectedNode(selectedNode);
 }
+
+
+function checkEqualSelectedNode(selectedNode){
+	var getSelectedText = selectedNode.find("a.jstree-clicked").text().trimStart();
+	var inputText = $("#prepended-input").val();
+	if(getSelectedText == inputText){
+		console.log("동일하다 선택된 값이다.");
+		$('.updatemode').click();
+	}else{
+		console.log("값이 틀리다.");
+		$('.newmode').click();
+	}
+}
+
+$('.newmode').click(function(){
+	$('#prepended-input').val('');
+	$('#owner_select2').val(null).trigger('change');
+	$('#reviewer_select2').val(null).trigger('change');
+});
 
 // --- select2 설정 --- //
 $(".js-example-basic-multiple-limit").select2({
