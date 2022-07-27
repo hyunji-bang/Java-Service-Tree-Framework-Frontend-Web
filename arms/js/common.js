@@ -54,8 +54,7 @@ function resetToDefaults() {
 	});
 }
 
-const makeHtml = function (url, bindTemplate) {
-	console.log("#### url::", url);
+const makeTemplate = function (url, bindTemplate) {
 	ajaxGet(url).then(function (data) {
 		bindTemplate(data);
 	});

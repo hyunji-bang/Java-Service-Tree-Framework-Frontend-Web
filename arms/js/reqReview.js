@@ -1,15 +1,3 @@
-const makeTemplate = function (url, bindTemplate) {
-	getData(url).then((data) => bindTemplate(data));
-};
-
-const getData = (url) => {
-	const data = fetch(url).then((response) => {
-		return response.json();
-	});
-
-	return data;
-};
-
 // make review classify menu
 const makeClassifyMenus = function (data) {
 	const reviewClassify = document.getElementById("review-classify");
@@ -44,11 +32,6 @@ const makeReviewList = function (data) {
 	reviewList.innerHTML = list;
 };
 
-const dateFormat = (time = 0) => {
-	let date = time ? new Date(time).toISOString() : new Date().toISOString();
-	return date.split("T")[0];
-};
-
 // --- 사이드 메뉴 -- //
 $(function () {
 	setSideMenu(
@@ -80,7 +63,7 @@ $("#review-classify").click(async function (ev) {
 	// makeTemplate("./js/reviewList.json", makeReviewList);
 
 	// 분류 예제 코드
-	const data = await getData("./js/reviewList.json");
+	const data = await ajaxGet("./js/reviewList.json");
 	const order = Number(li.dataset.order);
 	makeReviewList(
 		order ? data.filter((item) => item.order === Number(li.dataset.order)) : data

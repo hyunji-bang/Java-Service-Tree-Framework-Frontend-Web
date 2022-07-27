@@ -1,5 +1,4 @@
 const makeHistory = function (data) {
-	console.log("##### makeHistory ::", data);
 	const historys = document.querySelector(".review-history");
 
 	let lists = "";
@@ -132,7 +131,7 @@ $(function () {
 		"requirement-elements-collapse"
 	);
 
-	makeHtml("./js/reviewDetailHistory.json", makeHistory);
+	makeTemplate("./js/reviewDetailHistory.json", makeHistory);
 
 	includeDiff();
 });
