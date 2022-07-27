@@ -5,6 +5,8 @@ $(function () {
 		"sidebar_menu_requirement_review",
 		"requirement-elements-collapse"
 	);
+
+	includeDiff();
 });
 
 const info = {
@@ -73,5 +75,33 @@ function makeHistory() {
 
 	historys.innerHTML = lists;
 }
-
 makeHistory();
+
+function includeDiff() {
+	const diffString = `diff --git a/sample.js b/sample.js
+index 0000001..0ddf2ba
+--- a/sample.js
++++ b/sample.js
+@@ -1 +1 @@
+-console.log("Hello World!")
++console.log("Hello from Diff2Html!")`;
+
+	const targetElement = document.getElementById("diff");
+	const configuration = {
+		drawFileList: true,
+		fileListToggle: false,
+		fileListStartVisible: false,
+		fileContentToggle: false,
+		matching: "lines",
+		outputFormat: "side-by-side",
+		synchronisedScroll: true,
+		highlight: true,
+		renderNothingWhenEmpty: false,
+	};
+	const diff2htmlUi = new Diff2HtmlUI(targetElement, diffString, configuration);
+
+	console.log("###### diff2htmlUi");
+	diff2htmlUi.draw();
+	diff2htmlUi.highlightCode();
+	diff2htmlUi.fileListToggle(false);
+}

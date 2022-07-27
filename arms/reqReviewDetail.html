@@ -57,9 +57,9 @@
 		<meta property="og:url" content="http://www.a-rms.net/" />
 		<meta property="og:site_name" content="Atlassian RMS" />
 
-	    <!-- favicon -->
-        <link rel="icon" href="./img/313devgrp.ico" type="image/x-icon"/>
-        <link rel="shortcut icon" href="./img/313devgrp.ico" type="image/x-icon"/>
+		<!-- favicon -->
+		<link rel="icon" href="./img/313devgrp.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="./img/313devgrp.ico" type="image/x-icon" />
 
 		<link
 			href="../reference/jquery-plugins/normalize.css-8.0.1/normalize.css"
@@ -70,6 +70,17 @@
 			rel="stylesheet"
 		/>
 		<link href="css/override.css" rel="stylesheet" />
+
+		<!-- code diff -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/github.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css"
+		/>
 		<script>
 			/* yeah we need this empty stylesheet here. It's cool chrome & chromium fix
            chrome fix https://code.google.com/p/chromium/issues/detail?id=167083
@@ -151,7 +162,9 @@
 			</div>
 		</div>
 
-		<div id="topicon" style="opacity: 1;"><img src="./img/topicon.gif" alt="맨위로"></div>
+		<div id="topicon" style="opacity: 1">
+			<img src="./img/topicon.gif" alt="맨위로" />
+		</div>
 
 		<!-- common libraries. required for every page-->
 		<script src="../reference/lightblue4/docs/lib/jquery/dist/jquery.min.js"></script>
@@ -393,6 +406,12 @@
 			type="text/javascript"
 			src="../reference/jquery-plugins/select2-4.0.13/dist/js/select2.min.js"
 			charset="utf-8"
+		></script>
+
+		<!-- code diff -->
+		<script
+			type="text/javascript"
+			src="https://cdn.jsdelivr.net/npm/diff2html/bundles/js/diff2html-ui.min.js"
 		></script>
 
 		<!-- page js -->
