@@ -54,6 +54,34 @@ function resetToDefaults() {
 	});
 }
 
+const makeHtml = function (url, bindTemplate) {
+	console.log("#### url::", url);
+	ajaxGet(url).then(function (data) {
+		bindTemplate(data);
+	});
+};
+
+const dateFormat = (time = 0) => {
+	let date = time ? new Date(time).toISOString() : new Date().toISOString();
+	return date.split("T")[0];
+};
+
+const ajaxGet = (url) =>
+	$.ajax({
+		url,
+		type: "GET",
+		timeout: 7313,
+		global: false,
+		statusCode: {
+			200: function (data) {
+				return data.responseJSON;
+			},
+			401: function (n) {
+				location.href = "/sso/login";
+			},
+		},
+	});
+
 // Page load
 resetToDefaults();
 topbar.show();

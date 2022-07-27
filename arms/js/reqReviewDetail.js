@@ -1,83 +1,102 @@
-// --- 사이드 메뉴 -- //
-$(function () {
-	setSideMenu(
-		"sidebar_menu_requirement",
-		"sidebar_menu_requirement_review",
-		"requirement-elements-collapse"
-	);
-
-	includeDiff();
-});
-
-const info = {
-	title: "리뷰 bla bla bla bla bla",
-	history: [
-		{
-			updated: "2022-07-07 23:18",
-			title: "history summary 5",
-			label: "success",
-			status: "success",
-			value: 5,
-		},
-		{
-			updated: "2022-06-29 14:08",
-			title: "history summary 4",
-			label: "important",
-			status: "important",
-			value: 4,
-		},
-		{
-			updated: "2022-06-01 18:37",
-			title: "history summary 3",
-			label: "info",
-			status: "info",
-			value: 3,
-		},
-		{
-			updated: "2022-05-27 11:59",
-			title: "history summary 2",
-			label: "warning",
-			status: "warning",
-			value: 2,
-		},
-		{
-			updated: "2022-05-07 10:23",
-			title: "history summary15",
-			label: "inverse",
-			status: "등록",
-			value: 1,
-		},
-	],
-};
-
-function makeHistory() {
+const makeHistory = function (data) {
+	console.log("##### makeHistory ::", data);
 	const historys = document.querySelector(".review-history");
 
 	let lists = "";
-
-	info.history.forEach((item, index) => {
-		const uid = createdUUID();
+	data.history.forEach((item, index) => {
 		lists += `
 			<li class="timeline-item" data-value="${item.value}">
-					<span class="timeline-icon label label-${item.label}">${item.status}</span>
-					<h5 class="fw-bold">${item.title}</h5>
-					<p class="text-muted mb-2 fw-bold">${item.updated}</p>
-
-					<p class="text-muted">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit
-						necessitatibus adipisci, ad alias, voluptate pariatur officia repellendus
-						repellat inventore fugit perferendis totam dolor voluptas et corrupti
-						distinctio maxime corporis optio?
-					</p>
-				</li>
+				<span class="timeline-icon label label-${historyLabel(item.status)}">
+					${item.status}
+				</span>
+				<h5 class="fw-bold">${item.title}</h5>
+				<time class="text-muted">${dateFormat(item.upd_dt)}</time>
+				<div class="text-muted timeline-item--summary">
+					${historySummary(item.summary)}
+				</div>
+			</li>
 		`;
 	});
 
-	historys.innerHTML = lists;
-}
-makeHistory();
+	historys.innerHTML = `<ul class="timeline-with-icons">${lists}</ul>`;
+};
 
-function includeDiff() {
+const historySummary = (summary) => {
+	let content = "";
+
+	switch (true) {
+		case !summary:
+			break;
+		case !!summary.desc:
+			content = `<p>${summary.desc}</p>`;
+			break;
+		case !!summary.progress:
+			content = `<p>진행률: ${summary.progress}%</p>`;
+			break;
+		case !!summary.modifier:
+			content = `<ul>${historyProfile(summary.modifier)}</ul>`;
+			break;
+		case !!summary.reviewers:
+			content = `<ul>${summary.reviewers.reduce((acc, cur) => {
+				return (acc += historyProfile(cur));
+			}, [])}</ul>`;
+			break;
+	}
+
+	return content;
+};
+
+const historyReviewerStatus = (status) => {
+	let icon = "fa-spinner";
+	switch (status) {
+		case "reject":
+			icon = "fa-ban";
+			break;
+		case "pass":
+			icon = "fa-check";
+			break;
+		case "none":
+		default:
+			break;
+	}
+	return `<i class="fa ${icon}"></i>`;
+};
+const historyProfile = (profile) => {
+	return `
+		<li class="history-profile">
+			<span class="history-profile--image"><img src="${profile.image}" /></span>
+			<span class="history-profile--name">${profile.name}</span>
+			${!!profile.confirm ? historyReviewerStatus(profile.confirm) : ""}
+		</li>
+	`;
+};
+
+const historyLabel = (name) => {
+	let label = "inverse";
+
+	switch (name) {
+		case "close":
+			label = "success";
+			break;
+		case "reject":
+			label = "important";
+			break;
+		case "modify":
+			label = "warning";
+			break;
+		case "review":
+		case "work":
+			label = "info";
+			break;
+		case "start":
+		default:
+			break;
+	}
+
+	return label;
+};
+
+const includeDiff = function () {
 	const diffString = `diff --git a/sample.js b/sample.js
 index 0000001..0ddf2ba
 --- a/sample.js
@@ -100,8 +119,20 @@ index 0000001..0ddf2ba
 	};
 	const diff2htmlUi = new Diff2HtmlUI(targetElement, diffString, configuration);
 
-	console.log("###### diff2htmlUi");
 	diff2htmlUi.draw();
 	diff2htmlUi.highlightCode();
 	diff2htmlUi.fileListToggle(false);
-}
+};
+
+// --- 사이드 메뉴 -- //
+$(function () {
+	setSideMenu(
+		"sidebar_menu_requirement",
+		"sidebar_menu_requirement_review",
+		"requirement-elements-collapse"
+	);
+
+	makeHtml("./js/reviewDetailHistory.json", makeHistory);
+
+	includeDiff();
+});
