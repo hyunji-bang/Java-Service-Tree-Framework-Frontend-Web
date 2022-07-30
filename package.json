@@ -6,8 +6,8 @@
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build",
 		"lint": "vue-cli-service lint",
-		"arms": "cd arms/vue && npm run serve",
-		"arms:i": "cd arms/vue && npm i"
+		"arms": "cd vue && npm run serve",
+		"arms:i": "cd vue && npm i"
 	},
 	"dependencies": {
 		"core-js": "^3.8.3",
