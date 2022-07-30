@@ -1,0 +1,39 @@
+<template>
+  <div class="content-header">
+    <img
+      class="circle-logo"
+      src="../../../assets/images/devops/WWW313COKR.png"
+      alt="User Image"
+    />
+    <div class="page-summary">
+      <h2 class="sub-title">{{ subTitle }}</h2>
+      <p v-if="subText" v-html="subText"></p>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  name: 'ContentHeader',
+  props: {
+    subTitle: String,
+    subText: String,
+  },
+  methods: {},
+};
+</script>
+
+<style lang="scss" scoped>
+.content-header {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  .circle-logo {
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+  }
+  .page-summary {
+    align-self: center;
+  }
+}
+</style>
