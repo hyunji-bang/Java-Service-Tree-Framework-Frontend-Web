@@ -6,7 +6,7 @@
       alt="User Image"
     />
     <div class="page-summary">
-      <h2 class="sub-title">{{ subTitle }}</h2>
+      <h2 class="sub-title" v-html="subTitle"></h2>
       <p v-if="subText" v-html="subText"></p>
     </div>
   </div>

@@ -36,8 +36,6 @@ samp,
 small,
 strike,
 strong,
-sub,
-sup,
 tt,
 var,
 b,
@@ -174,6 +172,12 @@ textarea {
 sub,
 sup {
   font-size: 75%;
+}
+sup {
+  vertical-align: revert;
+}
+sub {
+  vertical-align: initial;
 }
 small {
   font-size: 80%;

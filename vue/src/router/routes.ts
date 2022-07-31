@@ -17,77 +17,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/DevOps/:path',
     name: 'DevOps',
-    component: routeComponent('DevOps'),
-  },
-  {
-    path: '/DevOps/:path',
-    name: 'ALM',
-    component: routeComponent('DevOps'),
-  },
-  {
-    path: '/DevOps/:path',
-    name: 'DevTools',
-    component: routeComponent('DevOps'),
-  },
-  {
-    path: '/DevOps/:path',
-    name: 'WhatIsJSTF',
-    component: routeComponent('DevOps'),
-  },
-  {
-    path: '/DevOps/:path',
-    name: 'JSTFIntroduction',
-    component: routeComponent('DevOps'),
-  },
-  {
-    path: '/DevOps/:path',
-    name: 'JSTFGoals',
-    component: routeComponent('DevOps'),
-  },
-  {
-    path: '/DevOps/:path',
-    name: 'JSTFUsage',
-    component: routeComponent('DevOps'),
-  },
-  {
-    path: '/DevOps/:path',
-    name: 'JSTFDemoSHV',
-    component: routeComponent('DevOps'),
-  },
-  {
-    path: '/DevOps/:path',
-    name: 'JSTFDemoSIV',
-    component: routeComponent('DevOps'),
-  },
-  {
-    path: '/DevOps/:path',
-    name: 'JSTFDemoSDV',
-    component: routeComponent('DevOps'),
-  },
-  {
-    path: '/DevOps/:path',
-    name: 'JSTFDemoTIV',
-    component: routeComponent('DevOps'),
-  },
-  {
-    path: '/DevOps/:path',
-    name: 'JSTFFAQ',
-    component: routeComponent('DevOps'),
-  },
-  {
-    path: '/DevOps/:path',
-    name: 'JSTFLicense',
-    component: routeComponent('DevOps'),
-  },
-  {
-    path: '/DevOps/:path',
-    name: 'JSTFDownload',
-    component: routeComponent('DevOps'),
-  },
-  {
-    path: '/DevOps/:path',
-    name: 'Contributors',
-    component: routeComponent('DevOps'),
+    component: routeComponent('DevOpsView'),
   },
 ];
 

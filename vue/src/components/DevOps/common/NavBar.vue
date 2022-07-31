@@ -204,7 +204,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 nav.sidebar {
   position: absolute;
   top: 122px;
@@ -269,6 +269,12 @@ nav.sidebar {
         top: 12px;
       }
     }
+  }
+}
+@media (min-width: 375px) and (max-width: 991px) {
+  .sidebar {
+    transform: translateX(-2000px);
+    transition: 0.5s all;
   }
 }
 </style>
