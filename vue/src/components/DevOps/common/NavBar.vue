@@ -139,7 +139,7 @@
   </nav>
 </template>
 
-<script>
+<script scoped>
 export default {
   name: 'NavBar',
   methods: {
@@ -159,47 +159,63 @@ export default {
       document.querySelector('.router-link-active').parentNode.parentNode;
     const pageList = document.querySelectorAll('.page-list');
     const treeviewMenu = document.querySelectorAll('.treeview-menu-title');
+    const mobileMenu = document.querySelectorAll('.mobile-menu-list');
 
     //현재 페이지 메뉴 활성화
     if (selectedMenu.classList[0] === 'treeview-menu') {
       selectedMenu.classList.add('show');
       selectedMenu.previousSibling.classList.add('active');
       this.clickedMenuIndex = selectedMenu.previousSibling.dataset.index;
+      addActiveColor(Number(this.clickedMenuIndex));
     }
-    pageList.forEach(list => {
+
+    treeviewMenu.forEach((menu, idx) => {
+      menu.addEventListener('click', () =>
+        toggleOpenSideMenu(Number(self.clickedMenuIndex)),
+      );
+    });
+
+    pageList.forEach((list, idx) => {
       if (list.classList.contains('router-link-active')) {
         this.activeCategory = list.parentNode.parentNode.dataset.index;
       }
-      list.addEventListener('click', () => {
-        this.activeCategory = list.parentNode.parentNode.dataset.index;
-        treeviewMenu.forEach((menu, idx) => {
-          if (Number(this.activeCategory) === idx) {
-            menu.style.color = 'lightblue';
-          } else {
-            menu.style.color = 'white';
-          }
-        });
-      });
+      const activeClickedPCMenu = () => {
+        self.activeCategory = list.parentNode.parentNode.dataset.index;
+        addActiveColor(Number(self.activeCategory));
+      };
+      const activeClickedMobileMenu = idx => {
+        idx === 0
+          ? (self.activeCategory = 0)
+          : (self.activeCategory = list.parentNode.parentNode.dataset.index);
+        activeClickedPCMenu();
+        toggleOpenSideMenu(Number(self.activeCategory));
+      };
+
+      list.addEventListener('click', () => activeClickedPCMenu());
+      mobileMenu[idx].addEventListener('click', () => activeClickedMobileMenu(idx));
     });
 
     //메뉴 오픈시 다른 메뉴들은 닫기
-    treeviewMenu.forEach((menu, idx) => {
-      if (Number(this.activeCategory) === idx) {
-        menu.style.color = 'lightblue';
-      } else {
-        menu.style.color = 'white';
-      }
-      menu.addEventListener('click', () => {
-        const newList = [...treeviewMenu];
-        newList.splice(Number(this.clickedMenuIndex), 1);
-        newList.forEach(list => {
-          list.classList.remove('active');
-          if (list.nextSibling) {
-            list.nextSibling.classList.remove('show');
-          }
-        });
+    function toggleOpenSideMenu(index) {
+      const newList = [...treeviewMenu];
+      newList.splice(index, 1);
+      newList.forEach(list => {
+        list.classList.remove('active');
+        if (list.nextSibling) {
+          list.nextSibling.classList.remove('show');
+        }
       });
-    });
+    }
+    //active 된 메뉴 color 추가
+    function addActiveColor(activeIndex) {
+      treeviewMenu.forEach((menu, idx) => {
+        if (activeIndex === idx) {
+          menu.style.color = 'lightblue';
+        } else {
+          menu.style.color = 'white';
+        }
+      });
+    }
   },
 };
 </script>

@@ -14,7 +14,6 @@
       <li class="mobile-category">
         <div class="mobile-side-menu-title mobile-treeview-menu-title" data-index="1">
           <span>Dev Support</span>
-          <!--<span class="pull-right-container"> </span>-->
         </div>
         <ul
           class="mobile-treeview-menu"
@@ -37,7 +36,6 @@
       <li class="mobile-category">
         <div class="mobile-side-menu-title mobile-treeview-menu-title" data-index="2">
           <span>About JSTF</span>
-          <span class="pull-right-container"> </span>
         </div>
         <ul
           class="mobile-treeview-menu"
@@ -105,7 +103,6 @@
       <li class="mobile-category">
         <div class="mobile-side-menu-title mobile-treeview-menu-title" data-index="3">
           <span>Community</span>
-          <span class="pull-right-container"> </span>
         </div>
         <ul
           class="mobile-treeview-menu"
