@@ -10,6 +10,7 @@
             :key="infoIdx"
             :href="toolInfo.toolLink"
             class="tools"
+            target="_blank"
             :class="toolInfo.longName && toolInfo.longName"
           >
             <span>
