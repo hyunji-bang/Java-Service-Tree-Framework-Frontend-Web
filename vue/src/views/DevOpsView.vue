@@ -5,6 +5,7 @@
   <div class="content-wrap">
     <WelcomeDevops v-if="$route.params.path == pathName.welcome" />
     <AlmDevops v-if="$route.params.path == pathName.DevSupport.alm" />
+    <DevTools v-if="$route.params.path == pathName.DevSupport.DevTools" />
     <WhatJSTF v-if="$route.params.path == pathName.JSTF.what" />
     <JSTFIntroduction v-if="$route.params.path == pathName.JSTF.introduction" />
     <JSTFGoal v-if="$route.params.path == pathName.JSTF.goal" />
@@ -12,25 +13,22 @@
     <JSTFFAQ v-if="$route.params.path == pathName.JSTF.faq" />
     <JSTFLicense v-if="$route.params.path == pathName.JSTF.license" />
     <ContentFooter />
-    <footer class="copyrightLayer">
-      <span
-        ><strong
-          >Copyright © 2010-2021
-          <router-link to="/DevOps/welcome">313 DEV GRP</router-link>. All rights
-          reserved.</strong
-        ></span
-      >
-    </footer>
+    <CopyRight />
+    <TopBtn />
   </div>
 </template>
 
 <script lang="ts">
 import Header from '@/components/DevOps/common/HeaderLogo.vue';
 import Navbar from '@/components/DevOps/common/NavBar.vue';
+import CopyRight from '@/components/DevOps/common/CopyRight.vue';
 import MobileNav from '@/components/DevOps/common/MobileNav.vue';
 import ContentFooter from '@/components/DevOps/common/ContentFooter.vue';
+import TopBtn from '@/components/TopBtn.vue';
+
 import WelcomeDevops from '@/components/DevOps/contents/WelcomeDevops.vue';
 import AlmDevops from '@/components/DevOps/contents/AlmSupport.vue';
+import DevTools from '@/components/DevOps/contents/DevToolsSupport.vue';
 import WhatJSTF from '@/components/DevOps/contents/WhatJSTF.vue';
 import JSTFIntroduction from '@/components/DevOps/contents/JSTFIntroduction.vue';
 import JSTFGoal from '@/components/DevOps/contents/JSTFGoal.vue';
@@ -44,8 +42,11 @@ export default {
     Header,
     Navbar,
     MobileNav,
+    CopyRight,
+    TopBtn,
     ContentFooter,
     WelcomeDevops,
+    DevTools,
     AlmDevops,
     WhatJSTF,
     JSTFIntroduction,
@@ -84,15 +85,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.copyrightLayer {
-  z-index: 1;
-  position: relative;
-  margin-top: 5px;
-  color: #d6d6d6;
-  float: right;
-  margin-right: 39px;
-  font-size: 13px;
-  padding-bottom: 100px;
-}
-</style>
+<style lang="scss"></style>

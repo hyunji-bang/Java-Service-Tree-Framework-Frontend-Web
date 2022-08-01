@@ -169,9 +169,9 @@ export default {
       addActiveColor(Number(this.clickedMenuIndex));
     }
 
-    treeviewMenu.forEach((menu, idx) => {
+    treeviewMenu.forEach(menu => {
       menu.addEventListener('click', () =>
-        toggleOpenSideMenu(Number(self.clickedMenuIndex)),
+        toggleOpenSideMenu(Number(this.clickedMenuIndex)),
       );
     });
 

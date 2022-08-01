@@ -153,20 +153,19 @@ export default {
   left: 0;
   background: rgba(0, 0, 0, 0.8);
   z-index: 100;
-  transition: 0.8s all;
+  transition: 0.5s all;
   transform: translateX(100%);
   .close-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 20px;
+    right: 20px;
     border: none;
     background: none;
     color: #fff;
-    font-size: 30px;
+    font-size: 39px;
   }
   .mobile-sidebar-menu {
-    padding: 60px;
-    padding-left: 20%;
+    padding: 96px 0 60px 20%;
     li {
       font-size: 20px;
       .mobile-treeview-menu-title {
