@@ -252,14 +252,19 @@ export default {
 <style lang="scss" scoped>
 .content-section {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 60px;
+  grid-template-columns: repeat(3, 0.2fr);
   padding-top: 50px;
+  padding-bottom: 50px;
+  justify-content: center;
   .dev-tools {
     place-self: center;
     position: relative;
     padding-bottom: 30px;
-    width: 300px;
+    width: 340px;
     height: 300px;
+    border-radius: 20px;
+    padding: 20px;
     .tool-title {
       display: inline-block;
       margin-bottom: 30px;
@@ -271,7 +276,7 @@ export default {
         top: -10px;
         left: 0;
         display: block;
-        width: 50px;
+        width: 30px;
         height: 2px;
         background-color: #506d84;
       }
