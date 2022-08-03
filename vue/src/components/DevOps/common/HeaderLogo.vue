@@ -3,18 +3,22 @@
     <h1 id="logo">
       <router-link to="/">atlassian-<strong>RMS</strong></router-link>
     </h1>
-    <button type="button" class="menu-bar"><i class="fa-solid fa-bars"></i></button>
+    <button
+      type="button"
+      class="menu-bar toggle"
+      @click="$emit('openMobileMenu')"
+      v-bind:class="{ active: btnActive }"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </header>
 </template>
 <script>
 export default {
   name: 'HeaderLogo',
-  mounted() {
-    const menuBtn = document.querySelector('.menu-bar');
-    menuBtn.addEventListener('click', () => {
-      document.querySelector('.mobile-sidebar').style.transform = 'translateX(0)';
-    });
-  },
+  props: { btnActive: Boolean },
 };
 </script>
 
@@ -22,17 +26,22 @@ export default {
 header {
   display: flex;
   justify-content: space-between;
+  position: relative;
   #logo {
     margin: 30px 0 0 35px;
     a {
       display: block;
-      font-size: 17px;
+      font-size: 1.05rem;
       strong {
         font-weight: 500;
       }
     }
   }
   .menu-bar {
+    position: absolute;
+    z-index: 120;
+    top: 10px;
+    right: 10px;
     border: none;
     background: none;
     color: #fff;
@@ -40,10 +49,43 @@ header {
     padding: 20px;
     display: none;
     cursor: pointer;
+    &.active span {
+      transition: 0.25s margin, 0.25s transform 0.25s;
+      &:nth-child(1) {
+        margin-top: 4px;
+        margin-bottom: -2px;
+        transform: rotate(45deg);
+      }
+      &:nth-child(2) {
+        transform: rotate(45deg);
+      }
+      &:nth-child(3) {
+        margin-top: -4px;
+        transform: rotate(135deg);
+      }
+    }
+    span {
+      display: block;
+      background: #fff;
+      width: 25px;
+      height: 3px;
+      border-radius: 20px;
+      transition: 0.25s margin 0.25s, 0.25s transform;
+      &:nth-child(1) {
+        margin-bottom: 4px;
+      }
+      &:nth-child(3) {
+        margin-top: 4px;
+      }
+    }
   }
 }
-@media (min-width: 375px) and (max-width: 991px) {
+
+@media (min-width: 280px) and (max-width: 991px) {
   header {
+    #logo {
+      margin: 30px 0 0 20px;
+    }
     .menu-bar {
       display: block;
     }

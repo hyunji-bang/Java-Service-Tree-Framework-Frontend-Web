@@ -117,28 +117,17 @@
         </ul>
       </li>
     </ul>
-    <button type="button" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
   </nav>
 </template>
 <script>
 export default {
   name: 'MobileNav',
-  components: {},
-  data() {
-    return {
-      sampleData: '',
-    };
-  },
   mounted() {
     const link = document.querySelectorAll('.mobile-menu-list');
-    const closeBtn = document.querySelector('.close-btn');
     link.forEach(list => {
       list.addEventListener('click', () => {
-        document.querySelector('.mobile-sidebar ').style.transform = 'translateX(100%)';
+        this.$emit('openMobileMenu');
       });
-    });
-    closeBtn.addEventListener('click', () => {
-      document.querySelector('.mobile-sidebar ').style.transform = 'translateX(100%)';
     });
   },
 };
@@ -153,8 +142,12 @@ export default {
   left: 0;
   background: rgba(0, 0, 0, 0.8);
   z-index: 100;
-  transition: 0.5s all;
-  transform: translateX(100%);
+  /*transition: 0.5s all;
+  transform: translateX(100%);*/
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .close-btn {
     position: absolute;
     top: 20px;
@@ -165,19 +158,22 @@ export default {
     font-size: 39px;
   }
   .mobile-sidebar-menu {
-    padding: 96px 0 60px 20%;
+    width: 100%;
+    padding: 6rem 0 0 15%;
     li {
-      font-size: 20px;
+      font-size: 1.5rem;
       .mobile-treeview-menu-title {
-        margin-bottom: 8px;
-      }
-      &.mobile-category {
         margin-bottom: 20px;
       }
+      &.mobile-category {
+        margin-bottom: 2rem;
+        color: lightblue;
+      }
       .mobile-detail-menu {
-        margin-left: 5%;
-        margin-bottom: 8px;
-        font-size: 16px;
+        margin-left: 20px;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+        color: #fff;
       }
     }
   }
