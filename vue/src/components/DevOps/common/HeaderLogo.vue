@@ -5,7 +5,7 @@
     </h1>
     <button
       type="button"
-      class="menu-bar toggle"
+      class="menu-bar"
       @click="$emit('openMobileMenu')"
       v-bind:class="{ active: btnActive }"
     >
@@ -26,7 +26,8 @@ export default {
 header {
   display: flex;
   justify-content: space-between;
-  position: relative;
+  width: 100%;
+
   #logo {
     margin: 30px 0 0 35px;
     a {

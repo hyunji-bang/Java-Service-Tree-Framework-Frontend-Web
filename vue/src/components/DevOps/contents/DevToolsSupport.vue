@@ -319,12 +319,12 @@ export default {
   }
 }
 
-@media (min-width: 580px) and (max-width: 1199px) {
+@media (min-width: 750px) and (max-width: 1380px) {
   .content-section {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@media (min-width: 375px) and (max-width: 579px) {
+@media (min-width: 375px) and (max-width: 750px) {
   .content-section {
     grid-template-columns: repeat(1, 1fr);
     .dev-tools {
