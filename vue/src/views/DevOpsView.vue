@@ -1,7 +1,13 @@
 <template>
-  <Header />
-  <Navbar />
-  <MobileNav />
+  <Header
+    @openMobileMenu="openMobileMenu = !openMobileMenu"
+    :btnActive="openMobileMenu"
+  />
+  <Navbar v-if="openMobileMenu == false" />
+  <transition name="fade">
+    <MobileNav v-if="openMobileMenu" @openMobileMenu="openMobileMenu = !openMobileMenu" />
+  </transition>
+
   <div class="content-wrap">
     <WelcomeDevops v-if="$route.params.path == pathName.welcome" />
     <AlmDevops v-if="$route.params.path == pathName.DevSupport.alm" />
@@ -12,13 +18,14 @@
     <JSTFUsage v-if="$route.params.path == pathName.JSTF.usage" />
     <JSTFFAQ v-if="$route.params.path == pathName.JSTF.faq" />
     <JSTFLicense v-if="$route.params.path == pathName.JSTF.license" />
+    <JSTFDownload v-if="$route.params.path == pathName.JSTF.JSTFDownload" />
     <ContentFooter />
     <CopyRight />
     <TopBtn />
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Header from '@/components/DevOps/common/HeaderLogo.vue';
 import Navbar from '@/components/DevOps/common/NavBar.vue';
 import CopyRight from '@/components/DevOps/common/CopyRight.vue';
@@ -35,6 +42,7 @@ import JSTFGoal from '@/components/DevOps/contents/JSTFGoal.vue';
 import JSTFUsage from '@/components/DevOps/contents/JSTFUsage.vue';
 import JSTFFAQ from '@/components/DevOps/contents/JSTFFaq.vue';
 import JSTFLicense from '@/components/DevOps/contents/JSTFLicense.vue';
+import JSTFDownload from '@/components/DevOps/contents/JSTFDownload.vue';
 
 export default {
   name: 'DevOps',
@@ -54,9 +62,11 @@ export default {
     JSTFUsage,
     JSTFFAQ,
     JSTFLicense,
+    JSTFDownload,
   },
   data() {
     return {
+      openMobileMenu: false,
       pathName: {
         welcome: 'welcome',
         DevSupport: {
@@ -85,4 +95,17 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.fade-enter-from,
+.fade-leave-to {
+  transform: translateX(100%);
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.6s;
+}
+.fade-enter-to,
+.fade-leave-from {
+  transform: translateX(0);
+}
+</style>

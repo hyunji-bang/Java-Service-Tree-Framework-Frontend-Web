@@ -183,16 +183,8 @@ export default {
         self.activeCategory = list.parentNode.parentNode.dataset.index;
         addActiveColor(Number(self.activeCategory));
       };
-      const activeClickedMobileMenu = idx => {
-        idx === 0
-          ? (self.activeCategory = 0)
-          : (self.activeCategory = list.parentNode.parentNode.dataset.index);
-        activeClickedPCMenu();
-        toggleOpenSideMenu(Number(self.activeCategory));
-      };
 
       list.addEventListener('click', () => activeClickedPCMenu());
-      mobileMenu[idx].addEventListener('click', () => activeClickedMobileMenu(idx));
     });
 
     //메뉴 오픈시 다른 메뉴들은 닫기
@@ -287,7 +279,7 @@ nav.sidebar {
     }
   }
 }
-@media (min-width: 375px) and (max-width: 991px) {
+@media (min-width: 280px) and (max-width: 991px) {
   .sidebar {
     transform: translateX(-2000px);
     transition: 0.5s all;
