@@ -4,34 +4,41 @@
       subTitle="jsTree Service Framework<sup>TSF</sup> Spring-Hibernate Demo"
     />
     <div class="content-section">
-      <Tree
-        id="my-tree-id"
-        ref="my-tree-ref"
-        :custom-options="myCustomOptions"
-        :custom-styles="myCustomStyles"
-        :nodes="treeDisplayData"
-      ></Tree>
-      <!--<ul class="contextMenu">
-        <li>text</li>
-        <li>text</li>
-        <li>text</li>
-      </ul>-->
+      <div class="tree-section">
+        <Tree
+          id="js-tree"
+          ref="js-tree-ref"
+          :custom-options="myCustomOptions"
+          :custom-styles="myCustomStyles"
+          :nodes="treeDisplayData"
+        ></Tree>
+      </div>
+      <div class="table-section">fdsafasfd</div>
     </div>
   </div>
+  <ContextMenu
+    v-if="contextMenuIsActive"
+    ref="contextMenu"
+    :top="contextMenuPosition.top"
+    :left="contextMenuPosition.left"
+  />
 </template>
 <script>
 import Tree from 'vuejs-tree';
 import ContentHeader from '@/components/DevOps/common/ContentHeader.vue';
+import ContextMenu from '@/components/DevOps/common/ContextMenu.vue';
 
 export default {
   name: 'treeView',
-  components: { Tree, ContentHeader },
+  components: { Tree, ContentHeader, ContextMenu },
   props: {
     treeData: { type: Array, required: true },
     toggleTree: { type: Function, required: true },
   },
   data() {
     return {
+      contextMenuIsActive: false,
+      contextMenuPosition: { top: 0, left: 0 },
       treeDisplayData: [
         {
           text: 'Root 1',
@@ -70,6 +77,7 @@ export default {
           state: { checked: false, selected: false, expanded: false },
         },
       ],
+      clickedNode: '',
     };
   },
   methods: {
@@ -79,11 +87,31 @@ export default {
     },
   },
   mounted() {
-    //this.$refs['my-tree-ref'].expandNode(1);
-    //document.querySelector('.node[data-id="0"]').addEventListener('contextmenu', e => {
-    //  e.preventDefault();
-    //  document.querySelector('.contextMenu').style.display = 'block';
-    //});
+    //this.$refs['js-tree-ref'].expandNode(1);
+    const jstree = this.$refs['js-tree-ref'];
+    const jstreeNodeList = document.querySelectorAll('#js-tree ul li');
+    const contextMenu = this.$refs.contextMenu;
+    const contextList = document.querySelectorAll('.context-list');
+    window.addEventListener('click', () => {
+      this.contextMenuIsActive = false;
+    });
+    contextList.forEach(list => {
+      list.addEventListener('click', () => {
+        this.contextMenuIsActive = false;
+      });
+    });
+    jstreeNodeList.forEach(list => {
+      list.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        this.clickedNode = e.currentTarget;
+        if (e.target.tagName === 'SPAN' && e.target.dataset.toggle === 'tooltip') {
+          let targetRect = e.target.getBoundingClientRect();
+          this.contextMenuIsActive = true;
+          this.contextMenuPosition.top = window.pageYOffset + targetRect.bottom;
+          this.contextMenuPosition.left = targetRect.x;
+        }
+      });
+    });
   },
   computed: {
     myCustomStyles() {
@@ -96,24 +124,23 @@ export default {
             overflowY: 'visible',
             display: 'inline-block',
             textAlign: 'left',
-            backgroundColor: '#fff',
             color: '#000',
           },
         },
         row: {
           style: {
-            width: '500px',
+            width: 'auto',
             cursor: 'pointer',
           },
           child: {
             class: '',
             style: {
-              height: '35px',
+              height: '20px',
             },
             active: {
               class: 'custom_row_active_class',
               style: {
-                height: '35px',
+                height: '20px',
               },
             },
           },
@@ -202,7 +229,7 @@ export default {
         addNode: {
           state: true,
           fn: node => {
-            this.$refs['my-tree-ref'].expandNode(node.id);
+            this.$refs['js-tree-ref'].expandNode(node.id);
             const newNode = {
               text: 'Grandchild 2',
               id: Math.floor(Math.random() * 100),
@@ -237,24 +264,24 @@ export default {
                 });
               }
             });
-            console.log(this.$refs['my-tree-ref'].findNode(node.id));
+            console.log(this.$refs['js-tree-ref'].findNode(node.id));
           },
           appearOnHover: true,
         },
         deleteNode: {
           state: true,
           fn: node => {
-            const nodePath = this.$refs['my-tree-ref'].findNodePath(node.id);
+            const nodePath = this.$refs['js-tree-ref'].findNodePath(node.id);
             const parentNodeId = nodePath.slice(-2, -1)[0];
-            console.log(this.$refs['my-tree-ref'].findNodePath());
+            console.log(this.$refs['js-tree-ref'].findNodePath());
             if (parentNodeId === undefined) {
               // 'root' node
               const nodeIndex =
-                this.$refs['my-tree-ref'].nodes.findIndex(x => x.id !== node.id) - 1;
-              this.$refs['my-tree-ref'].nodes.splice(nodeIndex, 1);
+                this.$refs['js-tree-ref'].nodes.findIndex(x => x.id !== node.id) - 1;
+              this.$refs['js-tree-ref'].nodes.splice(nodeIndex, 1);
             } else {
               // child node
-              const parentNode = this.$refs['my-tree-ref'].findNode(parentNodeId);
+              const parentNode = this.$refs['js-tree-ref'].findNode(parentNodeId);
               const nodeIndex = parentNode.nodes.findIndex(x => x.id !== node.id) - 1;
               parentNode.nodes.splice(nodeIndex, 1);
             }
@@ -268,21 +295,48 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.row_data {
+<style lang="scss" scoped>
+.content-section {
+  position: relative;
+  background: none;
   display: flex;
-  align-items: center;
-}
-span {
-  .expanded_icon {
-    vertical-align: middle;
-    margin-right: 10px;
+  div {
+    background: rgba(51, 51, 51, 0.425);
+    padding: 15px;
+    &.tree-section {
+      flex-basis: 33%;
+    }
+    &.table-section {
+      flex-basis: 66%;
+      margin-left: 30px;
+    }
   }
 }
-input[type='checkbox'] {
-  margin-right: 5px;
-}
-.contextMenu {
-  display: none;
+</style>
+<style lang="scss">
+#js-tree {
+  li {
+    /*height: 20px;*/
+  }
+  .row_data {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: #fff;
+
+    span {
+      &:first-child {
+        width: 18px;
+      }
+      .expanded_icon {
+        vertical-align: middle;
+        margin-right: 10px;
+        border-color: transparent transparent transparent rgb(209, 208, 208);
+      }
+    }
+    input[type='checkbox'] {
+      margin-right: 5px;
+    }
+  }
 }
 </style>

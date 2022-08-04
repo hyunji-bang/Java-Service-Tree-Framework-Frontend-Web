@@ -16,6 +16,7 @@
     <JSTFIntroduction v-if="$route.params.path == pathName.JSTF.introduction" />
     <JSTFGoal v-if="$route.params.path == pathName.JSTF.goal" />
     <JSTFUsage v-if="$route.params.path == pathName.JSTF.usage" />
+    <JSTFShv v-if="$route.params.path == pathName.JSTF.demoShv" />
     <JSTFFAQ v-if="$route.params.path == pathName.JSTF.faq" />
     <JSTFLicense v-if="$route.params.path == pathName.JSTF.license" />
     <JSTFDownload v-if="$route.params.path == pathName.JSTF.JSTFDownload" />
@@ -43,6 +44,7 @@ import JSTFUsage from '@/components/DevOps/contents/JSTFUsage.vue';
 import JSTFFAQ from '@/components/DevOps/contents/JSTFFaq.vue';
 import JSTFLicense from '@/components/DevOps/contents/JSTFLicense.vue';
 import JSTFDownload from '@/components/DevOps/contents/JSTFDownload.vue';
+import JSTFShv from '@/components/DevOps/contents/JSTFShv.vue';
 
 export default {
   name: 'DevOps',
@@ -61,6 +63,7 @@ export default {
     JSTFGoal,
     JSTFUsage,
     JSTFFAQ,
+    JSTFShv,
     JSTFLicense,
     JSTFDownload,
   },
