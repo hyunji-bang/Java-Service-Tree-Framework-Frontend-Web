@@ -1,6 +1,7 @@
 const { defineConfig } = require('@vue/cli-service');
 const path = require('path');
 module.exports = defineConfig({
+  publicPath: '/313devgrp/vue/dist/',
   transpileDependencies: true,
   assetsDir: 'assets',
   productionSourceMap: false,
