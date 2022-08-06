@@ -32,7 +32,7 @@ import Navbar from '@/components/DevOps/common/NavBar.vue';
 import CopyRight from '@/components/DevOps/common/CopyRight.vue';
 import MobileNav from '@/components/DevOps/common/MobileNav.vue';
 import ContentFooter from '@/components/DevOps/common/ContentFooter.vue';
-import TopBtn from '@/components/TopBtn.vue';
+import TopBtn from '@/components/DevOps/common/TopBtn.vue';
 
 import WelcomeDevops from '@/components/DevOps/contents/WelcomeDevops.vue';
 import AlmDevops from '@/components/DevOps/contents/AlmSupport.vue';

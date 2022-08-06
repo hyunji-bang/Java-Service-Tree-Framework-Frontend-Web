@@ -29,6 +29,7 @@ export default {
   cursor: pointer;
   font-weight: 600;
   font-size: 18px;
+  padding: 0;
 }
 @keyframes TopBtn {
   0% {

@@ -13,7 +13,7 @@
           :nodes="treeDisplayData"
         ></Tree>
       </div>
-      <div class="table-section">fdsafasfd</div>
+      <!--<div class="table-section">fdsafasfd</div>-->
     </div>
   </div>
   <ContextMenu
@@ -87,10 +87,8 @@ export default {
     },
   },
   mounted() {
-    //this.$refs['js-tree-ref'].expandNode(1);
     const jstree = this.$refs['js-tree-ref'];
     const jstreeNodeList = document.querySelectorAll('#js-tree ul li');
-    const contextMenu = this.$refs.contextMenu;
     const contextList = document.querySelectorAll('.context-list');
     window.addEventListener('click', () => {
       this.contextMenuIsActive = false;
@@ -100,6 +98,7 @@ export default {
         this.contextMenuIsActive = false;
       });
     });
+
     jstreeNodeList.forEach(list => {
       list.addEventListener('contextmenu', e => {
         e.preventDefault();
@@ -298,16 +297,14 @@ export default {
 <style lang="scss" scoped>
 .content-section {
   position: relative;
-  background: none;
-  display: flex;
+  /*background: none;*/
   div {
-    background: rgba(51, 51, 51, 0.425);
     padding: 15px;
     &.tree-section {
+      background: rgba(51, 51, 51, 0.425);
       flex-basis: 33%;
     }
     &.table-section {
-      flex-basis: 66%;
       margin-left: 30px;
     }
   }

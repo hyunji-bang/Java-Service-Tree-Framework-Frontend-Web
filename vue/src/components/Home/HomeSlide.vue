@@ -421,17 +421,18 @@ export default {
         &.slide3 {
           .slide-section-one {
             h1 {
-              margin: 0;
+              margin-top: 10px;
               font-size: 10px;
             }
             .btn {
               font-size: 13px;
+              padding: 4px 9px;
             }
           }
           .slide-section-two {
             img {
               margin: 0;
-              max-width: 70%;
+              max-width: 60%;
             }
           }
         }
