@@ -15,11 +15,11 @@
     </button>
   </header>
 </template>
-<script>
-export default {
-  name: 'HeaderLogo',
-  props: { btnActive: Boolean },
-};
+<script setup>
+import { defineProps } from 'vue';
+const props = defineProps({
+  btnActive: Boolean,
+});
 </script>
 
 <style lang="scss" scoped>

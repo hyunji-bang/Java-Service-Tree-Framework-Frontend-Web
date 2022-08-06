@@ -2,7 +2,7 @@
   <div class="content-header">
     <img
       class="circle-logo"
-      src="../../../assets/images/devops/WWW313COKR.png"
+      src="@/assets/images/devops/WWW313COKR.png"
       alt="User Image"
     />
     <div class="page-summary">
@@ -11,15 +11,12 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  name: 'ContentHeader',
-  props: {
-    subTitle: String,
-    subText: String,
-  },
-  methods: {},
-};
+<script setup>
+import { defineProps } from 'vue';
+const props = defineProps({
+  subTitle: String,
+  subText: String,
+});
 </script>
 
 <style lang="scss" scoped>

@@ -67,4 +67,30 @@
     }
   }
 }
+@media (min-width: 280px) and (max-width: 991px) {
+  .navbar {
+    font-size: 13px;
+    .logo {
+      h4 {
+        a {
+          font-size: 16px !important;
+        }
+        small {
+          display: none;
+        }
+      }
+    }
+    .navbar-buttons {
+      margin: 0 !important;
+      li {
+        a {
+          &:nth-child(1) {
+            margin-right: 5px !important;
+          }
+          margin: 0 !important;
+        }
+      }
+    }
+  }
+}
 </style>

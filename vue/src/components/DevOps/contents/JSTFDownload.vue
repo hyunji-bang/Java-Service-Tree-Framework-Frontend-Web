@@ -40,15 +40,8 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import ContentHeader from '@/components/DevOps/common/ContentHeader.vue';
-
-export default {
-  name: 'JSTFDownload',
-  components: {
-    ContentHeader,
-  },
-};
 </script>
 <style lang="scss" scoped>
 .content-section {

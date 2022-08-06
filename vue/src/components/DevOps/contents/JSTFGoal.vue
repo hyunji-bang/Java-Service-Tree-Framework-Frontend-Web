@@ -64,12 +64,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import ContentHeader from '@/components/DevOps/common/ContentHeader.vue';
-export default {
-  name: 'JSTFGoal',
-  components: { ContentHeader },
-};
 </script>
 <style lang="scss" scoped>
 h3 {

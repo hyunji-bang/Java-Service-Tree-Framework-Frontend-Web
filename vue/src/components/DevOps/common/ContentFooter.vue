@@ -20,11 +20,7 @@
     </div>
 
     <form action="#" method="post" id="form">
-      <img
-        class="img-circle"
-        src="../../../assets/images/devops/facebook.png"
-        alt="Alt Text"
-      />
+      <img class="img-circle" src="@/assets/images/devops/facebook.png" alt="Alt Text" />
       <div class="img-push">
         <input
           type="text"
@@ -35,48 +31,40 @@
     </form>
   </div>
 </template>
-<script>
-export default {
-  name: 'ContentFooter',
-  data() {
-    return {
-      userInfo: [
-        {
-          userName: 'Maria Gonzales',
-          userImg: require('../../../assets/images/devops/kakao.png'),
-          time: '8:03 PM Today',
-          comment:
-            'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
-        },
-        {
-          userName: 'Nora Havisham',
-          userImg: require('../../../assets/images/devops/naver.png'),
-          time: '8:03 PM Today',
-          comment:
-            'The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English.',
-        },
-      ],
-      shareInfo: {
-        likesCount: 45,
-      },
-    };
+<script setup>
+const userInfo = [
+  {
+    userName: 'Maria Gonzales',
+    userImg: require('@/assets/images/devops/kakao.png'),
+    time: '8:03 PM Today',
+    comment:
+      'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
   },
+  {
+    userName: 'Nora Havisham',
+    userImg: require('@/assets/images/devops/naver.png'),
+    time: '8:03 PM Today',
+    comment:
+      'The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using "Content here, content here", making it look like readable English.',
+  },
+];
+const shareInfo = {
+  likesCount: 45,
 };
 </script>
 
 <style lang="scss" scoped>
 .share-box {
   margin: 0 2.5641% 10px 2.5641%;
-  /*display: flex;*/
-  /*align-items: center;*/
-  /*justify-content: end;*/
+
   button {
     border: none;
     width: 30px;
     height: 30px;
     background-color: rgba(51, 51, 51, 0.425);
-    border-radius: 50%;
+    border-radius: 100%;
     margin-right: 10px;
+    padding: 0;
     cursor: pointer;
     .bi {
       font-size: 16px;

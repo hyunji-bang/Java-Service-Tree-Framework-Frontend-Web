@@ -9,11 +9,6 @@
     >
   </footer>
 </template>
-<script>
-export default {
-  name: 'CopyRight',
-};
-</script>
 
 <style lang="scss" scoped>
 .copyrightLayer {

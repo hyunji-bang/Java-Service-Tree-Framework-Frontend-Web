@@ -116,127 +116,116 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import ContentHeader from '@/components/DevOps/common/ContentHeader.vue';
-
-export default {
-  name: 'AlmDevops',
-  components: {
-    ContentHeader,
+const RequirementListData = [
+  {
+    iconPath: 'fas fa-balance-scale',
+    title: '착수',
+    subTitle: 'Customers & Sales',
+    time: '09:00 (MON)',
+    pointColor: 'background-color: #d81b60',
+    link: 'http://www.313.co.kr/confluence/',
+    bodyLeftText: 'Confluence by 313 DEV GRP',
+    bodyRightText: [
+      'Plan & Opnion & Idea',
+      'Negotiation',
+      'Requirements',
+      'Atlassian Confluence (Online Document System)',
+    ],
   },
-  data() {
-    return {
-      RequirementListData: [
-        {
-          iconPath: 'fas fa-balance-scale',
-          title: '착수',
-          subTitle: 'Customers & Sales',
-          time: '09:00 (MON)',
-          pointColor: 'background-color: #d81b60',
-          link: 'http://www.313.co.kr/confluence/',
-          bodyLeftText: 'Confluence by 313 DEV GRP',
-          bodyRightText: [
-            'Plan & Opnion & Idea',
-            'Negotiation',
-            'Requirements',
-            'Atlassian Confluence (Online Document System)',
-          ],
-        },
-        {
-          iconPath: 'bi bi-check-square',
-          title: '기획',
-          subTitle: 'Project Manager',
-          time: '10:00 (TUE)',
-          pointColor: 'background-color: #f39c12',
-          link: 'http://www.313.co.kr/confluence/',
-          bodyLeftText: 'Confluence by 313 DEV GRP',
-          bodyRightText: [
-            'Requirements',
-            'Requirements engineering',
-            'SRS ( Software Requirements Specification )',
-            'System : Atlassian Confluence ( Online Document System )',
-          ],
-        },
-        {
-          iconPath: 'fa-solid fa-cubes',
-          title: '실행 및 이행',
-          subTitle: 'Developers',
-          time: '12:00 (WED)',
-          pointColor: 'background-color: #39cccc',
-          link: 'http://www.313.co.kr/jira/secure/Dashboard.jspa',
-          bodyLeftText: 'Jira by 313 DEV GRP',
-          bodyRightText: [
-            'SRS ( Software Requirements Specification )',
-            'Architecture design',
-            'SDS ( Software Design Specification )',
-            'Atlassian Jira ( Issue Management System )',
-          ],
-        },
-      ],
-      DevelopmentListData: [
-        {
-          iconPath: 'fa-solid fa-sitemap',
-          title: '실행 및 이행',
-          subTitle: 'Developers',
-          time: '15:00 (THU)',
-          pointColor: 'background-color: #3c8dbc',
-          link: 'https://github.com/jstree',
-          bodyLeftText: [
-            { text: 'GitHub by 313 DEV GRP', link: 'https://github.com/jstree' },
-            { text: 'Fecru by 313 DEV GRP', link: 'http://www.313.co.kr/fecru' },
-            { text: 'Bamboo by 313 DEV GRP', link: 'http://www.313.co.kr/bamboo' },
-          ],
-          bodyRightText: [
-            'SDS ( Software Design Specification )',
-            'Quality Assurance',
-            'TCR ( Test Case Result )',
-            'SonarQube',
-          ],
-        },
-        {
-          iconPath: 'fa-solid fa-bug',
-          title: '감시 및 통제',
-          subTitle: 'Quality Assurance',
-          time: '17:00 (FRI)',
-          pointColor: 'background-color: #605ca8',
-          link: 'https://github.com/jstree',
-          bodyLeftText: [
-            {
-              text: 'Project Analysis by 313 DEV GRP',
-              link: 'http://www.313.co.kr/analysis/',
-            },
-            { text: 'Nexus by 313 DEV GRP', link: 'http://www.313.co.kr/nexus' },
-            { text: 'Sonar by 313 DEV GRP', link: 'http://www.313.co.kr/sonar' },
-          ],
-          bodyRightText: [
-            'Source Code & Artifacts',
-            'Quality Assurance',
-            'TCR ( Test Case Result )',
-            'SonarQube',
-          ],
-        },
-      ],
-      OperationListData: {
-        iconPath: 'fa-solid fa-train',
-        title: '종료',
-        subTitle: 'Project Member',
-        time: '18:00 (SAT)',
-        pointColor: 'background-color: #111111',
-        link: 'https://github.com/jstree',
-        bodyLeftText: {
-          text: 'DockerHub by 313 DEV GRP',
-          link: 'https://hub.docker.com/u/313devgrp/',
-        },
-
-        bodyRightText: [
-          'TCR ( Test Case Result )',
-          'Lessons learned and retrospective',
-          'Container',
-          'Docker ( Cloud Operating system )',
-        ],
+  {
+    iconPath: 'bi bi-check-square',
+    title: '기획',
+    subTitle: 'Project Manager',
+    time: '10:00 (TUE)',
+    pointColor: 'background-color: #f39c12',
+    link: 'http://www.313.co.kr/confluence/',
+    bodyLeftText: 'Confluence by 313 DEV GRP',
+    bodyRightText: [
+      'Requirements',
+      'Requirements engineering',
+      'SRS ( Software Requirements Specification )',
+      'System : Atlassian Confluence ( Online Document System )',
+    ],
+  },
+  {
+    iconPath: 'fa-solid fa-cubes',
+    title: '실행 및 이행',
+    subTitle: 'Developers',
+    time: '12:00 (WED)',
+    pointColor: 'background-color: #39cccc',
+    link: 'http://www.313.co.kr/jira/secure/Dashboard.jspa',
+    bodyLeftText: 'Jira by 313 DEV GRP',
+    bodyRightText: [
+      'SRS ( Software Requirements Specification )',
+      'Architecture design',
+      'SDS ( Software Design Specification )',
+      'Atlassian Jira ( Issue Management System )',
+    ],
+  },
+];
+const DevelopmentListData = [
+  {
+    iconPath: 'fa-solid fa-sitemap',
+    title: '실행 및 이행',
+    subTitle: 'Developers',
+    time: '15:00 (THU)',
+    pointColor: 'background-color: #3c8dbc',
+    link: 'https://github.com/jstree',
+    bodyLeftText: [
+      { text: 'GitHub by 313 DEV GRP', link: 'https://github.com/jstree' },
+      { text: 'Fecru by 313 DEV GRP', link: 'http://www.313.co.kr/fecru' },
+      { text: 'Bamboo by 313 DEV GRP', link: 'http://www.313.co.kr/bamboo' },
+    ],
+    bodyRightText: [
+      'SDS ( Software Design Specification )',
+      'Quality Assurance',
+      'TCR ( Test Case Result )',
+      'SonarQube',
+    ],
+  },
+  {
+    iconPath: 'fa-solid fa-bug',
+    title: '감시 및 통제',
+    subTitle: 'Quality Assurance',
+    time: '17:00 (FRI)',
+    pointColor: 'background-color: #605ca8',
+    link: 'https://github.com/jstree',
+    bodyLeftText: [
+      {
+        text: 'Project Analysis by 313 DEV GRP',
+        link: 'http://www.313.co.kr/analysis/',
       },
-    };
+      { text: 'Nexus by 313 DEV GRP', link: 'http://www.313.co.kr/nexus' },
+      { text: 'Sonar by 313 DEV GRP', link: 'http://www.313.co.kr/sonar' },
+    ],
+    bodyRightText: [
+      'Source Code & Artifacts',
+      'Quality Assurance',
+      'TCR ( Test Case Result )',
+      'SonarQube',
+    ],
   },
+];
+const OperationListData = {
+  iconPath: 'fa-solid fa-train',
+  title: '종료',
+  subTitle: 'Project Member',
+  time: '18:00 (SAT)',
+  pointColor: 'background-color: #111111',
+  link: 'https://github.com/jstree',
+  bodyLeftText: {
+    text: 'DockerHub by 313 DEV GRP',
+    link: 'https://hub.docker.com/u/313devgrp/',
+  },
+
+  bodyRightText: [
+    'TCR ( Test Case Result )',
+    'Lessons learned and retrospective',
+    'Container',
+    'Docker ( Cloud Operating system )',
+  ],
 };
 </script>
 <style lang="scss" scoped>

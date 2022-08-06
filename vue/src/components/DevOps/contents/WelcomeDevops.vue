@@ -76,24 +76,11 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import ContentHeader from '@/components/DevOps/common/ContentHeader.vue';
-
-export default {
-  name: 'WelcomeDevops',
-  components: {
-    ContentHeader,
-  },
-  data() {
-    return {
-      subTitle: '⊰ Welcome™ ⊱',
-      subText:
-        '313 DEV GRP의 표준 개발 방법을 설명하고, 지원하며<br />Java Service Tree Framework에 대한 소개를 시작합니다.',
-    };
-  },
-
-  methods: {},
-};
+const subTitle = '⊰ Welcome™ ⊱';
+const subText =
+  '313 DEV GRP의 표준 개발 방법을 설명하고, 지원하며<br />Java Service Tree Framework에 대한 소개를 시작합니다.';
 </script>
 <style lang="scss" scoped>
 .content-section {

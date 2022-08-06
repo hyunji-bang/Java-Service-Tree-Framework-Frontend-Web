@@ -3,21 +3,15 @@
     <ContentHeader subTitle="What is jsTree Service Framework?" />
     <div class="content-section">
       <img
-        src="../../../assets/images/devops/JSTF/javaServiceTreeFramework.jpg"
+        src="@/assets/images/devops/JSTF/javaServiceTreeFramework.jpg"
         alt="javaServiceTreeFramework"
         class="javaServiceTreeFramework"
       />
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import ContentHeader from '@/components/DevOps/common/ContentHeader.vue';
-export default {
-  name: 'WhatJSTF',
-  components: {
-    ContentHeader,
-  },
-};
 </script>
 
 <style lang="scss" scoped>

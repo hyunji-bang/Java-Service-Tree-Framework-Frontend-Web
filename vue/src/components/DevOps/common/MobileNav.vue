@@ -119,18 +119,17 @@
     </ul>
   </nav>
 </template>
-<script>
-export default {
-  name: 'MobileNav',
-  mounted() {
-    const link = document.querySelectorAll('.mobile-menu-list');
-    link.forEach(list => {
-      list.addEventListener('click', () => {
-        this.$emit('openMobileMenu');
-      });
+<script setup>
+import { onMounted, defineEmits } from '@vue/runtime-core';
+const emit = defineEmits(['openMobileMenu']);
+onMounted(() => {
+  const link = document.querySelectorAll('.mobile-menu-list');
+  link.forEach(list => {
+    list.addEventListener('click', () => {
+      emit('openMobileMenu');
     });
-  },
-};
+  });
+});
 </script>
 
 <style lang="scss" scoped>

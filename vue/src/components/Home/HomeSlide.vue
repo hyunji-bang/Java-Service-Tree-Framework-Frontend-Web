@@ -115,11 +115,8 @@
   </swiper>
 </template>
 <script>
-// Import Swiper Vue.js components
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-
-// Import Swiper styles
 import 'swiper/css/bundle';
 
 export default {
@@ -155,7 +152,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../assets/scss/_mixin.scss';
+@import '@/assets/scss/_mixin.scss';
 
 .swiper {
   padding: 25px 0 !important;
@@ -217,8 +214,10 @@ export default {
         }
       }
       .slide-section-two {
+        align-self: flex-end;
         img {
           @include fade-right-animation;
+          max-width: 100%;
           display: block;
           margin: 0 auto;
         }
@@ -244,6 +243,9 @@ export default {
       .section-box {
         .img-box {
           display: flex;
+          img {
+            max-width: 100%;
+          }
           &.img-box1 {
             place-content: end;
           }
@@ -288,6 +290,7 @@ export default {
       .slide-section-two {
         @include fade-top-animation;
         img {
+          max-width: 100%;
           margin-top: 35px;
         }
       }
@@ -321,6 +324,117 @@ export default {
         width: 12px;
         height: 12px;
         background-color: #e5603b;
+      }
+    }
+  }
+}
+
+@media (min-width: 280px) and (max-width: 750px) {
+  #wrapper {
+    .white-box {
+      margin-top: 25px;
+      .container {
+        padding: 0;
+        width: 100%;
+        .features-box {
+          grid-template-columns: repeat(1, 1fr);
+        }
+      }
+    }
+    .swiper {
+      height: 215px;
+      padding: 10px 0 !important;
+      .swiper-slide {
+        .slide-section {
+          padding: 0 5px;
+        }
+        &.slide1 {
+          .section-box {
+            .slide-section-one {
+              .slide-content-box {
+                top: 20px;
+                .slide-one-header {
+                  strong {
+                    font-size: 20px;
+                  }
+                }
+                .p1,
+                .p2 {
+                  display: none;
+                }
+                .p3 {
+                  a {
+                    font-size: 13px;
+                    &.btn-white {
+                      margin-right: 0;
+                      margin-bottom: 10px;
+                    }
+                  }
+                }
+              }
+            }
+            .slide-section-two {
+              img {
+                max-width: 80%;
+                margin: 0;
+              }
+              align-self: center;
+            }
+          }
+        }
+        &.slide2 {
+          .slide-two-header {
+            font-size: 13px;
+            margin-bottom: 5px;
+          }
+          .slide-section {
+            img {
+              max-width: 80%;
+            }
+            .btn-box {
+              margin-top: 5px;
+              a {
+                font-size: 13px;
+              }
+            }
+
+            .img-box1 {
+              a {
+                display: flex;
+                place-content: flex-end;
+              }
+            }
+
+            &.slide-section-one {
+              .btn-box {
+                place-content: end;
+              }
+            }
+            &.slide-section-two {
+              .btn-box {
+                margin: 0;
+                place-content: start;
+              }
+            }
+          }
+        }
+        &.slide3 {
+          .slide-section-one {
+            h1 {
+              margin: 0;
+              font-size: 10px;
+            }
+            .btn {
+              font-size: 13px;
+            }
+          }
+          .slide-section-two {
+            img {
+              margin: 0;
+              max-width: 70%;
+            }
+          }
+        }
       }
     }
   }

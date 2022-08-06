@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import Header from '@/components/DevOps/common/HeaderLogo.vue';
 import Navbar from '@/components/DevOps/common/NavBar.vue';
 import CopyRight from '@/components/DevOps/common/CopyRight.vue';
@@ -45,57 +45,35 @@ import JSTFFAQ from '@/components/DevOps/contents/JSTFFaq.vue';
 import JSTFLicense from '@/components/DevOps/contents/JSTFLicense.vue';
 import JSTFDownload from '@/components/DevOps/contents/JSTFDownload.vue';
 import JSTFShv from '@/components/DevOps/contents/JSTFShv.vue';
+import { onMounted, ref } from 'vue';
 
-export default {
-  name: 'DevOps',
-  components: {
-    Header,
-    Navbar,
-    MobileNav,
-    CopyRight,
-    TopBtn,
-    ContentFooter,
-    WelcomeDevops,
-    DevTools,
-    AlmDevops,
-    WhatJSTF,
-    JSTFIntroduction,
-    JSTFGoal,
-    JSTFUsage,
-    JSTFFAQ,
-    JSTFShv,
-    JSTFLicense,
-    JSTFDownload,
+const openMobileMenu = ref(false);
+const pathName = {
+  welcome: 'welcome',
+  DevSupport: {
+    alm: 'ALM',
+    DevTools: 'DevTools',
   },
-  data() {
-    return {
-      openMobileMenu: false,
-      pathName: {
-        welcome: 'welcome',
-        DevSupport: {
-          alm: 'ALM',
-          DevTools: 'DevTools',
-        },
-        JSTF: {
-          what: 'WhatisJSTF',
-          introduction: 'JSTFIntroduction',
-          goal: 'JSTFGoals',
-          usage: 'JSTFUsage',
-          demoShv: 'JSTFDemoSHV',
-          demoSiv: 'JSTFDemoSIV',
-          demoSdv: 'JSTFDemoSDV',
-          demoTiv: 'JSTFDemoTIV',
-          faq: 'JSTFFAQ',
-          license: 'JSTFLicense',
-          JSTFDownload: 'JSTFDownload',
-        },
-        community: {
-          contributors: 'Contributors',
-        },
-      },
-    };
+  JSTF: {
+    what: 'WhatisJSTF',
+    introduction: 'JSTFIntroduction',
+    goal: 'JSTFGoals',
+    usage: 'JSTFUsage',
+    demoShv: 'JSTFDemoSHV',
+    demoSiv: 'JSTFDemoSIV',
+    demoSdv: 'JSTFDemoSDV',
+    demoTiv: 'JSTFDemoTIV',
+    faq: 'JSTFFAQ',
+    license: 'JSTFLicense',
+    JSTFDownload: 'JSTFDownload',
+  },
+  community: {
+    contributors: 'Contributors',
   },
 };
+onMounted(() => {
+  document.title = 'Java Service Tree Framework - DevOps Portal - 313 DEV GRP';
+});
 </script>
 
 <style lang="scss">

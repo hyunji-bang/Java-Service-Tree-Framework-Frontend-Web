@@ -44,32 +44,32 @@ export default {
           toolsList: [
             {
               toolName: 'Jira',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/jira.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/jira.png'),
               toolLink: 'http://www.313.co.kr/jira',
             },
             {
               toolName: 'Confluence',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/confluence.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/confluence.png'),
               toolLink: 'http://www.313.co.kr/confluence',
             },
             {
               toolName: 'Fecru',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/fecru.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/fecru.png'),
               toolLink: 'http://www.313.co.kr/fecru',
             },
             {
               toolName: 'Maven',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/maven.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/maven.png'),
               toolLink: 'http://www.313.co.kr/313devgrp/analysis',
             },
             {
               toolName: 'Swagger',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/swagger.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/swagger.png'),
               toolLink: 'http://www.313.co.kr/swagger-ui.html',
             },
             {
               toolName: 'Zipkin',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/zipkin.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/zipkin.png'),
               toolLink: 'http://www.313.co.kr/zipkin',
             },
           ],
@@ -79,32 +79,32 @@ export default {
           toolsList: [
             {
               toolName: 'Bamboo',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/bamboo.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/bamboo.png'),
               toolLink: 'http://www.313.co.kr/bamboo',
             },
             {
               toolName: 'Jenkins',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/jenkins.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/jenkins.png'),
               toolLink: 'http://www.313.co.kr/jenkins',
             },
             {
               toolName: 'Spinnaker',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/spinnaker.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/spinnaker.png'),
               toolLink: 'http://www.313.co.kr:9000',
             },
             {
               toolName: 'Github',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/github.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/github.png'),
               toolLink: 'https://github.com/313devgrp',
             },
             {
               toolName: 'Nexus',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/nexus.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/nexus.png'),
               toolLink: 'http://www.313.co.kr/nexus',
             },
             {
               toolName: 'SonarQube',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/sonar.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/sonar.png'),
               toolLink: 'http://www.313.co.kr/sonar',
             },
           ],
@@ -114,27 +114,27 @@ export default {
           toolsList: [
             {
               toolName: 'Oracle',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/oracle.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/oracle.png'),
               toolLink: 'https://www.313.co.kr:1158/em',
             },
             {
               toolName: 'Mysql',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/mysql.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/mysql.png'),
               toolLink: 'http://www.313.co.kr:8880/phpMyAdmin-4.8.3/',
             },
             {
               toolName: 'Postgres',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/postgres.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/postgres.png'),
               toolLink: 'http://www.313.co.kr:8880/phpPgAdmin-5.1/',
             },
             {
               toolName: 'Minio',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/minio.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/minio.png'),
               toolLink: 'http://www.313.co.kr:62222',
             },
             {
               toolName: 'Redis',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/redis.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/redis.png'),
               toolLink: 'http://www.313.co.kr:8786',
             },
           ],
@@ -145,12 +145,12 @@ export default {
             {
               longName: 'longName',
               toolName: 'Nas Server, Ldap Server',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/nasServer.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/nasServer.png'),
               toolLink: 'http://www.313.co.kr/nas',
             },
             {
               toolName: 'Mail server',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/mailServer.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/mailServer.png'),
               toolLink: 'http://www.313.co.kr/mail',
             },
           ],
@@ -161,23 +161,23 @@ export default {
             {
               longName: 'longName',
               toolName: 'Elastic Search Index Info',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/elasticsearchIndex.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/elasticsearchIndex.png'),
               toolLink: 'http://www.313.co.kr/elasticsearch/_cat/indices',
             },
             {
               toolName: 'Kibana',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/kibana.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/kibana.png'),
               toolLink: 'http://www.313.co.kr:5601',
             },
             {
               longName: 'longName',
               toolName: 'Elastic Search Nodes Info',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/elasticsearchNode.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/elasticsearchNode.png'),
               toolLink: 'http://www.313.co.kr/elasticsearch/_nodes?pretty=true',
             },
             {
               toolName: 'LogStash',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/logstash.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/logstash.png'),
               toolLink: 'http://www.313.co.kr/logstash/_node/stats?pretty',
             },
           ],
@@ -187,13 +187,13 @@ export default {
           toolsList: [
             {
               toolName: 'Webalizer',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/webalizer.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/webalizer.png'),
               toolLink: 'http://www.313.co.kr/webalizer/',
             },
             {
               longName: 'longName',
               toolName: 'PRTG Network Monitor',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/prtg.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/prtg.png'),
               toolLink: 'http://www.313.co.kr:8085',
             },
           ],
@@ -203,13 +203,13 @@ export default {
           toolsList: [
             {
               toolName: 'DockerHub',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/dockerhub.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/dockerhub.png'),
               toolLink: 'https://hub.docker.com/u/313devgrp',
             },
             {
               longName: 'longName',
               toolName: 'APACHE GUACAMOLE',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/apacheguacamole.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/apacheguacamole.png'),
               toolLink: 'http://www.313.co.kr/guacamole',
             },
           ],
@@ -219,17 +219,17 @@ export default {
           toolsList: [
             {
               toolName: 'Grafana',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/grafana.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/grafana.png'),
               toolLink: 'http://www.313.co.kr:3000',
             },
             {
               toolName: 'ElasticHQ',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/elastichq.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/elastichq.png'),
               toolLink: 'http://www.313.co.kr:5050/',
             },
             {
               toolName: 'Portainer',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/portainer.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/portainer.png'),
               toolLink: 'http://www.313.co.kr:9009/',
             },
           ],
@@ -239,7 +239,7 @@ export default {
           toolsList: [
             {
               toolName: 'KeyCloak',
-              toolImgpath: require('../../../assets/images/devops/DevSupport/keycloak.png'),
+              toolImgpath: require('@/assets/images/devops/DevSupport/keycloak.png'),
               toolLink: 'http://www.313.co.kr/auth',
             },
           ],
