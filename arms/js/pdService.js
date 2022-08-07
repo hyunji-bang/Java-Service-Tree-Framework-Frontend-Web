@@ -24,7 +24,7 @@ $("#modalPopupId").click(function () {
 });
 
 function jsTreeClick(selectedNode) {
-    console.log("-->" + selectedNode);
+    console.log("-->" + selectedNode.attr("id").replace("node_", ""));
     console.log("->" + selectedNode.find("a.jstree-clicked").siblings('.jstree-icon').text() + "<-");
     var tempNode = selectedNode.find("a.jstree-clicked").siblings('.jstree-icon');
     tempNode.trigger('click');
@@ -34,8 +34,26 @@ function jsTreeClick(selectedNode) {
     $("#prepended-input").val(getSelectedText);
 
     checkEqualSelectedNode(selectedNode);
+    dataLoad(selectedNode.attr("id").replace("node_", ""));
 }
 
+function dataLoad(getSelectedText) {
+    // ajax 처리 후 에디터 바인딩.
+    console.log(getSelectedText);
+    $.ajax({
+        url: "/auth-user/api/arms/pdservice/getNode.do?c_id=" + getSelectedText ,
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            CKEDITOR.instances.editor.setData(data.c_contents);
+            var pdServiceNameplaceHolder = $("#pdServiceTitle").attr("placeholder");
+            $("#pdServiceTitle").attr(
+                "placeholder",
+                pdServiceNameplaceHolder + " " + data.c_title
+            );
+        },
+    });
+}
 
 function checkEqualSelectedNode(selectedNode){
     var getSelectedText = selectedNode.find("a.jstree-clicked").text().trimStart();
