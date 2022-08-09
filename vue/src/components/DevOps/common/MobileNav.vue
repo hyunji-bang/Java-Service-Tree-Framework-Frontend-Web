@@ -10,14 +10,12 @@
         >
           <span>{{ list.title }}</span>
         </router-link>
-        <router-link
-          :to="`/DevOps/${list.title.replace(/(\s*)/g, '')}`"
-          :class="{ 'mobile-menu-list': list.title == 'Welcome' }"
+        <a
           class="mobile-side-menu-title mobile-treeview-menu-title"
           v-if="list.title !== 'Welcome'"
         >
           <span>{{ list.title }}</span>
-        </router-link>
+        </a>
         <ul class="mobile-treeview-menu" id="mobile-treeview-menu-dev-support">
           <li
             class="mobile-detail-menu mobile-menu-list"

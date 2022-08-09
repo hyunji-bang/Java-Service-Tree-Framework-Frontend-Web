@@ -58,18 +58,18 @@
       <div class="attachment-block">
         <img
           class="attachment-img"
-          src="../../../assets/images/devops/welcome/jstree.png"
+          src="@/assets/images/devops/welcome/jstree.png"
           alt="Attachment Image"
         />
 
         <div class="attachment-pushed">
           <h4 class="attachment-heading">
-            <router-link to="/DevOps/welcome">jsTree Service Framework</router-link>
+            <router-link to="/DevOps/Home/Welcome">jsTree Service Framework</router-link>
           </h4>
           <div class="attachment-text">
             Description about the attachment can be placed here. Lorem Ipsum is simply
             dummy text of the printing and typesetting industry...
-            <router-link to="/DevOps/welcome">more</router-link>
+            <router-link to="/DevOps/Home/Welcome">more</router-link>
           </div>
         </div>
       </div>

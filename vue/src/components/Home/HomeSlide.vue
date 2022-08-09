@@ -52,7 +52,7 @@
           <div class="img-box img-box1">
             <router-link to="/main">
               <img
-                src="../../assets/images/home/slider/light-blue-laptop-transparent.png"
+                src="@/assets/images/home/slider/light-blue-laptop-transparent.png"
                 alt="notebook"
                 class="notebook-img"
             /></router-link>
@@ -65,9 +65,9 @@
         </div>
         <div class="slide-section slide-section-two" :class="{ animate: isActive }">
           <div class="img-box img-box2">
-            <router-link to="/DevOps/welcome">
+            <router-link to="/DevOps/Home/Welcome">
               <img
-                src="../../assets/images/home/slider/light-blue-laptop-white.png"
+                src="@/assets/images/home/slider/light-blue-laptop-white.png"
                 alt=""
                 class="notebook-img"
               />
@@ -75,7 +75,7 @@
           </div>
           <div class="btn-box">
             <router-link
-              to="/DevOps/welcome"
+              to="/DevOps/Home/Welcome"
               class="btn btn-white btn-lg btn-version-preview"
             >
               Contact us &nbsp; <i class="bi bi-browser-chrome"></i>
@@ -108,7 +108,7 @@
           </p>
         </div>
         <div class="slide-section slide-section-two" :class="{ animate: isActive }">
-          <img src="../../assets/images/home/slider/light-blue-phone.png" alt="" />
+          <img src="@/assets/images/home/slider/light-blue-phone.png" alt="" />
         </div>
       </div>
     </swiper-slide>

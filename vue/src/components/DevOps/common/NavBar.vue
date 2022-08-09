@@ -23,8 +23,7 @@
               {{ list.title }}
             </span>
           </router-link>
-          <router-link
-            :to="`/DevOps/${list.title.replace(/(\s*)/g, '')}`"
+          <a
             v-if="list.title !== 'Welcome'"
             class="accordion-button"
             data-bs-toggle="collapse"
@@ -35,7 +34,7 @@
               {{ list.title }}
             </span>
             <i class="bi bi-chevron-left arrow"></i>
-          </router-link>
+          </a>
 
           <ul
             :id="`collapse${idx}`"
@@ -78,7 +77,7 @@ export default {
       const titleEl = list.children[0].children[0];
       const subMenuEl = list.children[0].children[1];
       if (path.includes(title)) {
-        titleEl.classList.add('router-link-exact-active');
+        titleEl.classList.add('active-blue');
         titleEl.classList.remove('collapsed');
         subMenuEl.classList.add('show');
         titleEl.setAttribute('aria-expanded', 'true');
@@ -95,9 +94,9 @@ export default {
         const newList = [...detailList];
         newList.splice(detailList.indexOf(list), 1);
         newList.forEach(newlist =>
-          newlist.children[0].children[0].classList.remove('router-link-exact-active'),
+          newlist.children[0].children[0].classList.remove('active-blue'),
         );
-        titleEl.classList.add('router-link-exact-active');
+        titleEl.classList.add('active-blue');
       }
     });
   },
@@ -141,6 +140,9 @@ nav.sidebar {
           }
 
           &.router-link-exact-active {
+            color: lightblue !important;
+          }
+          &.active-blue {
             color: lightblue !important;
           }
         }
