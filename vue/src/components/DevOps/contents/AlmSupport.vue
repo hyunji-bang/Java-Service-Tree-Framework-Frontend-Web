@@ -297,6 +297,7 @@ ul {
           font-size: 13px;
           color: #fff;
           font-weight: 300;
+          align-self: center;
         }
       }
       .timeline-body {
@@ -319,10 +320,16 @@ ul {
   }
 }
 
-@media (min-width: 375px) and (max-width: 991px) {
+@media (min-width: 280px) and (max-width: 991px) {
   ul {
     li {
       .list-right {
+        h3 {
+          font-size: 14px;
+          span {
+            font-size: 12px;
+          }
+        }
         .timeline-body {
           flex-direction: column;
           .body-left {

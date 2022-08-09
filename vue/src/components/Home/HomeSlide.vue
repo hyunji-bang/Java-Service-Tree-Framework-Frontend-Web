@@ -21,7 +21,7 @@
                 Preview &nbsp; <i class="bi bi-chevron-right"></i
               ></router-link>
               <router-link
-                to="/DevOps/welcome"
+                to="/DevOps/Home/welcome"
                 class="btn btn-transparent btn-lg contact-btn"
               >
                 Contact us &nbsp; <i class="bi bi-browser-chrome"></i>

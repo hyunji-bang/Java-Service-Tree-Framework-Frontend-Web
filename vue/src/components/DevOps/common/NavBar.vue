@@ -1,213 +1,105 @@
 <template>
   <nav class="sidebar">
-    <ul class="sidebar-menu">
-      <li class="category">
-        <router-link
-          to="/DevOps/welcome"
-          class="side-menu-title page-list treeview-menu-title"
-          @click="openMenu"
-          data-index="0"
-        >
-          <i class="bi bi-house-door-fill"></i>
-          <span>Welcome</span>
-        </router-link>
-      </li>
-
-      <li class="category">
-        <div
-          class="side-menu-title treeview-menu-title"
-          @click="openMenu"
-          data-bs-toggle="collapse"
-          data-bs-target="#treeview-menu-dev-support"
-          data-index="1"
-        >
-          <i class="bi bi-motherboard-fill"></i>
-          <span>Dev Support</span>
-          <span class="pull-right-container">
+    <ul class="accordion" id="side-nav-bar">
+      <li
+        class="accordion-item"
+        v-for="(list, idx) in navList"
+        :key="idx"
+        ref="detailList"
+        :data-title="list.title.replace(/(\s*)/g, '')"
+      >
+        <div class="accordion-header" :id="`heading${idx}`">
+          <router-link
+            to="/DevOps/Home/Welcome"
+            v-if="list.title == 'Welcome'"
+            ref="firstmenu"
+          >
+            <i :class="list.icon"></i>
+            <span
+              class="accordion-button"
+              data-bs-toggle="collapse"
+              :data-bs-target="`#collapse${idx}`"
+            >
+              {{ list.title }}
+            </span>
+          </router-link>
+          <router-link
+            :to="`/DevOps/${list.title.replace(/(\s*)/g, '')}`"
+            v-if="list.title !== 'Welcome'"
+            class="accordion-button"
+            data-bs-toggle="collapse"
+            :data-bs-target="`#collapse${idx}`"
+          >
+            <i :class="list.icon"></i>
+            <span>
+              {{ list.title }}
+            </span>
             <i class="bi bi-chevron-left arrow"></i>
-          </span>
-        </div>
-        <ul class="treeview-menu collapse" id="treeview-menu-dev-support" data-index="1">
-          <li class="detail-menu">
-            <router-link to="/DevOps/ALM" class="side-menu-title page-list">
-              ALM
-            </router-link>
-          </li>
-          <li class="detail-menu">
-            <router-link to="/DevOps/DevTools" class="side-menu-title page-list">
-              Dev Tools
-            </router-link>
-          </li>
-        </ul>
-      </li>
+          </router-link>
 
-      <li class="category">
-        <div
-          class="side-menu-title treeview-menu-title"
-          @click="openMenu"
-          data-bs-toggle="collapse"
-          data-bs-target="#treeview-menu-about-jstf"
-          data-index="2"
-        >
-          <i class="bi bi-mortarboard-fill"></i>
-          <span>About JSTF</span>
-          <span class="pull-right-container">
-            <i class="bi bi-chevron-left arrow"></i>
-          </span>
+          <ul
+            :id="`collapse${idx}`"
+            class="accordion-collapse collapse"
+            data-bs-parent="#side-nav-bar"
+          >
+            <li
+              class="accordion-body"
+              v-for="(sublist, subIdx) in list.children"
+              :key="subIdx"
+            >
+              <router-link
+                :to="`/DevOps/${list.title.replace(/(\s*)/g, '')}/${sublist
+                  .replace(/(\s*)/g, '')
+                  .replace('?', '')}`"
+              >
+                {{ sublist }}
+              </router-link>
+            </li>
+          </ul>
         </div>
-        <ul class="treeview-menu collapse" id="treeview-menu-about-jstf" data-index="2">
-          <li class="detail-menu">
-            <router-link to="/DevOps/WhatisJSTF" class="side-menu-title page-list">
-              What is JSTF ?
-            </router-link>
-          </li>
-          <li class="detail-menu">
-            <router-link to="/DevOps/JSTFIntroduction" class="side-menu-title page-list">
-              JSTF Introduction
-            </router-link>
-          </li>
-          <li class="detail-menu">
-            <router-link to="/DevOps/JSTFGoals" class="side-menu-title page-list">
-              JSTF Goals
-            </router-link>
-          </li>
-          <li class="detail-menu">
-            <router-link to="/DevOps/JSTFUsage" class="side-menu-title page-list">
-              JSTF Usage
-            </router-link>
-          </li>
-          <li class="detail-menu">
-            <router-link to="/DevOps/JSTFDemoSHV" class="side-menu-title page-list">
-              JSTF Demo SHV
-            </router-link>
-          </li>
-          <li class="detail-menu">
-            <router-link to="/DevOps/JSTFDemoSIV" class="side-menu-title page-list">
-              JSTF Demo SIV
-            </router-link>
-          </li>
-          <li class="detail-menu">
-            <router-link to="/DevOps/JSTFDemoSDV" class="side-menu-title page-list">
-              JSTF Demo SDV
-            </router-link>
-          </li>
-          <li class="detail-menu">
-            <router-link to="/DevOps/JSTFDemoTIV" class="side-menu-title page-list">
-              JSTF Demo TIV
-            </router-link>
-          </li>
-          <li class="detail-menu">
-            <router-link to="/DevOps/JSTFFAQ" class="side-menu-title page-list">
-              JSTF FAQ
-            </router-link>
-          </li>
-          <li class="detail-menu">
-            <router-link to="/DevOps/JSTFLicense" class="side-menu-title page-list">
-              JSTF License
-            </router-link>
-          </li>
-          <li class="detail-menu">
-            <router-link to="/DevOps/JSTFDownload" class="side-menu-title page-list">
-              JSTF Download
-            </router-link>
-          </li>
-        </ul>
-      </li>
-
-      <li class="category">
-        <div
-          class="side-menu-title treeview-menu-title"
-          @click="openMenu"
-          data-bs-toggle="collapse"
-          data-bs-target="#treeview-menu-community"
-          data-index="3"
-        >
-          <i class="bi bi-people-fill"></i> <span>Community</span>
-          <span class="pull-right-container">
-            <i class="bi bi-chevron-left arrow"></i>
-          </span>
-        </div>
-        <ul class="treeview-menu collapse" id="treeview-menu-community" data-index="3">
-          <li class="detail-menu">
-            <router-link to="/DevOps/Contributors" class="side-menu-title page-list">
-              Contributors
-            </router-link>
-          </li>
-        </ul>
       </li>
     </ul>
   </nav>
 </template>
 
-<script scoped>
+<script>
 export default {
-  name: 'NavBar',
-  methods: {
-    openMenu(e) {
-      e.currentTarget.classList.toggle('active');
-      this.clickedMenuIndex = e.currentTarget.dataset.index;
+  computed: {
+    navList() {
+      return this.$store.state.navMenuList;
     },
   },
-  data() {
-    return {
-      clickedMenuIndex: 0,
-      activeCategory: 0,
-    };
-  },
+
   mounted() {
-    const selectedMenu =
-      document.querySelector('.router-link-active').parentNode.parentNode;
-    const pageList = document.querySelectorAll('.page-list');
-    const treeviewMenu = document.querySelectorAll('.treeview-menu-title');
-    const mobileMenu = document.querySelectorAll('.mobile-menu-list');
-
-    //현재 페이지 메뉴 활성화
-    if (selectedMenu.classList[0] === 'treeview-menu') {
-      selectedMenu.classList.add('show');
-      selectedMenu.previousSibling.classList.add('active');
-      this.clickedMenuIndex = selectedMenu.previousSibling.dataset.index;
-      addActiveColor(Number(this.clickedMenuIndex));
-    }
-
-    treeviewMenu.forEach(menu => {
-      menu.addEventListener('click', () =>
-        toggleOpenSideMenu(Number(this.clickedMenuIndex)),
-      );
-    });
-
-    pageList.forEach((list, idx) => {
-      if (list.classList.contains('router-link-active')) {
-        this.activeCategory = list.parentNode.parentNode.dataset.index;
+    const detailList = this.$refs.detailList;
+    detailList.forEach((list, idx) => {
+      const path = this.$route.path.split('/');
+      const title = list.dataset.title;
+      const titleEl = list.children[0].children[0];
+      const subMenuEl = list.children[0].children[1];
+      if (path.includes(title)) {
+        titleEl.classList.add('router-link-exact-active');
+        titleEl.classList.remove('collapsed');
+        subMenuEl.classList.add('show');
+        titleEl.setAttribute('aria-expanded', 'true');
       }
-      const activeClickedPCMenu = () => {
-        self.activeCategory = list.parentNode.parentNode.dataset.index;
-        addActiveColor(Number(self.activeCategory));
-      };
+      if (idx === 0) {
+        list.addEventListener('click', clickMenuRemoveActive);
+      } else {
+        subMenuEl.childNodes.forEach(node => {
+          node.addEventListener('click', clickMenuRemoveActive);
+        });
+      }
 
-      list.addEventListener('click', () => activeClickedPCMenu());
+      function clickMenuRemoveActive() {
+        const newList = [...detailList];
+        newList.splice(detailList.indexOf(list), 1);
+        newList.forEach(newlist =>
+          newlist.children[0].children[0].classList.remove('router-link-exact-active'),
+        );
+        titleEl.classList.add('router-link-exact-active');
+      }
     });
-
-    //메뉴 오픈시 다른 메뉴들은 닫기
-    function toggleOpenSideMenu(index) {
-      const newList = [...treeviewMenu];
-      newList.splice(index, 1);
-      newList.forEach(list => {
-        list.classList.remove('active');
-        if (list.nextSibling) {
-          list.nextSibling.classList.remove('show');
-        }
-      });
-    }
-    //active 된 메뉴 color 추가
-    function addActiveColor(activeIndex) {
-      treeviewMenu.forEach((menu, idx) => {
-        if (activeIndex === idx) {
-          menu.style.color = 'lightblue';
-        } else {
-          menu.style.color = 'white';
-        }
-      });
-    }
   },
 };
 </script>
@@ -220,61 +112,45 @@ nav.sidebar {
   width: 190px;
   padding: 10px 0;
   font-weight: 300;
-  ul {
-    li {
-      a.router-link-exact-active {
-        color: lightblue !important;
-      }
-    }
-    > li {
-      width: 190px;
+  .accordion {
+    .accordion-item {
       font-size: 13px;
       color: #fff;
       cursor: pointer;
-      font-weight: 300;
-
-      .side-menu-title {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        display: block;
-        border-radius: 6px;
-        font-weight: 500;
-
-        &:hover,
-        &:focus {
-          background: rgba(0, 0, 0, 0.07);
-        }
-        &.active {
+      font-weight: 500;
+      .accordion-header {
+        a {
+          padding: 10px 20px;
+          display: inline-block;
+          width: 100%;
+          position: relative;
+          transition: rotate 0.5s;
+          transform: rotate(0deg);
+          &[aria-expanded='true'] {
+            .arrow {
+              transition: all 0.5s;
+              transform: rotate(-90deg);
+            }
+          }
+          .bi:nth-child(1) {
+            margin-right: 10px;
+          }
           .arrow {
-            transform: rotate(-90deg);
-            transform-origin: center center;
+            position: absolute;
+            right: 0;
+          }
+
+          &.router-link-exact-active {
+            color: lightblue !important;
           }
         }
-        .arrow {
-          transform: rotate(0deg);
-          transition: 0.5s transform;
+      }
+      .accordion-collapse {
+        .accordion-body {
+          a {
+            padding: 4px 20px 4px 50px;
+          }
         }
-      }
-      &.category {
-        > .side-menu-title {
-          padding: 10px 20px;
-        }
-      }
-      &.detail-menu {
-        > .side-menu-title {
-          padding: 4px 20px;
-          padding-left: 50px;
-        }
-      }
-
-      .bi {
-        margin-right: 10px;
-      }
-      .bi-chevron-left {
-        position: absolute;
-        right: 0;
-        top: 12px;
       }
     }
   }

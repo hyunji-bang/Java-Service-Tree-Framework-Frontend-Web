@@ -16,7 +16,7 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/DevOps/welcome" class="btn">
+          <router-link to="/DevOps/Home/welcome" class="btn">
             Contact us&nbsp;
             <i class="bi bi-browser-chrome"></i>
           </router-link>

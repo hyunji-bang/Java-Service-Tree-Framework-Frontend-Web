@@ -13,7 +13,6 @@
           :nodes="treeDisplayData"
         ></Tree>
       </div>
-      <!--<div class="table-section">fdsafasfd</div>-->
     </div>
   </div>
   <ContextMenu
@@ -90,6 +89,7 @@ export default {
     const jstree = this.$refs['js-tree-ref'];
     const jstreeNodeList = document.querySelectorAll('#js-tree ul li');
     const contextList = document.querySelectorAll('.context-list');
+
     window.addEventListener('click', () => {
       this.contextMenuIsActive = false;
     });
