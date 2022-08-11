@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-08-11T12:44:13.410Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="NgMPVIo2l_oPUG3PngnU" version="20.2.3" type="github">
+<mxfile host="app.diagrams.net" modified="2022-08-11T12:48:18.625Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36" etag="xfSjwK1Pf0B1EaIfGplX" version="20.2.3" type="github">
   <diagram id="QPlH4QwbmqNAJRejdnI0" name="페이지-1">
     <mxGraphModel dx="2156" dy="2003" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -62,6 +62,12 @@
         </mxCell>
         <mxCell id="54R5g4XFbIWa8T8a8VTI-101" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;단일 페이지로 새창 - 새탭 으로&amp;nbsp;&lt;br&gt;View가 표시되어야 합니다.&lt;br&gt;&lt;br&gt;이렇게 하는 이유는&lt;br&gt;제품에 대한 페이지를&lt;br&gt;손쉽게 볼 수 있다면&lt;br&gt;활용도가 올라갈 것이기&lt;br&gt;때문입니다.&lt;br&gt;&lt;/font&gt;" style="strokeWidth=1;shadow=0;dashed=1;align=center;html=1;shape=mxgraph.mockup.text.bulletedList;textColor=#666666;mainText=,,,,;textSize=17;bulletStyle=none;strokeColor=default;fillColor=none;align=left;verticalAlign=top;fontSize=17;fontColor=#666666;" vertex="1" parent="1">
           <mxGeometry x="-120" y="-90" width="150" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="54R5g4XFbIWa8T8a8VTI-102" value="" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.jumpInArrow;dy=15;dx=38;arrowHead=55;fillColor=#dae8fc;strokeColor=#6c8ebf;rotation=-60;" vertex="1" parent="1">
+          <mxGeometry x="80" y="117" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="54R5g4XFbIWa8T8a8VTI-103" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;font color=&quot;#000000&quot;&gt;제품(서비스) 상세 조회&lt;br&gt;&lt;br&gt;텍스트 상단 Input 박스로&lt;br&gt;제품 ( 서비스 ) 이름 - Atlassian&lt;br&gt;&lt;br&gt;&lt;/font&gt;&lt;br&gt;&lt;/font&gt;" style="strokeWidth=1;shadow=0;dashed=1;align=center;html=1;shape=mxgraph.mockup.text.bulletedList;textColor=#666666;mainText=,,,,;textSize=17;bulletStyle=none;strokeColor=default;fillColor=none;align=left;verticalAlign=top;fontSize=17;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="91" y="-73" width="150" height="190" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
