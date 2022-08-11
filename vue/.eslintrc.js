@@ -15,6 +15,10 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2020,
   },
+  globals: {
+    $: true,
+    jQuery: true,
+  },
   rules: {
     // 'no-unused-vars': 'off',
     // '@typescript-eslint/no-unused-vars': ['off'],

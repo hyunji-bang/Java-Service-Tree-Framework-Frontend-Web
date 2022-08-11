@@ -25,4 +25,12 @@ module.exports = defineConfig({
       },
     },
   },
+  devServer: {
+    proxy: {
+      '/auth-anon': {
+        target: 'http://www.313.co.kr',
+        changeOrigin: true,
+      },
+    },
+  },
 });
