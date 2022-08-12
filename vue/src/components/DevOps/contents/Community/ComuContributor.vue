@@ -222,10 +222,6 @@ const contributorList = [
         font-size: 20px;
       }
     }
-    .education {
-    }
-    .location {
-    }
     .skill {
       span {
         display: inline-block;
@@ -250,8 +246,6 @@ const contributorList = [
           background-color: #3c8dbc;
         }
       }
-    }
-    .note {
     }
   }
 }

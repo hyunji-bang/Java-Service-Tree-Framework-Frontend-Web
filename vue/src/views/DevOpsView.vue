@@ -25,7 +25,6 @@ import ContentFooter from '@/components/DevOps/common/ContentFooter.vue';
 import TopBtn from '@/components/DevOps/common/TopBtn.vue';
 
 import { onMounted, ref } from 'vue';
-
 const openMobileMenu = ref(false);
 onMounted(() => {
   document.title = 'Java Service Tree Framework - DevOps Portal - 313 DEV GRP';
