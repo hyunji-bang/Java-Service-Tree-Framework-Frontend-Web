@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-08-12T14:52:15.108Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36" etag="Ssj3AXSyZIQ_c_Nyd8EK" version="20.2.3" type="github">
+<mxfile host="app.diagrams.net" modified="2022-08-12T14:53:03.995Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36" etag="hda5ozql0UHmLw-Rz9ny" version="20.2.3" type="github">
   <diagram name="8/12" id="03018318-947c-dd8e-b7a3-06fadd420f32">
     <mxGraphModel dx="930" dy="512" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
       <root>
@@ -234,7 +234,7 @@
         <mxCell id="WhCIqCIP4cLsgu0pELh9-68" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.navigation.scrollBar;strokeColor=#999999;barPos=20;fillColor2=#99ddff;strokeColor2=none;direction=north;labelBackgroundColor=none;fontFamily=Helvetica;fontSize=13;fontColor=#666;fillColor=#000;opacity=33;" vertex="1" parent="1">
           <mxGeometry x="1016.93" y="419" width="20" height="251" as="geometry" />
         </mxCell>
-        <mxCell id="WhCIqCIP4cLsgu0pELh9-69" value="닫기" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.buttons.button;strokeColor=#666666;fontColor=#fff;mainText=;buttonStyle=round;fontSize=13;fontStyle=1;fillColor=#A8A8A8;whiteSpace=wrap;labelBackgroundColor=none;fontFamily=Helvetica;opacity=33;" vertex="1" parent="1">
+        <mxCell id="WhCIqCIP4cLsgu0pELh9-69" value="취소" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.buttons.button;strokeColor=#666666;fontColor=#fff;mainText=;buttonStyle=round;fontSize=13;fontStyle=1;fillColor=#A8A8A8;whiteSpace=wrap;labelBackgroundColor=none;fontFamily=Helvetica;opacity=33;" vertex="1" parent="1">
           <mxGeometry x="640" y="880" width="150" height="33" as="geometry" />
         </mxCell>
         <mxCell id="WhCIqCIP4cLsgu0pELh9-70" value="저장" style="strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.buttons.button;strokeColor=#666666;fontColor=#fff;mainText=;buttonStyle=round;fontSize=13;fontStyle=1;fillColor=#0065B8;whiteSpace=wrap;labelBackgroundColor=none;fontFamily=Helvetica;opacity=33;" vertex="1" parent="1">
