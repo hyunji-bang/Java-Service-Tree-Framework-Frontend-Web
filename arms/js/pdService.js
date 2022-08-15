@@ -12,8 +12,8 @@ $(function () {
 });
 
 // --- 에디터 설정 --- //
-CKEDITOR.replace("editor");
-CKEDITOR.replace("modal-editor");
+//CKEDITOR.replace("editor");
+//CKEDITOR.replace("modal-editor");
 
 // --- 팝업 띄울때 사이즈 조정 -- //
 $("#modalPopupId").click(function () {
@@ -45,7 +45,8 @@ function dataLoad(getSelectedText) {
         dataType: "json",
         async: false,
         success: function (data) {
-            CKEDITOR.instances.editor.setData(data.c_contents);
+            //CKEDITOR.instances.editor.setData(data.c_contents);
+            $("#editor").html(data.c_contents);
             var pdServiceNameplaceHolder = $("#pdServiceTitle").attr("placeholder");
             $("#pdServiceTitle").attr(
                 "placeholder",
