@@ -1,5 +1,11 @@
 <div class="col-lg-4">
     <section class="widget">
+        <div>
+            <button id="compose-btn" class="btn btn-danger btn-block">신규 제품<sup>서비스</sup> 등록하기</button>
+            <ul id="review-classify" class="review-classify"></ul>
+        </div>
+    </section>
+    <section class="widget">
         <header>
             <h4>
                 <span class="font13" style="font-weight: bold;">
@@ -84,8 +90,8 @@
                             <label class="control-label" for="prepended-input">제품(서비스) 오너 &nbsp;</label>
                             <div class="controls form-group" style="margin-bottom: 10px;">
                                 <div class="input-group col-sm-8">
-                                    <span class="input-group-addon"><i class="fa fa-users"></i></span>
-                                    <select id="owner_select2" class="js-example-basic-multiple-limit js-states form-control font13 darkBack" multiple=""></select>
+                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    <select id="reviewer_select2"  class="js-data-example-ajax form-control font13 darkBack" placeholder="제품(서비스)의 관리자를 등록해 주세요"></select>
                                 </div>
                             </div>
                         </div>
@@ -93,11 +99,12 @@
                             <label class="control-label" for="prepended-input">제품(서비스) 리뷰어 &nbsp;</label>
                             <div class="controls form-group" style="margin-bottom: 10px;">
                                 <div class="input-group col-sm-8">
-                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <select id="reviewer_select2"  class="js-data-example-ajax form-control font13 darkBack" placeholder="제품(서비스)의 관리자를 등록해 주세요"></select>
+                                    <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                    <select id="owner_select2" class="js-example-basic-multiple-limit js-states form-control font13 darkBack" multiple=""></select>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div id="editor" class="darkBack">
                         <p>입력란이 좁다면 하단에 새창으로 띄우기를 클릭하세요.</p>
