@@ -3,24 +3,28 @@
     <ContentHeader
       subTitle="jsTree Service Framework<sup>TSF</sup> Spring-Hibernate Demo"
     />
-    <div class="content-section" style="margin-bottom: 20px">
-      <div id="demo"></div>
-    </div>
-    <div class="content-section table-section">
-      <JsDataTable :tableDataUrl="tableDataUrl" :columns="columns" dataSrc="" />
+    <div class="content-box">
+      <div class="treebox">
+        <div class="content-section tree-section" style="margin-bottom: 20px">
+          <JsTreeBuild :DataUrlList="DataUrlList" :isMonitor="isMonitor" />
+        </div>
+      </div>
+      <div class="content-section table-section">
+        <JsDataTable :tableDataUrl="tableDataUrl" :columns="columns" dataSrc="" />
+      </div>
     </div>
   </div>
 </template>
 <script scoped>
 import ContentHeader from '@/components/DevOps/common/ContentHeader.vue';
 import JsDataTable from '@/components/DevOps/contents/AboutJSTF/JsDataTableBuild.vue';
-//import $ from 'jquery';
-//import 'jstree/dist/jstree.min.js';
-//import 'jstree/dist/themes/default/style.min.css';
+import JsTreeBuild from '@/components/DevOps/contents/AboutJSTF/JsTreeBuild.vue';
+
 export default {
   components: {
     ContentHeader,
     JsDataTable,
+    JsTreeBuild,
   },
   data() {
     return {
@@ -35,7 +39,14 @@ export default {
         { data: 'c_title' },
         { data: 'c_type' },
       ],
+      isMonitor: true,
+      DataUrlList: {
+        getMonitor: '/com/ext/jstree/springHibernate/core/getMonitor.do',
+      },
     };
   },
 };
 </script>
+<style lang="scss">
+@import '@/assets/scss/JSTF.scss';
+</style>

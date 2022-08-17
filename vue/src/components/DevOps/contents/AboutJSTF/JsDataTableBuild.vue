@@ -6,7 +6,14 @@
   >
     <thead>
       <tr>
-        <th v-for="(tableHead, idx) in columns" :key="idx">{{ tableHead.data }}</th>
+        <th>c_id</th>
+        <th>c_parentid</th>
+        <th>c_position</th>
+        <th>c_left</th>
+        <th>c_right</th>
+        <th>c_level</th>
+        <th>c_title</th>
+        <th>c_type</th>
       </tr>
     </thead>
   </table>

@@ -1,0 +1,389 @@
+<template>
+  <input type="text" id="search-input" placeholder="찾을 노드 이름 입력" />
+  <div id="demo"></div>
+</template>
+<script>
+import $ from 'jquery';
+import 'jquery/src/jquery.js';
+import 'jstree/dist/jstree.min.js';
+import 'jstree/dist/themes/default/style.min.css';
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      treeData: [],
+    };
+  },
+  props: {
+    DataUrlList: Object,
+    isMonitor: Boolean,
+  },
+
+  mounted() {
+    const isDevelopingToRoute = '/auth-anon';
+    const dataUrl = this.DataUrlList;
+
+    axios.get(`${isDevelopingToRoute}${dataUrl.getMonitor}`).then(response => {
+      const data = response.data;
+      let arrangeData;
+      let matchData;
+      let getParentIdList = [];
+      if (this.isMonitor === true) {
+        arrangeData = [...data].map((tree, idx) => {
+          matchData = data[idx];
+          return {
+            id: matchData['c_id'],
+            parentId: matchData['c_parentid'],
+            position: matchData['c_position'],
+            text: matchData['c_title'],
+            children: matchData['childcount'] === 'InChild' ? [] : false,
+            type: matchData['c_type'],
+          };
+        });
+      } else if (this.isMonitor === false) {
+        [...data.rows].forEach((tree, idx) => {
+          return getParentIdList.push(data.rows[idx].cell[1]);
+        });
+        arrangeData = [...data.rows].map((tree, idx) => {
+          matchData = data.rows[idx].cell;
+          return {
+            id: matchData[0],
+            parentId: matchData[1],
+            position: matchData[2],
+            text: matchData[6],
+            children: getParentIdList.includes(matchData[0]) ? [] : false,
+            type: matchData[7],
+          };
+        });
+      }
+      arrangeData.splice(0, 1);
+      this.treeData = [...arrangeData].map((data, idx) => {
+        if (typeof data.children === 'object') {
+          const parentId = data.id;
+          arrangeData.forEach((data2, idx2) => {
+            if (data2.parentId === parentId) {
+              return (data.children[data2.position] = data2);
+            }
+          });
+        }
+        return data;
+      });
+      jsTreeBuild(this.treeData[0]);
+    });
+
+    function jsTreeBuild(treeDataArray) {
+      let to = false;
+      $('#search-input').keyup(function () {
+        if (to) {
+          clearTimeout(to);
+        }
+        to = setTimeout(function () {
+          const v = $('#search-input').val();
+          const tableInput = $('#jstreeTable_filter label input');
+          $('#demo').jstree(true).search(v);
+          tableInput.val(v).keyup();
+        }, 250);
+      });
+      $('#demo')
+        .jstree({
+          plugins: ['dnd', 'search', 'types', 'contextmenu', 'checkbox'],
+          checkbox: {
+            keep_selected_style: false,
+            whole_node: false,
+            tie_selection: false,
+          },
+          core: {
+            check_callback: true,
+            data: treeDataArray,
+          },
+          types: {
+            drive: {
+              icon: require('@/assets/images/devops/JSTF/home.png'),
+              valid_children: ['folder', 'default', 'file'],
+            },
+            folder: {
+              icon: require('@/assets/images/devops/JSTF/ic_explorer.png'),
+              valid_children: ['folder', 'default'],
+            },
+            default: {
+              icon: require('@/assets/images/devops/JSTF/attibutes.png'),
+              valid_children: [],
+            },
+          },
+          contextmenu: {
+            select_node: false,
+            items: function (node) {
+              var tmp = $.jstree.defaults.contextmenu.items();
+              delete tmp.create.action;
+              //create
+              tmp.create.label = 'Create';
+              tmp.create.separator_after = false;
+              tmp.create.submenu = {
+                create_folder: {
+                  separator_before: false,
+                  separator_after: false,
+                  label: 'Folder',
+                  action: function (data) {
+                    var inst = $.jstree.reference(data.reference),
+                      obj = inst.get_node(data.reference);
+                    inst.create_node(
+                      obj,
+                      { type: 'folder' },
+                      'last',
+                      function (new_node) {
+                        setTimeout(function () {
+                          inst.edit(new_node);
+                        }, 0);
+                      },
+                    );
+                  },
+                },
+                create_file: {
+                  label: 'File',
+                  action: function (data) {
+                    var inst = $.jstree.reference(data.reference),
+                      obj = inst.get_node(data.reference);
+                    inst.create_node(
+                      obj,
+                      { type: 'default' },
+                      'last',
+                      function (new_node) {
+                        setTimeout(function () {
+                          inst.edit(new_node);
+                        }, 0);
+                      },
+                    );
+                  },
+                },
+              };
+              //edit
+              tmp.ccp.separator_before = false;
+              delete tmp.ccp.action;
+              tmp.ccp.submenu = {
+                cut: {
+                  seperator_before: false,
+                  seperator_after: false,
+                  label: 'Cut',
+                  action: function (data) {
+                    var inst = $.jstree.reference(data.reference);
+                    var obj = inst.get_node(data.reference);
+                    inst.cut(obj);
+                  },
+                },
+                paste: {
+                  seperator_before: false,
+                  seperator_after: false,
+                  label: 'Paste',
+                  action: function (data) {
+                    var inst = $.jstree.reference(data.reference);
+                    var obj = inst.get_node(data.reference);
+                    inst.paste(obj, 'last', 'copy_mode');
+                    inst.open_node(obj);
+                  },
+                },
+
+                changeType: {
+                  seperator_before: false,
+                  seperator_after: false,
+                  label: 'Change Type',
+                  submenu: {
+                    toFile: {
+                      seperator_before: false,
+                      seperator_after: false,
+                      label: 'toFile',
+                      action: function (data) {
+                        var inst = $.jstree.reference(data.reference);
+                        var obj = inst.get_node(data.reference);
+                        inst.set_type(obj, 'default');
+                      },
+                    },
+                    toFolder: {
+                      seperator_before: false,
+                      seperator_after: false,
+                      label: 'toFolder',
+                      action: function (data) {
+                        var inst = $.jstree.reference(data.reference);
+                        var obj = inst.get_node(data.reference);
+                        inst.set_type(obj, 'folder');
+                      },
+                    },
+                  },
+                },
+              };
+              if (this.get_type(node) === 'file') {
+                delete tmp.create;
+              }
+              return tmp;
+            },
+          },
+        })
+        .on('loaded.jstree', function (e, data) {
+          $('#demo').jstree('open_node', [2, 4]);
+        });
+      //.on('create_node.jstree', function (e, data) {
+      //  $.post(`/com/ext/jstree/springHibernate/core/addNode.do`, {
+      //    ref: data.node.parentId,
+      //    c_position: data.node.position,
+      //    c_title: data.node.text,
+      //    c_type: data.node.type,
+      //  })
+      //    .done(function (d) {
+      //      data.instance.set_id(data.node, d.id);
+      //    })
+      //    .fail(function () {
+      //      data.instance.refresh();
+      //    });
+      //});
+      //.on('delete_node.jstree', function (e, data) {
+      //  $.post(
+      //    `${isDevelopingToRoute}/com/ext/jstree/springHibernate/core/removeNode.do`,
+      //    { c_id: data.node.id },
+      //  ).fail(function () {
+      //    data.instance.refresh();
+      //  });
+      //})
+      //.on('rename_node.jstree', function (e, data) {
+      //  $.post(
+      //    `${isDevelopingToRoute}/com/ext/jstree/springHibernate/core/alterNode.do`,
+      //    {
+      //      c_id: data.node.id,
+      //      c_title: data.text,
+      //      c_type: data.node.type,
+      //    },
+      //  )
+      //    .done(function (d) {
+      //      data.instance.set_id(data.node, d.id);
+      //      data.instance.refresh();
+      //    })
+      //    .fail(function () {
+      //      data.instance.refresh();
+      //    });
+      //});
+    }
+  },
+};
+</script>
+
+<style lang="scss">
+#search-input {
+  background: url('@/assets/images/devops/JSTF/search-white.png') 5px 5px no-repeat
+    rgba(51, 51, 51, 0.4);
+  border: 1px solid rgba(51, 51, 51, 0.425);
+  color: #f8f8f8;
+  padding: 5px 12px 5px 26px;
+  width: 100%;
+  font-size: 13px;
+  &::placeholder {
+    width: 100%;
+  }
+}
+#demo {
+  background: rgba(51, 51, 51, 0.4);
+  border: 1px solid rgba(51, 51, 51, 0.425);
+  margin-top: 5px;
+  > .jstree-children {
+    > .jstree-node {
+      > .jstree-children {
+        .jstree-node {
+          &.jstree-open {
+            > .jstree-anchor {
+              > .jstree-themeicon {
+                background-image: url('@/assets/images/devops/JSTF//toolbar_open.png') !important;
+              }
+            }
+          }
+        }
+      }
+      .jstree-anchor {
+        font-size: 13px;
+        &.jstree-search {
+          color: #fff;
+          font-style: normal;
+          background-color: #e5603b;
+        }
+        &.jstree-clicked {
+          background-color: #e5603b;
+          box-shadow: none;
+          border-radius: 0;
+          &.jstree-hovered {
+            background-color: #e5603b;
+          }
+        }
+        &.jstree-hovered,
+        &.jstree-context {
+          background: rgba(117, 117, 117, 0.325);
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}
+.jstree-contextmenu {
+  &.vakata-context {
+    box-shadow: none;
+    min-width: 180px;
+    margin-left: 9px;
+    background: rgba(51, 51, 51);
+    border: none;
+    li {
+      width: 100%;
+      height: 100%;
+      display: block;
+      position: relative;
+      padding: 0;
+      > &.vakata-context-hover {
+        > a {
+          color: #000;
+        }
+      }
+      a {
+        padding: 3px 6px;
+        font-size: 12px;
+        border: none;
+        color: #fff;
+        text-shadow: none;
+        line-height: 1;
+        &:hover {
+          color: #000;
+        }
+
+        i {
+          display: none;
+        }
+        .vakata-contextmenu-sep {
+          background: none;
+          border: none;
+          height: 0;
+          float: right;
+        }
+        &.vakata-context-parent {
+          background-image: none;
+          position: relative;
+
+          .vakata-contextmenu-sep {
+            &::after {
+              content: '\00BB';
+              display: block;
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+          }
+        }
+      }
+
+      ul {
+        top: 0px;
+        margin: 0;
+        box-shadow: none;
+        min-width: 180px;
+        padding: 0;
+        border: none;
+        display: none;
+        background: rgba(51, 51, 51);
+      }
+    }
+  }
+}
+</style>

@@ -16,6 +16,7 @@
     "@imengyu/vue3-context-menu": "^1.0.9",
     "@popperjs/core": "^2.11.5",
     "@syncfusion/ej2-vue-navigations": "^20.2.39",
+    "@types/jquery.jnotify": "^1.0.31",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "bootstrap-icons": "^1.9.1",
