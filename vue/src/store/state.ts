@@ -36,6 +36,7 @@ export const state = {
       children: ['Contributors'],
     },
   ],
+  upDataNode: false,
 };
 
 export type RootState = typeof state;

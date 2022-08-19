@@ -41,25 +41,6 @@ export default {
 
     var isDevelopingToRoute = '/auth-anon';
 
-    //operation enviorment setup and local development configuration
-    if ($(location).attr('port') == 9999) {
-      console.log('csrf 우회 because local development');
-      isDevelopingToRoute = '/auth-anon';
-    } else {
-      $.ajax({
-        async: false,
-        type: 'GET',
-        url: '/api/jsTreeServiceFramework/security/csrf.do',
-        success: function (r) {
-          var token = r._csrf_token;
-          var header = r._csrf_headerName;
-          $(document).ajaxSend(function (e, xhr, options) {
-            xhr.setRequestHeader(header, token);
-          });
-        },
-      });
-    }
-
     $('#jstreeTable').dataTable({
       ajax: {
         url: isDevelopingToRoute + this.tableDataUrl,

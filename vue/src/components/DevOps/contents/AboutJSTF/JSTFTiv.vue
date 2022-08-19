@@ -58,6 +58,11 @@ export default {
       isMonitor: false,
       DataUrlList: {
         getMonitor: '/com/ext/jstree/strutsiBatis/core/monitor/list.action',
+        alterNodeType: '/com/ext/jstree/springHibernate/core/alterNodeType.action',
+        addNode: '/com/ext/jstree/springHibernate/core/addNode.action',
+        removeNode: '/com/ext/jstree/springHibernate/core/removeNode.action',
+        alterNode: '/com/ext/jstree/springHibernate/core/alterNode.action',
+        moveNode: '/com/ext/jstree/springHibernate/core/moveNode.action',
       },
     };
   },

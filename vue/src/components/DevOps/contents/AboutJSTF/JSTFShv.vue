@@ -42,6 +42,11 @@ export default {
       isMonitor: true,
       DataUrlList: {
         getMonitor: '/com/ext/jstree/springHibernate/core/getMonitor.do',
+        alterNodeType: '/com/ext/jstree/springHibernate/core/alterNodeType.do',
+        addNode: '/com/ext/jstree/springHibernate/core/addNode.do',
+        removeNode: '/com/ext/jstree/springHibernate/core/removeNode.do',
+        alterNode: '/com/ext/jstree/springHibernate/core/alterNode.do',
+        moveNode: '/com/ext/jstree/springHibernate/core/moveNode.do',
       },
     };
   },

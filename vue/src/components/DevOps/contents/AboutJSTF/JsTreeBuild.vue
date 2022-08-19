@@ -21,8 +21,25 @@ export default {
   },
 
   mounted() {
-    const isDevelopingToRoute = '/auth-anon';
+    let isDevelopingToRoute = '/auth-anon';
     const dataUrl = this.DataUrlList;
+    if ($(location).attr('port') == 9999) {
+      console.log('csrf 우회 because local development');
+      isDevelopingToRoute = '/auth-anon';
+    } else {
+      $.ajax({
+        async: false,
+        type: 'GET',
+        url: isDevelopingToRoute + '/api/jsTreeServiceFramework/security/csrf.do',
+        success: function (r) {
+          var token = r._csrf_token;
+          var header = r._csrf_headerName;
+          $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+          });
+        },
+      });
+    }
 
     axios.get(`${isDevelopingToRoute}${dataUrl.getMonitor}`).then(response => {
       const data = response.data;
@@ -101,6 +118,10 @@ export default {
             drive: {
               icon: require('@/assets/images/devops/JSTF/home.png'),
               valid_children: ['folder', 'default', 'file'],
+              start_drag: false,
+              move_node: false,
+              delete_node: false,
+              remove: false,
             },
             folder: {
               icon: require('@/assets/images/devops/JSTF/ic_explorer.png'),
@@ -157,6 +178,7 @@ export default {
                   },
                 },
               };
+
               //edit
               tmp.ccp.separator_before = false;
               delete tmp.ccp.action;
@@ -196,6 +218,10 @@ export default {
                         var inst = $.jstree.reference(data.reference);
                         var obj = inst.get_node(data.reference);
                         inst.set_type(obj, 'default');
+                        $.post(`${isDevelopingToRoute}${dataUrl.alterNodeType}`, {
+                          c_id: obj.id,
+                          c_type: obj.type,
+                        });
                       },
                     },
                     toFolder: {
@@ -206,12 +232,19 @@ export default {
                         var inst = $.jstree.reference(data.reference);
                         var obj = inst.get_node(data.reference);
                         inst.set_type(obj, 'folder');
+                        console.log(inst);
+
+                        $.post(`${isDevelopingToRoute}${dataUrl.alterNodeType}`, {
+                          c_id: obj.id,
+                          c_title: obj.text,
+                          c_type: obj.type,
+                        });
                       },
                     },
                   },
                 },
               };
-              if (this.get_type(node) === 'file') {
+              if (this.get_type(node) === 'default') {
                 delete tmp.create;
               }
               return tmp;
@@ -220,46 +253,44 @@ export default {
         })
         .on('loaded.jstree', function (e, data) {
           $('#demo').jstree('open_node', [2, 4]);
+        })
+        .on('create_node.jstree', function (e, data) {
+          $.post(`${isDevelopingToRoute}${dataUrl.addNode}`, {
+            ref: data.node.parent,
+            c_position: data.position,
+            c_title: data.node.text,
+            c_type: data.node.type,
+          })
+            .done(function (d) {
+              $('#demo').jstree(true).set_id(data.node, d.id);
+            })
+            .fail(function () {
+              $('#demo').jstree(true).refresh();
+            });
+        })
+        .on('delete_node.jstree', function (e, data) {
+          $.post(`${isDevelopingToRoute}${dataUrl.removeNode}`, {
+            c_id: data.node.id,
+          }).fail(function () {
+            $('#demo').jstree(true).refresh();
+          });
+        })
+        .on('rename_node.jstree', function (e, data) {
+          $.post(`${isDevelopingToRoute}${dataUrl.alterNode}`, {
+            c_id: data.node.id,
+            c_title: data.text,
+            c_type: data.node.type,
+          });
+        })
+        .on('move_node.jstree', function (e, data) {
+          $.post(`${isDevelopingToRoute}${dataUrl.moveNode}`, {
+            c_id: data.node.id,
+            ref: data.parent,
+            c_position: data.position,
+            copy: 0,
+            multiCounter: 0,
+          });
         });
-      //.on('create_node.jstree', function (e, data) {
-      //  $.post(`/com/ext/jstree/springHibernate/core/addNode.do`, {
-      //    ref: data.node.parentId,
-      //    c_position: data.node.position,
-      //    c_title: data.node.text,
-      //    c_type: data.node.type,
-      //  })
-      //    .done(function (d) {
-      //      data.instance.set_id(data.node, d.id);
-      //    })
-      //    .fail(function () {
-      //      data.instance.refresh();
-      //    });
-      //});
-      //.on('delete_node.jstree', function (e, data) {
-      //  $.post(
-      //    `${isDevelopingToRoute}/com/ext/jstree/springHibernate/core/removeNode.do`,
-      //    { c_id: data.node.id },
-      //  ).fail(function () {
-      //    data.instance.refresh();
-      //  });
-      //})
-      //.on('rename_node.jstree', function (e, data) {
-      //  $.post(
-      //    `${isDevelopingToRoute}/com/ext/jstree/springHibernate/core/alterNode.do`,
-      //    {
-      //      c_id: data.node.id,
-      //      c_title: data.text,
-      //      c_type: data.node.type,
-      //    },
-      //  )
-      //    .done(function (d) {
-      //      data.instance.set_id(data.node, d.id);
-      //      data.instance.refresh();
-      //    })
-      //    .fail(function () {
-      //      data.instance.refresh();
-      //    });
-      //});
     }
   },
 };
