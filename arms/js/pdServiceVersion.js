@@ -32,11 +32,12 @@ function jsTreeClick(selectedNode) {
     $("#product-input").val(getSelectedText);
 
     checkEqualSelectedNode(selectedNode);
-    dataLoad(selectedNode.attr("id").replace("node_", ""));
+    dataLoad(selectedNode.attr("id").replace("node_", ""), getSelectedText);
 }
 
 function checkEqualSelectedNode(selectedNode){
     var getSelectedText = selectedNode.find("a.jstree-clicked").text().trimStart();
+
     var inputText = $("#product-input").val();
     if(getSelectedText == inputText){
         console.log("동일하다 선택된 값이다.");
@@ -47,13 +48,15 @@ function checkEqualSelectedNode(selectedNode){
     }
 }
 
-function dataLoad(getSelectedText) {
+function dataLoad(getSelectedText, selectedText) {
     // ajax 처리 후 에디터 바인딩.
     console.log(getSelectedText);
     $.ajax("/auth-user/api/arms/pdversion/getVersion.do?c_id=" + getSelectedText)
         .done(function (json) {
             console.log(json);
             $("#versionAccordion").jsonMenu("set", json, { speed: 5000 });
+            //version text setting
+            $(".list-group-item").text(selectedText);
         })
         .fail(function (jqXHR) {
             console.log("error");

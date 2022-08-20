@@ -256,6 +256,10 @@
 <script type="text/javascript" charset="utf-8">
 	//<![CDATA[
 
+	function versionClick(){
+		console.log("test");
+	}
+
 	// 초기 개발 및 확인 용도
 	(function ($) {
 		let menu;
@@ -265,21 +269,17 @@
 
 			let data = `
                             <li class='list-group-item json-menu-header'>
-                                product name
+                                <strong>product service name</strong>
                             </li>
+                            <button id="compose-btn" class="btn btn-danger btn-block">신규 제품<sup>서비스</sup> 등록하기</button>
                         `;
 
 			for (let i = 0; i < menu.length; i++) {
 				data += `
                             <div class="panel">
                                 <div class="panel-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" href="#jsonItem${i}">
+                                    <div class="accordion-toggle collapsed" data-toggle="collapse" onclick="versionClick();">
                                         ${menu[i].c_title}
-                                    </a>
-                                </div>
-                                <div id="jsonItem${i}" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        ${menu[i].c_type}
                                     </div>
                                 </div>
                             </div>
