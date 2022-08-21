@@ -65,7 +65,7 @@
 		<header>
 			<h4>
 				<span class="font13" style="font-weight: bold">
-					<i class="fa fa-edit"></i> 제품(서비스) 등록 / 변경
+					<i class="fa fa-edit"></i> 제품(서비스) 버전 등록 / 변경
 				</span>
 			</h4>
 			<div class="widget-controls">
@@ -82,149 +82,68 @@
 			</div>
 		</header>
 		<div class="body">
-			<div
-				class="box box-primary"
-				style="
-					border-top-color: #bbbbbb;
-					border-top-width: 0px;
-					margin-bottom: 35px !important;
-				"
-			>
-				<div class="box-body">
-					<div class="form-group" style="padding-top: 10px">
-						<div class="control-group">
-							<label
-								class="control-label"
-								for="product-input"
-								style="vertical-align: center"
-								>버전 등록 모드 &nbsp;</label
-							>
-							<div class="controls form-group" style="margin-bottom: 10px">
-								<div class="input-group" style="text-align: left">
-									<span class="input-group-addon"><i class="fa fa-sliders"></i></span>
-									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-transparent btn-sm newmode active">
-											<input type="radio" /> 신규 등록 모드
-										</label>
-										<label class="btn btn-transparent btn-sm updatemode">
-											<input type="radio" /> 업데이트 모드
-										</label>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="product-input">제품(서비스) 이름 &nbsp;</label>
-							<div class="controls form-group" style="margin-bottom: 10px;">
-								<div class="input-group col-sm-8">
-									<span class="input-group-addon"><i class="glyphicon glyphicon-gift"></i></span>
-									<input id="product-input" class="form-control font13 darkBack" style="color: #f8f8f8;" size="16" type="text" placeholder="제품(서비스)명을 입력해 주세요">
-								</div>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="version-input">버전 명 &nbsp;</label>
-							<div class="controls form-group" style="margin-bottom: 10px">
-								<div class="input-group">
-									<span class="input-group-addon"
-										><i class="glyphicon glyphicon-gift"></i
-									></span>
-									<input
-										id="version-input"
-										class="form-control font13 darkBack"
-										style="color: #f8f8f8"
-										size="16"
-										type="text"
-										placeholder="제품(서비스)명을 입력해 주세요"
-									/>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div id="editor" class="darkBack">
-						<p>입력란이 좁다면 하단에 새창으로 띄우기를 클릭하세요.</p>
-					</div>
-				</div>
-				<p class="pull-right" style="padding-top: 10px">
-					<button type="button" class="btn btn-info" id="show-info-message">
-						제품(서비스) 등록
-					</button>
-				</p>
-				<p class="pull-right" style="padding-top: 10px; padding-right: 10px">
-					<button
-						type="button"
-						class="btn btn-success"
-						id="modalPopupId"
-						data-toggle="modal"
-						data-target="#myModal2"
-					>
-						새창으로 편집
-					</button>
-				</p>
-				<div
-					id="myModal2"
-					class="modal fade"
-					tabindex="-1"
-					role="dialog"
-					aria-labelledby="myModalLabel"
-					aria-hidden="true"
-					style="display: none"
-				>
-					<div class="modal-dialog" style="width: 90%; height: 90%">
-						<div class="modal-content darkBack">
-							<div class="modal-header" style="padding: 0px; border-bottom: 0px">
-								<button
-									type="button"
-									class="close"
-									data-dismiss="modal"
-									aria-hidden="true"
-									style="color: #ffffff; font-size: 20px; opacity: 0.8; padding: 5px"
-								>
-									×
-								</button>
-								<h4
-									class="modal-title font14"
-									id="myModalLabel2"
-									style="color: #f8f8f8; text-align: left; padding: 5px"
-								>
-									<span class="font13" style="font-weight: bold">
-										<i class="fa fa-edit"></i> 제품(서비스) 신규 등록 팝업
-									</span>
-									<section class="search-result" style="border-left: 5px solid #e5603b">
-										<p
-											style="font-size: 13px; margin: 5px 0px 0px 0px; padding-left: 5px"
-										>
-											입력한 내용은 부모창과 동기화 됩니다. 부모창에서 등록하기를 진행해야
-											저장됩니다.
-										</p>
-									</section>
-								</h4>
-							</div>
-							<div class="modal-body" style="padding: 5px">
-								<div id="modal-editor" class="darkBack">
-									<p>입력란이 좁다면 하단에 새창으로 띄우기를 클릭하세요.</p>
-								</div>
-							</div>
-							<div
-								class="modal-footer"
-								style="
-									background-color: transparent;
-									padding: 5px;
-									text-align: right;
-									border-top: 0px;
-								"
-							>
-								<button type="button" class="btn btn-default" data-dismiss="modal">
-									Close
-								</button>
-								<button type="button" class="btn btn-primary">Save changes</button>
-							</div>
-						</div>
-						<!-- /.modal-content -->
-					</div>
-					<!-- /.modal-dialog -->
-				</div>
-			</div>
+            <div class="row">
+                <div class="col-md-12">
+                    <section class="widget widget-tabs">
+                        <header>
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#stats" data-toggle="tab"><strong>상세 보기</strong></a>
+                                </li>
+                                <li>
+                                    <a href="#report" data-toggle="tab"><strong>편집 하기</strong></a>
+                                </li>
+                                <li>
+                                    <a href="#dropdown1" data-toggle="tab"><strong>삭제 하기</strong></a>
+                                </li>
+                            </ul>
+                        </header>
+                        <div class="body tab-content">
+                            <div id="stats" class="tab-pane active clearfix">
+                                <h2>Tabs-enabled widget</h2>
+                                <p>You will never know exactly how something will go until you try it.</p>
+                                <p>You can think three hundred times and still have no precise result. If you see
+                                    attractive girl all you need to do is to go and ask her to give you her phone. You don’t
+                                    need to think about HOW it can turn out. All you have to do is to GO and DO IT. It
+                                    should be super-fast and easy. No hesitation. You ask me: “What to do with these
+                                    fearful thoughts preventing me from doing that?” The answer is to ignore them, because
+                                    they can’t disappear immediately.</p>
+                                <p>The same thing is for startups and ideas. If you have an idea right away after it appears in your mind you should go and make a first step to implement it. </p>
+                                <div class="pull-right">
+                                    <button class="btn btn-inverse">Cancel</button>
+                                    <button class="btn btn-primary">Some button</button>
+                                </div>
+                            </div>
+                            <div id="report" class="tab-pane">
+                                <div style="font-size: 240px; text-align: center; color: #56bc76; text-shadow: 2px 2px 2px #000000; height: 280px;">
+                                    <i class="fa fa-picture-o"></i>
+                                </div>
+                            </div>
+                            <div id="dropdown1" class="tab-pane">
+                                <p>The same thing is for startups and ideas. If you have an idea right away after it appears
+                                    in your mind you should go and make a first step to implement it. If you will think too
+                                    much it will sink in the swamp of never implemented plans and ideas or will just go away
+                                    or will be implemented by someone else.</p>
+                                <p><strong>5 months of doing everything to achieve nothing.</strong></p>
+                                <p>I had an idea named Great Work. It was a service aimed to help people find their passion.
+                                    Yes I know it sound crazy and super naïve but I worked on that. I started to work on
+                                    planning, graphics, presentations, pictures, descriptions, articles, investments and so
+                                    on. I worked on everything but not the project itself</p>
+                                <div>
+                                    <button class="btn btn-danger">Some button</button>
+                                    <button class="btn btn-default">Cancel</button>
+                                </div>
+                            </div>
+                            <div id="dropdown2" class="tab-pane">
+                                <p>I realized really simple thing recently. Try is million times better than think. The real world is much more representative than any models either they are built in mind or on the shit of paper.</p>
+                                <div>
+                                    <button class="btn btn-warning btn-block">Some button</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
 		</div>
 	</section>
 </div>
@@ -271,16 +190,16 @@
                             <li class='list-group-item json-menu-header'>
                                 <strong>product service name</strong>
                             </li>
-                            <button id="compose-btn" class="btn btn-danger btn-block">신규 제품<sup>서비스</sup> 등록하기</button>
+                            <button id="compose-btn" class="btn btn-danger btn-block">신규 버전 등록하기</button>
                         `;
 
 			for (let i = 0; i < menu.length; i++) {
 				data += `
                             <div class="panel">
                                 <div class="panel-heading">
-                                    <div class="accordion-toggle collapsed" data-toggle="collapse" onclick="versionClick();">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" href="" onclick="versionClick(); return false;">
                                         ${menu[i].c_title}
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         `;
