@@ -36,7 +36,8 @@ export const state = {
       children: ['Contributors'],
     },
   ],
-  upDataNode: false,
+  isDevelopingToRoute: '/auth-anon',
+  dataTable: null,
 };
 
 export type RootState = typeof state;

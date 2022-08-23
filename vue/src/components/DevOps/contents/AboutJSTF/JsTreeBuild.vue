@@ -7,7 +7,10 @@ import $ from 'jquery';
 import 'jquery/src/jquery.js';
 import 'jstree/dist/jstree.min.js';
 import 'jstree/dist/themes/default/style.min.css';
+import 'datatables.net-responsive/js/dataTables.responsive.min.js';
+import 'datatables.net-select';
 import axios from 'axios';
+import { mapState } from 'vuex';
 
 export default {
   data() {
@@ -15,34 +18,19 @@ export default {
       treeData: [],
     };
   },
+
   props: {
     DataUrlList: Object,
     isMonitor: Boolean,
+    columns: Array,
+    dataSrc: String,
   },
-
-  mounted() {
-    let isDevelopingToRoute = '/auth-anon';
-    const dataUrl = this.DataUrlList;
-    if ($(location).attr('port') == 9999) {
-      console.log('csrf 우회 because local development');
-      isDevelopingToRoute = '/auth-anon';
-    } else {
-      $.ajax({
-        async: false,
-        type: 'GET',
-        url: isDevelopingToRoute + '/api/jsTreeServiceFramework/security/csrf.do',
-        success: function (r) {
-          var token = r._csrf_token;
-          var header = r._csrf_headerName;
-          $(document).ajaxSend(function (e, xhr, options) {
-            xhr.setRequestHeader(header, token);
-          });
-        },
-      });
-    }
-
-    axios.get(`${isDevelopingToRoute}${dataUrl.getMonitor}`).then(response => {
-      const data = response.data;
+  computed: {
+    ...mapState(['isDevelopingToRoute']),
+  },
+  methods: {
+    //tableData 가공
+    makeTableData(data) {
       let arrangeData;
       let matchData;
       let getParentIdList = [];
@@ -86,10 +74,10 @@ export default {
         }
         return data;
       });
-      jsTreeBuild(this.treeData[0]);
-    });
-
-    function jsTreeBuild(treeDataArray) {
+      return this.treeData;
+    },
+    //Jstree search
+    jsTreeSearch() {
       let to = false;
       $('#search-input').keyup(function () {
         if (to) {
@@ -102,6 +90,9 @@ export default {
           tableInput.val(v).keyup();
         }, 250);
       });
+    },
+    //make jstree
+    jsTreeBuild(treeDataArray, isDevelopingToRoute, dataUrl, dataTableLoad) {
       $('#demo')
         .jstree({
           plugins: ['dnd', 'search', 'types', 'contextmenu', 'checkbox'],
@@ -263,6 +254,7 @@ export default {
           })
             .done(function (d) {
               $('#demo').jstree(true).set_id(data.node, d.id);
+              dataTableLoad();
             })
             .fail(function () {
               $('#demo').jstree(true).refresh();
@@ -271,15 +263,21 @@ export default {
         .on('delete_node.jstree', function (e, data) {
           $.post(`${isDevelopingToRoute}${dataUrl.removeNode}`, {
             c_id: data.node.id,
-          }).fail(function () {
-            $('#demo').jstree(true).refresh();
-          });
+          })
+            .done(function () {
+              dataTableLoad();
+            })
+            .fail(function () {
+              $('#demo').jstree(true).refresh();
+            });
         })
         .on('rename_node.jstree', function (e, data) {
           $.post(`${isDevelopingToRoute}${dataUrl.alterNode}`, {
             c_id: data.node.id,
             c_title: data.text,
             c_type: data.node.type,
+          }).done(function () {
+            dataTableLoad();
           });
         })
         .on('move_node.jstree', function (e, data) {
@@ -289,9 +287,240 @@ export default {
             c_position: data.position,
             copy: 0,
             multiCounter: 0,
+          }).done(function () {
+            dataTableLoad();
           });
         });
+    },
+  },
+  mounted() {
+    const dataUrl = this.DataUrlList;
+    if ($(location).attr('port') == 9999) {
+      console.log('csrf 우회 because local development');
+    } else {
+      $.ajax({
+        async: false,
+        type: 'GET',
+        url: this.isDevelopingToRoute + '/api/jsTreeServiceFramework/security/csrf.do',
+        success: function (r) {
+          var token = r._csrf_token;
+          var header = r._csrf_headerName;
+          $(document).ajaxSend(function (e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+          });
+        },
+      });
     }
+
+    axios.get(`${this.isDevelopingToRoute}${dataUrl.getMonitor}`).then(response => {
+      const dataTableReload = () =>
+        this.$store.commit('dataTabelLoad', {
+          dataUrl: dataUrl.getMonitor,
+          dataSrc: this.dataSrc,
+          dataColumns: this.columns,
+        });
+      const data = response.data;
+      this.makeTableData(data);
+      this.jsTreeSearch();
+      this.jsTreeBuild(
+        this.treeData[0],
+        this.isDevelopingToRoute,
+        dataUrl,
+        dataTableReload,
+      );
+    });
+
+    //function jsTreeBuild(treeDataArray) {
+    //  $('#demo')
+    //    .jstree({
+    //      plugins: ['dnd', 'search', 'types', 'contextmenu', 'checkbox'],
+    //      checkbox: {
+    //        keep_selected_style: false,
+    //        whole_node: false,
+    //        tie_selection: false,
+    //      },
+    //      core: {
+    //        check_callback: true,
+    //        data: treeDataArray,
+    //      },
+    //      types: {
+    //        drive: {
+    //          icon: require('@/assets/images/devops/JSTF/home.png'),
+    //          valid_children: ['folder', 'default', 'file'],
+    //          start_drag: false,
+    //          move_node: false,
+    //          delete_node: false,
+    //          remove: false,
+    //        },
+    //        folder: {
+    //          icon: require('@/assets/images/devops/JSTF/ic_explorer.png'),
+    //          valid_children: ['folder', 'default'],
+    //        },
+    //        default: {
+    //          icon: require('@/assets/images/devops/JSTF/attibutes.png'),
+    //          valid_children: [],
+    //        },
+    //      },
+    //      contextmenu: {
+    //        select_node: false,
+    //        items: function (node) {
+    //          var tmp = $.jstree.defaults.contextmenu.items();
+    //          delete tmp.create.action;
+    //          //create
+    //          tmp.create.label = 'Create';
+    //          tmp.create.separator_after = false;
+    //          tmp.create.submenu = {
+    //            create_folder: {
+    //              separator_before: false,
+    //              separator_after: false,
+    //              label: 'Folder',
+    //              action: function (data) {
+    //                var inst = $.jstree.reference(data.reference),
+    //                  obj = inst.get_node(data.reference);
+    //                inst.create_node(
+    //                  obj,
+    //                  { type: 'folder' },
+    //                  'last',
+    //                  function (new_node) {
+    //                    setTimeout(function () {
+    //                      inst.edit(new_node);
+    //                    }, 0);
+    //                  },
+    //                );
+    //              },
+    //            },
+    //            create_file: {
+    //              label: 'File',
+    //              action: function (data) {
+    //                var inst = $.jstree.reference(data.reference),
+    //                  obj = inst.get_node(data.reference);
+    //                inst.create_node(
+    //                  obj,
+    //                  { type: 'default' },
+    //                  'last',
+    //                  function (new_node) {
+    //                    setTimeout(function () {
+    //                      inst.edit(new_node);
+    //                    }, 0);
+    //                  },
+    //                );
+    //              },
+    //            },
+    //          };
+
+    //          //edit
+    //          tmp.ccp.separator_before = false;
+    //          delete tmp.ccp.action;
+    //          tmp.ccp.submenu = {
+    //            cut: {
+    //              seperator_before: false,
+    //              seperator_after: false,
+    //              label: 'Cut',
+    //              action: function (data) {
+    //                var inst = $.jstree.reference(data.reference);
+    //                var obj = inst.get_node(data.reference);
+    //                inst.cut(obj);
+    //              },
+    //            },
+    //            paste: {
+    //              seperator_before: false,
+    //              seperator_after: false,
+    //              label: 'Paste',
+    //              action: function (data) {
+    //                var inst = $.jstree.reference(data.reference);
+    //                var obj = inst.get_node(data.reference);
+    //                inst.paste(obj, 'last', 'copy_mode');
+    //                inst.open_node(obj);
+    //              },
+    //            },
+
+    //            changeType: {
+    //              seperator_before: false,
+    //              seperator_after: false,
+    //              label: 'Change Type',
+    //              submenu: {
+    //                toFile: {
+    //                  seperator_before: false,
+    //                  seperator_after: false,
+    //                  label: 'toFile',
+    //                  action: function (data) {
+    //                    var inst = $.jstree.reference(data.reference);
+    //                    var obj = inst.get_node(data.reference);
+    //                    inst.set_type(obj, 'default');
+    //                    $.post(`${isDevelopingToRoute}${dataUrl.alterNodeType}`, {
+    //                      c_id: obj.id,
+    //                      c_type: obj.type,
+    //                    });
+    //                  },
+    //                },
+    //                toFolder: {
+    //                  seperator_before: false,
+    //                  seperator_after: false,
+    //                  label: 'toFolder',
+    //                  action: function (data) {
+    //                    var inst = $.jstree.reference(data.reference);
+    //                    var obj = inst.get_node(data.reference);
+    //                    inst.set_type(obj, 'folder');
+    //                    console.log(inst);
+
+    //                    $.post(`${isDevelopingToRoute}${dataUrl.alterNodeType}`, {
+    //                      c_id: obj.id,
+    //                      c_title: obj.text,
+    //                      c_type: obj.type,
+    //                    });
+    //                  },
+    //                },
+    //              },
+    //            },
+    //          };
+    //          if (this.get_type(node) === 'default') {
+    //            delete tmp.create;
+    //          }
+    //          return tmp;
+    //        },
+    //      },
+    //    })
+    //    .on('loaded.jstree', (e, data) => {
+    //      $('#demo').jstree('open_node', [2, 4]);
+    //    })
+    //    .on('create_node.jstree', (e, data) => {
+    //      $.post(`${isDevelopingToRoute}${dataUrl.addNode}`, {
+    //        ref: data.node.parent,
+    //        c_position: data.position,
+    //        c_title: data.node.text,
+    //        c_type: data.node.type,
+    //      })
+    //        .done(d => {
+    //          $('#demo').jstree(true).set_id(data.node, d.id);
+    //        })
+    //        .fail(function () {
+    //          $('#demo').jstree(true).refresh();
+    //        });
+    //    })
+    //    .on('delete_node.jstree', function (e, data) {
+    //      $.post(`${isDevelopingToRoute}${dataUrl.removeNode}`, {
+    //        c_id: data.node.id,
+    //      }).fail(function () {
+    //        $('#demo').jstree(true).refresh();
+    //      });
+    //    })
+    //    .on('rename_node.jstree', function (e, data) {
+    //      $.post(`${isDevelopingToRoute}${dataUrl.alterNode}`, {
+    //        c_id: data.node.id,
+    //        c_title: data.text,
+    //        c_type: data.node.type,
+    //      });
+    //    })
+    //    .on('move_node.jstree', function (e, data) {
+    //      $.post(`${isDevelopingToRoute}${dataUrl.moveNode}`, {
+    //        c_id: data.node.id,
+    //        ref: data.parent,
+    //        c_position: data.position,
+    //        copy: 0,
+    //        multiCounter: 0,
+    //      });
+    //    });
+    //}
   },
 };
 </script>

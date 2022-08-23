@@ -6,11 +6,20 @@
     <div class="content-box">
       <div class="treebox">
         <div class="content-section tree-section" style="margin-bottom: 20px">
-          <JsTreeBuild :DataUrlList="DataUrlList" :isMonitor="isMonitor" />
+          <JsTreeBuild
+            :DataUrlList="DataUrlList"
+            :isMonitor="isMonitor"
+            :columns="columns"
+            dataSrc=""
+          />
         </div>
       </div>
       <div class="content-section table-section">
-        <JsDataTable :tableDataUrl="tableDataUrl" :columns="columns" dataSrc="" />
+        <JsDataTable
+          :tableDataUrl="DataUrlList.getMonitor"
+          :columns="columns"
+          dataSrc=""
+        />
       </div>
     </div>
   </div>
@@ -28,7 +37,6 @@ export default {
   },
   data() {
     return {
-      tableDataUrl: '/com/ext/jstree/springHibernate/core/getMonitor.do',
       columns: [
         { data: 'c_id' },
         { data: 'c_parentid' },

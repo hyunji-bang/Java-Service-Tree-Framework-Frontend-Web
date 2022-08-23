@@ -18,9 +18,8 @@
     </thead>
   </table>
 </template>
-<script scoped>
+<script>
 import $ from 'jquery';
-
 import 'datatables.net-responsive/js/dataTables.responsive.min.js';
 import 'datatables.net-select';
 
@@ -31,26 +30,21 @@ export default {
     dataSrc: String,
   },
   mounted() {
-    console.log('href: ' + $(location).attr('href'));
-    console.log('protocol: ' + $(location).attr('protocol'));
-    console.log('host: ' + $(location).attr('host'));
-    console.log('pathname: ' + $(location).attr('pathname'));
-    console.log('search: ' + $(location).attr('search'));
-    console.log('hostname: ' + $(location).attr('hostname'));
-    console.log('port: ' + $(location).attr('port'));
-
-    var isDevelopingToRoute = '/auth-anon';
-
-    $('#jstreeTable').dataTable({
-      ajax: {
-        url: isDevelopingToRoute + this.tableDataUrl,
-        dataSrc: this.dataSrc,
-      },
-      destroy: true,
-      processing: true,
-      responsive: true,
-      columns: this.columns,
+    this.$store.commit('dataTabelLoad', {
+      dataUrl: this.tableDataUrl,
+      dataSrc: this.dataSrc,
+      dataColumns: this.columns,
     });
+    //const jsDataTableLoad = $('#jstreeTable').dataTable({
+    //  ajax: {
+    //    url: this.$store.state.isDevelopingToRoute + this.tableDataUrl,
+    //    dataSrc: this.dataSrc,
+    //  },
+    //  destroy: true,
+    //  processing: true,
+    //  responsive: true,
+    //  columns: this.columns,
+    //});
   },
 };
 </script>
