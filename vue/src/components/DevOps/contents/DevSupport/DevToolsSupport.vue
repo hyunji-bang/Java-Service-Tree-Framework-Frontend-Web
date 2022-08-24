@@ -10,8 +10,8 @@
             :key="infoIdx"
             :href="toolInfo.toolLink"
             class="tools"
-            target="_blank"
             :class="toolInfo.longName && toolInfo.longName"
+            target="_blank"
           >
             <span>
               <img
@@ -28,226 +28,215 @@
   </div>
 </template>
 toolInfo
-<script>
+<script setup>
 import ContentHeader from '@/components/DevOps/common/ContentHeader.vue';
-
-export default {
-  name: 'DevTools',
-  components: {
-    ContentHeader,
+const devToolsList = [
+  {
+    toolTitle: 'Application Lifecycle Management',
+    toolsList: [
+      {
+        toolName: 'Jira',
+        toolImgpath: require('@/assets/images/devops/DevSupport/jira.png'),
+        toolLink: 'http://www.313.co.kr/jira',
+      },
+      {
+        toolName: 'Confluence',
+        toolImgpath: require('@/assets/images/devops/DevSupport/confluence.png'),
+        toolLink: 'http://www.313.co.kr/confluence',
+      },
+      {
+        toolName: 'Fecru',
+        toolImgpath: require('@/assets/images/devops/DevSupport/fecru.png'),
+        toolLink: 'http://www.313.co.kr/fecru',
+      },
+      {
+        toolName: 'Maven',
+        toolImgpath: require('@/assets/images/devops/DevSupport/maven.png'),
+        toolLink: 'http://www.313.co.kr/313devgrp/analysis',
+      },
+      {
+        toolName: 'Swagger',
+        toolImgpath: require('@/assets/images/devops/DevSupport/swagger.png'),
+        toolLink: 'http://www.313.co.kr/swagger-ui.html',
+      },
+      {
+        toolName: 'Zipkin',
+        toolImgpath: require('@/assets/images/devops/DevSupport/zipkin.png'),
+        toolLink: 'http://www.313.co.kr/zipkin',
+      },
+    ],
   },
-  data() {
-    return {
-      devToolsList: [
-        {
-          toolTitle: 'Application Lifecycle Management',
-          toolsList: [
-            {
-              toolName: 'Jira',
-              toolImgpath: require('@/assets/images/devops/DevSupport/jira.png'),
-              toolLink: 'http://www.313.co.kr/jira',
-            },
-            {
-              toolName: 'Confluence',
-              toolImgpath: require('@/assets/images/devops/DevSupport/confluence.png'),
-              toolLink: 'http://www.313.co.kr/confluence',
-            },
-            {
-              toolName: 'Fecru',
-              toolImgpath: require('@/assets/images/devops/DevSupport/fecru.png'),
-              toolLink: 'http://www.313.co.kr/fecru',
-            },
-            {
-              toolName: 'Maven',
-              toolImgpath: require('@/assets/images/devops/DevSupport/maven.png'),
-              toolLink: 'http://www.313.co.kr/313devgrp/analysis',
-            },
-            {
-              toolName: 'Swagger',
-              toolImgpath: require('@/assets/images/devops/DevSupport/swagger.png'),
-              toolLink: 'http://www.313.co.kr/swagger-ui.html',
-            },
-            {
-              toolName: 'Zipkin',
-              toolImgpath: require('@/assets/images/devops/DevSupport/zipkin.png'),
-              toolLink: 'http://www.313.co.kr/zipkin',
-            },
-          ],
-        },
-        {
-          toolTitle: 'CI / CD',
-          toolsList: [
-            {
-              toolName: 'Bamboo',
-              toolImgpath: require('@/assets/images/devops/DevSupport/bamboo.png'),
-              toolLink: 'http://www.313.co.kr/bamboo',
-            },
-            {
-              toolName: 'Jenkins',
-              toolImgpath: require('@/assets/images/devops/DevSupport/jenkins.png'),
-              toolLink: 'http://www.313.co.kr/jenkins',
-            },
-            {
-              toolName: 'Spinnaker',
-              toolImgpath: require('@/assets/images/devops/DevSupport/spinnaker.png'),
-              toolLink: 'http://www.313.co.kr:9000',
-            },
-            {
-              toolName: 'Github',
-              toolImgpath: require('@/assets/images/devops/DevSupport/github.png'),
-              toolLink: 'https://github.com/313devgrp',
-            },
-            {
-              toolName: 'Nexus',
-              toolImgpath: require('@/assets/images/devops/DevSupport/nexus.png'),
-              toolLink: 'http://www.313.co.kr/nexus',
-            },
-            {
-              toolName: 'SonarQube',
-              toolImgpath: require('@/assets/images/devops/DevSupport/sonar.png'),
-              toolLink: 'http://www.313.co.kr/sonar',
-            },
-          ],
-        },
-        {
-          toolTitle: 'Database System',
-          toolsList: [
-            {
-              toolName: 'Oracle',
-              toolImgpath: require('@/assets/images/devops/DevSupport/oracle.png'),
-              toolLink: 'https://www.313.co.kr:1158/em',
-            },
-            {
-              toolName: 'Mysql',
-              toolImgpath: require('@/assets/images/devops/DevSupport/mysql.png'),
-              toolLink: 'http://www.313.co.kr:8880/phpMyAdmin-4.8.3/',
-            },
-            {
-              toolName: 'Postgres',
-              toolImgpath: require('@/assets/images/devops/DevSupport/postgres.png'),
-              toolLink: 'http://www.313.co.kr:8880/phpPgAdmin-5.1/',
-            },
-            {
-              toolName: 'Minio',
-              toolImgpath: require('@/assets/images/devops/DevSupport/minio.png'),
-              toolLink: 'http://www.313.co.kr:62222',
-            },
-            {
-              toolName: 'Redis',
-              toolImgpath: require('@/assets/images/devops/DevSupport/redis.png'),
-              toolLink: 'http://www.313.co.kr:8786',
-            },
-          ],
-        },
-        {
-          toolTitle: 'Application System',
-          toolsList: [
-            {
-              longName: 'longName',
-              toolName: 'Nas Server, Ldap Server',
-              toolImgpath: require('@/assets/images/devops/DevSupport/nasServer.png'),
-              toolLink: 'http://www.313.co.kr/nas',
-            },
-            {
-              toolName: 'Mail server',
-              toolImgpath: require('@/assets/images/devops/DevSupport/mailServer.png'),
-              toolLink: 'http://www.313.co.kr/mail',
-            },
-          ],
-        },
-        {
-          toolTitle: 'BigData System',
-          toolsList: [
-            {
-              longName: 'longName',
-              toolName: 'Elastic Search Index Info',
-              toolImgpath: require('@/assets/images/devops/DevSupport/elasticsearchIndex.png'),
-              toolLink: 'http://www.313.co.kr/elasticsearch/_cat/indices',
-            },
-            {
-              toolName: 'Kibana',
-              toolImgpath: require('@/assets/images/devops/DevSupport/kibana.png'),
-              toolLink: 'http://www.313.co.kr:5601',
-            },
-            {
-              longName: 'longName',
-              toolName: 'Elastic Search Nodes Info',
-              toolImgpath: require('@/assets/images/devops/DevSupport/elasticsearchNode.png'),
-              toolLink: 'http://www.313.co.kr/elasticsearch/_nodes?pretty=true',
-            },
-            {
-              toolName: 'LogStash',
-              toolImgpath: require('@/assets/images/devops/DevSupport/logstash.png'),
-              toolLink: 'http://www.313.co.kr/logstash/_node/stats?pretty',
-            },
-          ],
-        },
-        {
-          toolTitle: 'Operation System',
-          toolsList: [
-            {
-              toolName: 'Webalizer',
-              toolImgpath: require('@/assets/images/devops/DevSupport/webalizer.png'),
-              toolLink: 'http://www.313.co.kr/webalizer/',
-            },
-            {
-              longName: 'longName',
-              toolName: 'PRTG Network Monitor',
-              toolImgpath: require('@/assets/images/devops/DevSupport/prtg.png'),
-              toolLink: 'http://www.313.co.kr:8085',
-            },
-          ],
-        },
-        {
-          toolTitle: 'Virtual Machine',
-          toolsList: [
-            {
-              toolName: 'DockerHub',
-              toolImgpath: require('@/assets/images/devops/DevSupport/dockerhub.png'),
-              toolLink: 'https://hub.docker.com/u/313devgrp',
-            },
-            {
-              longName: 'longName',
-              toolName: 'APACHE GUACAMOLE',
-              toolImgpath: require('@/assets/images/devops/DevSupport/apacheguacamole.png'),
-              toolLink: 'http://www.313.co.kr/guacamole',
-            },
-          ],
-        },
-        {
-          toolTitle: 'Monitoring',
-          toolsList: [
-            {
-              toolName: 'Grafana',
-              toolImgpath: require('@/assets/images/devops/DevSupport/grafana.png'),
-              toolLink: 'http://www.313.co.kr:3000',
-            },
-            {
-              toolName: 'ElasticHQ',
-              toolImgpath: require('@/assets/images/devops/DevSupport/elastichq.png'),
-              toolLink: 'http://www.313.co.kr:5050/',
-            },
-            {
-              toolName: 'Portainer',
-              toolImgpath: require('@/assets/images/devops/DevSupport/portainer.png'),
-              toolLink: 'http://www.313.co.kr:9009/',
-            },
-          ],
-        },
-        {
-          toolTitle: 'Authn & Authz',
-          toolsList: [
-            {
-              toolName: 'KeyCloak',
-              toolImgpath: require('@/assets/images/devops/DevSupport/keycloak.png'),
-              toolLink: 'http://www.313.co.kr/auth',
-            },
-          ],
-        },
-      ],
-    };
+  {
+    toolTitle: 'CI / CD',
+    toolsList: [
+      {
+        toolName: 'Bamboo',
+        toolImgpath: require('@/assets/images/devops/DevSupport/bamboo.png'),
+        toolLink: 'http://www.313.co.kr/bamboo',
+      },
+      {
+        toolName: 'Jenkins',
+        toolImgpath: require('@/assets/images/devops/DevSupport/jenkins.png'),
+        toolLink: 'http://www.313.co.kr/jenkins',
+      },
+      {
+        toolName: 'Spinnaker',
+        toolImgpath: require('@/assets/images/devops/DevSupport/spinnaker.png'),
+        toolLink: 'http://www.313.co.kr:9000',
+      },
+      {
+        toolName: 'Github',
+        toolImgpath: require('@/assets/images/devops/DevSupport/github.png'),
+        toolLink: 'https://github.com/313devgrp',
+      },
+      {
+        toolName: 'Nexus',
+        toolImgpath: require('@/assets/images/devops/DevSupport/nexus.png'),
+        toolLink: 'http://www.313.co.kr/nexus',
+      },
+      {
+        toolName: 'SonarQube',
+        toolImgpath: require('@/assets/images/devops/DevSupport/sonar.png'),
+        toolLink: 'http://www.313.co.kr/sonar',
+      },
+    ],
   },
-};
+  {
+    toolTitle: 'Database System',
+    toolsList: [
+      {
+        toolName: 'Oracle',
+        toolImgpath: require('@/assets/images/devops/DevSupport/oracle.png'),
+        toolLink: 'https://www.313.co.kr:1158/em',
+      },
+      {
+        toolName: 'Mysql',
+        toolImgpath: require('@/assets/images/devops/DevSupport/mysql.png'),
+        toolLink: 'http://www.313.co.kr:8880/phpMyAdmin-4.8.3/',
+      },
+      {
+        toolName: 'Postgres',
+        toolImgpath: require('@/assets/images/devops/DevSupport/postgres.png'),
+        toolLink: 'http://www.313.co.kr:8880/phpPgAdmin-5.1/',
+      },
+      {
+        toolName: 'Minio',
+        toolImgpath: require('@/assets/images/devops/DevSupport/minio.png'),
+        toolLink: 'http://www.313.co.kr:62222',
+      },
+      {
+        toolName: 'Redis',
+        toolImgpath: require('@/assets/images/devops/DevSupport/redis.png'),
+        toolLink: 'http://www.313.co.kr:8786',
+      },
+    ],
+  },
+  {
+    toolTitle: 'Application System',
+    toolsList: [
+      {
+        longName: 'longName',
+        toolName: 'Nas Server, Ldap Server',
+        toolImgpath: require('@/assets/images/devops/DevSupport/nasServer.png'),
+        toolLink: 'http://www.313.co.kr/nas',
+      },
+      {
+        toolName: 'Mail server',
+        toolImgpath: require('@/assets/images/devops/DevSupport/mailServer.png'),
+        toolLink: 'http://www.313.co.kr/mail',
+      },
+    ],
+  },
+  {
+    toolTitle: 'BigData System',
+    toolsList: [
+      {
+        longName: 'longName',
+        toolName: 'Elastic Search Index Info',
+        toolImgpath: require('@/assets/images/devops/DevSupport/elasticsearchIndex.png'),
+        toolLink: 'http://www.313.co.kr/elasticsearch/_cat/indices',
+      },
+      {
+        toolName: 'Kibana',
+        toolImgpath: require('@/assets/images/devops/DevSupport/kibana.png'),
+        toolLink: 'http://www.313.co.kr:5601',
+      },
+      {
+        longName: 'longName',
+        toolName: 'Elastic Search Nodes Info',
+        toolImgpath: require('@/assets/images/devops/DevSupport/elasticsearchNode.png'),
+        toolLink: 'http://www.313.co.kr/elasticsearch/_nodes?pretty=true',
+      },
+      {
+        toolName: 'LogStash',
+        toolImgpath: require('@/assets/images/devops/DevSupport/logstash.png'),
+        toolLink: 'http://www.313.co.kr/logstash/_node/stats?pretty',
+      },
+    ],
+  },
+  {
+    toolTitle: 'Operation System',
+    toolsList: [
+      {
+        toolName: 'Webalizer',
+        toolImgpath: require('@/assets/images/devops/DevSupport/webalizer.png'),
+        toolLink: 'http://www.313.co.kr/webalizer/',
+      },
+      {
+        longName: 'longName',
+        toolName: 'PRTG Network Monitor',
+        toolImgpath: require('@/assets/images/devops/DevSupport/prtg.png'),
+        toolLink: 'http://www.313.co.kr:8085',
+      },
+    ],
+  },
+  {
+    toolTitle: 'Virtual Machine',
+    toolsList: [
+      {
+        toolName: 'DockerHub',
+        toolImgpath: require('@/assets/images/devops/DevSupport/dockerhub.png'),
+        toolLink: 'https://hub.docker.com/u/313devgrp',
+      },
+      {
+        longName: 'longName',
+        toolName: 'APACHE GUACAMOLE',
+        toolImgpath: require('@/assets/images/devops/DevSupport/apacheguacamole.png'),
+        toolLink: 'http://www.313.co.kr/guacamole',
+      },
+    ],
+  },
+  {
+    toolTitle: 'Monitoring',
+    toolsList: [
+      {
+        toolName: 'Grafana',
+        toolImgpath: require('@/assets/images/devops/DevSupport/grafana.png'),
+        toolLink: 'http://www.313.co.kr:3000',
+      },
+      {
+        toolName: 'ElasticHQ',
+        toolImgpath: require('@/assets/images/devops/DevSupport/elastichq.png'),
+        toolLink: 'http://www.313.co.kr:5050/',
+      },
+      {
+        toolName: 'Portainer',
+        toolImgpath: require('@/assets/images/devops/DevSupport/portainer.png'),
+        toolLink: 'http://www.313.co.kr:9009/',
+      },
+    ],
+  },
+  {
+    toolTitle: 'Authn & Authz',
+    toolsList: [
+      {
+        toolName: 'KeyCloak',
+        toolImgpath: require('@/assets/images/devops/DevSupport/keycloak.png'),
+        toolLink: 'http://www.313.co.kr/auth',
+      },
+    ],
+  },
+];
 </script>
 
 <style lang="scss" scoped>
@@ -266,6 +255,7 @@ export default {
     height: 300px;
     border-radius: 20px;
     padding: 20px;
+    /* tool 분류 Title */
     .tool-title {
       display: inline-block;
       margin-bottom: 30px;
@@ -282,6 +272,7 @@ export default {
         background-color: #506d84;
       }
     }
+    /* tool list */
     .tools-box {
       text-align: center;
       .tools {
@@ -293,9 +284,11 @@ export default {
         border-radius: 10px;
         background-color: rgb(221, 221, 221);
         box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.301);
+        /* 긴 이름 box style */
         &.longName {
           width: 200px;
         }
+        /* tool content img / name */
         span {
           display: flex;
           flex-direction: column;

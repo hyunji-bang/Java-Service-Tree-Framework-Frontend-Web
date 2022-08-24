@@ -84,6 +84,7 @@ const subText =
 </script>
 <style lang="scss" scoped>
 .content-section {
+  /* contents 내부 리스트 */
   .explain-list {
     li {
       margin-left: 20px;
@@ -93,6 +94,7 @@ const subText =
   small {
     margin-left: 20px;
   }
+  /* contents 하단 링크 박스 */
   .attachment-block {
     display: flex;
     background-color: rgba(51, 51, 51, 0.2);

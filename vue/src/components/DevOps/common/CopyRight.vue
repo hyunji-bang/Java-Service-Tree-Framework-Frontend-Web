@@ -3,8 +3,9 @@
     <span
       ><strong
         >Copyright © 2010-2021
-        <router-link to="/DevOps/Home/Welcome">313 DEV GRP</router-link>. All rights
-        reserved.</strong
+        <router-link to="/DevOps/Home/Welcome" style="color: lightblue"
+          >313 DEV GRP</router-link
+        >. All rights reserved.</strong
       ></span
     >
   </footer>

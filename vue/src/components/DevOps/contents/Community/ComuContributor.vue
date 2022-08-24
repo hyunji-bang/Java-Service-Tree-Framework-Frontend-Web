@@ -4,6 +4,7 @@
     <div class="content-section">
       <ul class="contributorList">
         <li v-for="(list, idx) in contributorList" :key="idx">
+          <!-- profile -->
           <div class="profile">
             <div class="profileImg">
               <img :src="list.profileImg" alt="profileimg" />
@@ -11,14 +12,20 @@
             <h2>{{ list.name }}</h2>
             <p>{{ list.position }}</p>
           </div>
+
+          <!-- education -->
           <div class="education">
             <h2><i class="fa-solid fa-book"></i> Education</h2>
             <p>{{ list.education }}</p>
           </div>
+
+          <!-- location -->
           <div class="location">
             <h2><i class="fa-solid fa-location-dot"></i> Location</h2>
             <p>{{ list.location }}</p>
           </div>
+
+          <!-- skill -->
           <div class="skill">
             <h2><i class="fa-solid fa-pencil"></i> Skills</h2>
             <div class="skill">
@@ -27,6 +34,8 @@
               }}</span>
             </div>
           </div>
+
+          <!-- note -->
           <div class="note">
             <h2><i class="fa-solid fa-file"></i> Notes</h2>
             <p>{{ list.note }}</p>
@@ -203,6 +212,7 @@ const contributorList = [
     h2 {
       color: lightblue;
     }
+    /* 상단 profile */
     .profile {
       display: flex;
       flex-direction: column;
@@ -222,6 +232,7 @@ const contributorList = [
         font-size: 20px;
       }
     }
+    /* personal skill */
     .skill {
       span {
         display: inline-block;

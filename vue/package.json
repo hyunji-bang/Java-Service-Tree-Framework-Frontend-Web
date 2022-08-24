@@ -38,8 +38,6 @@
     "vue": "^3.2.13",
     "vue-plugin-load-script": "^2.1.1",
     "vue-router": "^4.0.3",
-    "vue3-easy-data-table": "^1.4.13",
-    "vuejs-tree": "^3.0.2",
     "vuex": "^4.0.0"
   },
   "devDependencies": {

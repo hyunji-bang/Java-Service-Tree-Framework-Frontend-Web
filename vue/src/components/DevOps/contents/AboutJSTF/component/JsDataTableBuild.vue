@@ -35,16 +35,6 @@ export default {
       dataSrc: this.dataSrc,
       dataColumns: this.columns,
     });
-    //const jsDataTableLoad = $('#jstreeTable').dataTable({
-    //  ajax: {
-    //    url: this.$store.state.isDevelopingToRoute + this.tableDataUrl,
-    //    dataSrc: this.dataSrc,
-    //  },
-    //  destroy: true,
-    //  processing: true,
-    //  responsive: true,
-    //  columns: this.columns,
-    //});
   },
 };
 </script>
@@ -65,6 +55,7 @@ export default {
       }
     }
   }
+  /* table filter */
   .dataTables_filter {
     color: #fff !important;
     label {
@@ -84,6 +75,7 @@ export default {
   .dataTables_info {
     color: #fff !important;
   }
+  /* pagination */
   .dataTables_paginate {
     .paginate_button {
       cursor: default;

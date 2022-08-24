@@ -61,46 +61,53 @@
   </nav>
 </template>
 
-<script>
-export default {
-  computed: {
-    navList() {
-      return this.$store.state.navMenuList;
-    },
-  },
+<script setup>
+import { computed, ref, onMounted } from '@vue/runtime-core';
+import { useStore } from '@/store';
+import { useRoute } from 'vue-router';
+const store = useStore();
+const navList = computed(() => {
+  return store.state.navMenuList;
+});
+const detailList = ref([]);
+const route = useRoute();
+const path = route.path.split('/');
 
-  mounted() {
-    const detailList = this.$refs.detailList;
-    detailList.forEach((list, idx) => {
-      const path = this.$route.path.split('/');
-      const title = list.dataset.title;
-      const titleEl = list.children[0].children[0];
-      const subMenuEl = list.children[0].children[1];
-      if (path.includes(title)) {
-        titleEl.classList.add('active-blue');
-        titleEl.classList.remove('collapsed');
-        subMenuEl.classList.add('show');
-        titleEl.setAttribute('aria-expanded', 'true');
-      }
-      if (idx === 0) {
-        list.addEventListener('click', clickMenuRemoveActive);
-      } else {
-        subMenuEl.childNodes.forEach(node => {
-          node.addEventListener('click', clickMenuRemoveActive);
-        });
-      }
-
-      function clickMenuRemoveActive() {
-        const newList = [...detailList];
-        newList.splice(detailList.indexOf(list), 1);
-        newList.forEach(newlist =>
-          newlist.children[0].children[0].classList.remove('active-blue'),
-        );
-        titleEl.classList.add('active-blue');
-      }
-    });
-  },
+//active 되었던 메뉴 Unactive
+const clickMenuRemoveActive = (list, titleEl) => {
+  const newList = [...detailList.value];
+  newList.splice(detailList.value.indexOf(list), 1);
+  newList.forEach(newlist =>
+    newlist.children[0].children[0].classList.remove('active-blue'),
+  );
+  titleEl.classList.add('active-blue');
 };
+
+//route path에 따라 일치하는 페이지 네비 active
+const activateNavMenu = () => {
+  detailList.value.forEach((list, idx) => {
+    const title = list.dataset.title;
+    const titleEl = list.children[0].children[0];
+    const subMenuEl = list.children[0].children[1];
+    if (path.includes(title)) {
+      titleEl.classList.add('active-blue');
+      titleEl.classList.remove('collapsed');
+      subMenuEl.classList.add('show');
+      titleEl.setAttribute('aria-expanded', 'true');
+    }
+    if (idx === 0) {
+      list.addEventListener('click', () => clickMenuRemoveActive(list, titleEl));
+    } else {
+      subMenuEl.childNodes.forEach(node => {
+        node.addEventListener('click', () => clickMenuRemoveActive(list, titleEl));
+      });
+    }
+  });
+};
+
+onMounted(() => {
+  activateNavMenu();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -112,11 +119,13 @@ nav.sidebar {
   padding: 10px 0;
   font-weight: 300;
   .accordion {
+    /* nav list li */
     .accordion-item {
       font-size: 13px;
       color: #fff;
       cursor: pointer;
       font-weight: 500;
+      /* nav list title */
       .accordion-header {
         a {
           padding: 10px 20px;
@@ -147,6 +156,7 @@ nav.sidebar {
           }
         }
       }
+      /* nav list submenu */
       .accordion-collapse {
         .accordion-body {
           a {
