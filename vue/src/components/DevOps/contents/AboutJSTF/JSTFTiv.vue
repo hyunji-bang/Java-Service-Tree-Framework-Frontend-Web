@@ -3,31 +3,17 @@
     <ContentHeader
       subTitle="jsTree Service Framework<sup>TSF</sup> Spring-Hibernate Demo"
     />
-    <div class="content-box">
-      <div class="treebox">
-        <div class="content-section tree-section" style="margin-bottom: 20px">
-          <JsTreeBuild
-            :DataUrlList="DataUrlList"
-            :isMonitor="isMonitor"
-            :columns="columns"
-            dataSrc="rows"
-          />
-        </div>
-      </div>
-      <div class="content-section table-section">
-        <JsDataTable
-          :tableDataUrl="DataUrlList.getMonitor"
-          :columns="columns"
-          dataSrc="rows"
-        />
-      </div>
-    </div>
+    <JSTFTemplate
+      :DataUrlList="DataUrlList"
+      :columns="columns"
+      :isMonitor="isMonitor"
+      rows="rows"
+    />
   </div>
 </template>
 <script setup scoped>
 import ContentHeader from '@/components/DevOps/common/ContentHeader.vue';
-import JsDataTable from '@/components/DevOps/contents/AboutJSTF/component/JsDataTableBuild.vue';
-import JsTreeBuild from '@/components/DevOps/contents/AboutJSTF/component/JsTreeBuild.vue';
+import JSTFTemplate from '@/components/DevOps/contents/AboutJSTF/component/JSTFTemplate.vue';
 const columns = [
   {
     data: 'cell.0',

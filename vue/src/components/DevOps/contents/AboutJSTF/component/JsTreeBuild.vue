@@ -9,7 +9,6 @@ import 'jstree/dist/jstree.min.js';
 import 'jstree/dist/themes/default/style.min.css';
 import 'datatables.net-responsive/js/dataTables.responsive.min.js';
 import 'datatables.net-select';
-import axios from 'axios';
 import { mapState } from 'vuex';
 
 export default {
@@ -29,8 +28,8 @@ export default {
     ...mapState(['isDevelopingToRoute']),
   },
   methods: {
-    //tableData 가공
-    makeTableData(data) {
+    //treeData 가공
+    makeTreeData(data) {
       let arrangeData;
       let matchData;
       let getParentIdList = [];
@@ -93,9 +92,10 @@ export default {
     },
     //build jstree
     jsTreeBuild(treeDataArray, isDevelopingToRoute, dataUrl, dataTableLoad) {
+      let selected;
       $('#demo')
         .jstree({
-          plugins: ['dnd', 'search', 'types', 'contextmenu', 'checkbox'],
+          plugins: ['dnd', 'search', 'types', 'contextmenu', 'checkbox', 'state'],
           checkbox: {
             keep_selected_style: false,
             whole_node: false,
@@ -124,7 +124,7 @@ export default {
             },
           },
           contextmenu: {
-            select_node: false,
+            select_node: true,
             items: function (node) {
               var tmp = $.jstree.defaults.contextmenu.items();
               delete tmp.create.action;
@@ -212,6 +212,8 @@ export default {
                         $.post(`${isDevelopingToRoute}${dataUrl.alterNodeType}`, {
                           c_id: obj.id,
                           c_type: obj.type,
+                        }).done(function () {
+                          dataTableLoad();
                         });
                       },
                     },
@@ -223,12 +225,13 @@ export default {
                         var inst = $.jstree.reference(data.reference);
                         var obj = inst.get_node(data.reference);
                         inst.set_type(obj, 'folder');
-                        console.log(inst);
 
                         $.post(`${isDevelopingToRoute}${dataUrl.alterNodeType}`, {
                           c_id: obj.id,
                           c_title: obj.text,
                           c_type: obj.type,
+                        }).done(function () {
+                          dataTableLoad();
                         });
                       },
                     },
@@ -260,16 +263,18 @@ export default {
               $('#demo').jstree(true).refresh();
             });
         })
+        .on('select_node.jstree', function (e, data) {
+          return (selected = data.selected);
+        })
         .on('delete_node.jstree', function (e, data) {
-          $.post(`${isDevelopingToRoute}${dataUrl.removeNode}`, {
-            c_id: data.node.id,
-          })
-            .done(function () {
-              dataTableLoad();
-            })
-            .fail(function () {
+          selected.forEach((selectNode, idx) => {
+            $.post(`${isDevelopingToRoute}${dataUrl.removeNode}`, {
+              c_id: selectNode,
+            }).fail(function () {
               $('#demo').jstree(true).refresh();
             });
+            if (idx === selected.length - 1) setTimeout(() => dataTableLoad(), 100);
+          });
         })
         .on('rename_node.jstree', function (e, data) {
           $.post(`${isDevelopingToRoute}${dataUrl.alterNode}`, {
@@ -295,7 +300,7 @@ export default {
   },
   mounted() {
     const dataUrl = this.DataUrlList;
-    if ($(location).attr('port') == 9999) {
+    if (window.location.port == 9999) {
       console.log('csrf 우회 because local development');
     } else {
       $.ajax({
@@ -303,8 +308,8 @@ export default {
         type: 'GET',
         url: this.isDevelopingToRoute + '/api/jsTreeServiceFramework/security/csrf.do',
         success: function (r) {
-          var token = r._csrf_token;
-          var header = r._csrf_headerName;
+          const token = r._csrf_token;
+          const header = r._csrf_headerName;
           $(document).ajaxSend(function (e, xhr, options) {
             xhr.setRequestHeader(header, token);
           });
@@ -312,7 +317,7 @@ export default {
       });
     }
 
-    axios.get(`${this.isDevelopingToRoute}${dataUrl.getMonitor}`).then(response => {
+    this.axios.get(`${this.isDevelopingToRoute}${dataUrl.getMonitor}`).then(response => {
       const dataTableReload = () =>
         this.$store.commit('dataTabelLoad', {
           dataUrl: dataUrl.getMonitor,
@@ -320,7 +325,7 @@ export default {
           dataColumns: this.columns,
         });
       const data = response.data;
-      this.makeTableData(data);
+      this.makeTreeData(data);
       this.jsTreeSearch();
       this.jsTreeBuild(
         this.treeData[0],
