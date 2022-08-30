@@ -105,6 +105,74 @@ $(".newmode").click(function () {
 	$("#reviewer_select2").val(null).trigger("change");
 });
 
+// --- select2 설정 --- //
+$(".js-example-basic-multiple-limit").select2({
+	maximumSelectionLength: 2,
+	ajax: {
+		url: "https://api.github.com/search/repositories",
+		dataType: "json",
+		delay: 250,
+		data: function (params) {
+			return {
+				q: params.term, // search term
+				page: params.page,
+			};
+		},
+		processResults: function (data, params) {
+			// parse the results into the format expected by Select2
+			// since we are using custom formatting functions we do not need to
+			// alter the remote JSON data, except to indicate that infinite
+			// scrolling can be used
+			params.page = params.page || 1;
+
+			return {
+				results: data.items,
+				pagination: {
+					more: params.page * 30 < data.total_count,
+				},
+			};
+		},
+		cache: true,
+	},
+	placeholder: "제품(서비스)의 오너를 등록해 주세요",
+	minimumInputLength: 1,
+	templateResult: formatRepo,
+	templateSelection: formatRepoSelection,
+});
+
+$(".js-data-example-ajax").select2({
+	ajax: {
+		url: "https://api.github.com/search/repositories",
+		dataType: "json",
+		delay: 250,
+		data: function (params) {
+			return {
+				q: params.term, // search term
+				page: params.page,
+			};
+		},
+		processResults: function (data, params) {
+			// parse the results into the format expected by Select2
+			// since we are using custom formatting functions we do not need to
+			// alter the remote JSON data, except to indicate that infinite
+			// scrolling can be used
+			params.page = params.page || 1;
+
+			return {
+				results: data.items,
+				pagination: {
+					more: params.page * 30 < data.total_count,
+				},
+			};
+		},
+		cache: true,
+	},
+	placeholder: "제품(서비스)의 Default 리뷰어를 등록해 주세요",
+	minimumInputLength: 1,
+	templateResult: formatRepo,
+	templateSelection: formatRepoSelection,
+});
+
 function formatRepo(repo) {
 	if (repo.loading) {
 		return repo.text;

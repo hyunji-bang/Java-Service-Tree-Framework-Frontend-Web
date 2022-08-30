@@ -44,9 +44,7 @@
 		<header class="product-handler">
 			<div class="product-handler__group">
 				<a class="btn btn-block btn-transparent" href="">새창으로 보기</a>
-				<a id="service-modify" class="btn btn-block btn-transparent" href="#"
-					>내용편집 하기</a
-				>
+				<a class="btn btn-block btn-transparent" href="">내용편집 하기</a>
 				<button class="btn btn-danger btn-block">삭제하기</button>
 			</div>
 			<button class="product-handler__register btn btn-info btn-block">
@@ -78,8 +76,7 @@
 									style="color: #f8f8f8"
 									size="16"
 									type="text"
-									readonly
-									placeholder="service name ###"
+									placeholder="제품(서비스)명을 입력해 주세요"
 								/>
 							</div>
 						</div>
@@ -89,15 +86,11 @@
 							>
 							<div class="input-wrap col-sm-8">
 								<span class="input-group-addon"><i class="fa fa-user"></i></span>
-								<input
-									id="prepended-input"
-									class="form-control font13 darkBack"
-									style="color: #f8f8f8"
-									size="16"
-									type="text"
-									readonly
-									placeholder="service owner ###"
-								/>
+								<select
+									id="reviewer_select2"
+									class="js-data-example-ajax form-control font13 darkBack"
+									placeholder="제품(서비스)의 관리자를 등록해 주세요"
+								></select>
 							</div>
 						</div>
 						<div class="control-group">
@@ -106,12 +99,16 @@
 							>
 							<div class="input-wrap col-sm-8">
 								<span class="input-group-addon"><i class="fa fa-users"></i></span>
-								<div id="service-reviewers" class="form-control darkBack">
-									<a href="">이동민</a>
-									<a href="">방현지</a>
-								</div>
+								<select
+									id="owner_select2"
+									class="js-example-basic-multiple-limit js-states form-control font13 darkBack"
+									multiple=""
+								></select>
 							</div>
 						</div>
+					</div>
+					<div id="editor" class="darkBack">
+						<p>입력란이 좁다면 하단에 새창으로 띄우기를 클릭하세요.</p>
 					</div>
 				</div>
 				<div class="body-middle">
@@ -306,31 +303,6 @@
 	.input-wrap .select2-search--inline input {
 		width: 100% !important;
 	}
-	.form-control:focus {
-		box-shadow: none;
-	}
-
-	#service-reviewers,
-	#service-reviewers a {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		padding: 0;
-	}
-
-	#service-reviewers a {
-		gap: 5px;
-	}
-
-	.profile-image {
-		width: 24px;
-		height: 24px;
-		border-radius: 50%;
-		overflow: hidden;
-	}
-	.profile-image img {
-		width: 100%;
-	}
 </style>
 <script type="text/javascript" charset="utf-8">
 	//<![CDATA[
@@ -341,4 +313,8 @@
 	//]]>
 </script>
 <script src="../reference/light-blue/js/fileupload.js"></script>
-<script type="text/javascript" src="js/pdService.js" charset="utf-8"></script>
+<script
+	type="text/javascript"
+	src="js/pdServiceModify.js"
+	charset="utf-8"
+></script>
