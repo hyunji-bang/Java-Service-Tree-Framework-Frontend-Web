@@ -2,11 +2,11 @@ import { RouteRecordRaw } from 'vue-router';
 import { RoutePath } from '@/constants/enums/RoutePath';
 import component from '*.vue';
 
-const routeComponent = (name: string) => () =>
-  import(/* webpackChunkName: "[request]" */ `@/views/${name}.vue`);
+const routeComponent = (view: string, name: string) => () =>
+  import(/* webpackChunkName: "[request]" */ `@/views/${view}/${name}.vue`);
 const devopsChildrenComponent = (page: string, name: string) => () =>
   import(
-    /* webpackChunkName: "[request]" */ `@/components/DevOps/contents/${page}/${name}.vue`
+    /* webpackChunkName: "[request]" */ `@/views/DevOps/contents/${page}/${name}.vue`
   );
 
 const routes: RouteRecordRaw[] = [
@@ -17,12 +17,12 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/home',
     name: 'Home',
-    component: routeComponent('HomeView'),
+    component: routeComponent('Home', 'HomeView'),
   },
   {
     path: '/DevOps',
     name: 'DevOps',
-    component: routeComponent('DevOpsView'),
+    component: routeComponent('DevOps', 'DevOpsView'),
     children: [
       {
         path: '/DevOps/Home/Welcome',
