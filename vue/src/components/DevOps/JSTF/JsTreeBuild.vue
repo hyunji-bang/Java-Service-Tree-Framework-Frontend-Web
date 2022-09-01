@@ -7,8 +7,6 @@ import $ from 'jquery';
 import 'jquery/src/jquery.js';
 import 'jstree/dist/jstree.min.js';
 import 'jstree/dist/themes/default/style.min.css';
-import 'datatables.net-responsive/js/dataTables.responsive.min.js';
-import 'datatables.net-select';
 import { mapState } from 'vuex';
 
 export default {
@@ -16,10 +14,9 @@ export default {
     return {
       treeData: [],
       selected: null,
-      change: false,
     };
   },
-
+  emits: ['reload'],
   props: {
     DataUrlList: Object,
     isMonitor: Boolean,
@@ -101,7 +98,7 @@ export default {
     jsTreeBuild(treeDataArray, isDevelopingToRoute, dataUrl, dataTableLoad) {
       $('#demo')
         .jstree({
-          plugins: ['dnd', 'search', 'types', 'contextmenu', 'checkbox', 'state'],
+          plugins: ['dnd', 'search', 'types', 'contextmenu', 'checkbox'],
           checkbox: {
             keep_selected_style: false,
             whole_node: false,
@@ -258,14 +255,14 @@ export default {
           return (this.selected = data.selected);
         });
 
-      this.jsTreeCreateNode(isDevelopingToRoute, dataUrl, dataTableLoad);
+      this.jsTreeCreateNode(isDevelopingToRoute, dataUrl);
       this.jsTreeDeleteNode(isDevelopingToRoute, dataUrl, dataTableLoad);
       this.jsTreeRenameNode(isDevelopingToRoute, dataUrl, dataTableLoad);
       this.jsTreeMoveNode(isDevelopingToRoute, dataUrl, dataTableLoad);
     },
 
     //jstree create_node
-    jsTreeCreateNode(isDevelopingToRoute, dataUrl, dataTableLoad) {
+    jsTreeCreateNode(isDevelopingToRoute, dataUrl) {
       $('#demo').on('create_node.jstree', function (e, data) {
         $.post(`${isDevelopingToRoute}${dataUrl.addNode}`, {
           ref: data.node.parent,
@@ -275,7 +272,6 @@ export default {
         })
           .done(function (d) {
             $('#demo').jstree(true).set_id(data.node, d.id);
-            dataTableLoad();
           })
           .fail(function () {
             $('#demo').jstree(true).refresh();
@@ -347,12 +343,8 @@ export default {
     }
 
     this.axios.get(`${this.isDevelopingToRoute}${dataUrl.getMonitor}`).then(response => {
-      const dataTableReload = () =>
-        this.$store.commit('dataTabelLoad', {
-          dataUrl: dataUrl.getMonitor,
-          dataSrc: this.dataSrc,
-          dataColumns: this.columns,
-        });
+      const dataTableReload = () => this.$emit('reload');
+
       const data = response.data;
       this.makeTreeData(data);
       this.jsTreeSearch();
