@@ -29,7 +29,7 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const reload = () => {
-  router.go(router.currentRoute);
+  router.go(0);
 };
 const props = defineProps({
   DataUrlList: Object,
