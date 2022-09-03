@@ -56,7 +56,7 @@ $(".js-data-example-ajax").select2({
 		},
 		cache: true,
 	},
-	placeholder: "제품(서비스)의 Default 리뷰어를 등록해 주세요",
+	placeholder: "연결 설정을 위한 계정을 입력해 주세요",
 	minimumInputLength: 1,
 	templateResult: formatRepo,
 	templateSelection: formatRepoSelection,
