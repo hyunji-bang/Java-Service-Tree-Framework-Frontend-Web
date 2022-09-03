@@ -13,6 +13,7 @@ $(function () {
 
 	$("body").find("[aria-controls='jstreeTable']").css("width", "100px");
 });
+
 // --- 데이터 테이블 설정 --- //
 function jstreeDataTableReload() {
 	console.log("href: " + $(location).attr("href"));
@@ -25,35 +26,24 @@ function jstreeDataTableReload() {
 
 	var isDevelopingToRoute = "/auth-user";
 
-	var tempDataTable = $("#jstreeTable").DataTable({
+	var tempDataTable = $("#pdserviceTable").DataTable({
 		ajax: {
-			url: isDevelopingToRoute + "/api/arms/pdjira/getMonitor.do",
+			url: isDevelopingToRoute + "/api/arms/pdservice/getMonitor.do",
 			dataSrc: "",
 		},
 		destroy: true,
 		processing: true,
-		responsive: true,
-		select: {
-			style: "multi",
-		},
+		responsive: false,
 		columns: [
 			{ data: "c_id" },
-			{ data: "c_parentid" },
-			{ data: "c_position" },
-			{ data: "c_left" },
-			{ data: "c_right" },
-			{ data: "c_level" },
-			{ data: "c_title" },
-			{ data: "c_type" },
-
-			{ data: "c_pdjira_detail" },
-			{ data: "c_pdjira_con_name" },
-			{ data: "c_pdjira_con_user" },
-			{ data: "c_pdjira_con_pass" },
-			{ data: "c_pdjira_con_token" },
-			{ data: "c_pdjira_con_jql" },
-			{ data: "jiraConPassMode" },
+			{ data: "c_title" }
 		],
+		columnDefs: [
+			{
+				targets: -1,
+				className: 'dt-body-left'
+			}
+		]
 	});
 
 	$("#jstreeTable tbody").on("click", "tr", function () {
