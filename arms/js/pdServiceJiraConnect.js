@@ -1,6 +1,5 @@
 $(function () {
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_jira_connect");
-	jsTreeBuild("#demo", "pdjira");
 });
 
 /* -------------------------------- jstree 설정 ------------------------------- */
@@ -11,7 +10,7 @@ $(function () {
 	$(".dataTables_length").find("select:eq(0)").css("min-height", "30px");
 	//min-height: 30px;
 
-	$("body").find("[aria-controls='jstreeTable']").css("width", "100px");
+	$("body").find("[aria-controls='pdserviceTable']").css("width", "100px");
 });
 
 // --- 데이터 테이블 설정 --- //
@@ -46,7 +45,9 @@ function jstreeDataTableReload() {
 		]
 	});
 
-	$("#jstreeTable tbody").on("click", "tr", function () {
+	$("#pdserviceTable tbody").on("click", "tr", function () {
+
+		$(this).toggleClass('selected');
 		var data = tempDataTable.row(this).data();
 		console.log(data);
 		//alert( 'You clicked on '+ data.c_title +'\'s row' );
