@@ -97,13 +97,9 @@ function setSideMenu(
 ) {
 	console.log(listName);
 	setTimeout(function () {
-		$(`#${categoryName}`).attr("class", "accordion-toggle active");
-		$(`#${categoryName}`).attr("aria-expanded", "true");
+		$(`#${categoryName}`).attr("class", "active");
 		$(`#${categoryName}`).css({ color: "lightblue" });
 		$(`#${categoryName}`).css({ "font-weight": "900" });
-
-		$(`#${collapse}`).attr("class", "panel-collapse collapse in");
-		$(`#${collapse}`).attr("aria-expanded", "true");
 
 		$(`#${listName}`).addClass("active");
 		$(`#${listName}`).css({ color: "lightblue" });

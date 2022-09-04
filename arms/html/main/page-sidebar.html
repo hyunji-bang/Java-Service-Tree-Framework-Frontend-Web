@@ -9,12 +9,12 @@
 			><i class="fa fa-magic"></i> <span class="name">Wizard</span></a
 		>
 	</li>
-	<li class="panel">
+	<li class="category-wrap">
 		<span class="category-label">
 			<i class="fa fa-cubes"></i>
 			Product
 		</span>
-		<ul id="product-elements-collapse" class="panel-collapse">
+		<ul id="product-elements-collapse">
 			<li class="" id="sidebar_menu_product_manage">
 				<a href="pdService.html">제품 관리</a>
 			</li>
@@ -26,12 +26,12 @@
 			</li>
 		</ul>
 	</li>
-	<li class="panel">
+	<li class="category-wrap">
 		<span class="category-label">
 			<i class="fa fa-table"></i>
 			<span class="name">Requirement</span>
 		</span>
-		<ul id="requirement-elements-collapse" class="panel-collapse">
+		<ul id="requirement-elements-collapse">
 			<li class="" id="sidebar_menu_requirement_regist">
 				<a href="reqRegist.html">등록 관리</a>
 			</li>
@@ -46,12 +46,12 @@
 			</li>
 		</ul>
 	</li>
-	<li class="panel">
+	<li class="category-wrap">
 		<span class="category-label">
 			<i class="fa fa-magic"></i>
 			<span class="name">Analisys</span>
 		</span>
-		<ul id="analisys-elements-collapse" class="panel-collapse">
+		<ul id="analisys-elements-collapse">
 			<li class=""><a href="charts.html">Time 분석</a></li>
 			<li class=""><a href="icons.html">Scope 분석</a></li>
 			<li class=""><a href="maps.html" data-no-pjax>투입 인력 분석</a></li>
@@ -110,6 +110,11 @@
 </div>
 
 <style>
+	.side-nav .category-wrap {
+		margin: 0;
+		border: none;
+		border-radius: 0;
+	}
 	.side-nav li a,
 	.side-nav .category-label {
 		color: inherit;
@@ -119,7 +124,7 @@
 		padding: 10px;
 		border-radius: 6px;
 	}
-	.side-nav .panel-collapse li a {
+	.category-wrap li a {
 		padding: 4px 10px 4px 35px;
 	}
 </style>
