@@ -2,51 +2,38 @@
 	<section class="widget">
 		<header>
 			<h4>
-				<span class="font13" style="font-weight: bold">
-					<i class="fa fa-sort-amount-asc"></i> 제품(서비스) 조회
-				</span>
+                <span class="font13" style="font-weight: bold;">
+                    <i class="fa fa-edit"></i> 제품(서비스) 조회 및 선택
+                </span>
 			</h4>
-			<div class="actions">
-				<button
-					class="btn btn-transparent btn-xs"
-					onclick="$('#demo').jstree('open_all');"
-				>
-					Show All
-					<i class="fa fa-arrow-down"></i>
-				</button>
+			<div class="widget-controls">
+				<a title="Options" href="#"><i class="glyphicon glyphicon-cog"></i></a>
+				<a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+				<a data-widgster="collapse" title="Collapse" href="#"><i
+						class="glyphicon glyphicon-chevron-down"></i></a>
+				<a data-widgster="close" title="Close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
 			</div>
 		</header>
 		<div class="body">
-			<div class="wrapper">
-				<div id="mmenu" style="padding-bottom: 5px">
-					<form class="form-search no-margin" role="form">
-						<div class="input-group">
-							<input
-								type="search"
-								id="text"
-								class="form-control searchDarkBack"
-								style="color: #f8f8f8"
-								placeholder="찾을 노드 이름 입력"
-								data-tooltip="Press Enter To Node To Search"
-							/>
-							<span class="input-group-btn">
-								<button
-									type="button"
-									id="search"
-									title="Search"
-									class="btn btn-default btn-sm"
-								>
-									Search
-								</button>
-							</span>
-						</div>
-					</form>
+			<blockquote class="font13">
+				1. 제품(서비스) 선택
+			</blockquote>
+			<div class="box box-primary" style="background: rgba(51, 51, 51, 0.225); margin-bottom: 5px !important;">
+				<div class="box-body">
+					<table id="pdserviceTable" class="display responsive no-wrap" cellspacing="0">
+						<thead>
+						<tr>
+							<th>c_id</th>
+							<th>c_title</th>
+						</tr>
+						</thead>
+					</table>
 				</div>
-				<div id="productTree" style="padding-top: 5px" class="darkBack"></div>
-				<div style="margin-top: 10px" class="darkBack">설명</div>
 			</div>
 		</div>
 	</section>
+</div>
+<div class="col-lg-3">
 	<section class="widget">
 		<header>
 			<h5>
@@ -60,7 +47,7 @@
 	</section>
 </div>
 
-<div class="col-lg-8">
+<div class="col-lg-5">
 	<section class="widget">
 		<header>
 			<h4>

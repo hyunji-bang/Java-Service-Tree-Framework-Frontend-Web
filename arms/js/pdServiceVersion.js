@@ -1,6 +1,5 @@
 $(function () {
     setSideMenu("sidebar_menu_product", "sidebar_menu_version_manage");
-    jsTreeBuild("#productTree", "pdservice");
     $(".btn-info").click(function () {
         var index = $("label.btn-sm.active").index();
         index === 0
@@ -8,6 +7,57 @@ $(function () {
             : updateServie("pdversion", "#productTree");
     });
 });
+
+$(function () {
+    jstreeDataTableReload();
+    $(".dataTables_length").find("select:eq(0)").addClass("darkBack");
+    $(".dataTables_length").find("select:eq(0)").css("min-height", "30px");
+    //min-height: 30px;
+
+    $("body").find("[aria-controls='pdserviceTable']").css("width", "100px");
+    $("select[name=pdserviceTable_length]").css("width", "50px");
+});
+
+// --- 데이터 테이블 설정 --- //
+function jstreeDataTableReload() {
+    console.log("href: " + $(location).attr("href"));
+    console.log("protocol: " + $(location).attr("protocol"));
+    console.log("host: " + $(location).attr("host"));
+    console.log("pathname: " + $(location).attr("pathname"));
+    console.log("search: " + $(location).attr("search"));
+    console.log("hostname: " + $(location).attr("hostname"));
+    console.log("port: " + $(location).attr("port"));
+
+    var isDevelopingToRoute = "/auth-user";
+
+    var tempDataTable = $("#pdserviceTable").DataTable({
+        ajax: {
+            url: isDevelopingToRoute + "/api/arms/pdservice/getMonitor.do",
+            dataSrc: "",
+        },
+        destroy: true,
+        processing: true,
+        responsive: false,
+        columns: [
+            { data: "c_id" },
+            { data: "c_title" }
+        ],
+        columnDefs: [
+            {
+                targets: -1,
+                className: 'dt-body-left'
+            }
+        ]
+    });
+
+    $("#pdserviceTable tbody").on("click", "tr", function () {
+
+        $(this).toggleClass('selected');
+        var data = tempDataTable.row(this).data();
+        console.log(data);
+        //alert( 'You clicked on '+ data.c_title +'\'s row' );
+    });
+}
 
 // --- 에디터 설정 --- //
 CKEDITOR.replace("editor");
