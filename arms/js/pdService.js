@@ -17,7 +17,7 @@ const makeReviewList = function (profile) {
 
 $(function () {
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_manage");
-	jsTreeBuild("#demo", "pdservice");
+
 	//서비스 등록
 	$(".btn-info").on("click", function () {
 		var index = $("label.btn-sm.active").index();
@@ -36,6 +36,52 @@ $(function () {
 			image: "../reference/light-blue/img/13.jpg",
 		},
 	]);
+});
+
+function jstreeDataTableReload() {
+	console.log("href: " + $(location).attr("href"));
+	console.log("protocol: " + $(location).attr("protocol"));
+	console.log("host: " + $(location).attr("host"));
+	console.log("pathname: " + $(location).attr("pathname"));
+	console.log("search: " + $(location).attr("search"));
+	console.log("hostname: " + $(location).attr("hostname"));
+	console.log("port: " + $(location).attr("port"));
+
+	var isDevelopingToRoute = "/auth-user";
+
+	var tempDataTable = $("#pdserviceTable").DataTable({
+		ajax: {
+			url: isDevelopingToRoute + "/api/arms/pdservice/getMonitor.do",
+			dataSrc: "",
+		},
+		destroy: true,
+		processing: true,
+		responsive: false,
+		columns: [{ data: "c_id" }, { data: "c_title" }],
+		columnDefs: [
+			{
+				targets: -1,
+				className: "dt-body-left",
+			},
+		],
+	});
+
+	$("#pdserviceTable tbody").on("click", "tr", function () {
+		$(this).toggleClass("selected");
+		var data = tempDataTable.row(this).data();
+		console.log(data);
+		//alert( 'You clicked on '+ data.c_title +'\'s row' );
+	});
+}
+
+$(function () {
+	jstreeDataTableReload();
+	$(".dataTables_length").find("select:eq(0)").addClass("darkBack");
+	$(".dataTables_length").find("select:eq(0)").css("min-height", "30px");
+	//min-height: 30px;
+
+	$("body").find("[aria-controls='pdserviceTable']").css("width", "100px");
+	$("select[name=pdserviceTable_length]").css("width", "50px");
 });
 
 // --- 에디터 설정 --- //
@@ -149,4 +195,11 @@ $("#service-modify").click(function (ev) {
 	ev.preventDefault();
 
 	location.href = `pdServiceModify.html?service=${123}`;
+});
+
+$(".blank").click(function (ev) {
+	ev.preventDefault();
+
+	console.log("##", ev, location);
+	window.open(ev.target.href, "_blank");
 });
