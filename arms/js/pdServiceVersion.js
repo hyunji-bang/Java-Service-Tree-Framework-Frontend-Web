@@ -1,13 +1,8 @@
 $(function () {
     setSideMenu("sidebar_menu_product", "sidebar_menu_version_manage");
-    $(".btn-info").click(function () {
-        var index = $("label.btn-sm.active").index();
-        index === 0
-            ? registNewServie("pdversion", "#productTree")
-            : updateServie("pdversion", "#productTree");
-    });
 });
 
+// --- 데이터 테이블 설정 --- //
 $(function () {
     jstreeDataTableReload();
     $(".dataTables_length").find("select:eq(0)").addClass("darkBack");
@@ -18,7 +13,6 @@ $(function () {
     $("select[name=pdserviceTable_length]").css("width", "50px");
 });
 
-// --- 데이터 테이블 설정 --- //
 function jstreeDataTableReload() {
     console.log("href: " + $(location).attr("href"));
     console.log("protocol: " + $(location).attr("protocol"));
@@ -52,10 +46,16 @@ function jstreeDataTableReload() {
 
     $("#pdserviceTable tbody").on("click", "tr", function () {
 
-        $(this).toggleClass('selected');
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        } else {
+            tempDataTable.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+
         var data = tempDataTable.row(this).data();
-        console.log(data);
-        //alert( 'You clicked on '+ data.c_title +'\'s row' );
+        console.log(data.c_id);
+        dataLoad(data.c_id, data.c_title);
     });
 }
 
