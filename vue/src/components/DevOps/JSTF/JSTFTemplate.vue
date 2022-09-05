@@ -7,7 +7,6 @@
           :isMonitor="isMonitor"
           :columns="columns"
           :dataSrc="rows"
-          @reload="reload"
         />
       </div>
     </div>
@@ -21,16 +20,9 @@
   </div>
 </template>
 <script setup>
-import { defineProps } from 'vue';
 import JsDataTable from '@/components/DevOps/JSTF/JsDataTableBuild.vue';
 import JsTreeBuild from '@/components/DevOps/JSTF/JsTreeBuild.vue';
 
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-const reload = () => {
-  router.go(0);
-};
 const props = defineProps({
   DataUrlList: Object,
   columns: Array,

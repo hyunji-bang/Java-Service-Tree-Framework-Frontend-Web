@@ -7,6 +7,8 @@ import $ from 'jquery';
 import 'jquery/src/jquery.js';
 import 'jstree/dist/jstree.min.js';
 import 'jstree/dist/themes/default/style.min.css';
+import 'datatables.net-responsive/js/dataTables.responsive.min.js';
+import 'datatables.net-select';
 import { mapState } from 'vuex';
 
 export default {
@@ -16,7 +18,6 @@ export default {
       selected: null,
     };
   },
-  emits: ['reload'],
   props: {
     DataUrlList: Object,
     isMonitor: Boolean,
@@ -26,11 +27,7 @@ export default {
   computed: {
     ...mapState(['isDevelopingToRoute']),
   },
-  watch: {
-    change: function (data) {
-      console.log(data);
-    },
-  },
+
   methods: {
     //treeData 가공
     makeTreeData(data) {
@@ -291,7 +288,6 @@ export default {
           .fail(function () {
             $('#demo').jstree(true).refresh();
           });
-        console.log(this.selected[this.selected.length - 1]);
       });
     },
 
@@ -323,8 +319,11 @@ export default {
       });
     },
   },
+
   mounted() {
     const dataUrl = this.DataUrlList;
+    const getTreeList = this.$api.getData.list(dataUrl.getMonitor);
+
     if (window.location.port == 9999) {
       console.log('csrf 우회 because local development');
     } else {
@@ -342,11 +341,15 @@ export default {
       });
     }
 
-    this.axios.get(`${this.isDevelopingToRoute}${dataUrl.getMonitor}`).then(response => {
-      const dataTableReload = () => this.$emit('reload');
+    getTreeList.then(response => {
+      const dataTableReload = () =>
+        this.$store.commit('dataTabelLoad', {
+          dataUrl: dataUrl.getMonitor,
+          dataSrc: this.dataSrc,
+          dataColumns: this.columns,
+        });
 
-      const data = response.data;
-      this.makeTreeData(data);
+      this.makeTreeData(response);
       this.jsTreeSearch();
       this.jsTreeBuild(
         this.treeData[0],
