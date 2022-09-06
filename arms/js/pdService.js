@@ -15,7 +15,20 @@ const makeReviewList = function (profile) {
 	wrap.innerHTML = reviewer;
 };
 
+const pageChecker = function () {
+	console.log("###", location.pathname.includes("Open"));
+	const contents = document.querySelector(".content-section");
+	if (location.pathname.includes("Open")) {
+		contents.classList.add("new-tab-open");
+	}
+
+	if (location.pathname.includes("ModifyOpen")) {
+		contents.classList.add("new-tab-modify");
+	}
+};
+
 $(function () {
+	pageChecker();
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_manage");
 
 	//서비스 등록
@@ -200,6 +213,5 @@ $("#service-modify").click(function (ev) {
 $(".blank").click(function (ev) {
 	ev.preventDefault();
 
-	console.log("##", ev, location);
-	window.open(ev.target.href, "_blank");
+	window.open(`${ev.target.href}?service=${1234}`, "_blank");
 });

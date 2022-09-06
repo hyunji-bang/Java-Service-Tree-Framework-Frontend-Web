@@ -45,7 +45,7 @@
 </div>
 
 <div class="col-lg-8">
-	<section class="widget">
+	<section class="widget content-section">
 		<header class="product-handler">
 			<div class="product-handler__group">
 				<a class="btn btn-block btn-transparent blank" href="pdServiceOpen.html"
@@ -196,7 +196,13 @@
 					</button>
 				</p>
 				<p class="pull-right" style="padding-top: 10px; padding-right: 10px">
-					<a class="btn btn-success" id="show-info-message"> 새창으로 편집 </a>
+					<a
+						class="btn btn-success blank"
+						href="pdServiceModifyOpen.html"
+						id="show-info-message"
+					>
+						새창으로 편집
+					</a>
 				</p>
 				<div
 					id="myModal2"
@@ -268,6 +274,11 @@
 
 <!-- page specific application css/js -->
 <style>
+	.new-tab-open .product-handler,
+	.new-tab-open .pull-right {
+		display: none;
+	}
+
 	.product-handler {
 		display: flex;
 		justify-content: space-between;
