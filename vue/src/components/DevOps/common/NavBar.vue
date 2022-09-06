@@ -15,30 +15,20 @@
             ref="firstmenu"
           >
             <i :class="list.icon"></i>
-            <span
-              class="accordion-button"
-              data-bs-toggle="collapse"
-              :data-bs-target="`#collapse${idx}`"
-            >
+            <span class="accordion-button">
               {{ list.title }}
             </span>
           </router-link>
-          <a
-            v-if="list.title !== 'Welcome'"
-            class="accordion-button"
-            data-bs-toggle="collapse"
-            :data-bs-target="`#collapse${idx}`"
-          >
+          <a v-if="list.title !== 'Welcome'" class="accordion-button">
             <i :class="list.icon"></i>
             <span>
               {{ list.title }}
             </span>
-            <i class="bi bi-chevron-left arrow"></i>
           </a>
 
           <ul
             :id="`collapse${idx}`"
-            class="accordion-collapse collapse"
+            class="accordion-collapse"
             data-bs-parent="#side-nav-bar"
           >
             <li
@@ -91,9 +81,6 @@ const activateNavMenu = () => {
     const subMenuEl = list.children[0].children[1];
     if (path.includes(title)) {
       titleEl.classList.add('active-blue');
-      titleEl.classList.remove('collapsed');
-      subMenuEl.classList.add('show');
-      titleEl.setAttribute('aria-expanded', 'true');
     }
     if (idx === 0) {
       list.addEventListener('click', () => clickMenuRemoveActive(list, titleEl));
@@ -134,12 +121,6 @@ nav.sidebar {
           position: relative;
           transition: rotate 0.5s;
           transform: rotate(0deg);
-          &[aria-expanded='true'] {
-            .arrow {
-              transition: all 0.5s;
-              transform: rotate(-90deg);
-            }
-          }
           .bi:nth-child(1) {
             margin-right: 10px;
           }
@@ -160,7 +141,12 @@ nav.sidebar {
       .accordion-collapse {
         .accordion-body {
           a {
-            padding: 4px 20px 4px 50px;
+            margin-left: 20px;
+            padding: 4px 20px 4px 30px;
+            border-radius: 5px;
+            &:hover {
+              background: rgba(0, 0, 0, 0.07);
+            }
           }
         }
       }

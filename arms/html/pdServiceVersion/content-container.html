@@ -42,6 +42,9 @@
 			</h5>
 		</header>
 		<div class="body">
+			<blockquote class="font13">
+				2. 버전 선택 및 등록
+			</blockquote>
 			<div class="panel-group" id="versionAccordion"></div>
 		</div>
 	</section>
@@ -177,6 +180,130 @@
                     </section>
                 </div>
             </div>
+			<div
+				id="myModal2"
+				class="modal fade"
+				tabindex="-1"
+				role="dialog"
+				aria-labelledby="myModalLabel"
+				aria-hidden="true"
+				style="display: none"
+			>
+				<div class="modal-dialog" style="width: 70%; height: 80%">
+					<div class="modal-content darkBack">
+						<div class="modal-header" style="padding: 0px; border-bottom: 0px">
+							<button
+									type="button"
+									class="close"
+									data-dismiss="modal"
+									aria-hidden="true"
+									style="color: #ffffff; font-size: 20px; opacity: 0.8; padding: 5px"
+							>
+								×
+							</button>
+							<h4
+									class="modal-title font14"
+									id="myModalLabel2"
+									style="color: #f8f8f8; text-align: left; padding: 5px"
+							>
+									<span class="font13" style="font-weight: bold">
+										<i class="fa fa-edit"></i> 제품(서비스) 신규 버전 등록 팝업
+									</span>
+								<section class="search-result" style="border-left: 5px solid #e5603b">
+									<p
+											style="font-size: 13px; margin: 5px 0px 0px 0px; padding-left: 5px"
+									>
+										선택한 제품(서비스)에 버전을 등록합니다.
+									</p>
+								</section>
+							</h4>
+						</div>
+						<div class="modal-body" style="padding: 5px">
+							<form class="form-horizontal" method="post">
+								<fieldset>
+									<div class="control-group">
+										<label class="control-label" style="color: #f8f8f8;">제품<sup>서비스</sup> 이름 : </label>
+										<div class="controls form-group">
+											<div class="col-sm-8">
+												<input type="text" id="tooltip-enabled" class="form-control" data-placement="top" data-original-title="Some explanation text here" placeholder="Product(Service) name">
+											</div>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label" style="color: #f8f8f8;">버전 : </label>
+										<div class="controls form-group">
+											<div class="col-sm-8">
+												<input type="text" id="tooltip-enabled" class="form-control" data-placement="top" data-original-title="Some explanation text here" placeholder="Product(Service) version">
+											</div>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label" style="color: #f8f8f8;">
+											시작 날짜
+											<span class="help-block">Some help text</span>
+										</label>
+										<div class="controls form-group">
+											<div class="col-sm-8">
+												<div class="input-group">
+													<input id="btn-enabled-date" class="form-control" type="text" name="btn-enabled-date" value="">
+
+													<span class="input-group-btn">
+														<a href="#" id="btn-select-calendar" class="btn btn-danger" data-date-format="yyyy/mm/dd" data-date="2022/11/11">
+															<i class="fa fa-calendar"></i>
+														</a>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label" for="tooltip-enabled" style="color: #f8f8f8;">종료 날짜</label>
+										<div class="controls form-group">
+											<div class="col-sm-8">
+												<div class="input-group">
+													<input id="btn-end-date" class="form-control" type="text" name="btn-enabled-date" value="">
+
+													<span class="input-group-btn">
+														<a href="#" id="btn-end-calendar" class="btn btn-danger" data-date-format="yyyy/mm/dd" data-date="2022/11/11">
+															<i class="fa fa-calendar"></i>
+														</a>
+													</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label" for="max-length" style="color: #f8f8f8;">버전 내용</label>
+										<div class="controls form-group">
+											<div class="col-sm-8">
+												<div id="modal-editor" class="darkBack">
+													<p>버전에 포함될 기능을 요약합니다.</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+						<div
+								class="modal-footer"
+								style="
+									background-color: transparent;
+									padding: 5px;
+									text-align: right;
+									border-top: 0px;
+								"
+						>
+							<button type="button" class="btn btn-default" data-dismiss="modal">
+								Close
+							</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
 		</div>
 	</section>
 </div>
@@ -204,13 +331,127 @@
 		color: #999 !important;
 		padding-left: 6px;
 	}
+
+	.dropdown-menu {
+		z-index: 9999 !important;
+	}
+
+	/*!
+ * Datepicker for Bootstrap
+ *
+ * Copyright 2012 Stefan Petre
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ */
+	.datepicker {
+		top: 0;
+		left: 0;
+		padding: 4px;
+		margin-top: 1px;
+		color: #555555;
+		-webkit-border-radius: 1px;
+		-moz-border-radius: 1px;
+		-ms-border-radius: 1px;
+		-o-border-radius: 1px;
+		border-radius: 1px;
+		/*.dow {
+            border-top: 1px solid #ddd !important;
+        }*/
+	}
+	.datepicker:before {
+		content: '';
+		display: inline-block;
+		border-left: 7px solid transparent;
+		border-right: 7px solid transparent;
+		border-bottom: 7px solid #ccc;
+		border-bottom-color: rgba(0, 0, 0, 0.2);
+		position: absolute;
+		top: -7px;
+		left: 6px;
+	}
+	.datepicker:after {
+		content: '';
+		display: inline-block;
+		border-left: 6px solid transparent;
+		border-right: 6px solid transparent;
+		border-bottom: 6px solid white;
+		position: absolute;
+		top: -6px;
+		left: 7px;
+	}
+	.datepicker > div {
+		display: none;
+	}
+	.datepicker table {
+		width: 100%;
+		margin: 0;
+	}
+	.datepicker td,
+	.datepicker th {
+		text-align: center;
+		width: 20px;
+		height: 20px;
+		-webkit-border-radius: 1px;
+		-moz-border-radius: 1px;
+		-ms-border-radius: 1px;
+		-o-border-radius: 1px;
+		border-radius: 1px;
+	}
+	.datepicker td.day:hover {
+		background: #f8f8f8;
+		cursor: pointer;
+	}
+	.datepicker td.day.disabled {
+		color: #f8f8f8;
+	}
+	.datepicker td.old, .datepicker td.new {
+		color: white;
+	}
+	.datepicker td.active, .datepicker td.active:hover {
+		background: #618fb0;
+		color: #fff;
+	}
+	.datepicker td span {
+		display: block;
+		width: 47px;
+		height: 54px;
+		line-height: 54px;
+		float: left;
+		margin: 2px;
+		cursor: pointer;
+		-webkit-border-radius: 1px;
+		-moz-border-radius: 1px;
+		-ms-border-radius: 1px;
+		-o-border-radius: 1px;
+		border-radius: 1px;
+	}
+	.datepicker td span:hover {
+		background: #eeeeee;
+	}
+	.datepicker td span.active {
+		background: #618fb0;
+		color: #fff;
+	}
+	.datepicker td span.old {
+		color: #999999;
+	}
+	.datepicker th.switch {
+		width: 145px;
+	}
+	.datepicker th.next, .datepicker th.prev {
+		font-size: 19.5px;
+	}
+	.datepicker thead tr:first-child th {
+		cursor: pointer;
+	}
+	.datepicker thead tr:first-child th:hover {
+		background: #eeeeee;
+	}
 </style>
+<!-- 날짜선택 -->
 <script type="text/javascript" charset="utf-8">
 	//<![CDATA[
-
-	function versionClick(){
-		console.log("test");
-	}
 
 	// 초기 개발 및 확인 용도
 	(function ($) {
@@ -223,8 +464,13 @@
                             <li class='list-group-item json-menu-header'>
                                 <strong>product service name</strong>
                             </li>
-                            <button id="compose-btn" class="btn btn-danger btn-block">신규 버전 등록하기</button>
-                        `;
+                            <button
+						type="button"
+						class="btn btn-danger btn-block"
+						id="modalPopupId"
+						data-toggle="modal"
+						data-target="#myModal2"
+					>신규 버전 등록하기</button>`;
 
 			for (let i = 0; i < menu.length; i++) {
 				data += `
@@ -256,6 +502,26 @@
 
 	// 초기 개발 및 확인 용도
 	$(function () {
+
+		$('.date-picker').datepicker({
+			autoclose: true
+		});
+		var $btnCalendar = $('#btn-select-calendar');
+		$btnCalendar.datepicker({
+			autoclose: true
+		}).on('changeDate', function(ev){
+			$('#btn-enabled-date').val($btnCalendar.data('date'));
+			$btnCalendar.datepicker('hide');
+		});
+
+		var $btnEndCalendar = $('#btn-end-calendar');
+		$btnEndCalendar.datepicker({
+			autoclose: true
+		}).on('changeDate', function(ev){
+			$('#btn-end-date').val($btnEndCalendar.data('date'));
+			$btnEndCalendar.datepicker('hide');
+		});
+
 	});
 
 	//]]>

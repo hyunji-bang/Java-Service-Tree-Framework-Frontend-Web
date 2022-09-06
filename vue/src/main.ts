@@ -5,8 +5,8 @@ import 'bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '@fortawesome/fontawesome-free/js/all.js';
 import { store, key } from './store';
-import axios from 'axios';
+import ApiPlugin from './plugins/api';
 
 const app = createApp(App);
-app.config.globalProperties.axios = axios;
+app.use(ApiPlugin);
 app.use(store, key).use(router).mount('#app');
