@@ -21,4 +21,7 @@ export const mutations = {
       columns: dataColumns,
     });
   },
+  nodeUpdate(state: any) {
+    state.nodeUpdate = !state.nodeUpdate;
+  },
 };

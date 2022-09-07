@@ -19,18 +19,39 @@
   </table>
 </template>
 <script>
+import { mapState } from 'vuex';
 export default {
   props: {
     tableDataUrl: String,
     columns: Array,
     dataSrc: String,
   },
+  computed: {
+    nodeUpdate() {
+      return this.$store.state.nodeUpdate;
+    },
+  },
+  watch: {
+    nodeUpdate: {
+      handler: function (a) {
+        if (a) {
+          this.dataTableReload();
+        }
+      },
+      deep: true,
+    },
+  },
+  methods: {
+    dataTableReload() {
+      this.$store.commit('dataTabelLoad', {
+        dataUrl: this.tableDataUrl,
+        dataSrc: this.dataSrc,
+        dataColumns: this.columns,
+      });
+    },
+  },
   mounted() {
-    this.$store.commit('dataTabelLoad', {
-      dataUrl: this.tableDataUrl,
-      dataSrc: this.dataSrc,
-      dataColumns: this.columns,
-    });
+    this.dataTableReload();
   },
 };
 </script>

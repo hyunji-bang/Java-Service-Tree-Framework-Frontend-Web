@@ -38,6 +38,7 @@ export const state = {
   ],
   isDevelopingToRoute: '/auth-anon',
   dataTable: null,
+  nodeUpdate: false,
 };
 
 export type RootState = typeof state;

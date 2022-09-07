@@ -7,8 +7,6 @@ import $ from 'jquery';
 import 'jquery/src/jquery.js';
 import 'jstree/dist/jstree.min.js';
 import 'jstree/dist/themes/default/style.min.css';
-import 'datatables.net-responsive/js/dataTables.responsive.min.js';
-import 'datatables.net-select';
 import { mapState } from 'vuex';
 
 export default {
@@ -292,7 +290,6 @@ export default {
     //jstree rename_node
     jsTreeRenameNode(dataUrl, dataTableLoad) {
       $('#demo').on('rename_node.jstree', function (e, data) {
-        console.log(data);
         dataUrl.alterNode
           .list({
             c_id: data.node.id,
@@ -300,7 +297,7 @@ export default {
             c_type: data.node.type,
           })
           .then(() => {
-            setTimeout(() => dataTableLoad(), 100);
+            dataTableLoad();
           });
       });
     },
@@ -311,8 +308,8 @@ export default {
         dataUrl.moveNode
           .list({
             c_id: data.node.id,
-            c_title: data.text,
-            c_type: data.node.type,
+            ref: data.node.parent,
+            c_position: data.position,
           })
           .then(() => {
             dataTableLoad();
@@ -342,12 +339,7 @@ export default {
     }
 
     dataUrl.getData.list().then(response => {
-      const dataTableReload = () =>
-        this.$store.commit('dataTabelLoad', {
-          dataUrl: dataUrl.getMonitor,
-          dataSrc: this.dataSrc,
-          dataColumns: this.columns,
-        });
+      const dataTableReload = () => this.$store.commit('nodeUpdate');
 
       this.makeTreeData(response);
       this.jsTreeSearch();
