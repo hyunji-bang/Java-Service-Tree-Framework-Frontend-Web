@@ -73,8 +73,8 @@ const clickMenuRemoveActive = (list, titleEl) => {
   titleEl.classList.add('active-blue');
 };
 
-//route path에 따라 일치하는 페이지 네비 active
-const activateNavMenu = () => {
+onMounted(() => {
+  //route path에 따라 일치하는 페이지 네비 active
   detailList.value.forEach((list, idx) => {
     const title = list.dataset.title;
     const titleEl = list.children[0].children[0];
@@ -90,10 +90,6 @@ const activateNavMenu = () => {
       });
     }
   });
-};
-
-onMounted(() => {
-  activateNavMenu();
 });
 </script>
 

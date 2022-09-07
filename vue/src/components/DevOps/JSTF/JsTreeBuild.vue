@@ -63,10 +63,10 @@ export default {
         });
       }
       arrangeData.splice(0, 1);
-      this.treeData = [...arrangeData].map((data, idx) => {
+      this.treeData = [...arrangeData].map(data => {
         if (typeof data.children === 'object') {
           const parentId = data.id;
-          arrangeData.forEach((data2, idx2) => {
+          arrangeData.forEach(data2 => {
             if (data2.parentId === parentId) {
               return (data.children[data2.position] = data2);
             }
@@ -209,12 +209,14 @@ export default {
                         var inst = $.jstree.reference(data.reference);
                         var obj = inst.get_node(data.reference);
                         inst.set_type(obj, 'default');
-                        $.post(`${isDevelopingToRoute}${dataUrl.alterNodeType}`, {
-                          c_id: obj.id,
-                          c_type: obj.type,
-                        }).done(function () {
-                          dataTableLoad();
-                        });
+                        dataUrl.alterNodeType
+                          .list({
+                            c_id: obj.id,
+                            c_type: obj.type,
+                          })
+                          .then(() => {
+                            dataTableLoad();
+                          });
                       },
                     },
                     toFolder: {
@@ -225,14 +227,14 @@ export default {
                         var inst = $.jstree.reference(data.reference);
                         var obj = inst.get_node(data.reference);
                         inst.set_type(obj, 'folder');
-
-                        $.post(`${isDevelopingToRoute}${dataUrl.alterNodeType}`, {
-                          c_id: obj.id,
-                          c_title: obj.text,
-                          c_type: obj.type,
-                        }).done(function () {
-                          dataTableLoad();
-                        });
+                        dataUrl.alterNodeType
+                          .list({
+                            c_id: obj.id,
+                            c_type: obj.type,
+                          })
+                          .then(() => {
+                            dataTableLoad();
+                          });
                       },
                     },
                   },
@@ -245,84 +247,82 @@ export default {
             },
           },
         })
-        .on('loaded.jstree', function (e, data) {
+        .on('loaded.jstree', function () {
           $('#demo').jstree('open_node', [2, 4]);
         })
-        .on('select_node.jstree', function (e, data) {
+        .on('select_node.jstree', function (data) {
           return (this.selected = data.selected);
         });
 
-      this.jsTreeCreateNode(isDevelopingToRoute, dataUrl);
-      this.jsTreeDeleteNode(isDevelopingToRoute, dataUrl, dataTableLoad);
-      this.jsTreeRenameNode(isDevelopingToRoute, dataUrl, dataTableLoad);
-      this.jsTreeMoveNode(isDevelopingToRoute, dataUrl, dataTableLoad);
+      this.jsTreeCreateNode(dataUrl);
+      this.jsTreeDeleteNode(dataUrl, dataTableLoad);
+      this.jsTreeRenameNode(dataUrl, dataTableLoad);
+      this.jsTreeMoveNode(dataUrl, dataTableLoad);
     },
 
     //jstree create_node
-    jsTreeCreateNode(isDevelopingToRoute, dataUrl) {
+    jsTreeCreateNode(dataUrl) {
       $('#demo').on('create_node.jstree', function (e, data) {
-        $.post(`${isDevelopingToRoute}${dataUrl.addNode}`, {
-          ref: data.node.parent,
-          c_position: data.position,
-          c_title: data.node.text,
-          c_type: data.node.type,
-        })
-          .done(function (d) {
-            $('#demo').jstree(true).set_id(data.node, d.id);
+        dataUrl.addNode
+          .list({
+            ref: data.node.parent,
+            c_position: data.position,
+            c_title: data.node.text,
+            c_type: data.node.type,
           })
-          .fail(function () {
-            $('#demo').jstree(true).refresh();
+          .then(d => {
+            $('#demo').jstree(true).set_id(data.node, d.id);
           });
       });
     },
 
     //jstree delete_node
-    jsTreeDeleteNode(isDevelopingToRoute, dataUrl, dataTableLoad) {
+    jsTreeDeleteNode(dataUrl, dataTableLoad) {
       $('#demo').on('delete_node.jstree', function (e, data) {
-        $.post(`${isDevelopingToRoute}${dataUrl.removeNode}`, {
-          c_id: data.node.id,
-        })
-          .done(function () {
-            setTimeout(() => dataTableLoad(), 100);
+        dataUrl.removeNode
+          .list({
+            c_id: data.node.id,
           })
-          .fail(function () {
-            $('#demo').jstree(true).refresh();
+          .then(() => {
+            setTimeout(() => dataTableLoad(), 100);
           });
       });
     },
 
     //jstree rename_node
-    jsTreeRenameNode(isDevelopingToRoute, dataUrl, dataTableLoad) {
+    jsTreeRenameNode(dataUrl, dataTableLoad) {
       $('#demo').on('rename_node.jstree', function (e, data) {
-        $.post(`${isDevelopingToRoute}${dataUrl.alterNode}`, {
-          c_id: data.node.id,
-          c_title: data.text,
-          c_type: data.node.type,
-        }).done(function () {
-          dataTableLoad();
-        });
+        console.log(data);
+        dataUrl.alterNode
+          .list({
+            c_id: data.node.id,
+            c_title: data.text,
+            c_type: data.node.type,
+          })
+          .then(() => {
+            setTimeout(() => dataTableLoad(), 100);
+          });
       });
     },
 
     //jstree move_node
-    jsTreeMoveNode(isDevelopingToRoute, dataUrl, dataTableLoad) {
+    jsTreeMoveNode(dataUrl, dataTableLoad) {
       $('#demo').on('move_node.jstree', function (e, data) {
-        $.post(`${isDevelopingToRoute}${dataUrl.moveNode}`, {
-          c_id: data.node.id,
-          ref: data.parent,
-          c_position: data.position,
-          copy: 0,
-          multiCounter: 0,
-        }).done(function () {
-          dataTableLoad();
-        });
+        dataUrl.moveNode
+          .list({
+            c_id: data.node.id,
+            c_title: data.text,
+            c_type: data.node.type,
+          })
+          .then(() => {
+            dataTableLoad();
+          });
       });
     },
   },
 
   mounted() {
     const dataUrl = this.DataUrlList;
-    const getTreeList = this.$api.getData.list(dataUrl.getMonitor);
 
     if (window.location.port == 9999) {
       console.log('csrf 우회 because local development');
@@ -334,14 +334,14 @@ export default {
         success: function (r) {
           const token = r._csrf_token;
           const header = r._csrf_headerName;
-          $(document).ajaxSend(function (e, xhr, options) {
+          $(document).ajaxSend(function (e, xhr) {
             xhr.setRequestHeader(header, token);
           });
         },
       });
     }
 
-    getTreeList.then(response => {
+    dataUrl.getData.list().then(response => {
       const dataTableReload = () =>
         this.$store.commit('dataTabelLoad', {
           dataUrl: dataUrl.getMonitor,

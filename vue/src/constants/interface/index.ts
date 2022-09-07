@@ -6,3 +6,10 @@ export interface requiredDataTable {
   dataSrc: string;
   dataColumns: [];
 }
+export interface changeNodePayload {
+  ref?: string;
+  c_position?: number;
+  c_title?: string;
+  c_type?: string;
+  c_id?: number;
+}

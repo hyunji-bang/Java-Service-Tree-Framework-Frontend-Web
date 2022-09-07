@@ -1,6 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
 import { RoutePath } from '@/constants/enums/RoutePath';
-import component from '*.vue';
 
 const routeComponent = (view: string, name: string) => () =>
   import(/* webpackChunkName: "[request]" */ `@/views/${view}/${name}.vue`);

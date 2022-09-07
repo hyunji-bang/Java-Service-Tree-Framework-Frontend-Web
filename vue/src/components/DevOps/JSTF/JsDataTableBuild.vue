@@ -19,10 +19,6 @@
   </table>
 </template>
 <script>
-import $ from 'jquery';
-import 'datatables.net-responsive/js/dataTables.responsive.min.js';
-import 'datatables.net-select';
-
 export default {
   props: {
     tableDataUrl: String,

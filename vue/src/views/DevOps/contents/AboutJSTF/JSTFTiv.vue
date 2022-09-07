@@ -14,6 +14,8 @@
 <script setup scoped>
 import ContentHeader from '@/components/DevOps/common/ContentHeader.vue';
 import JSTFTemplate from '@/components/DevOps/JSTF/JSTFTemplate.vue';
+import { getCurrentInstance } from '@vue/runtime-core';
+const { proxy } = getCurrentInstance();
 
 const columns = [
   {
@@ -44,14 +46,15 @@ const columns = [
 
 const DataUrlList = {
   getMonitor: '/com/ext/jstree/strutsiBatis/core/monitor/list.action',
-  alterNodeType: '/com/ext/jstree/strutsiBatis/core/alterNodeType.action',
-  addNode: '/com/ext/jstree/strutsiBatis/core/addNode.action',
-  removeNode: '/com/ext/jstree/strutsiBatis/core/removeNode.action',
-  alterNode: '/com/ext/jstree/strutsiBatis/core/alterNode.action',
-  moveNode: '/com/ext/jstree/strutsiBatis/core/moveNode.action',
+  getData: proxy.$api.tiv.getMonitor,
+  alterNodeType: proxy.$api.tiv.alterNodeType,
+  addNode: proxy.$api.tiv.addNode,
+  removeNode: proxy.$api.tiv.removeNode,
+  alterNode: proxy.$api.tiv.alterNode,
+  moveNode: proxy.$api.tiv.moveNode,
 };
 const isMonitor = false;
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/assets/scss/JSTF.scss';
 </style>
