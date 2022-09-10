@@ -96,7 +96,7 @@
 											<label class="control-label" style="width: 25% !important;">제품<sup>서비스</sup> 이름 : </label>
 											<div class="controls form-group">
 												<div class="col-sm-8">
-													<label class="control-label" style="text-align: left !important; width: 100%" id="pdServiceName">Sample Product(Service) name</label>
+													<label class="control-label" style="text-align: left !important; width: 100%" id="pdServiceName">Product(Service) name</label>
 												</div>
 											</div>
 										</div>
@@ -104,41 +104,38 @@
 											<label class="control-label" style="width: 25% !important;">버전 : </label>
 											<div class="controls form-group">
 												<div class="col-sm-8">
-													<label class="control-label" style="text-align: left; !important;" id="pdServiceVersion">0.0.1-SNAPSHOT</label>
+													<label class="control-label" style="text-align: left; !important;" id="pdServiceVersion">Version Name</label>
 												</div>
 											</div>
 										</div>
 										<div class="control-group">
 											<label class="control-label" style="width: 25% !important;">
-												시작 날짜
-												<span class="help-block">Some help text</span>
+												시작 날짜 :
 											</label>
 											<div class="controls form-group">
-                                                <label class="control-label" style="text-align: left; !important;" id="versionStarDate">0.0.1-SNAPSHOT</label>
+												<div class="col-sm-8">
+                                                	<label class="control-label" style="text-align: left; !important;" id="versionStartDate">Version Work Start Date</label>
+												</div>
 											</div>
 										</div>
 										<div class="control-group">
-											<label class="control-label" style="width: 25% !important;" for="tooltip-enabled">종료 날짜</label>
+											<label class="control-label" style="width: 25% !important;">
+												종료 날짜 :
+											</label>
 											<div class="controls form-group">
-												<div class="col-sm-8"><input type="text" id="tooltip-enabled" class="form-control"
-																			 data-placement="top" data-original-title="Some explanation text here"
-																			 placeholder="Hover over me.."></div>
+												<div class="col-sm-8">
+													<label class="control-label" style="text-align: left; !important;" id="versionEndDate">Version Work End Date</label>
+												</div>
 											</div>
 										</div>
 										<div class="control-group">
-											<label class="control-label" style="width: 25% !important;" for="disabled-input">상태</label>
+											<label class="control-label" style="width: 25% !important;">
+												버전 내용 :
+											</label><br>
 											<div class="controls form-group">
-												<div class="col-sm-8"><input type="text" id="disabled-input" class="form-control"
-																			 disabled="disabled" value="Default value" ></div>
-											</div>
-										</div>
-										<div class="control-group">
-											<label class="control-label" style="width: 25% !important;" for="max-length">버전 내용</label>
-											<div class="controls form-group">
-												<div class="col-sm-8"><input type="text" id="max-length" maxlength="3"
-																			 class="form-control"
-																			 placeholder="Max length 3 characters"
-																			 data-placement="top" data-original-title="You cannot write more than 3 characters."></div>
+												<div class="col-sm-12" id="versionContents">
+													Version Contents
+												</div>
 											</div>
 										</div>
 									</fieldset>
@@ -151,8 +148,79 @@
 								</form>
                             </div>
                             <div id="report" class="tab-pane">
-                                <div style="font-size: 240px; text-align: center; color: #56bc76; text-shadow: 2px 2px 2px #000000; height: 280px;">
-                                    <i class="fa fa-picture-o"></i>
+                                <div>
+
+
+
+									<form class="form-horizontal" method="post">
+										<fieldset>
+											<div class="control-group">
+												<label class="control-label" style="color: #f8f8f8; width: 25% !important;">제품<sup>서비스</sup> 이름 : </label>
+												<div class="controls form-group">
+													<div class="col-sm-8">
+														<input type="text" id="input_pdserviceName" class="form-control" data-placement="top" data-original-title="Some explanation text here" placeholder="Product(Service) name">
+													</div>
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label" style="color: #f8f8f8; width: 25% !important;">버전 : </label>
+												<div class="controls form-group">
+													<div class="col-sm-8">
+														<input type="text" id="input_pdserviceVersion" class="form-control" data-placement="top" data-original-title="Some explanation text here" placeholder="Product(Service) version">
+													</div>
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label" style="color: #f8f8f8; width: 25% !important;">
+													시작 날짜 :
+												</label>
+												<div class="controls form-group">
+													<div class="col-sm-8">
+														<div class="input-group">
+															<input id="input_pdservice_start_date" class="form-control" type="text" name="btn-enabled-date" value="">
+
+															<span class="input-group-btn">
+														<a href="#" id="btn-select-calendar" class="btn btn-danger" data-date-format="yyyy/mm/dd" data-date="2022/11/11">
+															<i class="fa fa-calendar"></i>
+														</a>
+													</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label" for="tooltip-enabled" style="color: #f8f8f8; width: 25% !important;">종료 날짜</label>
+												<div class="controls form-group">
+													<div class="col-sm-8">
+														<div class="input-group">
+															<input id="input_pdservice_end_date" class="form-control" type="text" name="btn-enabled-date" value="">
+
+															<span class="input-group-btn">
+														<a href="#" id="btn-end-calendar" class="btn btn-danger" data-date-format="yyyy/mm/dd" data-date="2022/11/11">
+															<i class="fa fa-calendar"></i>
+														</a>
+													</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label" for="max-length" style="color: #f8f8f8; width: 25% !important;">버전 내용</label>
+												<br><br>
+												<div class="controls form-group">
+													<div class="col-sm-12">
+														<div id="input_pdservice_editor" class="darkBack">
+															<p>버전에 포함될 기능을 요약합니다.</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</fieldset>
+									</form>
+
+
+
+
                                 </div>
                             </div>
                             <div id="dropdown1" class="tab-pane">
@@ -456,9 +524,37 @@
 	//버전 클릭할 때 동작하는 함수
 	//1. 상세보기 데이터 바인딩
 	//2. 편집하기 데이터 바인딩
-	function versionClick(nodeId){
-		console.log("->" + nodeId);
+	function versionClick(c_id){
+		$.ajax({
+			url: "/auth-user/api/arms/pdversion/getVersion.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+			data: { c_id: c_id },  // HTTP 요청과 함께 서버로 보낼 데이터
+			method: "GET",   // HTTP 요청 메소드(GET, POST 등)
+			dataType: "json" // 서버에서 보내줄 데이터의 타입
+		})
+		// HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨.
+		.done(function(json) {
+			console.log( " -> " + json[0].c_contents);
+			$('#pdServiceName').text($('.list-group-item').text());
+			$('#pdServiceVersion').text(json[0].c_title);
+			$('#versionStartDate').text(json[0].c_start_date);
+			$('#versionEndDate').text(json[0].c_end_date);
+			$('#versionContents').html(json[0].c_contents);
 
+			$('#input_pdserviceName').val($('.list-group-item').text());
+			$('#input_pdserviceVersion').val(json[0].c_title);
+			$('#input_pdservice_start_date').val(json[0].c_start_date);
+			$('#input_pdservice_end_date').val(json[0].c_end_date);
+			CKEDITOR.instances.input_pdservice_editor.setData(json[0].c_contents);
+		})
+		// HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function(xhr, status, errorThrown) {
+			console.log(xhr + status + errorThrown);
+		})
+		//
+		.always(function(xhr, status) {
+			$("#text").html("요청이 완료되었습니다!");
+			console.log(xhr + status);
+		});
 	}
 
 	// 초기 개발 및 확인 용도
@@ -484,7 +580,7 @@
 				data += `
                             <div class="panel">
                                 <div class="panel-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" href="" onclick="versionClick(${menu[i].c_id}); return false;">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" href="" onclick="versionClick(${menu[i].c_pdservice_link}); return false;">
                                         ${menu[i].c_title}
                                     </a>
                                 </div>
