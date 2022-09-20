@@ -1,12 +1,10 @@
 import { RouteRecordRaw } from 'vue-router';
 import { RoutePath } from '@/constants/enums/RoutePath';
 
-const routeComponent = (view: string, name: string) => () =>
-  import(/* webpackChunkName: "[request]" */ `@/views/${view}/${name}.vue`);
+const routeComponent = (name: string) => () =>
+  import(/* webpackChunkName: "[request]" */ `@/views/${name}.vue`);
 const devopsChildrenComponent = (page: string, name: string) => () =>
-  import(
-    /* webpackChunkName: "[request]" */ `@/views/DevOps/contents/${page}/${name}.vue`
-  );
+  import(/* webpackChunkName: "[request]" */ `@/views/contents/${page}/${name}.vue`);
 
 const routes: RouteRecordRaw[] = [
   {
@@ -14,73 +12,68 @@ const routes: RouteRecordRaw[] = [
     redirect: RoutePath.홈,
   },
   {
-    path: '/home',
-    name: 'Home',
-    component: routeComponent('Home', 'HomeView'),
-  },
-  {
-    path: '/DevOps',
+    path: '/',
     name: 'DevOps',
-    component: routeComponent('DevOps', 'DevOpsView'),
+    component: routeComponent('DevOpsView'),
     children: [
       {
-        path: '/DevOps/Home/Welcome',
+        path: '/Welcome',
         component: devopsChildrenComponent('Home', 'WelcomeDevops'),
       },
       {
-        path: '/DevOps/DevSupport/ALM',
+        path: '/DevSupport/ALM',
         component: devopsChildrenComponent('DevSupport', 'AlmSupport'),
       },
       {
-        path: '/DevOps/DevSupport/DevTools',
+        path: '/DevSupport/DevTools',
         component: devopsChildrenComponent('DevSupport', 'DevToolsSupport'),
       },
       {
-        path: '/DevOps/AboutJSTF/WhatisJSTF',
+        path: '/AboutJSTF/WhatisJSTF',
         component: devopsChildrenComponent('AboutJSTF', 'WhatJSTF'),
       },
       {
-        path: '/DevOps/AboutJSTF/JSTFIntroduction',
+        path: '/AboutJSTF/JSTFIntroduction',
         component: devopsChildrenComponent('AboutJSTF', 'JSTFIntroduction'),
       },
       {
-        path: '/DevOps/AboutJSTF/JSTFGoals',
+        path: '/AboutJSTF/JSTFGoals',
         component: devopsChildrenComponent('AboutJSTF', 'JSTFGoal'),
       },
       {
-        path: '/DevOps/AboutJSTF/JSTFUsage',
+        path: '/AboutJSTF/JSTFUsage',
         component: devopsChildrenComponent('AboutJSTF', 'JSTFUsage'),
       },
       {
-        path: '/DevOps/AboutJSTF/JSTFDemoSHV',
+        path: '/AboutJSTF/JSTFDemoSHV',
         component: devopsChildrenComponent('AboutJSTF', 'JSTFShv'),
       },
       {
-        path: '/DevOps/AboutJSTF/JSTFDemoSIV',
+        path: '/AboutJSTF/JSTFDemoSIV',
         component: devopsChildrenComponent('AboutJSTF', 'JSTFSiv'),
       },
       {
-        path: '/DevOps/AboutJSTF/JSTFDemoSDV',
+        path: '/AboutJSTF/JSTFDemoSDV',
         component: devopsChildrenComponent('AboutJSTF', 'JSTFSdv'),
       },
       {
-        path: '/DevOps/AboutJSTF/JSTFDemoTIV',
+        path: '/AboutJSTF/JSTFDemoTIV',
         component: devopsChildrenComponent('AboutJSTF', 'JSTFTiv'),
       },
       {
-        path: '/DevOps/AboutJSTF/JSTFFAQ',
+        path: '/AboutJSTF/JSTFFAQ',
         component: devopsChildrenComponent('AboutJSTF', 'JSTFFaq'),
       },
       {
-        path: '/DevOps/AboutJSTF/JSTFLicense',
+        path: '/AboutJSTF/JSTFLicense',
         component: devopsChildrenComponent('AboutJSTF', 'JSTFLicense'),
       },
       {
-        path: '/DevOps/AboutJSTF/JSTFDownload',
+        path: '/AboutJSTF/JSTFDownload',
         component: devopsChildrenComponent('AboutJSTF', 'JSTFDownload'),
       },
       {
-        path: '/DevOps/Community/Contributors',
+        path: '/Community/Contributors',
         component: devopsChildrenComponent('Community', 'ComuContributor'),
       },
     ],

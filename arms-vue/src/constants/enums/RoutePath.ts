@@ -1,3 +1,3 @@
 export const enum RoutePath {
-  '홈' = '/Welcome',
+  '홈' = '/home',
 }
