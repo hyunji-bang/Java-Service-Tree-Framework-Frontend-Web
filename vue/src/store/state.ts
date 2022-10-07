@@ -1,8 +1,9 @@
 import { StateKeys } from '@/constants/enums/StoreKeys';
+import { storeKey } from 'vuex';
 
 export const state = {
   [StateKeys.USER_INFO]: { name: 'arms' },
-  navMenuList: [
+  [StateKeys.NAV_MENU_LIST]: [
     {
       title: 'Welcome',
       icon: 'bi bi-house-door-fill',
@@ -36,9 +37,9 @@ export const state = {
       children: ['Contributors'],
     },
   ],
-  isDevelopingToRoute: '/auth-anon',
-  dataTable: null,
-  nodeUpdate: false,
+  [StateKeys.DEVELOPING_TO_ROUTE]: '/auth-anon',
+  [StateKeys.DATA_TABLE]: null,
+  [StateKeys.NODE_UPDATE]: false,
 };
 
 export type RootState = typeof state;

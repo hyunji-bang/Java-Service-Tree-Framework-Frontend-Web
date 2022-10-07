@@ -9,7 +9,10 @@ export const mutations = {
   [MutationTypes.UPDATE_USER]: (state: RootState, payload: any): void => {
     state[StateKeys.USER_INFO] = payload;
   },
-  dataTabelLoad(state: any, { dataUrl, dataSrc, dataColumns }: requiredDataTable) {
+  [MutationTypes.DATA_TABLE_LOAD]: (
+    state: any,
+    { dataUrl, dataSrc, dataColumns }: requiredDataTable,
+  ) => {
     state.dataTable = $('#jstreeTable').dataTable({
       ajax: {
         url: state.isDevelopingToRoute + dataUrl,
@@ -21,7 +24,7 @@ export const mutations = {
       columns: dataColumns,
     });
   },
-  nodeUpdate(state: any) {
+  [MutationTypes.NODE_UPDATE]: (state: any) => {
     state.nodeUpdate = !state.nodeUpdate;
   },
 };

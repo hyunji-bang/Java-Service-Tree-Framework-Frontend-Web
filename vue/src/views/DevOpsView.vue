@@ -25,6 +25,7 @@ import ContentFooter from '@/components/common/ContentFooter.vue';
 import TopBtn from '@/components/common/TopBtn.vue';
 
 import { onMounted, ref } from 'vue';
+
 const openMobileMenu = ref(false);
 
 onMounted(() => {

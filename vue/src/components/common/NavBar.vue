@@ -48,14 +48,7 @@
 </template>
 
 <script setup>
-import {
-  computed,
-  ref,
-  onMounted,
-  toRef,
-  onBeforeMount,
-  toRefs,
-} from '@vue/runtime-core';
+import { computed, ref, onMounted, watch } from '@vue/runtime-core';
 import { useStore } from '@/store';
 import { useRoute } from 'vue-router';
 const store = useStore();
@@ -76,15 +69,16 @@ const clickMenuRemoveActive = (list, titleEl) => {
   titleEl.classList.add('active-blue');
 };
 
-onMounted(() => {
-  //route path에 따라 일치하는 페이지 네비 active
+//route path에 따라 일치하는 페이지 네비 active
+const activeNavMenu = newPath => {
   detailList.value.forEach((list, idx) => {
     const title = list.dataset.title;
     const titleEl = list.children[0].children[0];
     const subMenuEl = list.children[0].children[1];
-    if (path.includes(title)) {
-      titleEl.classList.add('active-blue');
-    }
+    newPath.includes(title)
+      ? titleEl.classList.add('active-blue')
+      : titleEl.classList.remove('active-blue');
+
     if (idx === 0) {
       list.addEventListener('click', () => clickMenuRemoveActive(list, titleEl));
     } else {
@@ -93,6 +87,17 @@ onMounted(() => {
       });
     }
   });
+};
+
+watch(
+  () => route.path,
+  newPath => {
+    if (newPath) activeNavMenu(newPath);
+  },
+);
+
+onMounted(() => {
+  activeNavMenu(path);
 });
 </script>
 
