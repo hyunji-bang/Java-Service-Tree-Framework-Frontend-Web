@@ -1,7 +1,7 @@
 <template>
   <header>
     <h1 id="logo">
-      <router-link to="/">313 DEVOPS</router-link>
+      <router-link to="/">313 DEV GRP</router-link>
     </h1>
     <button
       type="button"
