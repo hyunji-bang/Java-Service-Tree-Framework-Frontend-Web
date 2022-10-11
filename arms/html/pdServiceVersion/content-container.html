@@ -2,30 +2,40 @@
 	<section class="widget">
 		<header>
 			<h4>
-                <span class="font13" style="font-weight: bold;">
-                    <i class="fa fa-edit"></i> 제품(서비스) 조회 및 선택
-                </span>
+				<span class="font13" style="font-weight: bold">
+					<i class="fa fa-edit"></i> 제품(서비스) 조회 및 선택
+				</span>
 			</h4>
 			<div class="widget-controls">
 				<a title="Options" href="#"><i class="glyphicon glyphicon-cog"></i></a>
-				<a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
-				<a data-widgster="collapse" title="Collapse" href="#"><i
-						class="glyphicon glyphicon-chevron-down"></i></a>
-				<a data-widgster="close" title="Close" href="#"><i class="glyphicon glyphicon-remove"></i></a>
+				<a data-widgster="expand" title="Expand" href="#"
+					><i class="glyphicon glyphicon-chevron-up"></i
+				></a>
+				<a data-widgster="collapse" title="Collapse" href="#"
+					><i class="glyphicon glyphicon-chevron-down"></i
+				></a>
+				<a data-widgster="close" title="Close" href="#"
+					><i class="glyphicon glyphicon-remove"></i
+				></a>
 			</div>
 		</header>
 		<div class="body">
-			<blockquote class="font13">
-				1. 제품(서비스) 선택
-			</blockquote>
-			<div class="box box-primary" style="background: rgba(51, 51, 51, 0.225); margin-bottom: 5px !important;">
+			<blockquote class="font13">1. 제품(서비스) 선택</blockquote>
+			<div
+				class="box box-primary"
+				style="background: rgba(51, 51, 51, 0.225); margin-bottom: 5px !important"
+			>
 				<div class="box-body">
-					<table id="pdserviceTable" class="display responsive no-wrap" cellspacing="0">
+					<table
+						id="pdserviceTable"
+						class="display responsive no-wrap"
+						cellspacing="0"
+					>
 						<thead>
-						<tr>
-							<th>c_id</th>
-							<th>c_title</th>
-						</tr>
+							<tr>
+								<th>c_id</th>
+								<th>c_title</th>
+							</tr>
 						</thead>
 					</table>
 				</div>
@@ -42,9 +52,7 @@
 			</h5>
 		</header>
 		<div class="body">
-			<blockquote class="font13">
-				2. 버전 선택 및 등록
-			</blockquote>
+			<blockquote class="font13">2. 버전 선택 및 등록</blockquote>
 			<div class="panel-group" id="versionAccordion"></div>
 		</div>
 	</section>
@@ -72,70 +80,102 @@
 			</div>
 		</header>
 		<div class="body">
-            <div class="row">
-                <div class="col-md-12">
-                    <section class="widget widget-tabs">
-                        <header>
-                            <ul class="nav nav-tabs">
-                                <li class="active">
-                                    <a href="#stats" data-toggle="tab"><strong>상세 보기</strong></a>
-                                </li>
-                                <li>
-                                    <a href="#report" data-toggle="tab"><strong>편집 하기</strong></a>
-                                </li>
-                                <li>
-                                    <a href="#dropdown1" data-toggle="tab"><strong>삭제 하기</strong></a>
-                                </li>
-                            </ul>
-                        </header>
-                        <div class="body tab-content">
-                            <div id="stats" class="tab-pane active clearfix" style="padding-top: 30px !important;">
+			<div class="row">
+				<div class="col-md-12">
+					<section class="widget widget-tabs">
+						<header>
+							<ul class="nav nav-tabs">
+								<li class="active">
+									<a href="#stats" data-toggle="tab"><strong>상세 보기</strong></a>
+								</li>
+								<li>
+									<a href="#report" data-toggle="tab"><strong>편집 하기</strong></a>
+								</li>
+								<li>
+									<a href="#dropdown1" data-toggle="tab"><strong>삭제 하기</strong></a>
+								</li>
+							</ul>
+						</header>
+						<div class="body tab-content">
+							<div
+								id="stats"
+								class="tab-pane active clearfix"
+								style="padding-top: 30px !important"
+							>
 								<form class="form-horizontal" method="post">
 									<fieldset>
 										<div class="control-group">
-											<label class="control-label" style="width: 25% !important;">제품<sup>서비스</sup> 이름 : </label>
+											<label class="control-label" style="width: 25% !important"
+												>제품<sup>서비스</sup> 이름 :
+											</label>
 											<div class="controls form-group">
 												<div class="col-sm-8">
-													<label class="control-label" style="text-align: left !important; width: 100%" id="pdServiceName">Product(Service) name</label>
+													<label
+														class="control-label"
+														style="text-align: left !important; width: 100%"
+														id="pdServiceName"
+														>Product(Service) name</label
+													>
 												</div>
 											</div>
 										</div>
 										<div class="control-group">
-											<label class="control-label" style="width: 25% !important;">버전 : </label>
+											<label class="control-label" style="width: 25% !important"
+												>버전 :
+											</label>
 											<div class="controls form-group">
 												<div class="col-sm-8">
-													<label class="control-label" style="text-align: left; !important;" id="pdServiceVersion">Version Name</label>
+													<label
+														class="control-label"
+														style="text-align: left !important"
+														id="pdServiceVersion"
+														>Version Name</label
+													>
 												</div>
 											</div>
 										</div>
 										<div class="control-group">
-											<label class="control-label" style="width: 25% !important;">
+											<label class="control-label" style="width: 25% !important">
 												시작 날짜 :
 											</label>
 											<div class="controls form-group">
 												<div class="col-sm-8">
-                                                	<label class="control-label" style="text-align: left; !important;" id="versionStartDate">Version Work Start Date</label>
+													<label
+														class="control-label"
+														style="text-align: left !important"
+														id="versionStartDate"
+														>Version Work Start Date</label
+													>
 												</div>
 											</div>
 										</div>
 										<div class="control-group">
-											<label class="control-label" style="width: 25% !important;">
+											<label class="control-label" style="width: 25% !important">
 												종료 날짜 :
 											</label>
 											<div class="controls form-group">
 												<div class="col-sm-8">
-													<label class="control-label" style="text-align: left; !important;" id="versionEndDate">Version Work End Date</label>
+													<label
+														class="control-label"
+														style="text-align: left !important"
+														id="versionEndDate"
+														>Version Work End Date</label
+													>
 												</div>
 											</div>
 										</div>
-										<div class="control-group">
-											<label class="control-label" style="width: 25% !important;">
-												버전 내용 :
-											</label><br>
-											<div class="controls form-group">
-												<div class="col-sm-12" id="versionContents">
-													Version Contents
-												</div>
+										<div class="control-group" style="display: flex">
+											<label
+												class="control-label"
+												style="width: 25% !important; margin-right: 15px; padding-top: 0"
+											>
+												버전 내용 : </label
+											><br />
+											<div
+												class="controls form-group"
+												style="flex: 1; display: flex; margin-bottom: 0"
+											>
+												<div class="col-sm-12" id="versionContents">Version Contents</div>
 											</div>
 										</div>
 									</fieldset>
@@ -146,67 +186,125 @@
 										</div>
 									</div>
 								</form>
-                            </div>
-                            <div id="report" class="tab-pane">
-                                <div>
-
-
-
+							</div>
+							<div id="report" class="tab-pane">
+								<div>
 									<form class="form-horizontal" method="post">
 										<fieldset>
 											<div class="control-group">
-												<label class="control-label" style="color: #f8f8f8; width: 25% !important;">제품<sup>서비스</sup> 이름 : </label>
+												<label
+													class="control-label"
+													style="color: #f8f8f8; width: 25% !important"
+													>제품<sup>서비스</sup> 이름 :
+												</label>
 												<div class="controls form-group">
 													<div class="col-sm-8">
-														<input type="text" id="input_pdserviceName" class="form-control" data-placement="top" data-original-title="Some explanation text here" placeholder="Product(Service) name">
+														<input
+															type="text"
+															id="input_pdserviceName"
+															class="form-control"
+															data-placement="top"
+															data-original-title="Some explanation text here"
+															placeholder="Product(Service) name"
+														/>
 													</div>
 												</div>
 											</div>
 											<div class="control-group">
-												<label class="control-label" style="color: #f8f8f8; width: 25% !important;">버전 : </label>
+												<label
+													class="control-label"
+													style="color: #f8f8f8; width: 25% !important"
+													>버전 :
+												</label>
 												<div class="controls form-group">
 													<div class="col-sm-8">
-														<input type="text" id="input_pdserviceVersion" class="form-control" data-placement="top" data-original-title="Some explanation text here" placeholder="Product(Service) version">
+														<input
+															type="text"
+															id="input_pdserviceVersion"
+															class="form-control"
+															data-placement="top"
+															data-original-title="Some explanation text here"
+															placeholder="Product(Service) version"
+														/>
 													</div>
 												</div>
 											</div>
 											<div class="control-group">
-												<label class="control-label" style="color: #f8f8f8; width: 25% !important;">
+												<label
+													class="control-label"
+													style="color: #f8f8f8; width: 25% !important"
+												>
 													시작 날짜 :
 												</label>
 												<div class="controls form-group">
 													<div class="col-sm-8">
 														<div class="input-group">
-															<input id="input_pdservice_start_date" class="form-control" type="text" name="btn-enabled-date" value="">
+															<input
+																id="input_pdservice_start_date"
+																class="form-control"
+																type="text"
+																name="btn-enabled-date"
+																value=""
+																pattern="/^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/"
+															/>
 
 															<span class="input-group-btn">
-														<a href="#" id="btn-select-calendar" class="btn btn-danger" data-date-format="yyyy/mm/dd" data-date="2022/11/11">
-															<i class="fa fa-calendar"></i>
-														</a>
-													</span>
+																<a
+																	href="#"
+																	id="btn-select-calendar"
+																	class="btn btn-danger"
+																	data-date-format="yyyy/mm/dd"
+																	data-date="2022/11/11"
+																>
+																	<i class="fa fa-calendar"></i>
+																</a>
+															</span>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div class="control-group">
-												<label class="control-label" for="tooltip-enabled" style="color: #f8f8f8; width: 25% !important;">종료 날짜</label>
+												<label
+													class="control-label"
+													for="tooltip-enabled"
+													style="color: #f8f8f8; width: 25% !important"
+													>종료 날짜</label
+												>
 												<div class="controls form-group">
 													<div class="col-sm-8">
 														<div class="input-group">
-															<input id="input_pdservice_end_date" class="form-control" type="text" name="btn-enabled-date" value="">
+															<input
+																id="input_pdservice_end_date"
+																class="form-control"
+																type="text"
+																name="btn-enabled-date"
+																value=""
+																pattern="/^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/"
+															/>
 
 															<span class="input-group-btn">
-														<a href="#" id="btn-end-calendar" class="btn btn-danger" data-date-format="yyyy/mm/dd" data-date="2022/11/11">
-															<i class="fa fa-calendar"></i>
-														</a>
-													</span>
+																<a
+																	href="#"
+																	id="btn-end-calendar-popup"
+																	class="btn btn-danger"
+																	data-date-format="yyyy/mm/dd"
+																	data-date="2022/11/11"
+																>
+																	<i class="fa fa-calendar"></i>
+																</a>
+															</span>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div class="control-group">
-												<label class="control-label" for="max-length" style="color: #f8f8f8; width: 25% !important;">버전 내용</label>
-												<br><br>
+												<label
+													class="control-label"
+													for="max-length"
+													style="color: #f8f8f8; width: 25% !important"
+													>버전 내용</label
+												>
+												<br /><br />
 												<div class="controls form-group">
 													<div class="col-sm-12">
 														<div id="input_pdservice_editor" class="darkBack">
@@ -217,37 +315,43 @@
 											</div>
 										</fieldset>
 									</form>
-
-
-
-
-                                </div>
-                            </div>
-                            <div id="dropdown1" class="tab-pane">
-                                <p>The same thing is for startups and ideas. If you have an idea right away after it appears
-                                    in your mind you should go and make a first step to implement it. If you will think too
-                                    much it will sink in the swamp of never implemented plans and ideas or will just go away
-                                    or will be implemented by someone else.</p>
-                                <p><strong>5 months of doing everything to achieve nothing.</strong></p>
-                                <p>I had an idea named Great Work. It was a service aimed to help people find their passion.
-                                    Yes I know it sound crazy and super naïve but I worked on that. I started to work on
-                                    planning, graphics, presentations, pictures, descriptions, articles, investments and so
-                                    on. I worked on everything but not the project itself</p>
-                                <div>
-                                    <button class="btn btn-danger">Some button</button>
-                                    <button class="btn btn-default">Cancel</button>
-                                </div>
-                            </div>
-                            <div id="dropdown2" class="tab-pane">
-                                <p>I realized really simple thing recently. Try is million times better than think. The real world is much more representative than any models either they are built in mind or on the shit of paper.</p>
-                                <div>
-                                    <button class="btn btn-warning btn-block">Some button</button>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
+								</div>
+							</div>
+							<div id="dropdown1" class="tab-pane">
+								<p>
+									The same thing is for startups and ideas. If you have an idea right
+									away after it appears in your mind you should go and make a first step
+									to implement it. If you will think too much it will sink in the swamp
+									of never implemented plans and ideas or will just go away or will be
+									implemented by someone else.
+								</p>
+								<p><strong>5 months of doing everything to achieve nothing.</strong></p>
+								<p>
+									I had an idea named Great Work. It was a service aimed to help people
+									find their passion. Yes I know it sound crazy and super naïve but I
+									worked on that. I started to work on planning, graphics, presentations,
+									pictures, descriptions, articles, investments and so on. I worked on
+									everything but not the project itself
+								</p>
+								<div>
+									<button class="btn btn-danger">Some button</button>
+									<button class="btn btn-default">Cancel</button>
+								</div>
+							</div>
+							<div id="dropdown2" class="tab-pane">
+								<p>
+									I realized really simple thing recently. Try is million times better
+									than think. The real world is much more representative than any models
+									either they are built in mind or on the shit of paper.
+								</p>
+								<div>
+									<button class="btn btn-warning btn-block">Some button</button>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
 			<div
 				id="myModal2"
 				class="modal fade"
@@ -261,26 +365,24 @@
 					<div class="modal-content darkBack">
 						<div class="modal-header" style="padding: 0px; border-bottom: 0px">
 							<button
-									type="button"
-									class="close"
-									data-dismiss="modal"
-									aria-hidden="true"
-									style="color: #ffffff; font-size: 20px; opacity: 0.8; padding: 5px"
+								type="button"
+								class="close"
+								data-dismiss="modal"
+								aria-hidden="true"
+								style="color: #ffffff; font-size: 20px; opacity: 0.8; padding: 5px"
 							>
 								×
 							</button>
 							<h4
-									class="modal-title font14"
-									id="myModalLabel2"
-									style="color: #f8f8f8; text-align: left; padding: 5px"
+								class="modal-title font14"
+								id="myModalLabel2"
+								style="color: #f8f8f8; text-align: left; padding: 5px"
 							>
-									<span class="font13" style="font-weight: bold">
-										<i class="fa fa-edit"></i> 제품(서비스) 신규 버전 등록 팝업
-									</span>
+								<span class="font13" style="font-weight: bold">
+									<i class="fa fa-edit"></i> 제품(서비스) 신규 버전 등록 팝업
+								</span>
 								<section class="search-result" style="border-left: 5px solid #e5603b">
-									<p
-											style="font-size: 13px; margin: 5px 0px 0px 0px; padding-left: 5px"
-									>
+									<p style="font-size: 13px; margin: 5px 0px 0px 0px; padding-left: 5px">
 										선택한 제품(서비스)에 버전을 등록합니다.
 									</p>
 								</section>
@@ -290,33 +392,62 @@
 							<form class="form-horizontal" method="post">
 								<fieldset>
 									<div class="control-group">
-										<label class="control-label" style="color: #f8f8f8;">제품<sup>서비스</sup> 이름 : </label>
+										<label class="control-label" style="color: #f8f8f8"
+											>제품<sup>서비스</sup> 이름 :
+										</label>
 										<div class="controls form-group">
 											<div class="col-sm-8">
-												<input type="text" id="tooltip-enabled" class="form-control" data-placement="top" data-original-title="Some explanation text here" placeholder="Product(Service) name">
+												<input
+													type="text"
+													id="tooltip-enabled-service-name"
+													class="form-control"
+													data-placement="top"
+													data-original-title="Some explanation text here"
+													placeholder="Product(Service) name"
+												/>
 											</div>
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label" style="color: #f8f8f8;">버전 : </label>
+										<label class="control-label" style="color: #f8f8f8">버전 : </label>
 										<div class="controls form-group">
 											<div class="col-sm-8">
-												<input type="text" id="tooltip-enabled" class="form-control" data-placement="top" data-original-title="Some explanation text here" placeholder="Product(Service) version">
+												<input
+													type="text"
+													id="tooltip-enabled-service-version"
+													class="form-control"
+													data-placement="top"
+													data-original-title="Some explanation text here"
+													placeholder="Product(Service) version"
+												/>
 											</div>
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label" style="color: #f8f8f8;">
+										<label class="control-label" style="color: #f8f8f8">
 											시작 날짜
 											<span class="help-block">Some help text</span>
 										</label>
 										<div class="controls form-group">
 											<div class="col-sm-8">
 												<div class="input-group">
-													<input id="btn-enabled-date" class="form-control" type="text" name="btn-enabled-date" value="">
+													<input
+														id="btn-enabled-date"
+														class="form-control"
+														type="text"
+														name="btn-enabled-date"
+														value=""
+														pattern="/^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/"
+													/>
 
 													<span class="input-group-btn">
-														<a href="#" id="btn-select-calendar" class="btn btn-danger" data-date-format="yyyy/mm/dd" data-date="2022/11/11">
+														<a
+															href="#"
+															id="btn-select-calendar-popup"
+															class="btn btn-danger"
+															data-date-format="yyyy/mm/dd"
+															data-date="2022/11/11"
+														>
 															<i class="fa fa-calendar"></i>
 														</a>
 													</span>
@@ -325,14 +456,32 @@
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label" for="tooltip-enabled" style="color: #f8f8f8;">종료 날짜</label>
+										<label
+											class="control-label"
+											for="tooltip-enabled"
+											style="color: #f8f8f8"
+											>종료 날짜</label
+										>
 										<div class="controls form-group">
 											<div class="col-sm-8">
 												<div class="input-group">
-													<input id="btn-end-date" class="form-control" type="text" name="btn-enabled-date" value="">
+													<input
+														id="btn-end-date"
+														class="form-control"
+														type="text"
+														name="btn-enabled-date"
+														value=""
+														pattern="/^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/"
+													/>
 
 													<span class="input-group-btn">
-														<a href="#" id="btn-end-calendar" class="btn btn-danger" data-date-format="yyyy/mm/dd" data-date="2022/11/11">
+														<a
+															href="#"
+															id="btn-end-calendar"
+															class="btn btn-danger"
+															data-date-format="yyyy/mm/dd"
+															data-date="2022/11/11"
+														>
 															<i class="fa fa-calendar"></i>
 														</a>
 													</span>
@@ -341,7 +490,9 @@
 										</div>
 									</div>
 									<div class="control-group">
-										<label class="control-label" for="max-length" style="color: #f8f8f8;">버전 내용</label>
+										<label class="control-label" for="max-length" style="color: #f8f8f8"
+											>버전 내용</label
+										>
 										<div class="controls form-group">
 											<div class="col-sm-8">
 												<div id="modal-editor" class="darkBack">
@@ -354,18 +505,20 @@
 							</form>
 						</div>
 						<div
-								class="modal-footer"
-								style="
-									background-color: transparent;
-									padding: 5px;
-									text-align: right;
-									border-top: 0px;
-								"
+							class="modal-footer"
+							style="
+								background-color: transparent;
+								padding: 5px;
+								text-align: right;
+								border-top: 0px;
+							"
 						>
 							<button type="button" class="btn btn-default" data-dismiss="modal">
 								Close
 							</button>
-							<button type="button" class="btn btn-primary">Save changes</button>
+							<button type="button" id="regist-version" class="btn btn-primary">
+								Save Changes
+							</button>
 						</div>
 					</div>
 					<!-- /.modal-content -->
@@ -428,7 +581,7 @@
         }*/
 	}
 	.datepicker:before {
-		content: '';
+		content: "";
 		display: inline-block;
 		border-left: 7px solid transparent;
 		border-right: 7px solid transparent;
@@ -439,7 +592,7 @@
 		left: 6px;
 	}
 	.datepicker:after {
-		content: '';
+		content: "";
 		display: inline-block;
 		border-left: 6px solid transparent;
 		border-right: 6px solid transparent;
@@ -473,10 +626,12 @@
 	.datepicker td.day.disabled {
 		color: #f8f8f8;
 	}
-	.datepicker td.old, .datepicker td.new {
+	.datepicker td.old,
+	.datepicker td.new {
 		color: white;
 	}
-	.datepicker td.active, .datepicker td.active:hover {
+	.datepicker td.active,
+	.datepicker td.active:hover {
 		background: #618fb0;
 		color: #fff;
 	}
@@ -507,7 +662,8 @@
 	.datepicker th.switch {
 		width: 145px;
 	}
-	.datepicker th.next, .datepicker th.prev {
+	.datepicker th.next,
+	.datepicker th.prev {
 		font-size: 19.5px;
 	}
 	.datepicker thead tr:first-child th {
@@ -517,119 +673,7 @@
 		background: #eeeeee;
 	}
 </style>
-<!-- 날짜선택 -->
-<script type="text/javascript" charset="utf-8">
-	//<![CDATA[
 
-	//버전 클릭할 때 동작하는 함수
-	//1. 상세보기 데이터 바인딩
-	//2. 편집하기 데이터 바인딩
-	function versionClick(c_id){
-		$.ajax({
-			url: "/auth-user/api/arms/pdversion/getVersion.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-			data: { c_id: c_id },  // HTTP 요청과 함께 서버로 보낼 데이터
-			method: "GET",   // HTTP 요청 메소드(GET, POST 등)
-			dataType: "json" // 서버에서 보내줄 데이터의 타입
-		})
-		// HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨.
-		.done(function(json) {
-			console.log( " -> " + json[0].c_contents);
-			$('#pdServiceName').text($('.list-group-item').text());
-			$('#pdServiceVersion').text(json[0].c_title);
-			$('#versionStartDate').text(json[0].c_start_date);
-			$('#versionEndDate').text(json[0].c_end_date);
-			$('#versionContents').html(json[0].c_contents);
-
-			$('#input_pdserviceName').val($('.list-group-item').text());
-			$('#input_pdserviceVersion').val(json[0].c_title);
-			$('#input_pdservice_start_date').val(json[0].c_start_date);
-			$('#input_pdservice_end_date').val(json[0].c_end_date);
-			CKEDITOR.instances.input_pdservice_editor.setData(json[0].c_contents);
-		})
-		// HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
-		.fail(function(xhr, status, errorThrown) {
-			console.log(xhr + status + errorThrown);
-		})
-		//
-		.always(function(xhr, status) {
-			$("#text").html("요청이 완료되었습니다!");
-			console.log(xhr + status);
-		});
-	}
-
-	// 초기 개발 및 확인 용도
-	(function ($) {
-		let menu;
-
-		function draw(main) {
-			main.html("");
-
-			let data = `
-                            <li class='list-group-item json-menu-header'>
-                                <strong>product service name</strong>
-                            </li>
-                            <button
-						type="button"
-						class="btn btn-danger btn-block"
-						id="modalPopupId"
-						data-toggle="modal"
-						data-target="#myModal2"
-					>신규 버전 등록하기</button>`;
-
-			for (let i = 0; i < menu.length; i++) {
-				data += `
-                            <div class="panel">
-                                <div class="panel-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" href="" onclick="versionClick(${menu[i].c_pdservice_link}); return false;">
-                                        ${menu[i].c_title}
-                                    </a>
-                                </div>
-                            </div>
-                        `;
-			}
-
-			main.html(data);
-		}
-
-		$.fn.jsonMenu = function (action, items, options) {
-			$(this).addClass("json-menu");
-			if (action == "add") {
-				menu.body.push(items);
-				draw($(this));
-			} else if (action == "set") {
-				menu = items;
-				draw($(this));
-			}
-			return this;
-		};
-	})(jQuery);
-
-	// 초기 개발 및 확인 용도
-	$(function () {
-
-		$('.date-picker').datepicker({
-			autoclose: true
-		});
-		var $btnCalendar = $('#btn-select-calendar');
-		$btnCalendar.datepicker({
-			autoclose: true
-		}).on('changeDate', function(ev){
-			$('#btn-enabled-date').val($btnCalendar.data('date'));
-			$btnCalendar.datepicker('hide');
-		});
-
-		var $btnEndCalendar = $('#btn-end-calendar');
-		$btnEndCalendar.datepicker({
-			autoclose: true
-		}).on('changeDate', function(ev){
-			$('#btn-end-date').val($btnEndCalendar.data('date'));
-			$btnEndCalendar.datepicker('hide');
-		});
-
-	});
-
-	//]]>
-</script>
 <script
 	type="text/javascript"
 	src="js/pdServiceVersion.js"
