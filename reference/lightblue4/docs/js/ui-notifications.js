@@ -61,12 +61,12 @@ $(function(){
 
         update();
 
-        $lsel.locationSelector()
-            .on('update', function(pos){
-                loc = pos;
-
-                update();
-            });
+        // $lsel.locationSelector()
+        //     .on('update', function(pos){
+        //         loc = pos;
+        //
+        //         update();
+        //     });
 
         $('#show-error-message').on('click', function(){
             var i;

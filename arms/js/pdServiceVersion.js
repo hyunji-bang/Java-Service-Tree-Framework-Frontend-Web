@@ -73,6 +73,10 @@ $("#modalPopupId").click(function () {
 		.css("height", height + "px");
 });
 
+$("#regist-version").click(function () {
+	console.log("save btn")
+});
+
 function jsTreeClick(selectedNode) {
 	console.log("-->" + selectedNode.attr("id").replace("node_", ""));
 	console.log(
