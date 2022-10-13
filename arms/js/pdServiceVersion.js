@@ -3,6 +3,7 @@ let versionList; // 선택한 제품 리스트
 
 $(function () {
 	setSideMenu("sidebar_menu_product", "sidebar_menu_version_manage");
+
 });
 
 // --- 데이터 테이블 설정 --- //
@@ -104,6 +105,24 @@ function checkEqualSelectedNode(selectedNode) {
 }
 
 function dataLoad(getSelectedText, selectedText) {
+
+	//데이터 로드를 사용자에게 알리기
+	Messenger().post({
+		message: 'Launching thermonuclear war...',
+		actions: {
+			cancel: {
+				label: 'cancel launch',
+				action: function() {
+					return msg.update({
+						message: 'Thermonuclear war averted',
+						type: 'success',
+						actions: false
+					});
+				}
+			}
+		}
+	});
+
 	// ajax 처리 후 에디터 바인딩.
 	console.log(getSelectedText);
 	$.ajax("/auth-user/api/arms/pdversion/getVersion.do?c_id=" + getSelectedText)
@@ -114,6 +133,12 @@ function dataLoad(getSelectedText, selectedText) {
 			//version text setting
 			$(".list-group-item").text(selectedText);
 			$("#tooltip-enabled-service-name").val(selectedText);
+
+			Messenger().post({
+				message: 'Version Data 조회를 완료하였습니다.',
+				type: 'success',
+				showCloseButton: true
+			});
 		})
 		.fail(function (jqXHR) {
 			console.log("error");
