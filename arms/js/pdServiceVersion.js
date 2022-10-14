@@ -61,6 +61,28 @@ function jstreeDataTableReload() {
 	});
 }
 
+$("#regist-version").click(function () {
+	console.log("save btn");
+	$.ajax({
+		url: "/auth-user/api/arms/pdversion/addNode.do",
+		type: "POST",
+		data: {
+			ref: 2,
+			c_title: $("#tooltip-enabled-service-version").val(),
+			c_type: "default",
+			c_pdservice_link: $('#pdserviceTable').DataTable().rows('.selected').data()[0].c_id,
+			c_contents: CKEDITOR.instances["modal-editor"].getData(),
+			c_start_date: $("#btn-enabled-date").val(),
+			c_end_date: $("#btn-end-date").val(),
+		},
+		statusCode: {
+			200: function () {
+				console.log("성공!");
+			},
+		},
+	});
+});
+
 // --- 에디터 설정 --- //
 CKEDITOR.replace("input_pdservice_editor");
 CKEDITOR.replace("modal-editor");
@@ -71,10 +93,6 @@ $("#modalPopupId").click(function () {
 	$(".modal-body")
 		.find(".cke_contents:eq(0)")
 		.css("height", height + "px");
-});
-
-$("#regist-version").click(function () {
-	console.log("save btn")
 });
 
 function jsTreeClick(selectedNode) {
