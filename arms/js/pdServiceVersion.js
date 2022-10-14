@@ -1,4 +1,5 @@
 let selectId; // 제품 아이디
+let selectName; // 제품 이름
 let versionList; // 선택한 제품 리스트
 
 $(function () {
@@ -56,6 +57,7 @@ function jstreeDataTableReload() {
 
 		var data = tempDataTable.row(this).data();
 		selectId = data.c_id;
+		selectName = data.c_title;
 		console.log(data.c_id);
 		dataLoad(data.c_id, data.c_title);
 	});
@@ -78,6 +80,10 @@ $("#regist-version").click(function () {
 		statusCode: {
 			200: function () {
 				console.log("성공!");
+				//모달 팝업 끝내고
+                $('#close-version').trigger('click');
+                //버전 데이터 재 로드
+                dataLoad(selectId, selectName);
 			},
 		},
 	});
