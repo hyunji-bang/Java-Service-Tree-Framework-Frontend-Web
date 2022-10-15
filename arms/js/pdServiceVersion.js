@@ -213,7 +213,7 @@ function draw(main, menu) {
 		data += `
 						   <div class="panel">
 							   <div class="panel-heading">
-								   <a class="accordion-toggle collapsed" data-toggle="collapse" href="" onclick="versionClick(${menu[i].c_pdservice_link}); return false;">
+								   <a class="accordion-toggle collapsed" data-toggle="collapse" href="" onclick="versionClick(${menu[i].c_id}); return false;">
 									   ${menu[i].c_title}
 								   </a>
 							   </div>
@@ -229,25 +229,25 @@ function draw(main, menu) {
 //2. 편집하기 데이터 바인딩
 function versionClick(c_id) {
 	$.ajax({
-		url: "/auth-user/api/arms/pdversion/getVersion.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+		url: "/auth-user/api/arms/pdversion/getNode.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 		data: { c_id: c_id }, // HTTP 요청과 함께 서버로 보낼 데이터
 		method: "GET", // HTTP 요청 메소드(GET, POST 등)
 		dataType: "json", // 서버에서 보내줄 데이터의 타입
 	})
 		// HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨.
 		.done(function (json) {
-			console.log(" -> " + json[0].c_contents);
+			console.log(" -> " + json.c_contents);
 			$("#pdServiceName").text($(".list-group-item").text());
-			$("#pdServiceVersion").text(json[0].c_title);
-			$("#versionStartDate").text(json[0].c_start_date);
-			$("#versionEndDate").text(json[0].c_end_date);
-			$("#versionContents").html(json[0].c_contents);
+			$("#pdServiceVersion").text(json.c_title);
+			$("#versionStartDate").text(json.c_start_date);
+			$("#versionEndDate").text(json.c_end_date);
+			$("#versionContents").html(json.c_contents);
 
 			$("#input_pdserviceName").val($(".list-group-item").text());
-			$("#input_pdserviceVersion").val(json[0].c_title);
-			$("#input_pdservice_start_date").val(json[0].c_start_date);
-			$("#input_pdservice_end_date").val(json[0].c_end_date);
-			CKEDITOR.instances.input_pdservice_editor.setData(json[0].c_contents);
+			$("#input_pdserviceVersion").val(json.c_title);
+			$("#input_pdservice_start_date").val(json.c_start_date);
+			$("#input_pdservice_end_date").val(json.c_end_date);
+			CKEDITOR.instances.input_pdservice_editor.setData(json.c_contents);
 		})
 		// HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
 		.fail(function (xhr, status, errorThrown) {
