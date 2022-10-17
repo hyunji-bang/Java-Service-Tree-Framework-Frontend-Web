@@ -1,6 +1,7 @@
 let selectId; // 제품 아이디
 let selectName; // 제품 이름
 let versionList; // 선택한 제품 리스트
+let selectVersion; // 선택한 버전 아이디
 
 $(function () {
 	setSideMenu("sidebar_menu_product", "sidebar_menu_version_manage");
@@ -65,6 +66,22 @@ function jstreeDataTableReload() {
 
 $("#delVersion").click(function () {
 	console.log("delete btn");
+	$.ajax({
+		url: "/auth-user/api/arms/pdversion/removeNode.do",
+		type: "POST",
+		data: {
+			c_id: selectVersion
+		},
+		statusCode: {
+			200: function () {
+				console.log("성공!");
+				//모달 팝업 끝내고
+				$('#close-version').trigger('click');
+				//버전 데이터 재 로드
+				dataLoad(selectId, selectName);
+			},
+		},
+	});
 });
 
 $("#regist-version").click(function () {
@@ -232,6 +249,9 @@ function draw(main, menu) {
 //1. 상세보기 데이터 바인딩
 //2. 편집하기 데이터 바인딩
 function versionClick(c_id) {
+
+	selectVersion = c_id;
+
 	$.ajax({
 		url: "/auth-user/api/arms/pdversion/getNode.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
 		data: { c_id: c_id }, // HTTP 요청과 함께 서버로 보낼 데이터
