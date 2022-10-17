@@ -84,6 +84,33 @@ $("#delVersion").click(function () {
 	});
 });
 
+$("#versionUpdate").click(function () {
+    console.log("update btn");
+    $.ajax({
+        url: "/auth-user/api/arms/pdversion/updateVersionNode.do",
+        type: "POST",
+        data: {
+            ref: 2,
+            c_id: selectVersion,
+            c_title: $("#input_pdserviceVersion").val(),
+            c_type: "default",
+            c_pdservice_link: $('#pdserviceTable').DataTable().rows('.selected').data()[0].c_id,
+            c_contents: CKEDITOR.instances["input_pdservice_editor"].getData(),
+            c_start_date: $("#input_pdservice_start_date").val(),
+            c_end_date: $("#input_pdservice_end_date").val(),
+        },
+        statusCode: {
+            200: function () {
+                console.log("성공!");
+                //모달 팝업 끝내고
+                $('#close-version').trigger('click');
+                //버전 데이터 재 로드
+                dataLoad(selectId, selectName);
+            },
+        },
+    });
+});
+
 $("#regist-version").click(function () {
 	console.log("save btn");
 	$.ajax({
