@@ -63,6 +63,10 @@ function jstreeDataTableReload() {
 	});
 }
 
+$("#delVersion").click(function () {
+	console.log("delete btn");
+});
+
 $("#regist-version").click(function () {
 	console.log("save btn");
 	$.ajax({
