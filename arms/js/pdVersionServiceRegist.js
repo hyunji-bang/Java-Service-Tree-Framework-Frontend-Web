@@ -1,12 +1,6 @@
 $(function () {
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_version_regist");
 	jsTreeBuild("#productTree", "pdversion");
-	$(".btn-info").click(function () {
-		var index = $("label.btn-sm.active").index();
-		index === 0
-			? registNewServie("pdversion", "#productTree")
-			: updateServie("pdversion", "#productTree");
-	});
 });
 
 // --- 에디터 설정 --- //

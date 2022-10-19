@@ -16,13 +16,6 @@ const makeReviewList = function (profile) {
 };
 
 $(function () {
-	//서비스 등록
-	$(".btn-info").on("click", function () {
-		var index = $("label.btn-sm.active").index();
-		index === 0
-			? registNewServie("pdservice", "#demo")
-			: updateServie("pdservice", "#demo");
-	});
 
 	makeReviewList([
 		{

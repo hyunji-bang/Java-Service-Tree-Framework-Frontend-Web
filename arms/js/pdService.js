@@ -31,13 +31,6 @@ $(function () {
 	pageChecker();
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_manage");
 
-	//서비스 등록
-	$(".btn-info").on("click", function () {
-		var index = $("label.btn-sm.active").index();
-		index === 0
-			? registNewServie("pdservice", "#demo")
-			: updateServie("pdservice", "#demo");
-	});
 
 	makeReviewList([
 		{
