@@ -175,16 +175,71 @@ function jstreeDataTableReload(tableDataUrl, dataList, options, selectedView) {
 		});
 }
 
-// --- jstree 설정 -- //
+// --- dataTable build 설정 --- //
+function dataTableBuild(jQueryElementID, serviceNameForURL, columnList, rowsGroupList = null){
+
+	console.log("dataTableBuild :: jQueryElementID -> " + jQueryElementID + ", serviceNameForURL -> " + serviceNameForURL);
+	console.log("dataTableBuild :: columnList -> " + columnList + ", rowsGroupList -> " + rowsGroupList);
+
+	console.log("dataTableBuild :: href: " + $(location).attr("href"));
+	console.log("dataTableBuild :: protocol: " + $(location).attr("protocol"));
+	console.log("dataTableBuild :: host: " + $(location).attr("host"));
+	console.log("dataTableBuild :: pathname: " + $(location).attr("pathname"));
+	console.log("dataTableBuild :: search: " + $(location).attr("search"));
+	console.log("dataTableBuild :: hostname: " + $(location).attr("hostname"));
+	console.log("dataTableBuild :: port: " + $(location).attr("port"));
+
+	var authCheckURL = "/auth-user";
+
+	var tempDataTable = $(jQueryElementID).DataTable({
+		ajax: {
+			url: authCheckURL + "/api/arms/" + serviceNameForURL +"/getMonitor.do",
+			dataSrc: "",
+		},
+		destroy: true,
+		processing: true,
+		responsive: false,
+		columns: columnList,
+		rowsGroup: rowsGroupList,
+		columnDefs: [
+			{
+				targets: -1,
+				className: "dt-body-left",
+			},
+		],
+	});
+
+	$(jQueryElementID + " tbody").on("click", "tr", function () {
+
+		if ($(this).hasClass("selected")) {
+			$(this).removeClass("selected");
+		} else {
+			tempDataTable.$("tr.selected").removeClass("selected");
+			$(this).addClass("selected");
+		}
+
+		$("#versionContents").html("");
+		var data = tempDataTable.row(this).data();
+		selectId = data.c_id;
+		selectName = data.c_title;
+		console.log(data.c_id);
+		dataLoad(data.c_id, data.c_title);
+	});
+}
+
+// --- jstree build 설정 -- //
 function jsTreeBuild(jQueryElementID, serviceNameForURL) {
 
-	console.log("href: " + $(location).attr("href"));
-	console.log("protocol: " + $(location).attr("protocol"));
-	console.log("host: " + $(location).attr("host"));
-	console.log("pathname: " + $(location).attr("pathname"));
-	console.log("search: " + $(location).attr("search"));
-	console.log("hostname: " + $(location).attr("hostname"));
-	console.log("port: " + $(location).attr("port"));
+	console.log("jsTreeBuild :: jQueryElementID -> " + jQueryElementID + ", serviceNameForURL -> "+ serviceNameForURL);
+
+	console.log("jsTreeBuild :: href: " + $(location).attr("href"));
+	console.log("jsTreeBuild :: protocol: " + $(location).attr("protocol"));
+	console.log("jsTreeBuild :: host: " + $(location).attr("host"));
+	console.log("jsTreeBuild :: pathname: " + $(location).attr("pathname"));
+	console.log("jsTreeBuild :: search: " + $(location).attr("search"));
+	console.log("jsTreeBuild :: hostname: " + $(location).attr("hostname"));
+	console.log("jsTreeBuild :: port: " + $(location).attr("port"));
+
 	var authCheckURL = "/auth-user";
 
 	$(jQueryElementID)

@@ -13,7 +13,13 @@ $(function () {
 
 // --- 데이터 테이블 설정 --- //
 $(function () {
-	jstreeDataTableReload();
+	var columnList = [
+		{ data: "c_id" },
+		{ data: "c_title" },
+	];
+	dataTableBuild("#pdserviceTable","pdservice", columnList);
+
+	//datatable 좌상단 datarow combobox style
 	$(".dataTables_length").find("select:eq(0)").addClass("darkBack");
 	$(".dataTables_length").find("select:eq(0)").css("min-height", "30px");
 	//min-height: 30px;
