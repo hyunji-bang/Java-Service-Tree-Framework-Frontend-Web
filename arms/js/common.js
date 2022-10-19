@@ -218,13 +218,15 @@ function dataTableBuild(jQueryElementID, serviceNameForURL, columnList, rowsGrou
 			$(this).addClass("selected");
 		}
 
-		$("#versionContents").html("");
-		var data = tempDataTable.row(this).data();
-		selectId = data.c_id;
-		selectName = data.c_title;
-		console.log(data.c_id);
-		dataLoad(data.c_id, data.c_title);
+		var selectedData = tempDataTable.row(this).data();
+		dataTableClick(selectedData);
 	});
+
+	// ----- 데이터 테이블 빌드 이후 스타일 구성 ------ //
+	//datatable 좌상단 datarow combobox style
+	$(".dataTables_length").find("select:eq(0)").addClass("darkBack");
+	$(".dataTables_length").find("select:eq(0)").css("min-height", "30px");
+	//min-height: 30px;
 }
 
 // --- jstree build 설정 -- //

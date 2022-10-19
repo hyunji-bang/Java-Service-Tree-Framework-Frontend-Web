@@ -13,64 +13,28 @@ $(function () {
 
 // --- 데이터 테이블 설정 --- //
 $(function () {
+
+	// 데이터 테이블 컬럼 및 열그룹 구성
 	var columnList = [
 		{ data: "c_id" },
 		{ data: "c_title" },
 	];
-	dataTableBuild("#pdserviceTable","pdservice", columnList);
+	var rowsGroupList = [];
+	dataTableBuild("#pdserviceTable","pdservice", columnList, rowsGroupList);
 
+	// ----- 데이터 테이블 빌드 이후 별도 스타일 구성 ------ //
 	//datatable 좌상단 datarow combobox style
-	$(".dataTables_length").find("select:eq(0)").addClass("darkBack");
-	$(".dataTables_length").find("select:eq(0)").css("min-height", "30px");
-	//min-height: 30px;
-
 	$("body").find("[aria-controls='pdserviceTable']").css("width", "100px");
 	$("select[name=pdserviceTable_length]").css("width", "50px");
 });
 
-function jstreeDataTableReload() {
-	console.log("href: " + $(location).attr("href"));
-	console.log("protocol: " + $(location).attr("protocol"));
-	console.log("host: " + $(location).attr("host"));
-	console.log("pathname: " + $(location).attr("pathname"));
-	console.log("search: " + $(location).attr("search"));
-	console.log("hostname: " + $(location).attr("hostname"));
-	console.log("port: " + $(location).attr("port"));
-
-	var isDevelopingToRoute = "/auth-user";
-
-	var tempDataTable = $("#pdserviceTable").DataTable({
-		ajax: {
-			url: isDevelopingToRoute + "/api/arms/pdservice/getMonitor.do",
-			dataSrc: "",
-		},
-		destroy: true,
-		processing: true,
-		responsive: false,
-		columns: [{ data: "c_id" }, { data: "c_title" }],
-		columnDefs: [
-			{
-				targets: -1,
-				className: "dt-body-left",
-			},
-		],
-	});
-
-	$("#pdserviceTable tbody").on("click", "tr", function () {
-		$("#versionContents").html("");
-		if ($(this).hasClass("selected")) {
-			$(this).removeClass("selected");
-		} else {
-			tempDataTable.$("tr.selected").removeClass("selected");
-			$(this).addClass("selected");
-		}
-
-		var data = tempDataTable.row(this).data();
-		selectId = data.c_id;
-		selectName = data.c_title;
-		console.log(data.c_id);
-		dataLoad(data.c_id, data.c_title);
-	});
+// 데이터 테이블 구성 이후 꼭 구현해야 할 메소드 : 열 클릭시 이벤트
+function dataTableClick(selectedData){
+	$("#versionContents").html("");
+	selectId = selectedData.c_id;
+	selectName = selectedData.c_title;
+	console.log(selectedData.c_id);
+	dataLoad(selectedData.c_id, selectedData.c_title);
 }
 
 $("#delVersion").click(function () {
