@@ -1,14 +1,52 @@
+// Page load & 상단 페이지 로드 프로그래스바
+topbarConfig();
+topbar.show();
+setTimeout(function () {
+	$(".container").fadeIn("slow");
+	topbar.hide();
+}, 2000);
+
+// 상단 페이지 로드 프로그래스바 설정
+function topbarConfig() {
+	topbar.config({
+		autoRun: true,
+		barThickness: 3,
+		barColors: {
+			0: "rgba(26,  188, 156, .9)",
+			".25": "rgba(52,  152, 219, .9)",
+			".50": "rgba(241, 196, 15,  .9)",
+			".75": "rgba(230, 126, 34,  .9)",
+			"1.0": "rgba(211, 84,  0,   .9)",
+		},
+		shadowBlur: 10,
+		shadowColor: "rgba(0,   0,   0,   .6)",
+	});
+}
+
+
+// jQuery Document ready
 $(function () {
+
+	/* 로그인 인증 여부 체크 함수 */
 	authUserCheck();
+
+	/* include 레이아웃 html 파일을 로드하는 함수 */
 	includeLayout();
 
-	/*맨위로 아이콘*/
+	/* 맨위로 아이콘 */
+	rightBottomTopForwardIcon();
+
+});
+
+// 맨위로 아이콘
+function rightBottomTopForwardIcon(){
 	$("#topicon").click(function () {
 		$("html, body").animate({ scrollTop: 0 }, 400);
 		return false;
 	});
-});
+}
 
+// 로그인 인증 여부 체크 함수
 function authUserCheck() {
 	$.ajax({
 		url: "/auth-check" + "/identity",
@@ -26,6 +64,7 @@ function authUserCheck() {
 	});
 }
 
+// include 레이아웃 html 파일을 로드하는 함수
 function includeLayout() {
 	var includeArea = $("[data-include]");
 	var self, url;
@@ -38,27 +77,14 @@ function includeLayout() {
 	});
 }
 
-function resetToDefaults() {
-	topbar.config({
-		autoRun: true,
-		barThickness: 3,
-		barColors: {
-			0: "rgba(26,  188, 156, .9)",
-			".25": "rgba(52,  152, 219, .9)",
-			".50": "rgba(241, 196, 15,  .9)",
-			".75": "rgba(230, 126, 34,  .9)",
-			"1.0": "rgba(211, 84,  0,   .9)",
-		},
-		shadowBlur: 10,
-		shadowColor: "rgba(0,   0,   0,   .6)",
-	});
-}
 
-const makeTemplate = function (url, bindTemplate) {
+//서버 바인딩 할 수가 없어서 프로토타입 목적으로 json 을 만들어서 로드하는 함수
+const getJsonForPrototype = function (url, bindTemplate) {
 	ajaxGet(url).then(function (data) {
 		bindTemplate(data);
 	});
 };
+
 
 const dateFormat = (time = 0) => {
 	let date = time ? new Date(time).toISOString() : new Date().toISOString();
@@ -81,23 +107,11 @@ const ajaxGet = (url) =>
 		},
 	});
 
-// Page load
-resetToDefaults();
-topbar.show();
-setTimeout(function () {
-	$(".container").fadeIn("slow");
-	topbar.hide();
-}, 1500);
 
-// --- 사이드 메뉴 설정 --- //
-function setSideMenu(
-	categoryName,
-	listName,
-	collapse = "product-elements-collapse"
-) {
-	console.log(listName);
+// --- 왼쪽 사이드 메뉴 설정 --- //
+function setSideMenu( categoryName, listName, collapse = "product-elements-collapse") {
+	console.log("setSideMenu :: categoryName -> " + categoryName + ", listName -> " + listName);
 	setTimeout(function () {
-		$(`#${categoryName}`).attr("class", "active");
 		$(`#${categoryName}`).css({ color: "lightblue" });
 		$(`#${categoryName}`).css({ "font-weight": "900" });
 
@@ -629,12 +643,4 @@ function updateServie(serviceName, treeBox) {
 			},
 		});
 	}
-}
-
-function createdUUID() {
-	return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-		const r = (Math.random() * 16) | 0;
-		const v = c === "x" ? r : (r & 0x3) | 0x8;
-		return v.toString(16);
-	});
 }

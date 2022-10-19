@@ -3,7 +3,10 @@ let selectName; // 제품 이름
 let versionList; // 선택한 제품 리스트
 let selectVersion; // 선택한 버전 아이디
 
+// document ready
 $(function () {
+	
+	//사이드 메뉴 처리
 	setSideMenu("sidebar_menu_product", "sidebar_menu_version_manage");
 
 });

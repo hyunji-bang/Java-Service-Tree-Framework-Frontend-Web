@@ -131,7 +131,7 @@ $(function () {
 		"requirement-elements-collapse"
 	);
 
-	makeTemplate("./js/reviewDetailHistory.json", makeHistory);
+	getJsonForPrototype("./js/reviewDetailHistory.json", makeHistory);
 
 	includeDiff();
 });

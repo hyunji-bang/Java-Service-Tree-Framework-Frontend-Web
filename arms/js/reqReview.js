@@ -40,8 +40,8 @@ $(function () {
 		"requirement-elements-collapse"
 	);
 
-	makeTemplate("./js/reviewClassify.json", makeClassifyMenus);
-	makeTemplate("./js/reviewList.json", makeReviewList);
+	getJsonForPrototype("./js/reviewClassify.json", makeClassifyMenus);
+	getJsonForPrototype("./js/reviewList.json", makeReviewList);
 });
 
 // reviwe click
@@ -60,7 +60,7 @@ $("#review-classify").click(async function (ev) {
 	li.classList.add("active");
 
 	// 서버에서 필터 될 때 사용
-	// makeTemplate("./js/reviewList.json", makeReviewList);
+	// getJsonForPrototype("./js/reviewList.json", makeReviewList);
 
 	// 분류 예제 코드
 	const data = await ajaxGet("./js/reviewList.json");
