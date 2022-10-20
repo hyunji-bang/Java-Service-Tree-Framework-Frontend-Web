@@ -119,39 +119,7 @@ $("#regist-version").click(function () {
 	});
 });
 
-
-// --- jstreeBuild 시 꼭 구현해야 할 함수 --- //
-function jsTreeClick(selectedNode) {
-	console.log("-->" + selectedNode.attr("id").replace("node_", ""));
-	console.log(
-		"->" +
-			selectedNode.find("a.jstree-clicked").siblings(".jstree-icon").text() +
-			"<-"
-	);
-	var tempNode = selectedNode.find("a.jstree-clicked").siblings(".jstree-icon");
-	tempNode.trigger("click");
-	console.log("여기:" + tempNode);
-	var getSelectedText = selectedNode.find("a.jstree-clicked").text().trimStart();
-	console.log(getSelectedText);
-	$("#product-input").val(getSelectedText);
-
-	checkEqualSelectedNode(selectedNode);
-	dataLoad(selectedNode.attr("id").replace("node_", ""), getSelectedText);
-}
-
-function checkEqualSelectedNode(selectedNode) {
-	var getSelectedText = selectedNode.find("a.jstree-clicked").text().trimStart();
-
-	var inputText = $("#product-input").val();
-	if (getSelectedText == inputText) {
-		console.log("동일하다 선택된 값이다.");
-		$(".updatemode").click();
-	} else {
-		console.log("값이 틀리다.");
-		$(".newmode").click();
-	}
-}
-
+//버전 리스트를 로드 ( 버전 추가, 갱신, 삭제 시 호출 )
 function dataLoad(getSelectedText, selectedText) {
 
 	//데이터 로드를 사용자에게 알리기
@@ -190,8 +158,7 @@ function dataLoad(getSelectedText, selectedText) {
 		});
 }
 
-// 초기 개발 및 확인 용도
-// versionlist 노출
+// versionlist 이니셜라이즈
 (function ($) {
 	let menu;
 	$.fn.jsonMenu = function (action, items, options) {
@@ -276,9 +243,10 @@ function versionClick(c_id) {
 		});
 }
 
-// 초기 개발 및 확인 용도
-// version 기간 체크
+
+// DataPicker 처리 부분 ( 팝업 레이어 )
 $(function () {
+
 	$(".date-picker").datepicker({
 		autoclose: true,
 	});
