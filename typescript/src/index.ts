@@ -95,6 +95,6 @@ carExtImpl.start();
 carExtImpl.sound();
 carExtImpl.stop();
 
-const objExtCarImpl = new ObjExtCarImpl();
+const objExtCarImpl = new ObjExtCarImpl("이름","색상","모델");
 console.log("<- 확장된 객체를 다시 확장한 인스턴스 사용 -> ");
 objExtCarImpl.start();
