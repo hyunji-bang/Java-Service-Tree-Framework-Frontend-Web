@@ -3,6 +3,18 @@ let selectName; // 제품 이름
 let versionList; // 선택한 제품 리스트
 let selectVersion; // 선택한 버전 아이디
 
+// --- 에디터 설정 --- //
+CKEDITOR.replace("input_pdservice_editor");
+CKEDITOR.replace("modal-editor");
+
+// --- 팝업 띄울때 사이즈 조정 -- //
+$("#modalPopupId").click(function () {
+	var height = $(document).height() - 400;
+	$(".modal-body")
+		.find(".cke_contents:eq(0)")
+		.css("height", height + "px");
+});
+
 // document ready
 $(function () {
 	
@@ -107,17 +119,6 @@ $("#regist-version").click(function () {
 	});
 });
 
-// --- 에디터 설정 --- //
-CKEDITOR.replace("input_pdservice_editor");
-CKEDITOR.replace("modal-editor");
-
-// --- 팝업 띄울때 사이즈 조정 -- //
-$("#modalPopupId").click(function () {
-	var height = $(document).height() - 400;
-	$(".modal-body")
-		.find(".cke_contents:eq(0)")
-		.css("height", height + "px");
-});
 
 // --- jstreeBuild 시 꼭 구현해야 할 함수 --- //
 function jsTreeClick(selectedNode) {
@@ -171,10 +172,10 @@ function dataLoad(getSelectedText, selectedText) {
 	});
 
 	// ajax 처리 후 에디터 바인딩.
-	console.log(getSelectedText);
+	console.log("dataLoad :: getSelectedID -> " + getSelectedText);
 	$.ajax("/auth-user/api/arms/pdversion/getVersion.do?c_id=" + getSelectedText)
 		.done(function (json) {
-			console.log("success", json);
+			console.log("dataLoad :: success -> ", json);
 			$("#versionAccordion").jsonMenu("set", json, { speed: 5000 });
 			versionList = json;
 			//version text setting
@@ -186,12 +187,6 @@ function dataLoad(getSelectedText, selectedText) {
 				type: 'success',
 				showCloseButton: true
 			});
-		})
-		.fail(function (jqXHR) {
-			console.log("error");
-		})
-		.always(function (jqXHR) {
-			console.log("finished");
 		});
 }
 
