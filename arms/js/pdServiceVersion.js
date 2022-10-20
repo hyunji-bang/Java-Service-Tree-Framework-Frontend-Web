@@ -21,6 +21,38 @@ $(function () {
 	//사이드 메뉴 처리
 	setSideMenu("sidebar_menu_product", "sidebar_menu_version_manage");
 
+    // DataPicker 처리 부분 ( 팝업 레이어 )
+    $(".date-picker").datepicker({
+        autoclose: true,
+    });
+    //datepicker 만들기
+    const makeDatePicker = (calender) => {
+        calender
+            .datepicker({
+                autoclose: true,
+            })
+            .on("changeDate", function (ev) {
+                const Input = $(this).parent().prev();
+                Input.val(calender.data("date"));
+                if (Input.attr("id") === "input_pdservice_start_date") {
+                    $("#versionStartDate").text(calender.data("date"));
+                } else if (Input.attr("id") === "input_pdservice_end_date") {
+                    $("#versionEndDate").text(calender.data("date"));
+                }
+                calender.datepicker("hide");
+            });
+    };
+
+    const $btnCalendar = $("#btn-select-calendar");
+    const $btnEndCalendar = $("#btn-end-calendar");
+    const $btnCalendarPopup = $("#btn-select-calendar-popup");
+    const $btnEndCalendarPopup = $("#btn-end-calendar-popup");
+
+    makeDatePicker($btnCalendar);
+    makeDatePicker($btnEndCalendar);
+    makeDatePicker($btnCalendarPopup);
+    makeDatePicker($btnEndCalendarPopup);
+
 });
 
 // --- 데이터 테이블 설정 --- //
@@ -49,6 +81,7 @@ function dataTableClick(selectedData){
 	dataLoad(selectedData.c_id, selectedData.c_title);
 }
 
+// 버전 삭제 버튼
 $("#delVersion").click(function () {
 	console.log("delete btn");
 	$.ajax({
@@ -69,6 +102,7 @@ $("#delVersion").click(function () {
 	});
 });
 
+// 버전 업데이트 저장 버튼
 $("#versionUpdate").click(function () {
     console.log("update btn");
     $.ajax({
@@ -93,6 +127,7 @@ $("#versionUpdate").click(function () {
     });
 });
 
+// 신규 버전 등록 버튼
 $("#regist-version").click(function () {
 	console.log("save btn");
 	$.ajax({
@@ -119,25 +154,8 @@ $("#regist-version").click(function () {
 	});
 });
 
-//버전 리스트를 로드 ( 버전 추가, 갱신, 삭제 시 호출 )
+//버전 리스트를 재로드하는 함수 ( 버전 추가, 갱신, 삭제 시 호출 )
 function dataLoad(getSelectedText, selectedText) {
-
-	//데이터 로드를 사용자에게 알리기
-	Messenger().post({
-		message: 'Launching thermonuclear war...',
-		actions: {
-			cancel: {
-				label: 'cancel launch',
-				action: function() {
-					return msg.update({
-						message: 'Thermonuclear war averted',
-						type: 'success',
-						actions: false
-					});
-				}
-			}
-		}
-	});
 
 	// ajax 처리 후 에디터 바인딩.
 	console.log("dataLoad :: getSelectedID -> " + getSelectedText);
@@ -150,6 +168,7 @@ function dataLoad(getSelectedText, selectedText) {
 			$(".list-group-item").text(selectedText);
 			$("#tooltip-enabled-service-name").val(selectedText);
 
+            //데이터 로드를 사용자에게 알리기
 			Messenger().post({
 				message: 'Version Data 조회를 완료하였습니다.',
 				type: 'success',
@@ -242,39 +261,3 @@ function versionClick(c_id) {
 			console.log(xhr + status);
 		});
 }
-
-
-// DataPicker 처리 부분 ( 팝업 레이어 )
-$(function () {
-
-	$(".date-picker").datepicker({
-		autoclose: true,
-	});
-	//datepicker 만들기
-	const makeDatePicker = (calender) => {
-		calender
-			.datepicker({
-				autoclose: true,
-			})
-			.on("changeDate", function (ev) {
-				const Input = $(this).parent().prev();
-				Input.val(calender.data("date"));
-				if (Input.attr("id") === "input_pdservice_start_date") {
-					$("#versionStartDate").text(calender.data("date"));
-				} else if (Input.attr("id") === "input_pdservice_end_date") {
-					$("#versionEndDate").text(calender.data("date"));
-				}
-				calender.datepicker("hide");
-			});
-	};
-
-	const $btnCalendar = $("#btn-select-calendar");
-	const $btnEndCalendar = $("#btn-end-calendar");
-	const $btnCalendarPopup = $("#btn-select-calendar-popup");
-	const $btnEndCalendarPopup = $("#btn-end-calendar-popup");
-
-	makeDatePicker($btnCalendar);
-	makeDatePicker($btnEndCalendar);
-	makeDatePicker($btnCalendarPopup);
-	makeDatePicker($btnEndCalendarPopup);
-});
