@@ -119,6 +119,7 @@ $("#modalPopupId").click(function () {
 		.css("height", height + "px");
 });
 
+// --- jstreeBuild 시 꼭 구현해야 할 함수 --- //
 function jsTreeClick(selectedNode) {
 	console.log("-->" + selectedNode.attr("id").replace("node_", ""));
 	console.log(
@@ -216,10 +217,10 @@ function draw(main, menu) {
 	main.html("");
 
 	let data = `
-						   <li class='list-group-item json-menu-header'>
-							   <strong>product service name</strong>
-						   </li>
-						   <button
+			   <li class='list-group-item json-menu-header'>
+				   <strong>product service name</strong>
+			   </li>
+			   <button
 					type="button"
 					class="btn btn-danger btn-block"
 					id="modalPopupId"
@@ -229,14 +230,13 @@ function draw(main, menu) {
 
 	for (let i = 0; i < menu.length; i++) {
 		data += `
-						   <div class="panel">
-							   <div class="panel-heading">
-								   <a class="accordion-toggle collapsed" data-toggle="collapse" href="" onclick="versionClick(${menu[i].c_id}); return false;">
-									   ${menu[i].c_title}
-								   </a>
-							   </div>
-						   </div>
-					   `;
+			   <div class="panel">
+				   <div class="panel-heading">
+					   <a class="accordion-toggle collapsed" data-toggle="collapse" href="" onclick="versionClick(${menu[i].c_id}); return false;">
+						   ${menu[i].c_title}
+					   </a>
+				   </div>
+			   </div>`;
 	}
 
 	main.html(data);
@@ -315,90 +315,3 @@ $(function () {
 	makeDatePicker($btnCalendarPopup);
 	makeDatePicker($btnEndCalendarPopup);
 });
-
-$(".form-control").on("input", function () {
-	const value = $(this).val();
-	if ($(this).attr("id") === "input_pdserviceName") {
-		$("#pdServiceName").text(value);
-	} else if ($(this).attr("id") === "input_pdserviceVersion") {
-		$("#pdServiceVersion").text(value);
-	}
-});
-
-//ckeditor contents 추가
-CKEDITOR.instances.input_pdservice_editor.on("change", function () {
-	$("#versionContents").html(
-		CKEDITOR.instances.input_pdservice_editor.getData()
-	);
-});
-
-$("#regist-version").on("click", function () {
-	console.log(selectId, versionList);
-	const addVersion = () => {
-		/* post payload data list?? */
-		//$.ajax({
-		//	url: "/auth-user/api/arms/pdversion/addNode.do",
-		//	type: "POST",
-		//	data: {
-		//		ref: selectId,
-		//		c_position: versionList.length,
-		//		c_title: $("#tooltip-enabled").val(),
-		//		c_type: "default",
-		//		c_title: $("#tooltip-enabled-service-version").val(),
-		//		c_contents: CKEDITOR.instances["modal-editor"].getData(),
-		//		c_start_date: $("#btn-enabled-date").val(),
-		//		c_end_date: $("#btn-end-date").val(),
-		//	},
-		//	statusCode: {
-		//		200: function () {
-		//			console.log("성공!");
-		//		},
-		//	},
-		//});
-	};
-	checkVaildation(addVersion);
-});
-
-function checkVaildation(addVersion) {
-	//popup validation test
-	const dateReg = /^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/;
-
-	if (
-		!$("#tooltip-enabled-service-name").val() ||
-		$("#tooltip-enabled-service-name").val().trim() === ""
-	) {
-		alert("Please write service name!");
-		$("#tooltip-enabled-service-name").focus();
-	} else if (
-		!$("#tooltip-enabled-service-version").val() ||
-		$("#tooltip-enabled-service-version").val().trim() === ""
-	) {
-		alert("Please write service version!");
-		$("#tooltip-enabled-service-version").focus();
-	} else if (
-		!$("#btn-enabled-date").val() ||
-		$("#btn-enabled-date").val().trim() === "" ||
-		!$("#btn-enabled-date").val().match(dateReg)
-	) {
-		alert("Please check start date!");
-		$("#btn-enabled-date").focus();
-	} else if (
-		!$("#btn-end-date").val() ||
-		$("#btn-end-date").val().trim() === "" ||
-		!$("#btn-end-date").val().match(dateReg)
-	) {
-		alert("Please check end date!");
-		$("#btn-end-date").focus();
-	} else if (!CKEDITOR.instances["modal-editor"].getData()) {
-		alert("Please write contents!");
-		CKEDITOR.instances["modal-editor"].focus();
-	} else if (
-		new Date($("#btn-enabled-date").val()).getTime() >
-		new Date($("#btn-end-date").val()).getTime()
-	) {
-		alert("Please check date!");
-		$("#btn-enabled-date").focus();
-	} else {
-		addVersion();
-	}
-}

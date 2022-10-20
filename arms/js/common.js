@@ -55,7 +55,7 @@ function authUserCheck() {
 		global: false,
 		statusCode: {
 			200: function (n) {
-				console.log(n);
+				console.log("authUserCheck :: " + n);
 			},
 			401: function (n) {
 				location.href = "/sso/login";
@@ -121,8 +121,7 @@ function setSideMenu( categoryName, listName, collapse = "product-elements-colla
 	}, 1000);
 }
 
-// --- 데이터 테이블 설정 --- //
-
+// --- 데이터 테이블 설정 ( 곧 삭제 대상 ) --- //
 function setTable(tableDataUrl, dataList, options = null, selectedView = null) {
 	jstreeDataTableReload(tableDataUrl, dataList, options, selectedView);
 
@@ -131,6 +130,7 @@ function setTable(tableDataUrl, dataList, options = null, selectedView = null) {
 	$(".dataTables_length").find("select:eq(0)").css("min-height", "30px");
 }
 
+// --- 데이터 테이블 설정 ( 곧 삭제 대상 ) --- //
 function jstreeDataTableReload(tableDataUrl, dataList, options, selectedView) {
 	console.log("href: " + $(location).attr("href"));
 	console.log("protocol: " + $(location).attr("protocol"));
