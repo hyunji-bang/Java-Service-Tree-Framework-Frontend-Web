@@ -1,4 +1,3 @@
-
 // --- 에디터 설정 --- //
 //CKEDITOR.replace("editor");
 CKEDITOR.replace("input_pdservice_editor");
@@ -46,21 +45,21 @@ const pageChecker = function () {
 
 $(function () {
 
-	//pageChecker();
+	pageChecker();
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_manage");
 
 
-
-	makeReviewList([
-		{
-			name: "Finees Lund",
-			image: "../reference/light-blue/img/1.jpg",
-		},
-		{
-			name: "Frans Garey",
-			image: "../reference/light-blue/img/13.jpg",
-		},
-	]);
+	// 리뷰어에 대한 내용은 삭제 되었으므로 주석 처리
+	// makeReviewList([
+	// 	{
+	// 		name: "Finees Lund",
+	// 		image: "../reference/light-blue/img/1.jpg",
+	// 	},
+	// 	{
+	// 		name: "Frans Garey",
+	// 		image: "../reference/light-blue/img/13.jpg",
+	// 	},
+	// ]);
 
 	// DataPicker 처리 부분 ( 팝업 레이어 )
     $(".date-picker").datepicker({
