@@ -1,4 +1,21 @@
+
+// --- 에디터 설정 --- //
+//CKEDITOR.replace("editor");
+CKEDITOR.replace("input_pdservice_editor");
+CKEDITOR.replace("modal-editor");
+
+// --- 팝업 띄울때 사이즈 조정 -- //
+$("#modalPopupId").click(function () {
+	var height = $(document).height() - 400;
+	$(".modal-body")
+		.find(".cke_contents:eq(0)")
+		.css("height", height + "px");
+});
+
+
+
 // make review list
+
 const makeReviewList = function (profile) {
 	const wrap = document.getElementById("service-reviewers");
 	let reviewer = "";
@@ -28,8 +45,10 @@ const pageChecker = function () {
 };
 
 $(function () {
-	pageChecker();
+
+	//pageChecker();
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_manage");
+
 
 
 	makeReviewList([
@@ -42,6 +61,39 @@ $(function () {
 			image: "../reference/light-blue/img/13.jpg",
 		},
 	]);
+
+	// DataPicker 처리 부분 ( 팝업 레이어 )
+    $(".date-picker").datepicker({
+        autoclose: true,
+    });
+    //datepicker 만들기
+    const makeDatePicker = (calender) => {
+        calender
+            .datepicker({
+                autoclose: true,
+            })
+            .on("changeDate", function (ev) {
+                const Input = $(this).parent().prev();
+                Input.val(calender.data("date"));
+                if (Input.attr("id") === "input_pdservice_start_date") {
+                    $("#versionStartDate").text(calender.data("date"));
+                } else if (Input.attr("id") === "input_pdservice_end_date") {
+                    $("#versionEndDate").text(calender.data("date"));
+                }
+                calender.datepicker("hide");
+            });
+    };
+
+    const $btnCalendar = $("#btn-select-calendar");
+    const $btnEndCalendar = $("#btn-end-calendar");
+    const $btnCalendarPopup = $("#btn-select-calendar-popup");
+    const $btnEndCalendarPopup = $("#btn-end-calendar-popup");
+
+    makeDatePicker($btnCalendar);
+    makeDatePicker($btnEndCalendar);
+    makeDatePicker($btnCalendarPopup);
+    makeDatePicker($btnEndCalendarPopup);
+
 });
 
 function jstreeDataTableReload() {
@@ -90,17 +142,6 @@ $(function () {
 	$("select[name=pdserviceTable_length]").css("width", "50px");
 });
 
-// --- 에디터 설정 --- //
-//CKEDITOR.replace("editor");
-//CKEDITOR.replace("modal-editor");
-
-// --- 팝업 띄울때 사이즈 조정 -- //
-$("#modalPopupId").click(function () {
-	var height = $(document).height() - 400;
-	$(".modal-body")
-		.find(".cke_contents:eq(0)")
-		.css("height", height + "px");
-});
 
 function jsTreeClick(selectedNode) {
 	console.log("-->" + selectedNode.attr("id").replace("node_", ""));
