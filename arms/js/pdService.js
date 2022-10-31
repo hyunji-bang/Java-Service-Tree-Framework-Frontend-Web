@@ -1,3 +1,8 @@
+let selectId; // 제품 아이디
+let selectName; // 제품 이름
+let versionList; // 선택한 제품 리스트
+let selectVersion; // 선택한 버전 아이디
+
 // --- 에디터 설정 --- //
 //CKEDITOR.replace("editor");
 CKEDITOR.replace("input_pdservice_editor");
@@ -11,240 +16,81 @@ $("#modalPopupId").click(function () {
 		.css("height", height + "px");
 });
 
-
-
-// make review list
-
-const makeReviewList = function (profile) {
-	const wrap = document.getElementById("service-reviewers");
-	let reviewer = "";
-	profile.forEach(
-		(item) =>
-			(reviewer += `
-		<a>
-			<span class="profile-image"><img src="${item.image}"></span>
-			<span class="name">${item.name}</td>
-		</a>
-	`)
-	);
-
-	wrap.innerHTML = reviewer;
-};
-
-const pageChecker = function () {
-	console.log("###", location.pathname.includes("Open"));
-	const contents = document.querySelector(".content-section");
-	if (location.pathname.includes("Open")) {
-		contents.classList.add("new-tab-open");
-	}
-
-	if (location.pathname.includes("ModifyOpen")) {
-		contents.classList.add("new-tab-modify");
-	}
-};
-
+// document ready
 $(function () {
 
-	pageChecker();
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_manage");
-
-
-	// 리뷰어에 대한 내용은 삭제 되었으므로 주석 처리
-	// makeReviewList([
-	// 	{
-	// 		name: "Finees Lund",
-	// 		image: "../reference/light-blue/img/1.jpg",
-	// 	},
-	// 	{
-	// 		name: "Frans Garey",
-	// 		image: "../reference/light-blue/img/13.jpg",
-	// 	},
-	// ]);
-
-	// DataPicker 처리 부분 ( 팝업 레이어 )
-    $(".date-picker").datepicker({
-        autoclose: true,
-    });
-    //datepicker 만들기
-    const makeDatePicker = (calender) => {
-        calender
-            .datepicker({
-                autoclose: true,
-            })
-            .on("changeDate", function (ev) {
-                const Input = $(this).parent().prev();
-                Input.val(calender.data("date"));
-                if (Input.attr("id") === "input_pdservice_start_date") {
-                    $("#versionStartDate").text(calender.data("date"));
-                } else if (Input.attr("id") === "input_pdservice_end_date") {
-                    $("#versionEndDate").text(calender.data("date"));
-                }
-                calender.datepicker("hide");
-            });
-    };
-
-    const $btnCalendar = $("#btn-select-calendar");
-    const $btnEndCalendar = $("#btn-end-calendar");
-    const $btnCalendarPopup = $("#btn-select-calendar-popup");
-    const $btnEndCalendarPopup = $("#btn-end-calendar-popup");
-
-    makeDatePicker($btnCalendar);
-    makeDatePicker($btnEndCalendar);
-    makeDatePicker($btnCalendarPopup);
-    makeDatePicker($btnEndCalendarPopup);
 
 });
 
-function jstreeDataTableReload() {
-	console.log("href: " + $(location).attr("href"));
-	console.log("protocol: " + $(location).attr("protocol"));
-	console.log("host: " + $(location).attr("host"));
-	console.log("pathname: " + $(location).attr("pathname"));
-	console.log("search: " + $(location).attr("search"));
-	console.log("hostname: " + $(location).attr("hostname"));
-	console.log("port: " + $(location).attr("port"));
-
-	var isDevelopingToRoute = "/auth-user";
-
-	var tempDataTable = $("#pdserviceTable").DataTable({
-		ajax: {
-			url: isDevelopingToRoute + "/api/arms/pdservice/getMonitor.do",
-			dataSrc: "",
-		},
-		destroy: true,
-		processing: true,
-		responsive: false,
-		columns: [{ data: "c_id" }, { data: "c_title" }],
-		columnDefs: [
-			{
-				targets: -1,
-				className: "dt-body-left",
-			},
-		],
-	});
-
-	$("#pdserviceTable tbody").on("click", "tr", function () {
-		$(this).toggleClass("selected");
-		var data = tempDataTable.row(this).data();
-		console.log(data);
-		//alert( 'You clicked on '+ data.c_title +'\'s row' );
-	});
-}
-
+// --- 데이터 테이블 설정 --- //
 $(function () {
-	jstreeDataTableReload();
-	$(".dataTables_length").find("select:eq(0)").addClass("darkBack");
-	$(".dataTables_length").find("select:eq(0)").css("min-height", "30px");
-	//min-height: 30px;
 
+	// 데이터 테이블 컬럼 및 열그룹 구성
+	var columnList = [
+		{ data: "c_id" },
+		{ data: "c_title" },
+	];
+	var rowsGroupList = [];
+	dataTableBuild("#pdserviceTable","pdservice", columnList, rowsGroupList);
+
+	// ----- 데이터 테이블 빌드 이후 별도 스타일 구성 ------ //
+	//datatable 좌상단 datarow combobox style
 	$("body").find("[aria-controls='pdserviceTable']").css("width", "100px");
 	$("select[name=pdserviceTable_length]").css("width", "50px");
 });
 
-
-function jsTreeClick(selectedNode) {
-	console.log("-->" + selectedNode.attr("id").replace("node_", ""));
-	console.log(
-		"->" +
-			selectedNode.find("a.jstree-clicked").siblings(".jstree-icon").text() +
-			"<-"
-	);
-	var tempNode = selectedNode.find("a.jstree-clicked").siblings(".jstree-icon");
-	tempNode.trigger("click");
-	console.log("여기:" + tempNode);
-	var getSelectedText = selectedNode.find("a.jstree-clicked").text().trimStart();
-	console.log(getSelectedText);
-	$("#prepended-input").val(getSelectedText);
-
-	checkEqualSelectedNode(selectedNode);
-	dataLoad(selectedNode.attr("id").replace("node_", ""));
+// 데이터 테이블 구성 이후 꼭 구현해야 할 메소드 : 열 클릭시 이벤트
+function dataTableClick(selectedData){
+	selectId = selectedData.c_id;
+	selectName = selectedData.c_title;
+	console.log(selectedData.c_id);
+	pdServiceDataTableClick(selectedData.c_id);
 }
 
-function dataLoad(getSelectedText) {
-	// ajax 처리 후 에디터 바인딩.
-	console.log(getSelectedText);
+//제품(서비스) 클릭할 때 동작하는 함수
+//1. 상세보기 데이터 바인딩
+//2. 편집하기 데이터 바인딩
+function pdServiceDataTableClick(c_id) {
+
+	selectVersion = c_id;
+
 	$.ajax({
-		url: "/auth-user/api/arms/pdservice/getNode.do?c_id=" + getSelectedText,
-		dataType: "json",
-		async: false,
-		success: function (data) {
-			//CKEDITOR.instances.editor.setData(data.c_contents);
-			$("#editor").html(data.c_contents);
-			var pdServiceNameplaceHolder = $("#pdServiceTitle").attr("placeholder");
-			$("#pdServiceTitle").attr(
-				"placeholder",
-				pdServiceNameplaceHolder + " " + data.c_title
-			);
-		},
-	});
+		url: "/auth-user/api/arms/pdservice/getNode.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+		data: { c_id: c_id }, // HTTP 요청과 함께 서버로 보낼 데이터
+		method: "GET", // HTTP 요청 메소드(GET, POST 등)
+		dataType: "json", // 서버에서 보내줄 데이터의 타입
+	})
+	// HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨.
+		.done(function (json) {
+			console.log(" -> " + json.c_contents);
+
+			$("#detailView-pdService-name").text(json.c_title);
+			$("#detailView-pdService-owner").text(json.c_owner);
+			$("#detailView-pdService-reviewer01").text(json.c_reviewer01);
+			$("#detailView-pdService-reviewer02").text(json.c_reviewer02);
+			$("#detailView-pdService-reviewer03").text(json.c_reviewer03);
+			$("#detailView-pdService-reviewer04").text(json.c_reviewer04);
+			$("#detailView-pdService-reviewer05").text(json.c_reviewer05);
+			$("#detailView-pdService-contents").html(json.c_contents);
+
+			$("#editView-pdService-name").val(json.c_title);
+			$("#editView-pdService-owner").val(json.c_owner);
+			$("#editView-pdService-reviewer01").val(json.c_reviewer01);
+			$("#editView-pdService-reviewer02").val(json.c_reviewer02);
+			$("#editView-pdService-reviewer03").val(json.c_reviewer03);
+			$("#editView-pdService-reviewer04").val(json.c_reviewer04);
+			$("#editView-pdService-reviewer05").val(json.c_reviewer05);
+
+			CKEDITOR.instances.input_pdservice_editor.setData(json.c_contents);
+		})
+		// HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function (xhr, status, errorThrown) {
+			console.log(xhr + status + errorThrown);
+		})
+		//
+		.always(function (xhr, status) {
+			$("#text").html("요청이 완료되었습니다!");
+			console.log(xhr + status);
+		});
 }
-
-function checkEqualSelectedNode(selectedNode) {
-	var getSelectedText = selectedNode.find("a.jstree-clicked").text().trimStart();
-	var inputText = $("#prepended-input").val();
-	if (getSelectedText == inputText) {
-		console.log("동일하다 선택된 값이다.");
-		$(".updatemode").click();
-	} else {
-		console.log("값이 틀리다.");
-		$(".newmode").click();
-	}
-}
-
-$(".newmode").click(function () {
-	$("#prepended-input").val("");
-	$("#owner_select2").val(null).trigger("change");
-	$("#reviewer_select2").val(null).trigger("change");
-});
-
-function formatRepo(repo) {
-	if (repo.loading) {
-		return repo.text;
-	}
-
-	var $container = $(
-		"<div class='select2-result-repository clearfix'>" +
-			"<div class='select2-result-repository__meta'>" +
-			"<div class='select2-result-repository__title'></div>" +
-			"<div class='select2-result-repository__description'></div>" +
-			"<div class='select2-result-repository__statistics'>" +
-			"<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> </div>" +
-			"<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> </div>" +
-			"<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> </div>" +
-			"</div>" +
-			"</div>" +
-			"</div>"
-	);
-
-	$container.find(".select2-result-repository__title").text(repo.full_name);
-	$container
-		.find(".select2-result-repository__description")
-		.text(repo.description);
-	$container
-		.find(".select2-result-repository__forks")
-		.append(repo.forks_count + " Forks");
-	$container
-		.find(".select2-result-repository__stargazers")
-		.append(repo.stargazers_count + " Stars");
-	$container
-		.find(".select2-result-repository__watchers")
-		.append(repo.watchers_count + " Watchers");
-
-	return $container;
-}
-
-function formatRepoSelection(repo) {
-	return repo.full_name || repo.text;
-}
-
-$("#service-modify").click(function (ev) {
-	ev.preventDefault();
-
-	location.href = `pdServiceModify.html?service=${123}`;
-});
-
-$(".blank").click(function (ev) {
-	ev.preventDefault();
-
-	window.open(`${ev.target.href}?service=${1234}`, "_blank");
-});
