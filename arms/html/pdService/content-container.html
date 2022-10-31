@@ -51,7 +51,7 @@
 		<header>
 			<h4>
 				<span class="font13" style="font-weight: bold">
-					<i class="fa fa-edit"></i> 제품(서비스) 버전 등록 / 변경
+					<i class="fa fa-edit"></i> 제품(서비스) 상세 보기 / 변경
 				</span>
 			</h4>
 			<div class="widget-controls">
@@ -96,7 +96,7 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-gift"></i>
 												</span>&nbsp;
-												<div id="service-name" style="display: flex; align-items: center; gap: 10px; padding: 0;">
+												<div id="label-service-name" style="display: flex; align-items: center; gap: 10px; padding: 0;">
 													<a href="">Atlassian-RMS</a>
 												</div>
 											</div>
@@ -109,7 +109,7 @@
 												<span class="input-group-addon">
 													<i class="fa fa-user"></i>
 												</span>&nbsp;
-												<div id="service-owner" style="display: flex; align-items: center; gap: 10px; padding: 0;">
+												<div id="label-service-owner" style="display: flex; align-items: center; gap: 10px; padding: 0;">
 													<a href="">이동민</a>
 												</div>
 											</div>
@@ -122,7 +122,7 @@
 												<span class="input-group-addon">
 													<i class="fa fa-users"></i>
 												</span>&nbsp;
-												<div id="service-reviewers">
+												<div id="label-service-reviewers">
 													<a href="">함수원</a>
 													<a href="">방현지</a>
 													<a href="">박주희</a>
@@ -130,176 +130,101 @@
 											</div>
 										</div>
 										<div class="control-group">
-											<label class="control-label" for="prepended-input">
-												제품(서비스) 컨텐츠 &nbsp;
-											</label>
-											<div class="col-sm-8">
-												영역이 좁을 경우 : <button type="button" class="btn btn-warning">팝업 창으로 내용 보기</button>
-											</div>
-											<div
-													class="box box-primary"
-													style="
-					border-top-color: #bbbbbb;
-					border-top-width: 0px;
-					margin-bottom: 35px !important;
-				"
-											>
-												<div class="box-body">
-													<div class="form-group" style="padding-top: 10px">
+                                            <label class="control-label" for="prepended-input" style="margin-top: 10px">
+                                                제품(서비스) 컨텐츠 &nbsp;
+                                            </label>
+                                            <div class="col-sm-8" style="margin-top: 10px">
+                                                영역이 좁을 경우 : <button type="button" class="btn btn-warning">팝업 창으로 내용 보기</button>
+                                            </div>
+                                            <div class="box box-primary" style="border-top-color: #bbbbbb; border-top-width: 0px; margin-bottom: 35px !important;">
+                                                <div class="body-middle">
+                                                    <form
+                                                            id="fileupload"
+                                                            action="server/php"
+                                                            method="POST"
+                                                            enctype="multipart/form-data"
+                                                    >
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div id="dropzone" class="dropzone">
+                                                                    <i class="fa fa-cloud-upload"></i>
+                                                                    Drop files here
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12 fileupload-progress fade font12">
+                                                                <!-- The global progress bar -->
+                                                                <div
+                                                                        class="progress progress-success progress-striped active font12"
+                                                                        role="progressbar"
+                                                                        aria-valuemin="0"
+                                                                        aria-valuemax="100"
+                                                                >
+                                                                    <div class="bar" style="width: 0%"></div>
+                                                                </div>
+                                                                <!-- The extended global progress information -->
+                                                                <div class="progress-extended font12">&nbsp;</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-actions fileupload-buttonbar no-margin">
+                                                            <span class="btn btn-sm btn-inverse fileinput-button">
+                                                                <i class="fa fa-plus"></i>
+                                                                <span>Add files...</span>
+                                                                <input type="file" name="files[]" multiple="" />
+                                                            </span>
+                                                            <button type="submit" class="btn btn-inverse btn-sm start">
+                                                                <i class="fa fa-upload"></i>
+                                                                <span>Start upload</span>
+                                                            </button>
+                                                            <button type="reset" class="btn btn-inverse btn-sm cancel">
+                                                                <i class="fa fa-ban"></i>
+                                                                <span>Cancel upload</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="fileupload-loading">
+                                                            <i class="fa fa-spin fa-spinner"></i>
+                                                        </div>
+                                                        <!-- The table listing the files available for upload/download -->
+                                                        <table
+                                                                role="presentation"
+                                                                class="table table-striped"
+                                                                style="margin-bottom: 5px"
+                                                        >
+                                                            <tbody
+                                                                    class="files"
+                                                                    data-toggle="modal-gallery"
+                                                                    data-target="#modal-gallery"
+                                                            ></tbody>
+                                                        </table>
+                                                    </form>
+                                                </div>
 
-													</div>
-												</div>
-												<div class="body-middle">
-													<form
-															id="fileupload"
-															action="server/php"
-															method="POST"
-															enctype="multipart/form-data"
-													>
-														<div class="row">
-															<div class="col-md-12">
-																<div id="dropzone" class="dropzone">
-																	<i class="fa fa-cloud-upload"></i>
-																	Drop files here
-																</div>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-12 fileupload-progress fade font12">
-																<!-- The global progress bar -->
-																<div
-																		class="progress progress-success progress-striped active font12"
-																		role="progressbar"
-																		aria-valuemin="0"
-																		aria-valuemax="100"
-																>
-																	<div class="bar" style="width: 0%"></div>
-																</div>
-																<!-- The extended global progress information -->
-																<div class="progress-extended font12">&nbsp;</div>
-															</div>
-														</div>
-														<div class="form-actions fileupload-buttonbar no-margin">
-							<span class="btn btn-sm btn-inverse fileinput-button">
-								<i class="fa fa-plus"></i>
-								<span>Add files...</span>
-								<input type="file" name="files[]" multiple="" />
-							</span>
-															<button type="submit" class="btn btn-inverse btn-sm start">
-																<i class="fa fa-upload"></i>
-																<span>Start upload</span>
-															</button>
-															<button type="reset" class="btn btn-inverse btn-sm cancel">
-																<i class="fa fa-ban"></i>
-																<span>Cancel upload</span>
-															</button>
-														</div>
-														<div class="fileupload-loading">
-															<i class="fa fa-spin fa-spinner"></i>
-														</div>
-														<!-- The table listing the files available for upload/download -->
-														<table
-																role="presentation"
-																class="table table-striped"
-																style="margin-bottom: 5px"
-														>
-															<tbody
-																	class="files"
-																	data-toggle="modal-gallery"
-																	data-target="#modal-gallery"
-															></tbody>
-														</table>
-													</form>
-												</div>
-
-												<p class="pull-right" style="padding-top: 10px">
-													<button
-															type="button"
-															class="btn btn-info"
-															id="modalPopupId"
-															data-toggle="modal"
-															data-target="#myModal2"
-													>
-														제품(서비스) 등록
-													</button>
-												</p>
-												<p class="pull-right" style="padding-top: 10px; padding-right: 10px">
-													<a
-															class="btn btn-success blank"
-															href="pdServiceModifyOpen.html"
-															id="show-info-message"
-													>
-														새창으로 편집
-													</a>
-												</p>
-												<div
-														id="myModal2"
-														class="modal fade"
-														tabindex="-1"
-														role="dialog"
-														aria-labelledby="myModalLabel"
-														aria-hidden="true"
-														style="display: none"
-												>
-													<div class="modal-dialog" style="width: 90%; height: 90%">
-														<div class="modal-content darkBack">
-															<div class="modal-header" style="padding: 0px; border-bottom: 0px">
-																<button
-																		type="button"
-																		class="close"
-																		data-dismiss="modal"
-																		aria-hidden="true"
-																		style="color: #ffffff; font-size: 20px; opacity: 0.8; padding: 5px"
-																>
-																	×
-																</button>
-																<h4
-																		class="modal-title font14"
-																		id="myModalLabel2"
-																		style="color: #f8f8f8; text-align: left; padding: 5px"
-																>
-									<span class="font13" style="font-weight: bold">
-										<i class="fa fa-edit"></i> 제품(서비스) 신규 등록 팝업
-									</span>
-																	<section class="search-result" style="border-left: 5px solid #e5603b">
-																		<p
-																				style="font-size: 13px; margin: 5px 0px 0px 0px; padding-left: 5px"
-																		>
-																			입력한 내용은 부모창과 동기화 됩니다. 부모창에서 등록하기를 진행해야
-																			저장됩니다.
-																		</p>
-																	</section>
-																</h4>
-															</div>
-															<div class="modal-body" style="padding: 5px">
-																<div id="modal-editor" class="darkBack">
-																	<p>입력란이 좁다면 하단에 새창으로 띄우기를 클릭하세요.</p>
-																</div>
-															</div>
-															<div
-																	class="modal-footer"
-																	style="
-									background-color: transparent;
-									padding: 5px;
-									text-align: right;
-									border-top: 0px;
-								"
-															>
-																<button type="button" class="btn btn-default" data-dismiss="modal">
-																	Close
-																</button>
-																<button type="button" class="btn btn-primary">Save changes</button>
-															</div>
-														</div>
-														<!-- /.modal-content -->
-													</div>
-													<!-- /.modal-dialog -->
-												</div>
-											</div>
-											<br /><br />
-											<div id="service-contents">
-											</div>
-										</div>
+                                                <p class="pull-right" style="padding-top: 10px">
+                                                    <button
+                                                            type="button"
+                                                            class="btn btn-info"
+                                                            id="modalPopupId"
+                                                            data-toggle="modal"
+                                                            data-target="#myModal2"
+                                                    >
+                                                        제품(서비스) 등록
+                                                    </button>
+                                                </p>
+                                                <p class="pull-right" style="padding-top: 10px; padding-right: 10px">
+                                                    <a
+                                                            class="btn btn-success blank"
+                                                            href="pdServiceModifyOpen.html"
+                                                            id="show-info-message"
+                                                    >
+                                                        새창으로 편집
+                                                    </a>
+                                                </p>
+                                            </div>
+                                            <br /><br />
+                                            <div id="service-contents">
+                                            </div>
+                                        </div>
 									</fieldset>
 								</form>
 							</div>
@@ -360,75 +285,98 @@
 												</div>
 											</div>
 											<div class="control-group">
-												<label class="control-label" for="prepended-input">
+												<label class="control-label" for="prepended-input" style="margin-top: 10px">
 													제품(서비스) 컨텐츠 &nbsp;
 												</label>
-												<div class="col-sm-8">
+												<div class="col-sm-8" style="margin-top: 10px">
 													입력창이 좁을 경우 : <button type="button" class="btn btn-warning">팝업 창으로 편집 하기</button>
 												</div>
-												<div class="controls form-group">
-													<form
-															id="fileupload"
-															action="server/php"
-															method="POST"
-															enctype="multipart/form-data"
-													>
-														<div class="row" style="text-align: center">
-															<div class="col-md-11">
-																<div id="dropzone" class="dropzone">
-																	<i class="fa fa-cloud-upload"></i>
-																	Drop files here
-																</div>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-md-12 fileupload-progress fade font12">
-																<!-- The global progress bar -->
-																<div
-																		class="progress progress-success progress-striped active font12"
-																		role="progressbar"
-																		aria-valuemin="0"
-																		aria-valuemax="100"
-																>
-																	<div class="bar" style="width: 0%"></div>
-																</div>
-																<!-- The extended global progress information -->
-																<div class="progress-extended font12">&nbsp;</div>
-															</div>
-														</div>
-														<div class="form-actions fileupload-buttonbar no-margin">
-							<span class="btn btn-sm btn-inverse fileinput-button">
-								<i class="fa fa-plus"></i>
-								<span>Add files...</span>
-								<input type="file" name="files[]" multiple="" />
-							</span>
-															<button type="submit" class="btn btn-inverse btn-sm start">
-																<i class="fa fa-upload"></i>
-																<span>Start upload</span>
-															</button>
-															<button type="reset" class="btn btn-inverse btn-sm cancel">
-																<i class="fa fa-ban"></i>
-																<span>Cancel upload</span>
-															</button>
-														</div>
-														<div class="fileupload-loading">
-															<i class="fa fa-spin fa-spinner"></i>
-														</div>
-														<!-- The table listing the files available for upload/download -->
-														<table
-																role="presentation"
-																class="table table-striped"
-																style="margin-bottom: 5px"
-														>
-															<tbody
-																	class="files"
-																	data-toggle="modal-gallery"
-																	data-target="#modal-gallery"
-															></tbody>
-														</table>
-													</form>
-												</div>
-												<br /><br />
+                                                <div class="box box-primary" style="border-top-color: #bbbbbb; border-top-width: 0px; margin-bottom: 35px !important;">
+                                                    <div class="body-middle">
+                                                        <form
+                                                                id="fileupload"
+                                                                action="server/php"
+                                                                method="POST"
+                                                                enctype="multipart/form-data"
+                                                        >
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div id="dropzone" class="dropzone">
+                                                                        <i class="fa fa-cloud-upload"></i>
+                                                                        Drop files here
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12 fileupload-progress fade font12">
+                                                                    <!-- The global progress bar -->
+                                                                    <div
+                                                                            class="progress progress-success progress-striped active font12"
+                                                                            role="progressbar"
+                                                                            aria-valuemin="0"
+                                                                            aria-valuemax="100"
+                                                                    >
+                                                                        <div class="bar" style="width: 0%"></div>
+                                                                    </div>
+                                                                    <!-- The extended global progress information -->
+                                                                    <div class="progress-extended font12">&nbsp;</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-actions fileupload-buttonbar no-margin">
+                                                            <span class="btn btn-sm btn-inverse fileinput-button">
+                                                                <i class="fa fa-plus"></i>
+                                                                <span>Add files...</span>
+                                                                <input type="file" name="files[]" multiple="" />
+                                                            </span>
+                                                                <button type="submit" class="btn btn-inverse btn-sm start">
+                                                                    <i class="fa fa-upload"></i>
+                                                                    <span>Start upload</span>
+                                                                </button>
+                                                                <button type="reset" class="btn btn-inverse btn-sm cancel">
+                                                                    <i class="fa fa-ban"></i>
+                                                                    <span>Cancel upload</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="fileupload-loading">
+                                                                <i class="fa fa-spin fa-spinner"></i>
+                                                            </div>
+                                                            <!-- The table listing the files available for upload/download -->
+                                                            <table
+                                                                    role="presentation"
+                                                                    class="table table-striped"
+                                                                    style="margin-bottom: 5px"
+                                                            >
+                                                                <tbody
+                                                                        class="files"
+                                                                        data-toggle="modal-gallery"
+                                                                        data-target="#modal-gallery"
+                                                                ></tbody>
+                                                            </table>
+                                                        </form>
+                                                    </div>
+
+                                                    <p class="pull-right" style="padding-top: 10px">
+                                                        <button
+                                                                type="button"
+                                                                class="btn btn-info"
+                                                                id="modalPopupId"
+                                                                data-toggle="modal"
+                                                                data-target="#myModal2"
+                                                        >
+                                                            제품(서비스) 등록
+                                                        </button>
+                                                    </p>
+                                                    <p class="pull-right" style="padding-top: 10px; padding-right: 10px">
+                                                        <a
+                                                                class="btn btn-success blank"
+                                                                href="pdServiceModifyOpen.html"
+                                                                id="show-info-message"
+                                                        >
+                                                            새창으로 편집
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                                <br /><br />
 												<div class="controls form-group">
 													<div class="col-sm-12">
 														<div id="input_pdservice_editor" class="darkBack">
