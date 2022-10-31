@@ -8,42 +8,37 @@
 			</h4>
 			<div class="widget-controls">
 				<a title="Options" href="#"><i class="glyphicon glyphicon-cog"></i></a>
-				<a data-widgster="expand" title="Expand" href="#"
-					><i class="glyphicon glyphicon-chevron-up"></i
-				></a>
-				<a data-widgster="collapse" title="Collapse" href="#"
-					><i class="glyphicon glyphicon-chevron-down"></i
-				></a>
-				<a data-widgster="close" title="Close" href="#"
-					><i class="glyphicon glyphicon-remove"></i
-				></a>
+				<a data-widgster="expand" href="#" title="Expand">
+					<i class="glyphicon glyphicon-chevron-up"></i>
+				</a>
+				<a data-widgster="collapse" href="#" title="Collapse">
+					<i class="glyphicon glyphicon-chevron-down"></i>
+				</a>
+				<a data-widgster="close" href="#" title="Close">
+					<i class="glyphicon glyphicon-remove"></i>
+				</a>
 			</div>
 		</header>
 		<div class="body">
 			<blockquote class="font13">1. 제품(서비스) 선택</blockquote>
-			<button
-				id="modalPopupId"
-				class="product-handler__register btn btn-info btn-block"
-				data-toggle="modal"
-				data-target="#myModal2"
-			>
+			<button class="product-handler__register btn btn-primary btn-block">
 				신규 제품<sup>서비스</sup> 등록하기
 			</button>
 			<div
-				class="box box-primary"
-				style="background: rgba(51, 51, 51, 0.225); margin-bottom: 5px !important"
+					class="box box-primary"
+					style="background: rgba(51, 51, 51, 0.225); margin-bottom: 5px !important"
 			>
 				<div class="box-body">
 					<table
-						id="pdserviceTable"
-						class="display responsive no-wrap"
-						cellspacing="0"
+							cellspacing="0"
+							class="display responsive no-wrap"
+							id="pdserviceTable"
 					>
 						<thead>
-							<tr>
-								<th>c_id</th>
-								<th>c_title</th>
-							</tr>
+						<tr>
+							<th>c_id</th>
+							<th>c_title</th>
+						</tr>
 						</thead>
 					</table>
 				</div>
@@ -51,7 +46,6 @@
 		</div>
 	</section>
 </div>
-
 <div class="col-lg-8">
 	<section class="widget">
 		<header>
@@ -63,13 +57,13 @@
 			<div class="widget-controls">
 				<a title="Options" href="#"><i class="glyphicon glyphicon-cog"></i></a>
 				<a data-widgster="expand" title="Expand" href="#"
-					><i class="glyphicon glyphicon-chevron-up"></i
+				><i class="glyphicon glyphicon-chevron-up"></i
 				></a>
 				<a data-widgster="collapse" title="Collapse" href="#"
-					><i class="glyphicon glyphicon-chevron-down"></i
+				><i class="glyphicon glyphicon-chevron-down"></i
 				></a>
 				<a data-widgster="close" title="Close" href="#"
-					><i class="glyphicon glyphicon-remove"></i
+				><i class="glyphicon glyphicon-remove"></i
 				></a>
 			</div>
 		</header>
@@ -91,270 +85,349 @@
 							</ul>
 						</header>
 						<div class="body tab-content">
-							<div
-								id="stats"
-								class="tab-pane active clearfix"
-								style="padding-top: 30px !important"
-							>
+							<div id="stats" class="tab-pane active clearfix" style="padding-top: 10px !important">
 								<form class="form-horizontal" method="post">
 									<fieldset>
 										<div class="control-group">
-											<label class="control-label" style="width: 25% !important"
-												>제품<sup>서비스</sup> 이름 :
+											<label class="control-label" for="prepended-input">
+												제품(서비스) 이름 &nbsp;
 											</label>
-											<div class="controls form-group">
-												<div class="col-sm-8">
-													<label
-														class="control-label"
-														style="text-align: left !important; width: 100%"
-														id="pdServiceName"
-														>Product(Service) name</label
-													>
+											<div class="input-wrap col-sm-8">
+												<span class="input-group-addon">
+													<i class="glyphicon glyphicon-gift"></i>
+												</span>&nbsp;
+												<div id="service-name" style="display: flex; align-items: center; gap: 10px; padding: 0;">
+													<a href="">Atlassian-RMS</a>
 												</div>
 											</div>
 										</div>
 										<div class="control-group">
-											<label class="control-label" style="width: 25% !important"
-												>버전 :
+											<label class="control-label" for="prepended-input">
+												제품(서비스) 오너 &nbsp;
 											</label>
-											<div class="controls form-group">
-												<div class="col-sm-8">
-													<label
-														class="control-label"
-														style="text-align: left !important"
-														id="pdServiceVersion"
-														>Version Name</label
-													>
+											<div class="input-wrap col-sm-8">
+												<span class="input-group-addon">
+													<i class="fa fa-user"></i>
+												</span>&nbsp;
+												<div id="service-owner" style="display: flex; align-items: center; gap: 10px; padding: 0;">
+													<a href="">이동민</a>
 												</div>
 											</div>
 										</div>
 										<div class="control-group">
-											<label class="control-label" style="width: 25% !important">
-												시작 날짜 :
+											<label class="control-label" for="prepended-input">
+												제품(서비스) 리뷰어 &nbsp;
 											</label>
-											<div class="controls form-group">
-												<div class="col-sm-8">
-													<label
-														class="control-label"
-														style="text-align: left !important"
-														id="versionStartDate"
-														>Version Work Start Date</label
-													>
+											<div class="input-wrap col-sm-8">
+												<span class="input-group-addon">
+													<i class="fa fa-users"></i>
+												</span>&nbsp;
+												<div id="service-reviewers">
+													<a href="">함수원</a>
+													<a href="">방현지</a>
+													<a href="">박주희</a>
 												</div>
 											</div>
 										</div>
 										<div class="control-group">
-											<label class="control-label" style="width: 25% !important">
-												종료 날짜 :
+											<label class="control-label" for="prepended-input">
+												제품(서비스) 컨텐츠 &nbsp;
 											</label>
-											<div class="controls form-group">
-												<div class="col-sm-8">
-													<label
-														class="control-label"
-														style="text-align: left !important"
-														id="versionEndDate"
-														>Version Work End Date</label
-													>
-												</div>
+											<div class="col-sm-8">
+												영역이 좁을 경우 : <button type="button" class="btn btn-warning">팝업 창으로 내용 보기</button>
 											</div>
-										</div>
-										<div class="control-group" style="display: flex">
-											<label
-												class="control-label"
-												style="width: 25% !important; margin-right: 15px; padding-top: 0"
-											>
-												버전 내용 : </label
-											><br />
 											<div
-												class="controls form-group"
-												style="flex: 1; display: flex; margin-bottom: 0"
+													class="box box-primary"
+													style="
+					border-top-color: #bbbbbb;
+					border-top-width: 0px;
+					margin-bottom: 35px !important;
+				"
 											>
-												<div class="col-sm-12" id="versionContents">Version Contents</div>
+												<div class="box-body">
+													<div class="form-group" style="padding-top: 10px">
+
+													</div>
+												</div>
+												<div class="body-middle">
+													<form
+															id="fileupload"
+															action="server/php"
+															method="POST"
+															enctype="multipart/form-data"
+													>
+														<div class="row">
+															<div class="col-md-12">
+																<div id="dropzone" class="dropzone">
+																	<i class="fa fa-cloud-upload"></i>
+																	Drop files here
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12 fileupload-progress fade font12">
+																<!-- The global progress bar -->
+																<div
+																		class="progress progress-success progress-striped active font12"
+																		role="progressbar"
+																		aria-valuemin="0"
+																		aria-valuemax="100"
+																>
+																	<div class="bar" style="width: 0%"></div>
+																</div>
+																<!-- The extended global progress information -->
+																<div class="progress-extended font12">&nbsp;</div>
+															</div>
+														</div>
+														<div class="form-actions fileupload-buttonbar no-margin">
+							<span class="btn btn-sm btn-inverse fileinput-button">
+								<i class="fa fa-plus"></i>
+								<span>Add files...</span>
+								<input type="file" name="files[]" multiple="" />
+							</span>
+															<button type="submit" class="btn btn-inverse btn-sm start">
+																<i class="fa fa-upload"></i>
+																<span>Start upload</span>
+															</button>
+															<button type="reset" class="btn btn-inverse btn-sm cancel">
+																<i class="fa fa-ban"></i>
+																<span>Cancel upload</span>
+															</button>
+														</div>
+														<div class="fileupload-loading">
+															<i class="fa fa-spin fa-spinner"></i>
+														</div>
+														<!-- The table listing the files available for upload/download -->
+														<table
+																role="presentation"
+																class="table table-striped"
+																style="margin-bottom: 5px"
+														>
+															<tbody
+																	class="files"
+																	data-toggle="modal-gallery"
+																	data-target="#modal-gallery"
+															></tbody>
+														</table>
+													</form>
+												</div>
+
+												<p class="pull-right" style="padding-top: 10px">
+													<button
+															type="button"
+															class="btn btn-info"
+															id="modalPopupId"
+															data-toggle="modal"
+															data-target="#myModal2"
+													>
+														제품(서비스) 등록
+													</button>
+												</p>
+												<p class="pull-right" style="padding-top: 10px; padding-right: 10px">
+													<a
+															class="btn btn-success blank"
+															href="pdServiceModifyOpen.html"
+															id="show-info-message"
+													>
+														새창으로 편집
+													</a>
+												</p>
+												<div
+														id="myModal2"
+														class="modal fade"
+														tabindex="-1"
+														role="dialog"
+														aria-labelledby="myModalLabel"
+														aria-hidden="true"
+														style="display: none"
+												>
+													<div class="modal-dialog" style="width: 90%; height: 90%">
+														<div class="modal-content darkBack">
+															<div class="modal-header" style="padding: 0px; border-bottom: 0px">
+																<button
+																		type="button"
+																		class="close"
+																		data-dismiss="modal"
+																		aria-hidden="true"
+																		style="color: #ffffff; font-size: 20px; opacity: 0.8; padding: 5px"
+																>
+																	×
+																</button>
+																<h4
+																		class="modal-title font14"
+																		id="myModalLabel2"
+																		style="color: #f8f8f8; text-align: left; padding: 5px"
+																>
+									<span class="font13" style="font-weight: bold">
+										<i class="fa fa-edit"></i> 제품(서비스) 신규 등록 팝업
+									</span>
+																	<section class="search-result" style="border-left: 5px solid #e5603b">
+																		<p
+																				style="font-size: 13px; margin: 5px 0px 0px 0px; padding-left: 5px"
+																		>
+																			입력한 내용은 부모창과 동기화 됩니다. 부모창에서 등록하기를 진행해야
+																			저장됩니다.
+																		</p>
+																	</section>
+																</h4>
+															</div>
+															<div class="modal-body" style="padding: 5px">
+																<div id="modal-editor" class="darkBack">
+																	<p>입력란이 좁다면 하단에 새창으로 띄우기를 클릭하세요.</p>
+																</div>
+															</div>
+															<div
+																	class="modal-footer"
+																	style="
+									background-color: transparent;
+									padding: 5px;
+									text-align: right;
+									border-top: 0px;
+								"
+															>
+																<button type="button" class="btn btn-default" data-dismiss="modal">
+																	Close
+																</button>
+																<button type="button" class="btn btn-primary">Save changes</button>
+															</div>
+														</div>
+														<!-- /.modal-content -->
+													</div>
+													<!-- /.modal-dialog -->
+												</div>
+											</div>
+											<br /><br />
+											<div id="service-contents">
 											</div>
 										</div>
-
 									</fieldset>
 								</form>
-                                <div class="body-middle">
-                                    <form
-                                        id="fileupload"
-                                        action="server/php"
-                                        method="POST"
-                                        enctype="multipart/form-data"
-                                    >
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div id="dropzone" class="dropzone">
-                                                    <i class="fa fa-cloud-upload"></i>
-                                                    Drop files here
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12 fileupload-progress fade font12">
-                                                <!-- The global progress bar -->
-                                                <div
-                                                    class="progress progress-success progress-striped active font12"
-                                                    role="progressbar"
-                                                    aria-valuemin="0"
-                                                    aria-valuemax="100"
-                                                >
-                                                    <div class="bar" style="width: 0%"></div>
-                                                </div>
-                                                <!-- The extended global progress information -->
-                                                <div class="progress-extended font12">&nbsp;</div>
-                                            </div>
-                                        </div>
-                                        <div class="form-actions fileupload-buttonbar no-margin">
-                                            <span class="btn btn-sm btn-inverse fileinput-button">
-                                                <i class="fa fa-plus"></i>
-                                                <span>Add files...</span>
-                                                <input type="file" name="files[]" multiple="" />
-                                            </span>
-                                            <button type="submit" class="btn btn-inverse btn-sm start">
-                                                <i class="fa fa-upload"></i>
-                                                <span>Start upload</span>
-                                            </button>
-                                            <button type="reset" class="btn btn-inverse btn-sm cancel">
-                                                <i class="fa fa-ban"></i>
-                                                <span>Cancel upload</span>
-                                            </button>
-                                        </div>
-                                        <div class="fileupload-loading">
-                                            <i class="fa fa-spin fa-spinner"></i>
-                                        </div>
-                                        <!-- The table listing the files available for upload/download -->
-                                        <table
-                                            role="presentation"
-                                            class="table table-striped"
-                                            style="margin-bottom: 5px"
-                                        >
-                                            <tbody
-                                                class="files"
-                                                data-toggle="modal-gallery"
-                                                data-target="#modal-gallery"
-                                            ></tbody>
-                                        </table>
-                                    </form>
-                                </div>
 							</div>
-							<div id="report" class="tab-pane">
+							<div id="report" class="tab-pane" style="padding-top: 10px !important">
 								<div>
 									<form class="form-horizontal" method="post">
 										<fieldset>
 											<div class="control-group">
-												<label
-													class="control-label"
-													style="color: #f8f8f8; width: 25% !important"
-													>제품<sup>서비스</sup> 이름 :
+												<label class="control-label" for="prepended-input">
+													제품(서비스) 이름 &nbsp;
 												</label>
-												<div class="controls form-group">
-													<div class="col-sm-8">
-														<input
+												<div class="input-wrap col-sm-8">
+												<span class="input-group-addon">
+													<i class="glyphicon glyphicon-gift"></i>
+												</span>
+													<input
+															id="prepended-input"
+															class="form-control font13 darkBack"
+															style="color: #f8f8f8"
+															size="16"
 															type="text"
-															id="input_pdserviceName"
-															class="form-control"
-															data-placement="top"
-															data-original-title="Some explanation text here"
-															placeholder="Product(Service) name"
-														/>
-													</div>
+															readonly
+															placeholder="service name ###"
+													/>
 												</div>
 											</div>
 											<div class="control-group">
-												<label
-													class="control-label"
-													style="color: #f8f8f8; width: 25% !important"
-													>버전 :
+												<label class="control-label" for="prepended-input">
+													제품(서비스) 오너 &nbsp;
 												</label>
-												<div class="controls form-group">
-													<div class="col-sm-8">
-														<input
+												<div class="input-wrap col-sm-8">
+												<span class="input-group-addon">
+													<i class="fa fa-user"></i>
+												</span>
+													<input
+															id="prepended-input"
+															class="form-control font13 darkBack"
+															style="color: #f8f8f8"
+															size="16"
 															type="text"
-															id="input_pdserviceVersion"
-															class="form-control"
-															data-placement="top"
-															data-original-title="Some explanation text here"
-															placeholder="Product(Service) version"
-														/>
-													</div>
+															readonly
+															placeholder="service owner ###"
+													/>
 												</div>
 											</div>
 											<div class="control-group">
-												<label
-													class="control-label"
-													style="color: #f8f8f8; width: 25% !important"
-												>
-													시작 날짜 :
+												<label class="control-label" for="prepended-input">
+													제품(서비스) 리뷰어 &nbsp;
 												</label>
-												<div class="controls form-group">
-													<div class="col-sm-8">
-														<div class="input-group">
-															<input
-																id="input_pdservice_start_date"
-																class="form-control"
-																type="text"
-																name="btn-enabled-date"
-																value=""
-																pattern="/^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/"
-															/>
-
-															<span class="input-group-btn">
-																<a
-																	href="#"
-																	id="btn-select-calendar"
-																	class="btn btn-danger"
-																	data-date-format="yyyy/mm/dd"
-																	data-date="2022/11/11"
-																>
-																	<i class="fa fa-calendar"></i>
-																</a>
-															</span>
-														</div>
+												<div class="input-wrap col-sm-8">
+													<span class="input-group-addon">
+														<i class="fa fa-users"></i>
+													</span>
+													<div id="service-reviewers" class="form-control darkBack">
+														<a href="">이동민</a>
+														<a href="">방현지</a>
 													</div>
 												</div>
 											</div>
 											<div class="control-group">
-												<label
-													class="control-label"
-													for="tooltip-enabled"
-													style="color: #f8f8f8; width: 25% !important"
-													>종료 날짜</label
-												>
-												<div class="controls form-group">
-													<div class="col-sm-8">
-														<div class="input-group">
-															<input
-																id="input_pdservice_end_date"
-																class="form-control"
-																type="text"
-																name="btn-enabled-date"
-																value=""
-																pattern="/^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/"
-															/>
-
-															<span class="input-group-btn">
-																<a
-																	href="#"
-																	id="btn-end-calendar-popup"
-																	class="btn btn-danger"
-																	data-date-format="yyyy/mm/dd"
-																	data-date="2022/11/11"
-																>
-																	<i class="fa fa-calendar"></i>
-																</a>
-															</span>
-														</div>
-													</div>
+												<label class="control-label" for="prepended-input">
+													제품(서비스) 컨텐츠 &nbsp;
+												</label>
+												<div class="col-sm-8">
+													입력창이 좁을 경우 : <button type="button" class="btn btn-warning">팝업 창으로 편집 하기</button>
 												</div>
-											</div>
-											<div class="control-group">
-												<label
-													class="control-label"
-													for="max-length"
-													style="color: #f8f8f8; width: 25% !important"
-													>버전 내용</label
-												>
+												<div class="controls form-group">
+													<form
+															id="fileupload"
+															action="server/php"
+															method="POST"
+															enctype="multipart/form-data"
+													>
+														<div class="row" style="text-align: center">
+															<div class="col-md-11">
+																<div id="dropzone" class="dropzone">
+																	<i class="fa fa-cloud-upload"></i>
+																	Drop files here
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12 fileupload-progress fade font12">
+																<!-- The global progress bar -->
+																<div
+																		class="progress progress-success progress-striped active font12"
+																		role="progressbar"
+																		aria-valuemin="0"
+																		aria-valuemax="100"
+																>
+																	<div class="bar" style="width: 0%"></div>
+																</div>
+																<!-- The extended global progress information -->
+																<div class="progress-extended font12">&nbsp;</div>
+															</div>
+														</div>
+														<div class="form-actions fileupload-buttonbar no-margin">
+							<span class="btn btn-sm btn-inverse fileinput-button">
+								<i class="fa fa-plus"></i>
+								<span>Add files...</span>
+								<input type="file" name="files[]" multiple="" />
+							</span>
+															<button type="submit" class="btn btn-inverse btn-sm start">
+																<i class="fa fa-upload"></i>
+																<span>Start upload</span>
+															</button>
+															<button type="reset" class="btn btn-inverse btn-sm cancel">
+																<i class="fa fa-ban"></i>
+																<span>Cancel upload</span>
+															</button>
+														</div>
+														<div class="fileupload-loading">
+															<i class="fa fa-spin fa-spinner"></i>
+														</div>
+														<!-- The table listing the files available for upload/download -->
+														<table
+																role="presentation"
+																class="table table-striped"
+																style="margin-bottom: 5px"
+														>
+															<tbody
+																	class="files"
+																	data-toggle="modal-gallery"
+																	data-target="#modal-gallery"
+															></tbody>
+														</table>
+													</form>
+												</div>
 												<br /><br />
 												<div class="controls form-group">
 													<div class="col-sm-12">
@@ -367,39 +440,21 @@
 										</fieldset>
 									</form>
 								</div>
-								<div
-									class="form-actions"
-									style="float: right; margin-top: 0px !important"
-								>
+								<div class="form-actions" style="float: right; margin-top: 0px !important;">
 									<div>
-										<button type="button" class="btn btn-default">
-											팝업 창으로 보기
-										</button>
-										<button type="button" id="versionUpdate" class="btn btn-primary">
-											Save Changes
-										</button>
+										<button type="button" class="btn btn-default">팝업 창으로 보기</button>
+										<button type="button" id="versionUpdate" class="btn btn-primary">Save Changes</button>
 									</div>
 								</div>
 							</div>
 							<div id="dropdown1" class="tab-pane">
-								<p>삭제 하시겠습니까?</p>
+								<p>
+									삭제 하시겠습니까?
+								</p>
 								<p><strong>Jira 프로젝트에서 버전은 삭제되지 않습니다.</strong></p>
-								<p>
-									<strong
-										>( 주의하세요 ) A-RMS 의 버전 하위 요구사항은 삭제됩니다.</strong
-									>
-								</p>
-								<p>
-									<strong
-										>( 주의하세요 ) 삭제된 요구사항과 연결되 Jira 이슈는
-										유지됩니다.</strong
-									>
-								</p>
-								<p>
-									<strong
-										>( 주의하세요 ) 삭제된 요구사항은 통계에 반영되지 않습니다.</strong
-									>
-								</p>
+								<p><strong>( 주의하세요 ) A-RMS 의 버전 하위 요구사항은 삭제됩니다.</strong></p>
+								<p><strong>( 주의하세요 ) 삭제된 요구사항과 연결되 Jira 이슈는 유지됩니다.</strong></p>
+								<p><strong>( 주의하세요 ) 삭제된 요구사항은 통계에 반영되지 않습니다.</strong></p>
 								<div>
 									<button id="delVersion" class="btn btn-danger">Delete Version</button>
 									<button class="btn btn-default">Cancel</button>
@@ -410,30 +465,30 @@
 				</div>
 			</div>
 			<div
-				id="myModal2"
-				class="modal fade"
-				tabindex="-1"
-				role="dialog"
-				aria-labelledby="myModalLabel"
-				aria-hidden="true"
-				style="display: none"
+					id="myModal2"
+					class="modal fade"
+					tabindex="-1"
+					role="dialog"
+					aria-labelledby="myModalLabel"
+					aria-hidden="true"
+					style="display: none"
 			>
 				<div class="modal-dialog" style="width: 70%; height: 80%">
 					<div class="modal-content modalDarkBack">
 						<div class="modal-header" style="padding: 0px; border-bottom: 0px">
 							<button
-								type="button"
-								class="close"
-								data-dismiss="modal"
-								aria-hidden="true"
-								style="color: #ffffff; font-size: 20px; opacity: 0.8; padding: 5px"
+									type="button"
+									class="close"
+									data-dismiss="modal"
+									aria-hidden="true"
+									style="color: #ffffff; font-size: 20px; opacity: 0.8; padding: 5px"
 							>
 								×
 							</button>
 							<h4
-								class="modal-title font14"
-								id="myModalLabel2"
-								style="color: #f8f8f8; text-align: left; padding: 5px"
+									class="modal-title font14"
+									id="myModalLabel2"
+									style="color: #f8f8f8; text-align: left; padding: 5px"
 							>
 								<span class="font13" style="font-weight: bold">
 									<i class="fa fa-edit"></i> 제품(서비스) 신규 버전 등록 팝업
@@ -450,17 +505,17 @@
 								<fieldset>
 									<div class="control-group">
 										<label class="control-label" style="color: #f8f8f8"
-											>제품<sup>서비스</sup> 이름 :
+										>제품<sup>서비스</sup> 이름 :
 										</label>
 										<div class="controls form-group">
 											<div class="col-sm-8">
 												<input
-													type="text"
-													id="tooltip-enabled-service-name"
-													class="form-control"
-													data-placement="top"
-													data-original-title="Some explanation text here"
-													placeholder="Product(Service) name"
+														type="text"
+														id="tooltip-enabled-service-name"
+														class="form-control"
+														data-placement="top"
+														data-original-title="Some explanation text here"
+														placeholder="Product(Service) name"
 												/>
 											</div>
 										</div>
@@ -470,12 +525,12 @@
 										<div class="controls form-group">
 											<div class="col-sm-8">
 												<input
-													type="text"
-													id="tooltip-enabled-service-version"
-													class="form-control"
-													data-placement="top"
-													data-original-title="Some explanation text here"
-													placeholder="Product(Service) version"
+														type="text"
+														id="tooltip-enabled-service-version"
+														class="form-control"
+														data-placement="top"
+														data-original-title="Some explanation text here"
+														placeholder="Product(Service) version"
 												/>
 											</div>
 										</div>
@@ -489,21 +544,21 @@
 											<div class="col-sm-8">
 												<div class="input-group">
 													<input
-														id="btn-enabled-date"
-														class="form-control"
-														type="text"
-														name="btn-enabled-date"
-														value=""
-														pattern="/^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/"
+															id="btn-enabled-date"
+															class="form-control"
+															type="text"
+															name="btn-enabled-date"
+															value=""
+															pattern="/^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/"
 													/>
 
 													<span class="input-group-btn">
 														<a
-															href="#"
-															id="btn-select-calendar-popup"
-															class="btn btn-danger"
-															data-date-format="yyyy/mm/dd"
-															data-date="2022/11/11"
+																href="#"
+																id="btn-select-calendar-popup"
+																class="btn btn-danger"
+																data-date-format="yyyy/mm/dd"
+																data-date="2022/11/11"
 														>
 															<i class="fa fa-calendar"></i>
 														</a>
@@ -514,30 +569,30 @@
 									</div>
 									<div class="control-group">
 										<label
-											class="control-label"
-											for="tooltip-enabled"
-											style="color: #f8f8f8"
-											>종료 날짜</label
+												class="control-label"
+												for="tooltip-enabled"
+												style="color: #f8f8f8"
+										>종료 날짜</label
 										>
 										<div class="controls form-group">
 											<div class="col-sm-8">
 												<div class="input-group">
 													<input
-														id="btn-end-date"
-														class="form-control"
-														type="text"
-														name="btn-enabled-date"
-														value=""
-														pattern="/^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/"
+															id="btn-end-date"
+															class="form-control"
+															type="text"
+															name="btn-enabled-date"
+															value=""
+															pattern="/^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/"
 													/>
 
 													<span class="input-group-btn">
 														<a
-															href="#"
-															id="btn-end-calendar"
-															class="btn btn-danger"
-															data-date-format="yyyy/mm/dd"
-															data-date="2022/11/11"
+																href="#"
+																id="btn-end-calendar"
+																class="btn btn-danger"
+																data-date-format="yyyy/mm/dd"
+																data-date="2022/11/11"
 														>
 															<i class="fa fa-calendar"></i>
 														</a>
@@ -548,7 +603,7 @@
 									</div>
 									<div class="control-group">
 										<label class="control-label" for="max-length" style="color: #f8f8f8"
-											>버전 내용</label
+										>버전 내용</label
 										>
 										<div class="controls form-group">
 											<div class="col-sm-8">
@@ -562,20 +617,15 @@
 							</form>
 						</div>
 						<div
-							class="modal-footer"
-							style="
+								class="modal-footer"
+								style="
 								background-color: transparent;
 								padding: 5px;
 								text-align: right;
 								border-top: 0px;
 							"
 						>
-							<button
-								type="button"
-								id="close-version"
-								class="btn btn-default"
-								data-dismiss="modal"
-							>
+							<button type="button" id="close-version" class="btn btn-default" data-dismiss="modal">
 								Close
 							</button>
 							<button type="button" id="regist-version" class="btn btn-primary">
@@ -646,7 +696,7 @@
 		box-shadow: none;
 	}
 
-	/* #service-reviewers,
+	#service-reviewers,
 	#service-reviewers a {
 		display: flex;
 		align-items: center;
@@ -656,7 +706,7 @@
 
 	#service-reviewers a {
 		gap: 5px;
-	} */
+	}
 
 	.profile-image {
 		width: 24px;
@@ -667,147 +717,6 @@
 	.profile-image img {
 		width: 100%;
 	}
-	.dropzone {
-		text-align: center;
-	}
-	.modalDarkBack {
-		background: rgb(51 51 51 / 94%) !important;
-		border: 1px solid rgb(51 51 51) !important;
-	}
-
-	/*!
- * Datepicker for Bootstrap
- *
- * Copyright 2012 Stefan Petre
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- */
-	.datepicker {
-		z-index: 9999;
-		top: 0;
-		left: 0;
-		padding: 4px;
-		margin-top: 1px;
-		color: #555555;
-		-webkit-border-radius: 1px;
-		-moz-border-radius: 1px;
-		-ms-border-radius: 1px;
-		-o-border-radius: 1px;
-		border-radius: 1px;
-		/*.dow {
-            border-top: 1px solid #ddd !important;
-        }*/
-	}
-
-	.datepicker:before {
-		content: "";
-		display: inline-block;
-		border-left: 7px solid transparent;
-		border-right: 7px solid transparent;
-		border-bottom: 7px solid #ccc;
-		border-bottom-color: rgba(0, 0, 0, 0.2);
-		position: absolute;
-		top: -7px;
-		left: 6px;
-	}
-
-	.datepicker:after {
-		content: "";
-		display: inline-block;
-		border-left: 6px solid transparent;
-		border-right: 6px solid transparent;
-		border-bottom: 6px solid white;
-		position: absolute;
-		top: -6px;
-		left: 7px;
-	}
-
-	.datepicker > div {
-		display: none;
-	}
-
-	.datepicker table {
-		width: 100%;
-		margin: 0;
-	}
-
-	.datepicker td,
-	.datepicker th {
-		text-align: center;
-		width: 20px;
-		height: 20px;
-		-webkit-border-radius: 1px;
-		-moz-border-radius: 1px;
-		-ms-border-radius: 1px;
-		-o-border-radius: 1px;
-		border-radius: 1px;
-	}
-
-	.datepicker td.day:hover {
-		background: #f8f8f8;
-		cursor: pointer;
-	}
-
-	.datepicker td.day.disabled {
-		color: #f8f8f8;
-	}
-
-	.datepicker td.old,
-	.datepicker td.new {
-		color: white;
-	}
-
-	.datepicker td.active,
-	.datepicker td.active:hover {
-		background: #618fb0;
-		color: #fff;
-	}
-
-	.datepicker td span {
-		display: block;
-		width: 47px;
-		height: 54px;
-		line-height: 54px;
-		float: left;
-		margin: 2px;
-		cursor: pointer;
-		-webkit-border-radius: 1px;
-		-moz-border-radius: 1px;
-		-ms-border-radius: 1px;
-		-o-border-radius: 1px;
-		border-radius: 1px;
-	}
-
-	.datepicker td span:hover {
-		background: #eeeeee;
-	}
-
-	.datepicker td span.active {
-		background: #618fb0;
-		color: #fff;
-	}
-
-	.datepicker td span.old {
-		color: #999999;
-	}
-
-	.datepicker th.switch {
-		width: 145px;
-	}
-
-	.datepicker th.next,
-	.datepicker th.prev {
-		font-size: 19.5px;
-	}
-
-	.datepicker thead tr:first-child th {
-		cursor: pointer;
-	}
-
-	.datepicker thead tr:first-child th:hover {
-		background: #eeeeee;
-	}
 </style>
 <script type="text/javascript" charset="utf-8">
 	//<![CDATA[
@@ -817,7 +726,5 @@
 
 	//]]>
 </script>
-
-<!-- 오류로 인한 임시 주석 -->
 <script src="../reference/light-blue/js/fileupload.js"></script>
 <script type="text/javascript" src="js/pdService.js" charset="utf-8"></script>
