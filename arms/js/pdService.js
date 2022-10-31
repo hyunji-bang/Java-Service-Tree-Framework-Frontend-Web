@@ -4,7 +4,6 @@ let versionList; // 선택한 제품 리스트
 let selectVersion; // 선택한 버전 아이디
 
 // --- 에디터 설정 --- //
-//CKEDITOR.replace("editor");
 CKEDITOR.replace("input_pdservice_editor");
 CKEDITOR.replace("modal-editor");
 
@@ -15,6 +14,91 @@ $("#modalPopupId").click(function () {
 		.find(".cke_contents:eq(0)")
 		.css("height", height + "px");
 });
+
+// --- select2 설정 --- //
+$(".js-data-example-ajax").select2({
+	maximumSelectionLength: 5,
+	width: 'resolve',
+	ajax: {
+        url: "https://api.github.com/search/repositories",
+        dataType: "json",
+        delay: 250,
+        data: function (params) {
+            return {
+                q: params.term, // search term
+                page: params.page,
+            };
+        },
+        processResults: function (data, params) {
+            // parse the results into the format expected by Select2
+            // since we are using custom formatting functions we do not need to
+            // alter the remote JSON data, except to indicate that infinite
+            // scrolling can be used
+            params.page = params.page || 1;
+
+            return {
+                results: data.items,
+                pagination: {
+                    more: params.page * 30 < data.total_count,
+                },
+            };
+        },
+        cache: true,
+    },
+    placeholder: "리뷰어 설정을 위한 계정명을 입력해 주세요",
+    minimumInputLength: 1,
+    templateResult: formatRepo,
+    templateSelection: formatRepoSelection,
+});
+
+function formatRepo(repo) {
+	if (repo.loading) {
+		return repo.text;
+	}
+
+	var $container = $(
+		"<div class='select2-result-repository clearfix'>" +
+		"<div class='select2-result-repository__meta'>" +
+		"<div class='select2-result-repository__title'></div>" +
+		"<div class='select2-result-repository__description'></div>" +
+		"<div class='select2-result-repository__statistics'>" +
+		"<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> </div>" +
+		"<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> </div>" +
+		"<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> </div>" +
+		"</div>" +
+		"</div>" +
+		"</div>"
+	);
+
+	$container.find(".select2-result-repository__title").text(repo.full_name);
+	$container
+		.find(".select2-result-repository__description")
+		.text(repo.description);
+	$container
+		.find(".select2-result-repository__forks")
+		.append(repo.forks_count + " Forks");
+	$container
+		.find(".select2-result-repository__stargazers")
+		.append(repo.stargazers_count + " Stars");
+	$container
+		.find(".select2-result-repository__watchers")
+		.append(repo.watchers_count + " Watchers");
+
+	return $container;
+}
+
+function formatRepoSelection(repo) {
+	return repo.full_name || repo.text;
+}
+
+$('.js-data-example-ajax').on('select2:selecting', function (e) {
+	var heightValue = $('#editView-pdService-reviewer').height();
+	var resultValue = heightValue + 20;
+	$('#editView-pdService-reviewer').css('height',resultValue+'px');
+	var data = e.params.data;
+	console.log(data);
+});
+// Code for the menu buttons
 
 // document ready
 $(function () {
@@ -94,3 +178,23 @@ function pdServiceDataTableClick(c_id) {
 			console.log(xhr + status);
 		});
 }
+
+// 제품(서비스) 변경 저장 버튼
+$("#pdServiceUpdate").click(function () {
+	$.ajax({
+		url: "/auth-user/api/arms/pdservice/updatePdServiceNode.do",
+		type: "POST",
+		data: {
+			c_id: $('#pdserviceTable').DataTable().rows('.selected').data()[0].c_id,
+			c_title: $("#editView-pdService-name").val(),
+			c_owner: $('#editView-pdService-owner').select2('data'),
+			c_contents: CKEDITOR.instances["input_pdservice_editor"].getData(),
+		},
+		statusCode: {
+			200: function () {
+				console.log("성공!");
+				//모달 팝업 끝내고
+			},
+		},
+	});
+});
