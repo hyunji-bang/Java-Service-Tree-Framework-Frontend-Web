@@ -20,15 +20,17 @@ $(".js-data-example-ajax").select2({
 	maximumSelectionLength: 5,
 	width: 'resolve',
 	ajax: {
-        url: "https://api.github.com/search/repositories",
+		url: function (params) {
+			return '/auth-check/getUsers/' + params.term;
+		},
         dataType: "json",
         delay: 250,
-        data: function (params) {
-            return {
-                q: params.term, // search term
-                page: params.page,
-            };
-        },
+        //data: function (params) {
+        //    return {
+        //        q: params.term, // search term
+        //        page: params.page,
+        //    };
+        //},
         processResults: function (data, params) {
             // parse the results into the format expected by Select2
             // since we are using custom formatting functions we do not need to
@@ -37,7 +39,7 @@ $(".js-data-example-ajax").select2({
             params.page = params.page || 1;
 
             return {
-                results: data.items,
+                results: data,
                 pagination: {
                     more: params.page * 30 < data.total_count,
                 },
@@ -47,48 +49,30 @@ $(".js-data-example-ajax").select2({
     },
     placeholder: "리뷰어 설정을 위한 계정명을 입력해 주세요",
     minimumInputLength: 1,
-    templateResult: formatRepo,
+    templateResult: formatUser,
     templateSelection: formatRepoSelection,
 });
 
-function formatRepo(repo) {
-	if (repo.loading) {
-		return repo.text;
-	}
-
+function formatUser(jsonData) {
 	var $container = $(
-		"<div class='select2-result-repository clearfix'>" +
-		"<div class='select2-result-repository__meta'>" +
-		"<div class='select2-result-repository__title'></div>" +
-		"<div class='select2-result-repository__description'></div>" +
-		"<div class='select2-result-repository__statistics'>" +
-		"<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> </div>" +
-		"<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> </div>" +
-		"<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> </div>" +
-		"</div>" +
+		"<div class='select2-result-jsonData clearfix'>" +
+		"<div class='select2-result-jsonData__meta'>" +
+		"<div class='select2-result-jsonData__username'><i class='fa fa-flash'></i></div>" +
+		"<div class='select2-result-jsonData__id'><i class='fa fa-star'></i></div>" +
 		"</div>" +
 		"</div>"
 	);
 
-	$container.find(".select2-result-repository__title").text(repo.full_name);
+	$container.find(".select2-result-jsonData__username").text(jsonData.username);
 	$container
-		.find(".select2-result-repository__description")
-		.text(repo.description);
-	$container
-		.find(".select2-result-repository__forks")
-		.append(repo.forks_count + " Forks");
-	$container
-		.find(".select2-result-repository__stargazers")
-		.append(repo.stargazers_count + " Stars");
-	$container
-		.find(".select2-result-repository__watchers")
-		.append(repo.watchers_count + " Watchers");
+		.find(".select2-result-jsonData__id")
+		.text(jsonData.id);
 
 	return $container;
 }
 
-function formatRepoSelection(repo) {
-	return repo.full_name || repo.text;
+function formatRepoSelection(jsonData) {
+	return jsonData.username;
 }
 
 $('.js-data-example-ajax').on('select2:selecting', function (e) {
