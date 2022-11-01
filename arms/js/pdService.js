@@ -72,7 +72,7 @@ function formatUser(jsonData) {
 }
 
 function formatRepoSelection(jsonData) {
-	return jsonData.username;
+	return "[" + jsonData.username + "] - "+ jsonData.id;
 }
 
 $('.js-data-example-ajax').on('select2:selecting', function (e) {
@@ -171,7 +171,8 @@ $("#pdServiceUpdate").click(function () {
 		data: {
 			c_id: $('#pdserviceTable').DataTable().rows('.selected').data()[0].c_id,
 			c_title: $("#editView-pdService-name").val(),
-			c_owner: $('#editView-pdService-owner').select2('data'),
+			c_owner: $('#editView-pdService-owner').val(),
+            c_reviewers: $('#editView-pdService-reviewers').val(),
 			c_contents: CKEDITOR.instances["input_pdservice_editor"].getData(),
 		},
 		statusCode: {
