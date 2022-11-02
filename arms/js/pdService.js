@@ -164,19 +164,8 @@ function pdServiceDataTableClick(c_id) {
 			$("#editView-pdService-reviewer04").val(json.c_reviewer04);
 			$("#editView-pdService-reviewer05").val(json.c_reviewer05);
 
-			var gooddata = {
-				id: 1,
-				text: 'Barn owl',
-			};
-
 			var newOption = new Option(json.c_owner, json.c_owner, true, true);
 			$('#editView-pdService-owner').append(newOption).trigger('change');
-			$('#editView-pdService-owner').trigger({
-				type: 'select2:select',
-				params: {
-					data: gooddata
-				}
-			});
 
 			CKEDITOR.instances.input_pdservice_editor.setData(json.c_contents);
 		})
