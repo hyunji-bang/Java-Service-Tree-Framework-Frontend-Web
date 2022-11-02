@@ -170,38 +170,42 @@ function pdServiceDataTableClick(c_id) {
 			var reviewer04Option = new Option(json.c_reviewer04, json.c_reviewer04, true, true);
 			var reviewer05Option = new Option(json.c_reviewer05, json.c_reviewer05, true, true);
 
-			var multifyValue = 0;
+			var multifyValue = 1;
 			console.log(json.c_reviewer03);
-			if(json.c_reviewer01 != null){
+			if(json.c_reviewer01 != "none"){
 				multifyValue = multifyValue + 1;
 				$('#editView-pdService-reviewers').append(reviewer01Option);
 			}
-			if(json.c_reviewer02 != null){
+			if(json.c_reviewer02 != "none"){
 				multifyValue = multifyValue + 1;
 				$('#editView-pdService-reviewers').append(reviewer02Option);
 			}
-			if(json.c_reviewer03 != null){
+			if(json.c_reviewer03 != "none"){
 				multifyValue = multifyValue + 1;
 				$('#editView-pdService-reviewers').append(reviewer03Option);
 			}
-			if(json.c_reviewer04 != null){
+			if(json.c_reviewer04 != "none"){
 				multifyValue = multifyValue + 1;
 				$('#editView-pdService-reviewers').append(reviewer04Option);
 			}
-			if(json.c_reviewer05 != null){
+			if(json.c_reviewer05 != "none"){
 				multifyValue = multifyValue + 1;
 				$('#editView-pdService-reviewers').append(reviewer05Option);
 			}
-
-			var heightValue = $('#editView-pdService-reviewer').height();
-			console.log("multifyValue ==" + multifyValue);
-			var resultValue = heightValue + ( 20 * multifyValue );
-			$('#editView-pdService-reviewer').css('height',resultValue+'px');
 
 			$('#editView-pdService-reviewers')
 				.trigger('change');
 
 			CKEDITOR.instances.input_pdservice_editor.setData(json.c_contents);
+
+            $('#editView-pdService-reviewer').css('height','20px');
+            setTimeout(function () {
+                var heightValue = $('#editView-pdService-reviewer').height();
+                console.log("multifyValue ==" + multifyValue);
+                var resultValue = heightValue + ( 20 * multifyValue );
+                console.log("resultValue == " + resultValue);
+                $('#editView-pdService-reviewer').css('height',resultValue+'px');
+            }, 250);
 		})
 		// HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
 		.fail(function (xhr, status, errorThrown) {
