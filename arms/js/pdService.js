@@ -87,7 +87,7 @@ function formatRepoSelection(jsonData) {
 	return jsonData.text;
 }
 
-$('.js-data-example-ajax').on('select2:selecting', function (e) {
+$('#editView-pdService-reviewers').on('select2:selecting', function (e) {
 	var heightValue = $('#editView-pdService-reviewer').height();
 	var resultValue = heightValue + 20;
 	$('#editView-pdService-reviewer').css('height',resultValue+'px');
@@ -156,16 +156,50 @@ function pdServiceDataTableClick(c_id) {
 
 			$("#editView-pdService-name").val(json.c_title);
 
+			//clear
 			$('#editView-pdService-owner').val(null).trigger('change');
-
-			$("#editView-pdService-reviewer01").val(json.c_reviewer01);
-			$("#editView-pdService-reviewer02").val(json.c_reviewer02);
-			$("#editView-pdService-reviewer03").val(json.c_reviewer03);
-			$("#editView-pdService-reviewer04").val(json.c_reviewer04);
-			$("#editView-pdService-reviewer05").val(json.c_reviewer05);
-
+			//owner 바인딩
 			var newOption = new Option(json.c_owner, json.c_owner, true, true);
 			$('#editView-pdService-owner').append(newOption).trigger('change');
+
+			//clear
+			$('#editView-pdService-reviewers').val(null).trigger('change');
+			var reviewer01Option = new Option(json.c_reviewer01, json.c_reviewer01, true, true);
+			var reviewer02Option = new Option(json.c_reviewer02, json.c_reviewer02, true, true);
+			var reviewer03Option = new Option(json.c_reviewer03, json.c_reviewer03, true, true);
+			var reviewer04Option = new Option(json.c_reviewer04, json.c_reviewer04, true, true);
+			var reviewer05Option = new Option(json.c_reviewer05, json.c_reviewer05, true, true);
+
+			var multifyValue = 0;
+			console.log(json.c_reviewer03);
+			if(json.c_reviewer01 != null){
+				multifyValue = multifyValue + 1;
+				$('#editView-pdService-reviewers').append(reviewer01Option);
+			}
+			if(json.c_reviewer02 != null){
+				multifyValue = multifyValue + 1;
+				$('#editView-pdService-reviewers').append(reviewer02Option);
+			}
+			if(json.c_reviewer03 != null){
+				multifyValue = multifyValue + 1;
+				$('#editView-pdService-reviewers').append(reviewer03Option);
+			}
+			if(json.c_reviewer04 != null){
+				multifyValue = multifyValue + 1;
+				$('#editView-pdService-reviewers').append(reviewer04Option);
+			}
+			if(json.c_reviewer05 != null){
+				multifyValue = multifyValue + 1;
+				$('#editView-pdService-reviewers').append(reviewer05Option);
+			}
+
+			var heightValue = $('#editView-pdService-reviewer').height();
+			console.log("multifyValue ==" + multifyValue);
+			var resultValue = heightValue + ( 20 * multifyValue );
+			$('#editView-pdService-reviewer').css('height',resultValue+'px');
+
+			$('#editView-pdService-reviewers')
+				.trigger('change');
 
 			CKEDITOR.instances.input_pdservice_editor.setData(json.c_contents);
 		})
@@ -182,6 +216,28 @@ function pdServiceDataTableClick(c_id) {
 
 // 제품(서비스) 변경 저장 버튼
 $("#pdServiceUpdate").click(function () {
+
+	var reviewers01 = "none";
+	var reviewers02 = "none";
+	var reviewers03 = "none";
+	var reviewers04 = "none";
+	var reviewers05 = "none";
+	if($('#editView-pdService-reviewers').select2('data')[0] != undefined){
+		reviewers01 = $('#editView-pdService-reviewers').select2('data')[0].text;
+	}
+	if($('#editView-pdService-reviewers').select2('data')[1] != undefined){
+		reviewers02 = $('#editView-pdService-reviewers').select2('data')[1].text;
+	}
+	if($('#editView-pdService-reviewers').select2('data')[2] != undefined){
+		reviewers03 = $('#editView-pdService-reviewers').select2('data')[2].text;
+	}
+	if($('#editView-pdService-reviewers').select2('data')[3] != undefined){
+		reviewers04 = $('#editView-pdService-reviewers').select2('data')[3].text;
+	}
+	if($('#editView-pdService-reviewers').select2('data')[4] != undefined){
+		reviewers05 = $('#editView-pdService-reviewers').select2('data')[4].text;
+	}
+
 	$.ajax({
 		url: "/auth-user/api/arms/pdservice/updatePdServiceNode.do",
 		type: "POST",
@@ -189,7 +245,11 @@ $("#pdServiceUpdate").click(function () {
 			c_id: $('#pdserviceTable').DataTable().rows('.selected').data()[0].c_id,
 			c_title: $("#editView-pdService-name").val(),
 			c_owner: $('#editView-pdService-owner').select2('data')[0].text,
-            c_reviewers: $('#editView-pdService-reviewers').val(),
+            c_reviewer01: reviewers01,
+			c_reviewer02: reviewers02,
+			c_reviewer03: reviewers03,
+			c_reviewer04: reviewers04,
+			c_reviewer05: reviewers05,
 			c_contents: CKEDITOR.instances["input_pdservice_editor"].getData(),
 		},
 		statusCode: {
