@@ -5,7 +5,7 @@ let selectVersion; // 선택한 버전 아이디
 
 // --- 에디터 설정 --- //
 CKEDITOR.replace("input_pdservice_editor");
-CKEDITOR.replace("modal-editor");
+//CKEDITOR.replace("modal-editor");
 
 // --- 팝업 띄울때 사이즈 조정 -- //
 $("#modalPopupId").click(function () {
