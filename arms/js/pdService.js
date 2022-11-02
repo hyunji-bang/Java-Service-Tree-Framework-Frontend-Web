@@ -72,7 +72,19 @@ function formatUser(jsonData) {
 }
 
 function formatRepoSelection(jsonData) {
-	return "[" + jsonData.username + "] - "+ jsonData.id;
+
+	if( jsonData.id == '' ){
+		jsonData.text = "placeholder";
+	}else{
+
+		if(jsonData.username == undefined){
+			jsonData.text = jsonData.id;
+		}else{
+			jsonData.text = "[" + jsonData.username + "] - "+ jsonData.id;
+		}
+
+	}
+	return jsonData.text;
 }
 
 $('.js-data-example-ajax').on('select2:selecting', function (e) {
@@ -143,12 +155,28 @@ function pdServiceDataTableClick(c_id) {
 			$("#detailView-pdService-contents").html(json.c_contents);
 
 			$("#editView-pdService-name").val(json.c_title);
-			$("#editView-pdService-owner").val(json.c_owner);
+
+			$('#editView-pdService-owner').val(null).trigger('change');
+
 			$("#editView-pdService-reviewer01").val(json.c_reviewer01);
 			$("#editView-pdService-reviewer02").val(json.c_reviewer02);
 			$("#editView-pdService-reviewer03").val(json.c_reviewer03);
 			$("#editView-pdService-reviewer04").val(json.c_reviewer04);
 			$("#editView-pdService-reviewer05").val(json.c_reviewer05);
+
+			var gooddata = {
+				id: 1,
+				text: 'Barn owl',
+			};
+
+			var newOption = new Option(json.c_owner, json.c_owner, true, true);
+			$('#editView-pdService-owner').append(newOption).trigger('change');
+			$('#editView-pdService-owner').trigger({
+				type: 'select2:select',
+				params: {
+					data: gooddata
+				}
+			});
 
 			CKEDITOR.instances.input_pdservice_editor.setData(json.c_contents);
 		})
@@ -171,7 +199,7 @@ $("#pdServiceUpdate").click(function () {
 		data: {
 			c_id: $('#pdserviceTable').DataTable().rows('.selected').data()[0].c_id,
 			c_title: $("#editView-pdService-name").val(),
-			c_owner: $('#editView-pdService-owner').val(),
+			c_owner: $('#editView-pdService-owner').select2('data')[0].text,
             c_reviewers: $('#editView-pdService-reviewers').val(),
 			c_contents: CKEDITOR.instances["input_pdservice_editor"].getData(),
 		},
