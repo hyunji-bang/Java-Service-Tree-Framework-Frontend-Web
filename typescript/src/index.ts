@@ -6,15 +6,14 @@ import * as R from 'ramda';
 import CarImpl from "./standard/CarImpl";
 import CarExtImpl from "./standard/CarExtImpl";
 import ObjExtCarImpl from "./standard/ObjExtCarImpl";
+import Car from "./standard/Car";
 
 //인터페이스로 객체 Person 을 만들어서 loop 돌리는 예제
 let persons: IPerson[] = R.range(0, 5)
     .map((n: number) => new Person("이동민", 99));
 console.log(persons);
 
-
 testMakePerson();
-
 
 
 //object 타입으로 정확하게는 리터럴 객체 선언
@@ -79,14 +78,16 @@ const user3:UserVariousInfo = {
 }
 console.log("인터페이스 객체 -> " + user1.gender);
 console.log("물음표 -> " + user2.gender);
-console.log("키벨류 사용 -> " + user3["1"]);
+console.log("키벨류 사용 -> " + user3[2]); // ----- deep dive
 
 
 // 진짜 인터페이스 사용은 이런것이다.
-const carImpl = new CarImpl();
+const carImpl:Car = new CarImpl();
 console.log("<- CarImpl 사용 -> ");
 carImpl.start();
 carImpl.stop();
+
+var test:Car = new CarImpl();
 
 // 인터페이스 확장 인스턴스 샘플
 const carExtImpl = new CarExtImpl();
