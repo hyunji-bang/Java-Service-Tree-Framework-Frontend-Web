@@ -5,6 +5,7 @@ let dataTableRef; // 데이터테이블 참조 변수
 
 // --- 에디터 설정 --- //
 CKEDITOR.replace("input_pdservice_editor");
+CKEDITOR.replace("extendModalEditor");
 CKEDITOR.replace("modal-editor");
 
 // --- 팝업 띄울때 사이즈 조정 -- //
@@ -13,6 +14,31 @@ $("#modalPopupId").click(function () {
 	$(".modal-body")
 		.find(".cke_contents:eq(0)")
 		.css("height", height + "px");
+});
+$("#extendModalPopupId").click(function () {
+    var height = $(document).height() - 700;
+    $(".modal-body")
+        .find(".cke_contents:eq(0)")
+        .css("height", height + "px");
+
+    // 데이터 셋팅
+    var editorData = CKEDITOR.instances["input_pdservice_editor"].getData();
+    CKEDITOR.instances.extendModalEditor.setData(editorData);
+
+    var selectedId = $('#pdserviceTable').DataTable().rows('.selected').data()[0].c_id;
+    console.log("selectedId ->" + selectedId);
+
+    $("#extend-editView-pdService-name").val($("#editView-pdService-name").val());
+    // c_id: $('#pdserviceTable').DataTable().rows('.selected').data()[0].c_id,
+    //     c_title: $("#editView-pdService-name").val(),
+    //     c_owner: $('#editView-pdService-owner').select2('data')[0].text,
+    //     c_reviewer01: reviewers01,
+    //     c_reviewer02: reviewers02,
+    //     c_reviewer03: reviewers03,
+    //     c_reviewer04: reviewers04,
+    //     c_reviewer05: reviewers05,
+    //     c_contents: CKEDITOR.instances["input_pdservice_editor"].getData(),
+
 });
 
 // --- select2 (사용자 자동완성 검색 ) 설정 --- //
