@@ -54,6 +54,71 @@ function jstreeDataTableReload() {
 	});
 }
 
+// 데이터 테이블 구성 이후 꼭 구현해야 할 메소드 : 열 클릭시 이벤트
+function dataTableClick(selectedData) {
+	$("#versionContents").html("");
+	selectId = selectedData.c_id;
+	selectName = selectedData.c_title;
+	console.log(selectedData.c_id);
+	dataLoad(selectedData.c_id, selectedData.c_title);
+}
+
+//버전 리스트를 재로드하는 함수 ( 버전 추가, 갱신, 삭제 시 호출 )
+function dataLoad(getSelectedText, selectedText) {
+
+	// ajax 처리 후 에디터 바인딩.
+	console.log("dataLoad :: getSelectedID -> " + getSelectedText);
+	$.ajax("/auth-user/api/arms/pdversion/getVersion.do?c_id=" + getSelectedText)
+		.done(function (json) {
+			console.log("dataLoad :: success -> ", json);
+			$("#versionAccordion").jsonMenu("set", json, { speed: 5000 });
+			versionList = json;
+			//version text setting
+			$(".list-group-item").text(selectedText);
+			$("#tooltip-enabled-service-name").val(selectedText);
+
+			//데이터 로드를 사용자에게 알리기
+			Messenger().post({
+				message: 'Version Data 조회를 완료하였습니다.',
+				type: 'success',
+				showCloseButton: true
+			});
+		});
+}
+
+
+//version list html 삽입
+function draw(main, menu) {
+	main.html("");
+
+	let data = `
+			   <li class='list-group-item json-menu-header'>
+				   <strong>product service name</strong>
+			   </li>
+			   <button
+					type="button"
+					class="btn btn-danger btn-block"
+					id="modalPopupId"
+					data-toggle="modal"
+					data-target="#myModal2"
+				>신규 버전 등록하기</button>`;
+
+	for (let i = 0; i < menu.length; i++) {
+		data += `
+			   <div class="panel">
+				   <div class="panel-heading">
+					   <a class="accordion-toggle collapsed" data-toggle="collapse" href="" onclick="versionClick(${menu[i].c_id}); return false;">
+						   ${menu[i].c_title}
+					   </a>
+				   </div>
+			   </div>`;
+	}
+
+	main.html(data);
+}
+
+
+
 /* ---------------------------------------- d3 config ------------------------------------ */
 /* d3 */
 var treeData = {
@@ -290,7 +355,7 @@ dragListener = d3.behavior
 		} else {
 			try {
 				clearTimeout(panTimer);
-			} catch (e) {}
+			} catch (e) { }
 		}
 
 		d.x0 += d3.event.dy;
@@ -441,6 +506,7 @@ function toggleChildren(d) {
 
 // Toggle children on click.
 function click(d) {
+	console.log('clickEvent', d)
 	if (d3.event.defaultPrevented) return; // click suppressed
 	d = toggleChildren(d);
 	update(d);
