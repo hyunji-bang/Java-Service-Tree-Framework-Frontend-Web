@@ -227,6 +227,8 @@ function dataTableBuild(jQueryElementID, serviceNameForURL, columnList, rowsGrou
 	$(".dataTables_length").find("select:eq(0)").addClass("darkBack");
 	$(".dataTables_length").find("select:eq(0)").css("min-height", "30px");
 	//min-height: 30px;
+
+	return tempDataTable;
 }
 
 // --- jstree build 설정 -- //

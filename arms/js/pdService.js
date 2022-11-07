@@ -2,6 +2,7 @@ let selectId; // 제품 아이디
 let selectName; // 제품 이름
 let versionList; // 선택한 제품 리스트
 let selectVersion; // 선택한 버전 아이디
+let dataTableRef;
 
 // --- 에디터 설정 --- //
 CKEDITOR.replace("input_pdservice_editor");
@@ -105,7 +106,7 @@ $('#editView-pdService-reviewers').on('select2:selecting', function (e) {
 });
 // Code for the menu buttons
 
-// 신규 버전 등록 버튼
+// 신규 제품(서비스) 등록 버튼
 $("#regist-pdService").click(function () {
 	console.log("save btn");
 	var reviewers01 = "none";
@@ -149,7 +150,8 @@ $("#regist-pdService").click(function () {
 				console.log("성공!");
 				//모달 팝업 끝내고
 				$('#close-pdService').trigger('click');
-				//버전 데이터 재 로드
+				//데이터 테이블 데이터 재 로드
+				dataTableRef.ajax.reload();
 			},
 		},
 	});
@@ -166,22 +168,26 @@ $(function () {
 
 });
 
-// --- 데이터 테이블 설정 --- //
-$(function () {
 
+$(function () {
+	dataTableLoad();
+});
+
+// --- 데이터 테이블 설정 --- //
+function dataTableLoad() {
 	// 데이터 테이블 컬럼 및 열그룹 구성
 	var columnList = [
 		{ data: "c_id" },
 		{ data: "c_title" },
 	];
 	var rowsGroupList = [];
-	dataTableBuild("#pdserviceTable","pdservice", columnList, rowsGroupList);
+	dataTableRef = dataTableBuild("#pdserviceTable","pdservice", columnList, rowsGroupList);
 
 	// ----- 데이터 테이블 빌드 이후 별도 스타일 구성 ------ //
 	//datatable 좌상단 datarow combobox style
 	$("body").find("[aria-controls='pdserviceTable']").css("width", "100px");
 	$("select[name=pdserviceTable_length]").css("width", "50px");
-});
+}
 
 // 탭 클릭 이벤트
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
