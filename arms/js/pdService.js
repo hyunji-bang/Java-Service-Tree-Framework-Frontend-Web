@@ -5,11 +5,12 @@ let selectVersion; // 선택한 버전 아이디
 
 // --- 에디터 설정 --- //
 CKEDITOR.replace("input_pdservice_editor");
-//CKEDITOR.replace("modal-editor");
+CKEDITOR.replace("modal-editor");
 
 // --- 팝업 띄울때 사이즈 조정 -- //
 $("#modalPopupId").click(function () {
-	var height = $(document).height() - 400;
+	var height = $(document).height() - 600;
+	console.log("height -> " + height);
 	$(".modal-body")
 		.find(".cke_contents:eq(0)")
 		.css("height", height + "px");
@@ -123,9 +124,25 @@ $(function () {
 // 데이터 테이블 구성 이후 꼭 구현해야 할 메소드 : 열 클릭시 이벤트
 function dataTableClick(selectedData){
 	selectId = selectedData.c_id;
+	$('#fileIdLink').val(selectedData.c_id);
+	console.log("selectedData.c_id -> " + selectedData.c_id);
 	selectName = selectedData.c_title;
-	console.log(selectedData.c_id);
 	pdServiceDataTableClick(selectedData.c_id);
+
+	// Load existing files:
+	var $fileupload = $('#fileupload');
+	// Load existing files:
+	$.ajax({
+		// Uncomment the following to send cross-domain cookies:
+		//xhrFields: {withCredentials: true},
+		url: '/auth-user/api/arms/fileRepository/getFilesByNode.do',
+		data: { c_id: 1, fileIdLink: selectId },
+		dataType: 'json',
+		context: $fileupload[0]
+	}).done(function (result) {
+		$(this).fileupload('option', 'done').call(this, null, {result: result});
+	});
+
 }
 
 //제품(서비스) 클릭할 때 동작하는 함수
@@ -263,4 +280,53 @@ $("#pdServiceUpdate").click(function () {
 			},
 		},
 	});
+});
+
+
+/** file upload **/
+$(function () {
+	'use strict';
+
+	// Initialize the jQuery File Upload widget:
+	var $fileupload = $('#fileupload');
+	$fileupload.fileupload({
+		// Uncomment the following to send cross-domain cookies:
+		//xhrFields: {withCredentials: true},
+		autoUpload: true,
+		url: '/auth-user/api/arms/pdservice/uploadFileToNode.do',
+		dropZone: $('#dropzone')
+	});
+
+	// Enable iframe cross-domain access via redirect option:
+	$fileupload.fileupload(
+		'option',
+		'redirect',
+		window.location.href.replace(
+			/\/[^\/]*$/,
+			'/cors/result.html?%s'
+		)
+	);
+
+	// Load existing files:
+	$.ajax({
+		// Uncomment the following to send cross-domain cookies:
+		//xhrFields: {withCredentials: true},
+		url: $fileupload.fileupload('option', 'url'),
+		dataType: 'json',
+		context: $fileupload[0]
+	}).done(function (result) {
+		$(this).fileupload('option', 'done').call(this, null, {result: result});
+	});
+
+});
+
+$('#fileupload').bind('fileuploadsubmit', function (e, data) {
+	// The example input, doesn't have to be part of the upload form:
+	var input = $('#fileIdLink');
+	data.formData = {fileIdLink: input.val()};
+	if (!data.formData.fileIdLink) {
+		data.context.find('button').prop('disabled', false);
+		input.focus();
+		return false;
+	}
 });

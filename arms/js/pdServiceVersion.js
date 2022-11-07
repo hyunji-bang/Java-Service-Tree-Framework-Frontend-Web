@@ -127,6 +127,7 @@ $("#versionUpdate").click(function () {
     });
 });
 
+
 // 신규 버전 등록 버튼
 $("#regist-version").click(function () {
 	console.log("save btn");
@@ -146,14 +147,13 @@ $("#regist-version").click(function () {
 			200: function () {
 				console.log("성공!");
 				//모달 팝업 끝내고
-                $('#close-version').trigger('click');
-                //버전 데이터 재 로드
-                dataLoad(selectId, selectName);
+				$('#close-version').trigger('click');
+				//버전 데이터 재 로드
+				dataLoad(selectId, selectName);
 			},
 		},
 	});
 });
-
 //버전 리스트를 재로드하는 함수 ( 버전 추가, 갱신, 삭제 시 호출 )
 function dataLoad(getSelectedText, selectedText) {
 
