@@ -219,6 +219,12 @@ function dataTableBuild(jQueryElementID, serviceNameForURL, endPointUrl="/getMon
 		}
 
 		var selectedData = tempDataTable.row(this).data();
+		selectedData.selectedIndex = $(this).closest('tr').index();
+
+		var info = tempDataTable.page.info();
+		console.log( 'Showing page: '+info.page+' of '+info.pages );
+		selectedData.selectedPage = info.page;
+
 		dataTableClick(selectedData);
 	});
 
