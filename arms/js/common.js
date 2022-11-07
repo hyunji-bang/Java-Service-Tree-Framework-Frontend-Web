@@ -176,7 +176,7 @@ function jstreeDataTableReload(tableDataUrl, dataList, options, selectedView) {
 }
 
 // --- dataTable build 설정 --- //
-function dataTableBuild(jQueryElementID, serviceNameForURL, columnList, rowsGroupList = null){
+function dataTableBuild(jQueryElementID, serviceNameForURL, endPointUrl="/getMonitor.do", columnList, rowsGroupList = null){
 
 	console.log("dataTableBuild :: jQueryElementID -> " + jQueryElementID + ", serviceNameForURL -> " + serviceNameForURL);
 	console.log("dataTableBuild :: columnList -> " + columnList + ", rowsGroupList -> " + rowsGroupList);
@@ -193,7 +193,7 @@ function dataTableBuild(jQueryElementID, serviceNameForURL, columnList, rowsGrou
 
 	var tempDataTable = $(jQueryElementID).DataTable({
 		ajax: {
-			url: authCheckURL + "/api/arms/" + serviceNameForURL +"/getMonitor.do",
+			url: authCheckURL + "/api/arms/" + serviceNameForURL + endPointUrl,
 			dataSrc: "",
 		},
 		destroy: true,

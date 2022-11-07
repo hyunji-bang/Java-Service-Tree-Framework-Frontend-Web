@@ -11,7 +11,6 @@ CKEDITOR.replace("modal-editor");
 // --- 팝업 띄울때 사이즈 조정 -- //
 $("#modalPopupId").click(function () {
 	var height = $(document).height() - 600;
-	console.log("height -> " + height);
 	$(".modal-body")
 		.find(".cke_contents:eq(0)")
 		.css("height", height + "px");
@@ -93,22 +92,17 @@ $('#popup-editView-pdService-reviewer').on('select2:selecting', function (e) {
 	var heightValue = $('#popup-editView-pdService-reviewer').height();
 	var resultValue = heightValue + 20;
 	$('#popup-editView-pdService-reviewer').css('height',resultValue+'px');
-	var data = e.params.data;
-	console.log(data);
 });
 
 $('#editView-pdService-reviewers').on('select2:selecting', function (e) {
 	var heightValue = $('#editView-pdService-reviewer').height();
 	var resultValue = heightValue + 20;
 	$('#editView-pdService-reviewer').css('height',resultValue+'px');
-	var data = e.params.data;
-	console.log(data);
 });
 // Code for the menu buttons
 
 // 신규 제품(서비스) 등록 버튼
 $("#regist-pdService").click(function () {
-	console.log("save btn");
 	var reviewers01 = "none";
 	var reviewers02 = "none";
 	var reviewers03 = "none";
@@ -147,7 +141,6 @@ $("#regist-pdService").click(function () {
 		},
 		statusCode: {
 			200: function () {
-				console.log("성공!");
 				//모달 팝업 끝내고
 				$('#close-pdService').trigger('click');
 				//데이터 테이블 데이터 재 로드
@@ -161,7 +154,6 @@ $("#regist-pdService").click(function () {
 
 // 신규 제품(서비스) 삭제 버튼
 $("#delete-pdService").click(function () {
-	console.log("delete btn");
 	$.ajax({
 		url: "/auth-user/api/arms/pdservice/removeNode.do",
 		type: "POST",
@@ -204,7 +196,7 @@ function dataTableLoad() {
 		{ data: "c_title" },
 	];
 	var rowsGroupList = [];
-	dataTableRef = dataTableBuild("#pdserviceTable","pdservice", columnList, rowsGroupList);
+	dataTableRef = dataTableBuild("#pdserviceTable","pdservice", "/getPdServiceMonitor.do",columnList, rowsGroupList);
 
 	// ----- 데이터 테이블 빌드 이후 별도 스타일 구성 ------ //
 	//datatable 좌상단 datarow combobox style
@@ -215,8 +207,6 @@ function dataTableLoad() {
 // 탭 클릭 이벤트
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 	var target = $(e.target).attr("href") // activated tab
-
-	console.log("selectId - " + selectId);
 
 	if( target == "#dropdown1"){
 		$('.body-middle').hide();
@@ -233,7 +223,6 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 function dataTableClick(selectedData){
 	selectId = selectedData.c_id;
 	$('#fileIdLink').val(selectedData.c_id);
-	console.log("selectedData.c_id -> " + selectedData.c_id);
 	selectName = selectedData.c_title;
 	pdServiceDataTableClick(selectedData.c_id);
 
@@ -273,27 +262,55 @@ function pdServiceDataTableClick(c_id) {
 	})
 	// HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨.
 		.done(function (json) {
-			console.log(" -> " + json.c_contents);
 
 			$("#detailView-pdService-name").text(json.c_title);
-			$("#detailView-pdService-owner").text(json.c_owner);
-			$("#detailView-pdService-reviewer01").text(json.c_reviewer01);
-			$("#detailView-pdService-reviewer02").text(json.c_reviewer02);
-			$("#detailView-pdService-reviewer03").text(json.c_reviewer03);
-			$("#detailView-pdService-reviewer04").text(json.c_reviewer04);
-			$("#detailView-pdService-reviewer05").text(json.c_reviewer05);
+			if( json.c_owner == null || json.c_owner == "none"){
+				$("#detailView-pdService-owner").text("책임자가 존재하지 않습니다.");
+			}else{
+				$("#detailView-pdService-owner").text(json.c_owner);
+			}
+
+			if( json.c_reviewer01 == null || json.c_reviewer01 == "none"){
+				$("#detailView-pdService-reviewer01").text("리뷰어(연대책임자)가 존재하지 않습니다.");
+			}else{
+				$("#detailView-pdService-reviewer01").text(json.c_reviewer01);
+			}
+
+			if( json.c_reviewer02 == null || json.c_reviewer02 == "none"){
+			}else{
+				$("#detailView-pdService-reviewer02").text(json.c_reviewer02);
+			}
+
+			if( json.c_reviewer03 == null || json.c_reviewer03 == "none"){
+			}else{
+				$("#detailView-pdService-reviewer03").text(json.c_reviewer03);
+			}
+
+			if( json.c_reviewer04 == null || json.c_reviewer04 == "none"){
+			}else{
+				$("#detailView-pdService-reviewer04").text(json.c_reviewer04);
+			}
+
+			if( json.c_reviewer05 == null || json.c_reviewer05 == "none"){
+			}else{
+				$("#detailView-pdService-reviewer05").text(json.c_reviewer05);
+			}
 			$("#detailView-pdService-contents").html(json.c_contents);
 
 			$("#editView-pdService-name").val(json.c_title);
 
 			//clear
 			$('#editView-pdService-owner').val(null).trigger('change');
-			//owner 바인딩
-			var newOption = new Option(json.c_owner, json.c_owner, true, true);
-			$('#editView-pdService-owner').append(newOption).trigger('change');
 
+			if( json.c_owner == null || json.c_owner == "none"){
+				console.log("pdServiceDataTableClick :: json.c_owner empty");
+			}else{
+				var newOption = new Option(json.c_owner, json.c_owner, true, true);
+				$('#editView-pdService-owner').append(newOption).trigger('change');
+			}
 			//clear
 			$('#editView-pdService-reviewers').val(null).trigger('change');
+
 			var reviewer01Option = new Option(json.c_reviewer01, json.c_reviewer01, true, true);
 			var reviewer02Option = new Option(json.c_reviewer02, json.c_reviewer02, true, true);
 			var reviewer03Option = new Option(json.c_reviewer03, json.c_reviewer03, true, true);
@@ -301,39 +318,45 @@ function pdServiceDataTableClick(c_id) {
 			var reviewer05Option = new Option(json.c_reviewer05, json.c_reviewer05, true, true);
 
 			var multifyValue = 1;
-			console.log(json.c_reviewer03);
-			if(json.c_reviewer01 != "none"){
+			if(json.c_reviewer01 == null || json.c_reviewer01 == "none"){
+				console.log("pdServiceDataTableClick :: json.c_reviewer01 empty");
+			}else{
 				multifyValue = multifyValue + 1;
 				$('#editView-pdService-reviewers').append(reviewer01Option);
 			}
-			if(json.c_reviewer02 != "none"){
+			if(json.c_reviewer02 == null || json.c_reviewer02 == "none"){
+				console.log("pdServiceDataTableClick :: json.c_reviewer02 empty");
+			}else{
 				multifyValue = multifyValue + 1;
 				$('#editView-pdService-reviewers').append(reviewer02Option);
 			}
-			if(json.c_reviewer03 != "none"){
+			if(json.c_reviewer03 == null || json.c_reviewer03 == "none"){
+				console.log("pdServiceDataTableClick :: json.c_reviewer03 empty");
+			}else{
 				multifyValue = multifyValue + 1;
 				$('#editView-pdService-reviewers').append(reviewer03Option);
 			}
-			if(json.c_reviewer04 != "none"){
+			if(json.c_reviewer04 == null || json.c_reviewer04 == "none"){
+				console.log("pdServiceDataTableClick :: json.c_reviewer04 empty");
+			}else{
 				multifyValue = multifyValue + 1;
 				$('#editView-pdService-reviewers').append(reviewer04Option);
 			}
-			if(json.c_reviewer05 != "none"){
+			if(json.c_reviewer05 == null || json.c_reviewer05 == "none"){
+				console.log("pdServiceDataTableClick :: json.c_reviewer05 empty");
+			}else{
 				multifyValue = multifyValue + 1;
 				$('#editView-pdService-reviewers').append(reviewer05Option);
 			}
 
-			$('#editView-pdService-reviewers')
-				.trigger('change');
+			$('#editView-pdService-reviewers').trigger('change');
 
 			CKEDITOR.instances.input_pdservice_editor.setData(json.c_contents);
 
             $('#editView-pdService-reviewer').css('height','20px');
             setTimeout(function () {
                 var heightValue = $('#editView-pdService-reviewer').height();
-                console.log("multifyValue ==" + multifyValue);
                 var resultValue = heightValue + ( 20 * multifyValue );
-                console.log("resultValue == " + resultValue);
                 $('#editView-pdService-reviewer').css('height',resultValue+'px');
             }, 250);
 		})
@@ -388,7 +411,6 @@ $("#pdServiceUpdate").click(function () {
 		},
 		statusCode: {
 			200: function () {
-				console.log("성공!");
 				jSuccess($("#editView-pdService-name").val() + "의 데이터가 변경되었습니다.");
 			},
 		},
