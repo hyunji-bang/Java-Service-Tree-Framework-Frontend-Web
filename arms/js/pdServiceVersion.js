@@ -9,11 +9,31 @@ CKEDITOR.replace("modal-editor");
 
 // --- 팝업 띄울때 사이즈 조정 -- //
 $("#modalPopupId").click(function () {
+	// alert()
+	// $("#modalTitle").text('제품(서비스) 신규 버전 등록 팝업');
+	// $("#modalSub").text('선택한 제품(서비스)에 버전을 등록합니다.');
+
+	// var height = $(document).height() - 400;
+	// $(".modal-body")
+	// 	.find(".cke_contents:eq(0)")
+	// 	.css("height", height + "px");
+});
+
+$("#versionPopup").click(function () {
+	// 편집하기 내의 팝업창 css 수정 		
+	$("#modalTitle").text('제품(서비스) 버전 등록 / 변경');
+	$("#modalSub").text('선택한 제품(서비스)에 버전을 등록/변경 합니다.');
 	var height = $(document).height() - 400;
 	$(".modal-body")
 		.find(".cke_contents:eq(0)")
 		.css("height", height + "px");
+
+	// modal - title
 });
+
+
+
+
 
 // document ready
 $(function () {
@@ -21,37 +41,37 @@ $(function () {
 	//사이드 메뉴 처리
 	setSideMenu("sidebar_menu_product", "sidebar_menu_version_manage");
 
-    // DataPicker 처리 부분 ( 팝업 레이어 )
-    $(".date-picker").datepicker({
-        autoclose: true,
-    });
-    //datepicker 만들기
-    const makeDatePicker = (calender) => {
-        calender
-            .datepicker({
-                autoclose: true,
-            })
-            .on("changeDate", function (ev) {
-                const Input = $(this).parent().prev();
-                Input.val(calender.data("date"));
-                if (Input.attr("id") === "input_pdservice_start_date") {
-                    $("#versionStartDate").text(calender.data("date"));
-                } else if (Input.attr("id") === "input_pdservice_end_date") {
-                    $("#versionEndDate").text(calender.data("date"));
-                }
-                calender.datepicker("hide");
-            });
-    };
+	// DataPicker 처리 부분 ( 팝업 레이어 )
+	$(".date-picker").datepicker({
+		autoclose: true,
+	});
+	//datepicker 만들기
+	const makeDatePicker = (calender) => {
+		calender
+			.datepicker({
+				autoclose: true,
+			})
+			.on("changeDate", function (ev) {
+				const Input = $(this).parent().prev();
+				Input.val(calender.data("date"));
+				if (Input.attr("id") === "input_pdservice_start_date") {
+					$("#versionStartDate").text(calender.data("date"));
+				} else if (Input.attr("id") === "input_pdservice_end_date") {
+					$("#versionEndDate").text(calender.data("date"));
+				}
+				calender.datepicker("hide");
+			});
+	};
 
-    const $btnCalendar = $("#btn-select-calendar");
-    const $btnEndCalendar = $("#btn-end-calendar");
-    const $btnCalendarPopup = $("#btn-select-calendar-popup");
-    const $btnEndCalendarPopup = $("#btn-end-calendar-popup");
+	const $btnCalendar = $("#btn-select-calendar");
+	const $btnEndCalendar = $("#btn-end-calendar");
+	const $btnCalendarPopup = $("#btn-select-calendar-popup");
+	const $btnEndCalendarPopup = $("#btn-end-calendar-popup");
 
-    makeDatePicker($btnCalendar);
-    makeDatePicker($btnEndCalendar);
-    makeDatePicker($btnCalendarPopup);
-    makeDatePicker($btnEndCalendarPopup);
+	makeDatePicker($btnCalendar);
+	makeDatePicker($btnEndCalendar);
+	makeDatePicker($btnCalendarPopup);
+	makeDatePicker($btnEndCalendarPopup);
 
 });
 
@@ -64,7 +84,7 @@ $(function () {
 		{ data: "c_title" },
 	];
 	var rowsGroupList = [];
-	dataTableBuild("#pdserviceTable","pdservice", columnList, rowsGroupList);
+	dataTableBuild("#pdserviceTable", "pdservice", columnList, rowsGroupList);
 
 	// ----- 데이터 테이블 빌드 이후 별도 스타일 구성 ------ //
 	//datatable 좌상단 datarow combobox style
@@ -73,11 +93,11 @@ $(function () {
 });
 
 // 데이터 테이블 구성 이후 꼭 구현해야 할 메소드 : 열 클릭시 이벤트
-function dataTableClick(selectedData){
+function dataTableClick(selectedData) {
 	$("#versionContents").html("");
 	selectId = selectedData.c_id;
 	selectName = selectedData.c_title;
-	console.log(selectedData.c_id);
+	console.log('selectedData.c_id : ', selectedData.c_id);
 	dataLoad(selectedData.c_id, selectedData.c_title);
 }
 
@@ -104,27 +124,27 @@ $("#delVersion").click(function () {
 
 // 버전 업데이트 저장 버튼
 $("#versionUpdate").click(function () {
-    console.log("update btn");
-    $.ajax({
-        url: "/auth-user/api/arms/pdversion/updateVersionNode.do",
-        type: "POST",
-        data: {
-            c_id: selectVersion,
-            c_title: $("#input_pdserviceVersion").val(),
-            c_contents: CKEDITOR.instances["input_pdservice_editor"].getData(),
-            c_start_date: $("#input_pdservice_start_date").val(),
-            c_end_date: $("#input_pdservice_end_date").val(),
-        },
-        statusCode: {
-            200: function () {
-                console.log("성공!");
-                //모달 팝업 끝내고
-                $('#close-version').trigger('click');
-                //버전 데이터 재 로드
-                dataLoad(selectId, selectName);
-            },
-        },
-    });
+	console.log("update btn");
+	$.ajax({
+		url: "/auth-user/api/arms/pdversion/updateVersionNode.do",
+		type: "POST",
+		data: {
+			c_id: selectVersion,
+			c_title: $("#input_pdserviceVersion").val(),
+			c_contents: CKEDITOR.instances["input_pdservice_editor"].getData(),
+			c_start_date: $("#input_pdservice_start_date").val(),
+			c_end_date: $("#input_pdservice_end_date").val(),
+		},
+		statusCode: {
+			200: function () {
+				console.log("성공!");
+				//모달 팝업 끝내고
+				$('#close-version').trigger('click');
+				//버전 데이터 재 로드
+				dataLoad(selectId, selectName);
+			},
+		},
+	});
 });
 
 
@@ -168,7 +188,7 @@ function dataLoad(getSelectedText, selectedText) {
 			$(".list-group-item").text(selectedText);
 			$("#tooltip-enabled-service-name").val(selectedText);
 
-            //데이터 로드를 사용자에게 알리기
+			//데이터 로드를 사용자에게 알리기
 			Messenger().post({
 				message: 'Version Data 조회를 완료하였습니다.',
 				type: 'success',
