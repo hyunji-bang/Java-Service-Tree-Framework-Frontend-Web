@@ -88,6 +88,14 @@ function formatRepoSelection(jsonData) {
 	return jsonData.text;
 }
 
+$('#popup-editView-pdService-reviewer').on('select2:selecting', function (e) {
+	var heightValue = $('#popup-editView-pdService-reviewer').height();
+	var resultValue = heightValue + 20;
+	$('#popup-editView-pdService-reviewer').css('height',resultValue+'px');
+	var data = e.params.data;
+	console.log(data);
+});
+
 $('#editView-pdService-reviewers').on('select2:selecting', function (e) {
 	var heightValue = $('#editView-pdService-reviewer').height();
 	var resultValue = heightValue + 20;
@@ -96,6 +104,56 @@ $('#editView-pdService-reviewers').on('select2:selecting', function (e) {
 	console.log(data);
 });
 // Code for the menu buttons
+
+// 신규 버전 등록 버튼
+$("#regist-pdService").click(function () {
+	console.log("save btn");
+	var reviewers01 = "none";
+	var reviewers02 = "none";
+	var reviewers03 = "none";
+	var reviewers04 = "none";
+	var reviewers05 = "none";
+	if($('#editView-pdService-reviewers').select2('data')[0] != undefined){
+		reviewers01 = $('#editView-pdService-reviewers').select2('data')[0].text;
+	}
+	if($('#editView-pdService-reviewers').select2('data')[1] != undefined){
+		reviewers02 = $('#editView-pdService-reviewers').select2('data')[1].text;
+	}
+	if($('#editView-pdService-reviewers').select2('data')[2] != undefined){
+		reviewers03 = $('#editView-pdService-reviewers').select2('data')[2].text;
+	}
+	if($('#editView-pdService-reviewers').select2('data')[3] != undefined){
+		reviewers04 = $('#editView-pdService-reviewers').select2('data')[3].text;
+	}
+	if($('#editView-pdService-reviewers').select2('data')[4] != undefined){
+		reviewers05 = $('#editView-pdService-reviewers').select2('data')[4].text;
+	}
+
+	$.ajax({
+		url: "/auth-user/api/arms/pdservice/addNode.do",
+		type: "POST",
+		data: {
+			ref: 2,
+			c_title: $("#popup-editView-pdService-name").val(),
+			c_type: "default",
+			c_owner: $('#popup-editView-pdService-owner').select2('data')[0].text,
+			c_reviewer01: reviewers01,
+			c_reviewer02: reviewers02,
+			c_reviewer03: reviewers03,
+			c_reviewer04: reviewers04,
+			c_reviewer05: reviewers05,
+			c_contents: CKEDITOR.instances["modal-editor"].getData(),
+		},
+		statusCode: {
+			200: function () {
+				console.log("성공!");
+				//모달 팝업 끝내고
+				$('#close-pdService').trigger('click');
+				//버전 데이터 재 로드
+			},
+		},
+	});
+});
 
 // document ready
 $(function () {
