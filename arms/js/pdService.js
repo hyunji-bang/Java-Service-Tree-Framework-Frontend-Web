@@ -157,6 +157,29 @@ $("#regist-pdService").click(function () {
 	});
 });
 
+
+
+// 신규 제품(서비스) 삭제 버튼
+$("#delete-pdService").click(function () {
+	console.log("delete btn");
+	$.ajax({
+		url: "/auth-user/api/arms/pdservice/removeNode.do",
+		type: "POST",
+		data: {
+			c_id: $('#pdserviceTable').DataTable().rows('.selected').data()[0].c_id,
+		},
+		statusCode: {
+			200: function () {
+				jError($("#editView-pdService-name").val() + "데이터가 삭제되었습니다.");
+				//데이터 테이블 데이터 재 로드
+				dataTableRef.ajax.reload( function (json) {
+					$('#pdserviceTable tbody tr:eq(0)').click();
+				} );
+			},
+		},
+	});
+});
+
 // document ready
 $(function () {
 
@@ -217,6 +240,8 @@ function dataTableClick(selectedData){
 	//파일 업로드 관련 레이어 보이기 처리
 	$('.body-middle').show();
 
+	//파일 리스트 초기화
+	$("table tbody.files").empty();
 	// Load existing files:
 	var $fileupload = $('#fileupload');
 	// Load existing files:
@@ -224,7 +249,7 @@ function dataTableClick(selectedData){
 		// Uncomment the following to send cross-domain cookies:
 		//xhrFields: {withCredentials: true},
 		url: '/auth-user/api/arms/fileRepository/getFilesByNode.do',
-		data: { c_id: 1, fileIdLink: selectId },
+		data: { fileIdLink: selectId },
 		dataType: 'json',
 		context: $fileupload[0]
 	}).done(function (result) {
@@ -364,7 +389,7 @@ $("#pdServiceUpdate").click(function () {
 		statusCode: {
 			200: function () {
 				console.log("성공!");
-				//모달 팝업 끝내고
+				jSuccess($("#editView-pdService-name").val() + "의 데이터가 변경되었습니다.");
 			},
 		},
 	});
