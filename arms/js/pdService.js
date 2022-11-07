@@ -1,8 +1,7 @@
 let selectId; // 제품 아이디
 let selectName; // 제품 이름
-let versionList; // 선택한 제품 리스트
 let selectVersion; // 선택한 버전 아이디
-let dataTableRef;
+let dataTableRef; // 데이터테이블 참조 변수
 
 // --- 에디터 설정 --- //
 CKEDITOR.replace("input_pdservice_editor");
@@ -16,7 +15,7 @@ $("#modalPopupId").click(function () {
 		.css("height", height + "px");
 });
 
-// --- select2 설정 --- //
+// --- select2 (사용자 자동완성 검색 ) 설정 --- //
 $(".js-data-example-ajax").select2({
 	maximumSelectionLength: 5,
 	width: 'resolve',
@@ -51,9 +50,10 @@ $(".js-data-example-ajax").select2({
     placeholder: "리뷰어 설정을 위한 계정명을 입력해 주세요",
     minimumInputLength: 1,
     templateResult: formatUser,
-    templateSelection: formatRepoSelection,
+    templateSelection: formatUserSelection,
 });
 
+// --- select2 (사용자 자동완성 검색 ) templateResult 설정 --- //
 function formatUser(jsonData) {
 	var $container = $(
 		"<div class='select2-result-jsonData clearfix'>" +
@@ -72,7 +72,8 @@ function formatUser(jsonData) {
 	return $container;
 }
 
-function formatRepoSelection(jsonData) {
+// --- select2 (사용자 자동완성 검색 ) templateSelection 설정 --- //
+function formatUserSelection(jsonData) {
 
 	if( jsonData.id == '' ){
 		jsonData.text = "placeholder";
@@ -88,6 +89,7 @@ function formatRepoSelection(jsonData) {
 	return jsonData.text;
 }
 
+// --- select2 (사용자 자동완성 검색 ) 선택하고 나면 선택된 데이터 공간을 벌리기위한 설정 --- //
 $('#popup-editView-pdService-reviewer').on('select2:selecting', function (e) {
 	var heightValue = $('#popup-editView-pdService-reviewer').height();
 	var resultValue = heightValue + 20;
@@ -99,78 +101,7 @@ $('#editView-pdService-reviewers').on('select2:selecting', function (e) {
 	var resultValue = heightValue + 20;
 	$('#editView-pdService-reviewer').css('height',resultValue+'px');
 });
-// Code for the menu buttons
 
-// 신규 제품(서비스) 등록 버튼
-$("#regist-pdService").click(function () {
-	var reviewers01 = "none";
-	var reviewers02 = "none";
-	var reviewers03 = "none";
-	var reviewers04 = "none";
-	var reviewers05 = "none";
-	if($('#editView-pdService-reviewers').select2('data')[0] != undefined){
-		reviewers01 = $('#editView-pdService-reviewers').select2('data')[0].text;
-	}
-	if($('#editView-pdService-reviewers').select2('data')[1] != undefined){
-		reviewers02 = $('#editView-pdService-reviewers').select2('data')[1].text;
-	}
-	if($('#editView-pdService-reviewers').select2('data')[2] != undefined){
-		reviewers03 = $('#editView-pdService-reviewers').select2('data')[2].text;
-	}
-	if($('#editView-pdService-reviewers').select2('data')[3] != undefined){
-		reviewers04 = $('#editView-pdService-reviewers').select2('data')[3].text;
-	}
-	if($('#editView-pdService-reviewers').select2('data')[4] != undefined){
-		reviewers05 = $('#editView-pdService-reviewers').select2('data')[4].text;
-	}
-
-	$.ajax({
-		url: "/auth-user/api/arms/pdservice/addNode.do",
-		type: "POST",
-		data: {
-			ref: 2,
-			c_title: $("#popup-editView-pdService-name").val(),
-			c_type: "default",
-			c_owner: $('#popup-editView-pdService-owner').select2('data')[0].text,
-			c_reviewer01: reviewers01,
-			c_reviewer02: reviewers02,
-			c_reviewer03: reviewers03,
-			c_reviewer04: reviewers04,
-			c_reviewer05: reviewers05,
-			c_contents: CKEDITOR.instances["modal-editor"].getData(),
-		},
-		statusCode: {
-			200: function () {
-				//모달 팝업 끝내고
-				$('#close-pdService').trigger('click');
-				//데이터 테이블 데이터 재 로드
-				dataTableRef.ajax.reload();
-			},
-		},
-	});
-});
-
-
-
-// 신규 제품(서비스) 삭제 버튼
-$("#delete-pdService").click(function () {
-	$.ajax({
-		url: "/auth-user/api/arms/pdservice/removeNode.do",
-		type: "POST",
-		data: {
-			c_id: $('#pdserviceTable').DataTable().rows('.selected').data()[0].c_id,
-		},
-		statusCode: {
-			200: function () {
-				jError($("#editView-pdService-name").val() + "데이터가 삭제되었습니다.");
-				//데이터 테이블 데이터 재 로드
-				dataTableRef.ajax.reload( function (json) {
-					$('#pdserviceTable tbody tr:eq(0)').click();
-				} );
-			},
-		},
-	});
-});
 
 // document ready
 $(function () {
@@ -181,11 +112,71 @@ $(function () {
 	// 파일 업로드 관련 레이어 숨김 처리
 	$('.body-middle').hide();
 
+	// 데이터 테이블 로드 함수
+	dataTableLoad();
+
+	// 탭 클릭 이벤트
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		var target = $(e.target).attr("href") // activated tab
+
+		if( target == "#dropdown1"){
+			$('.body-middle').hide();
+		}else{
+			if( selectId == undefined ){
+				$('.body-middle').hide();
+			}else{
+				$('.body-middle').show();
+			}
+		}
+	});
 });
 
-
+/** file upload **/
 $(function () {
-	dataTableLoad();
+	'use strict';
+
+	// Initialize the jQuery File Upload widget:
+	var $fileupload = $('#fileupload');
+	$fileupload.fileupload({
+		// Uncomment the following to send cross-domain cookies:
+		//xhrFields: {withCredentials: true},
+		autoUpload: true,
+		url: '/auth-user/api/arms/pdservice/uploadFileToNode.do',
+		dropZone: $('#dropzone')
+	});
+
+	// Enable iframe cross-domain access via redirect option:
+	$fileupload.fileupload(
+		'option',
+		'redirect',
+		window.location.href.replace(
+			/\/[^\/]*$/,
+			'/cors/result.html?%s'
+		)
+	);
+
+	// Load existing files:
+	$.ajax({
+		// Uncomment the following to send cross-domain cookies:
+		//xhrFields: {withCredentials: true},
+		url: $fileupload.fileupload('option', 'url'),
+		dataType: 'json',
+		context: $fileupload[0]
+	}).done(function (result) {
+		$(this).fileupload('option', 'done').call(this, null, {result: result});
+	});
+
+});
+
+$('#fileupload').bind('fileuploadsubmit', function (e, data) {
+	// The example input, doesn't have to be part of the upload form:
+	var input = $('#fileIdLink');
+	data.formData = {fileIdLink: input.val()};
+	if (!data.formData.fileIdLink) {
+		data.context.find('button').prop('disabled', false);
+		input.focus();
+		return false;
+	}
 });
 
 // --- 데이터 테이블 설정 --- //
@@ -203,21 +194,6 @@ function dataTableLoad() {
 	$("body").find("[aria-controls='pdserviceTable']").css("width", "100px");
 	$("select[name=pdserviceTable_length]").css("width", "50px");
 }
-
-// 탭 클릭 이벤트
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-	var target = $(e.target).attr("href") // activated tab
-
-	if( target == "#dropdown1"){
-		$('.body-middle').hide();
-	}else{
-		if( selectId == undefined ){
-			$('.body-middle').hide();
-		}else{
-			$('.body-middle').show();
-		}
-	}
-});
 
 // 데이터 테이블 구성 이후 꼭 구현해야 할 메소드 : 열 클릭시 이벤트
 function dataTableClick(selectedData){
@@ -371,6 +347,75 @@ function pdServiceDataTableClick(c_id) {
 		});
 }
 
+// 신규 제품(서비스) 등록 버튼
+$("#regist-pdService").click(function () {
+	var reviewers01 = "none";
+	var reviewers02 = "none";
+	var reviewers03 = "none";
+	var reviewers04 = "none";
+	var reviewers05 = "none";
+	if($('#editView-pdService-reviewers').select2('data')[0] != undefined){
+		reviewers01 = $('#editView-pdService-reviewers').select2('data')[0].text;
+	}
+	if($('#editView-pdService-reviewers').select2('data')[1] != undefined){
+		reviewers02 = $('#editView-pdService-reviewers').select2('data')[1].text;
+	}
+	if($('#editView-pdService-reviewers').select2('data')[2] != undefined){
+		reviewers03 = $('#editView-pdService-reviewers').select2('data')[2].text;
+	}
+	if($('#editView-pdService-reviewers').select2('data')[3] != undefined){
+		reviewers04 = $('#editView-pdService-reviewers').select2('data')[3].text;
+	}
+	if($('#editView-pdService-reviewers').select2('data')[4] != undefined){
+		reviewers05 = $('#editView-pdService-reviewers').select2('data')[4].text;
+	}
+
+	$.ajax({
+		url: "/auth-user/api/arms/pdservice/addNode.do",
+		type: "POST",
+		data: {
+			ref: 2,
+			c_title: $("#popup-editView-pdService-name").val(),
+			c_type: "default",
+			c_owner: $('#popup-editView-pdService-owner').select2('data')[0].text,
+			c_reviewer01: reviewers01,
+			c_reviewer02: reviewers02,
+			c_reviewer03: reviewers03,
+			c_reviewer04: reviewers04,
+			c_reviewer05: reviewers05,
+			c_contents: CKEDITOR.instances["modal-editor"].getData(),
+		},
+		statusCode: {
+			200: function () {
+				//모달 팝업 끝내고
+				$('#close-pdService').trigger('click');
+				//데이터 테이블 데이터 재 로드
+				dataTableRef.ajax.reload();
+			},
+		},
+	});
+});
+
+// 신규 제품(서비스) 삭제 버튼
+$("#delete-pdService").click(function () {
+	$.ajax({
+		url: "/auth-user/api/arms/pdservice/removeNode.do",
+		type: "POST",
+		data: {
+			c_id: $('#pdserviceTable').DataTable().rows('.selected').data()[0].c_id,
+		},
+		statusCode: {
+			200: function () {
+				jError($("#editView-pdService-name").val() + "데이터가 삭제되었습니다.");
+				//데이터 테이블 데이터 재 로드
+				dataTableRef.ajax.reload( function (json) {
+					$('#pdserviceTable tbody tr:eq(0)').click();
+				} );
+			},
+		},
+	});
+});
+
 // 제품(서비스) 변경 저장 버튼
 $("#pdServiceUpdate").click(function () {
 
@@ -415,53 +460,4 @@ $("#pdServiceUpdate").click(function () {
 			},
 		},
 	});
-});
-
-
-/** file upload **/
-$(function () {
-	'use strict';
-
-	// Initialize the jQuery File Upload widget:
-	var $fileupload = $('#fileupload');
-	$fileupload.fileupload({
-		// Uncomment the following to send cross-domain cookies:
-		//xhrFields: {withCredentials: true},
-		autoUpload: true,
-		url: '/auth-user/api/arms/pdservice/uploadFileToNode.do',
-		dropZone: $('#dropzone')
-	});
-
-	// Enable iframe cross-domain access via redirect option:
-	$fileupload.fileupload(
-		'option',
-		'redirect',
-		window.location.href.replace(
-			/\/[^\/]*$/,
-			'/cors/result.html?%s'
-		)
-	);
-
-	// Load existing files:
-	$.ajax({
-		// Uncomment the following to send cross-domain cookies:
-		//xhrFields: {withCredentials: true},
-		url: $fileupload.fileupload('option', 'url'),
-		dataType: 'json',
-		context: $fileupload[0]
-	}).done(function (result) {
-		$(this).fileupload('option', 'done').call(this, null, {result: result});
-	});
-
-});
-
-$('#fileupload').bind('fileuploadsubmit', function (e, data) {
-	// The example input, doesn't have to be part of the upload form:
-	var input = $('#fileIdLink');
-	data.formData = {fileIdLink: input.val()};
-	if (!data.formData.fileIdLink) {
-		data.context.find('button').prop('disabled', false);
-		input.focus();
-		return false;
-	}
 });
