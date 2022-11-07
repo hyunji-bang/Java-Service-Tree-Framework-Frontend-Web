@@ -158,7 +158,11 @@ $("#regist-pdService").click(function () {
 // document ready
 $(function () {
 
+	// 사이드 메뉴 색상 설정
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_manage");
+
+	// 파일 업로드 관련 레이어 숨김 처리
+	$('.body-middle').hide();
 
 });
 
@@ -179,6 +183,23 @@ $(function () {
 	$("select[name=pdserviceTable_length]").css("width", "50px");
 });
 
+// 탭 클릭 이벤트
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+	var target = $(e.target).attr("href") // activated tab
+
+	console.log("selectId - " + selectId);
+
+	if( target == "#dropdown1"){
+		$('.body-middle').hide();
+	}else{
+		if( selectId == undefined ){
+			$('.body-middle').hide();
+		}else{
+			$('.body-middle').show();
+		}
+	}
+});
+
 // 데이터 테이블 구성 이후 꼭 구현해야 할 메소드 : 열 클릭시 이벤트
 function dataTableClick(selectedData){
 	selectId = selectedData.c_id;
@@ -186,6 +207,9 @@ function dataTableClick(selectedData){
 	console.log("selectedData.c_id -> " + selectedData.c_id);
 	selectName = selectedData.c_title;
 	pdServiceDataTableClick(selectedData.c_id);
+
+	//파일 업로드 관련 레이어 보이기 처리
+	$('.body-middle').show();
 
 	// Load existing files:
 	var $fileupload = $('#fileupload');
