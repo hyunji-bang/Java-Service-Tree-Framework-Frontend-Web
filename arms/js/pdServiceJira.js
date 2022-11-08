@@ -1,69 +1,47 @@
+let selectId; // 제품 아이디
+let selectName; // 제품 이름
+let selectedIndex; // 데이터테이블 선택한 인덱스
+let selectedPage; // 데이터테이블 선택한 인덱스
+let selectVersion; // 선택한 버전 아이디
+let dataTableRef; // 데이터테이블 참조 변수
+let selectConnectID; // 제품(서비스) - 버전 - 지라 연결 정보 아이디
+
 $(function () {
+
 	setSideMenu("sidebar_menu_product", "sidebar_menu_product_jira_connect");
-});
 
-/* -------------------------------- jstree 설정 ------------------------------- */
+	dataTableLoad();
 
-$(function () {
-	jstreeDataTableReload();
-	$(".dataTables_length").find("select:eq(0)").addClass("darkBack");
-	$(".dataTables_length").find("select:eq(0)").css("min-height", "30px");
-	//min-height: 30px;
-
-	$("body").find("[aria-controls='pdserviceTable']").css("width", "100px");
 });
 
 // --- 데이터 테이블 설정 --- //
-function jstreeDataTableReload() {
-	console.log("href: " + $(location).attr("href"));
-	console.log("protocol: " + $(location).attr("protocol"));
-	console.log("host: " + $(location).attr("host"));
-	console.log("pathname: " + $(location).attr("pathname"));
-	console.log("search: " + $(location).attr("search"));
-	console.log("hostname: " + $(location).attr("hostname"));
-	console.log("port: " + $(location).attr("port"));
+function dataTableLoad() {
+	// 데이터 테이블 컬럼 및 열그룹 구성
+	var columnList = [
+		{ data: "c_id" },
+		{ data: "c_title" },
+	];
+	var rowsGroupList = [];
+	dataTableRef = dataTableBuild("#pdserviceTable","pdservice", "/getPdServiceMonitor.do",columnList, rowsGroupList);
 
-	var isDevelopingToRoute = "/auth-user";
-
-	var tempDataTable = $("#pdserviceTable").DataTable({
-		ajax: {
-			url: isDevelopingToRoute + "/api/arms/pdservice/getMonitor.do",
-			dataSrc: "",
-		},
-		destroy: true,
-		processing: true,
-		responsive: false,
-		columns: [
-			{ data: "c_id" },
-			{ data: "c_title" }
-		],
-		columnDefs: [
-			{
-				targets: -1,
-				className: 'dt-body-left'
-			}
-		]
-	});
-
-	$("#pdserviceTable tbody").on("click", "tr", function () {
-
-		$(this).toggleClass('selected');
-		var data = tempDataTable.row(this).data();
-		console.log(data);
-		//alert( 'You clicked on '+ data.c_title +'\'s row' );
-	});
+	// ----- 데이터 테이블 빌드 이후 별도 스타일 구성 ------ //
+	//datatable 좌상단 datarow combobox style
+	$("body").find("[aria-controls='pdserviceTable']").css("width", "100px");
+	$("select[name=pdserviceTable_length]").css("width", "50px");
 }
 
 // 데이터 테이블 구성 이후 꼭 구현해야 할 메소드 : 열 클릭시 이벤트
-function dataTableClick(selectedData) {
-	$("#versionContents").html("");
+function dataTableClick(selectedData){
+
+	selectedIndex = selectedData.selectedIndex;
+	selectedPage = selectedData.selectedPage;
 	selectId = selectedData.c_id;
 	selectName = selectedData.c_title;
-	console.log(selectedData.c_id);
+	$("#versionContents").html("");
 	dataLoad(selectedData.c_id, selectedData.c_title);
 }
 
-//버전 리스트를 재로드하는 함수 ( 버전 추가, 갱신, 삭제 시 호출 )
+// 버전 리스트를 재로드하는 함수 ( 버전 추가, 갱신, 삭제 시 호출 )
 function dataLoad(getSelectedText, selectedText) {
 
 	// ajax 처리 후 에디터 바인딩.
@@ -86,22 +64,29 @@ function dataLoad(getSelectedText, selectedText) {
 		});
 }
 
-
-//version list html 삽입
+// versionlist 이니셜라이즈
+(function ($) {
+	let menu;
+	$.fn.jsonMenu = function (action, items, options) {
+		$(this).addClass("json-menu");
+		if (action == "add") {
+			menu.body.push(items);
+			draw($(this), menu);
+		} else if (action == "set") {
+			menu = items;
+			draw($(this), menu);
+		}
+		return this;
+	};
+})(jQuery);
+// version list html 삽입
 function draw(main, menu) {
 	main.html("");
 
 	let data = `
 			   <li class='list-group-item json-menu-header'>
 				   <strong>product service name</strong>
-			   </li>
-			   <button
-					type="button"
-					class="btn btn-danger btn-block"
-					id="modalPopupId"
-					data-toggle="modal"
-					data-target="#myModal2"
-				>신규 버전 등록하기</button>`;
+			   </li>`;
 
 	for (let i = 0; i < menu.length; i++) {
 		data += `
@@ -117,7 +102,105 @@ function draw(main, menu) {
 	main.html(data);
 }
 
+//버전 클릭할 때 동작하는 함수
+function versionClick(c_id) {
+	selectVersion = c_id;
+ console.log("selectVersion" + selectVersion);
+	$(".searchable").multiSelect('deselect_all');
 
+	// 이미 등록된 제품(서비스)-버전-지라 연결 정보가 있는지 확인
+	$.ajax({
+		url: "/auth-user/api/arms/pdServiceConnect/getExistNode.do",
+		type: "GET",
+		data: {
+			c_pdservice_id: $('#pdserviceTable').DataTable().rows('.selected').data()[0].c_id,
+			c_pdservice_version_id: c_id
+		},
+		contentType: "application/json;charset=UTF-8",
+		dataType : "json",
+		progress: true
+	}).done(function(data) {
+
+		var jsonData = [];
+		for(var k in data){
+			var obj = data[k];
+			//var jira_name = obj.c_title;
+			selectConnectID = obj.c_id;
+			jsonData.push(obj);
+		}
+
+		if(jsonData.length == 0){
+			$("#pdServiceConnect").removeClass("btn-success");
+			$("#pdServiceConnect").addClass("btn-primary");
+			$("#pdServiceConnect").text("제품(서비스) Jira 연결 등록");
+		}else{
+			$("#pdServiceConnect").removeClass("btn-primary");
+			$("#pdServiceConnect").addClass("btn-success");
+			$("#pdServiceConnect").text("제품(서비스) Jira 연결 변경");
+
+			console.log("jsonData[0].c_pdservice_jira_ids - " + jsonData[0].c_pdservice_jira_ids);
+			$('#multiselect').multiSelect('select', jsonData[0].c_pdservice_jira_ids.split(","));
+
+		}
+
+	}).fail(function(e) {
+		console.log("fail call");
+	}).always(function() {
+		console.log("always call");
+	});
+
+}
+
+// 제품(서비스)-버전-지라 저장
+$("#pdServiceConnect").click(function () {
+
+	if($("#pdServiceConnect").hasClass("btn-primary") === true) {
+
+		// data가 존재하지 않음.
+		$.ajax({
+			url: "/auth-user/api/arms/pdServiceConnect/addNode.do",
+			type: "POST",
+			data: {
+				ref: 2,
+				c_title: "a-RMS pdService-Version-Jira Connect Data",
+				c_type: "default",
+				c_pdservice_id: $('#pdserviceTable').DataTable().rows('.selected').data()[0].c_id,
+				c_pdservice_version_id: selectVersion,
+				c_pdservice_jira_ids: JSON.stringify($('#multiselect').val()),
+			},
+			progress: true
+		}).done(function(data) {
+			versionClick(selectVersion);
+		}).fail(function(e) {
+			console.log("fail call");
+		}).always(function() {
+			console.log("always call");
+		});
+	} else if($("#pdServiceConnect").hasClass("btn-success") === true) {
+		// data가 이미 있음
+		$.ajax({
+			url: "/auth-user/api/arms/pdServiceConnect/updateNode.do",
+			type: "POST",
+			data: {
+				c_id: selectConnectID,
+				c_title: "a-RMS pdService-Version-Jira Connect Data",
+				c_type: "default",
+				c_pdservice_id: $('#pdserviceTable').DataTable().rows('.selected').data()[0].c_id,
+				c_pdservice_version_id: selectVersion,
+				c_pdservice_jira_ids: JSON.stringify($('#multiselect').val()),
+			},
+			progress: true
+		}).done(function(data) {
+			versionClick(selectVersion);
+		}).fail(function(e) {
+			console.log("fail call");
+		}).always(function() {
+			console.log("always call");
+		});
+	} else {
+		jError("who are you?");
+	}
+});
 
 /* ---------------------------------------- d3 config ------------------------------------ */
 /* d3 */
@@ -722,6 +805,45 @@ centerNode(root);
 
 /* --------------------------- multi select & slim scroll ---------------------------------- */
 $(function () {
+
+	// JIRA 프로젝트 데이터 로드 후 멀티 셀렉트 빌드 하고 슬림스크롤 적용
+	$.ajax({
+		url: "/auth-user/api/arms/pdServiceJira/getChildNode.do?c_id=2",
+		type: "GET",
+		contentType: "application/json;charset=UTF-8",
+		dataType : "json",
+		progress: true
+	}).done(function(data) {
+
+		var optionData = [];
+		for(var k in data){
+			var obj = data[k];
+			var jira_name = obj.c_title;
+			var jira_idx = obj.c_id;
+
+			optionData.push("<option value='" + jira_idx + "'>" + jira_name + "</option>");
+		}
+
+		$(".searchable").html(optionData.join(""));
+
+		////////////////////////////////////////////////
+		// 멀티 셀렉트 빌드
+		buildMultiSelect();
+		////////////////////////////////////////////////
+
+	}).fail(function(e) {
+		console.log("fail call");
+	}).always(function() {
+		console.log("always call");
+	});
+
+
+	//slim scroll
+	$(".ms-list").slimscroll();
+});
+
+function buildMultiSelect() {
+
 	//multiselect
 	$(".searchable").multiSelect({
 		selectableHeader:
@@ -768,10 +890,7 @@ $(function () {
 			d3Update();
 		},
 	});
-
-	//slim scroll
-	$(".ms-list").slimscroll();
-});
+}
 
 /* ----------------------- click action ------------------------- */
 function d3Update() {
@@ -792,11 +911,5 @@ function d3Update() {
 		item["type"] = "Jira JQL";
 		treeData.children.push(item);
 	});
-	update(root);
-}
-
-function jsTreeClick(selectedNode) {
-	var getSelectedText = selectedNode.find("a.jstree-clicked").text().trimStart();
-	treeData.name = getSelectedText;
 	update(root);
 }
