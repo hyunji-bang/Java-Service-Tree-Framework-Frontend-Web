@@ -3,8 +3,10 @@ let selectName; // 제품 이름
 let selectedIndex; // 데이터테이블 선택한 인덱스
 let selectedPage; // 데이터테이블 선택한 인덱스
 let selectVersion; // 선택한 버전 아이디
+let selectVersionName; // 선택한 버전 이름
 let dataTableRef; // 데이터테이블 참조 변수
 let selectConnectID; // 제품(서비스) - 버전 - 지라 연결 정보 아이디
+let versionList;
 
 $(function () {
 
@@ -32,13 +34,17 @@ function dataTableLoad() {
 
 // 데이터 테이블 구성 이후 꼭 구현해야 할 메소드 : 열 클릭시 이벤트
 function dataTableClick(selectedData){
-
 	selectedIndex = selectedData.selectedIndex;
 	selectedPage = selectedData.selectedPage;
 	selectId = selectedData.c_id;
 	selectName = selectedData.c_title;
 	$("#versionContents").html("");
+	
+	// 연계 이벤트 - 버전 리스트 로드
 	dataLoad(selectedData.c_id, selectedData.c_title);
+
+	// D3 업데이트
+	updateD3ByDataTable();
 }
 
 // 버전 리스트를 재로드하는 함수 ( 버전 추가, 갱신, 삭제 시 호출 )
@@ -49,11 +55,13 @@ function dataLoad(getSelectedText, selectedText) {
 	$.ajax("/auth-user/api/arms/pdversion/getVersion.do?c_id=" + getSelectedText)
 		.done(function (json) {
 			console.log("dataLoad :: success -> ", json);
-			$("#versionAccordion").jsonMenu("set", json, { speed: 5000 });
 			versionList = json;
+			$("#versionAccordion").jsonMenu("set", json, { speed: 5000 });
 			//version text setting
 			$(".list-group-item").text(selectedText);
 			$("#tooltip-enabled-service-name").val(selectedText);
+
+			updateD3ByVersionList();
 
 			//데이터 로드를 사용자에게 알리기
 			Messenger().post({
@@ -62,6 +70,8 @@ function dataLoad(getSelectedText, selectedText) {
 				showCloseButton: true
 			});
 		});
+
+
 }
 
 // versionlist 이니셜라이즈
@@ -79,6 +89,7 @@ function dataLoad(getSelectedText, selectedText) {
 		return this;
 	};
 })(jQuery);
+
 // version list html 삽입
 function draw(main, menu) {
 	main.html("");
@@ -92,7 +103,7 @@ function draw(main, menu) {
 		data += `
 			   <div class="panel">
 				   <div class="panel-heading">
-					   <a class="accordion-toggle collapsed" data-toggle="collapse" href="" onclick="versionClick(${menu[i].c_id}); return false;">
+					   <a class="accordion-toggle collapsed" data-toggle="collapse" href="" onclick="versionClick(${menu[i].c_id}, '${menu[i].c_title}'); return false;">
 						   ${menu[i].c_title}
 					   </a>
 				   </div>
@@ -103,8 +114,9 @@ function draw(main, menu) {
 }
 
 //버전 클릭할 때 동작하는 함수
-function versionClick(c_id) {
+function versionClick(c_id, c_title) {
 	selectVersion = c_id;
+	selectVersionName= c_title;
  console.log("selectVersion" + selectVersion);
 	$(".searchable").multiSelect('deselect_all');
 
@@ -121,27 +133,29 @@ function versionClick(c_id) {
 		progress: true
 	}).done(function(data) {
 
-		var jsonData = [];
+		var versionClickData = [];
 		for(var k in data){
 			var obj = data[k];
 			//var jira_name = obj.c_title;
 			selectConnectID = obj.c_id;
-			jsonData.push(obj);
+			versionClickData.push(obj);
 		}
 
-		if(jsonData.length == 0){
+		if(versionClickData.length == 0){
 			$("#pdServiceConnect").removeClass("btn-success");
 			$("#pdServiceConnect").addClass("btn-primary");
 			$("#pdServiceConnect").text("제품(서비스) Jira 연결 등록");
+			updateD3ByMultiSelect();
 		}else{
 			$("#pdServiceConnect").removeClass("btn-primary");
 			$("#pdServiceConnect").addClass("btn-success");
 			$("#pdServiceConnect").text("제품(서비스) Jira 연결 변경");
 
-			console.log("jsonData[0].c_pdservice_jira_ids - " + jsonData[0].c_pdservice_jira_ids);
-			$('#multiselect').multiSelect('select', jsonData[0].c_pdservice_jira_ids.split(","));
-
+			console.log("jsonData[0].c_pdservice_jira_ids - " + versionClickData[0].c_pdservice_jira_ids);
+			$('#multiselect').multiSelect('select', versionClickData[0].c_pdservice_jira_ids.split(","));
+			updateD3ByMultiSelect();
 		}
+
 
 	}).fail(function(e) {
 		console.log("fail call");
@@ -205,20 +219,8 @@ $("#pdServiceConnect").click(function () {
 /* ---------------------------------------- d3 config ------------------------------------ */
 /* d3 */
 var treeData = {
-	name: "product service name",
-	type: "Product(service)",
-	children: [
-		{
-			name: "Visualization",
-			type: "Jira JQL",
-			children: [
-				{
-					name: "test",
-					type: "Jira JQL",
-				},
-			],
-		},
-	],
+	name: "1.제품(서비스) 선택 → 2.Version 선택 → 3.JIRA 프로젝트 선택",
+	type: "a-RMS",
 };
 //treeJSON = d3.json(flare_data, function(error, treeData) {
 
@@ -842,6 +844,7 @@ $(function () {
 	$(".ms-list").slimscroll();
 });
 
+// 멀티 셀렉트 초기화 함수
 function buildMultiSelect() {
 
 	//multiselect
@@ -882,17 +885,82 @@ function buildMultiSelect() {
 		afterSelect: function (value, text) {
 			this.qs1.cache();
 			this.qs2.cache();
-			d3Update();
+			//d3Update();
 		},
 		afterDeselect: function (value, text) {
 			this.qs1.cache();
 			this.qs2.cache();
-			d3Update();
+			//d3Update();
 		},
 	});
 }
 
 /* ----------------------- click action ------------------------- */
+// var treeData = {
+// 	name: "product service name",
+// 	type: "Product(service)",
+// 	children: [
+// 		{
+// 			name: "Visualization",
+// 			type: "Jira JQL",
+// 			children: [
+// 				{
+// 					name: "test",
+// 					type: "Jira JQL",
+// 				},
+// 			],
+// 		},
+// 	],
+// };
+function updateD3ByDataTable() {
+	treeData.children = [];
+
+	treeData.name = selectName;
+	treeData.type = "product(service)";
+
+	update(treeData);
+}
+
+function updateD3ByVersionList() {
+	console.log("versionList - " + versionList);
+
+	treeData.children = [];
+	for(var k in versionList){
+		var obj = versionList[k];
+		var item = {};
+		item["name"] = obj.c_title;
+		item["type"] = "version";
+		item.children = [];
+		treeData.children.push(item);
+	}
+	update(treeData);
+}
+
+function updateD3ByMultiSelect() {
+
+	treeData.children = [];
+	var item = {};
+	item["name"] = selectVersionName;
+	item["type"] = "version";
+	item.children = [];
+	treeData.children.push(item);
+
+	var test = $("#multiselect :selected").val();
+	console.log("test-----" + test);
+	if($("#multiselect :selected").val() == undefined){
+		console.log("test-----");
+		item.children = [];
+	}
+	$("#multiselect :selected").each(function (i,sel) {
+		var temp = {};
+		temp["name"] = $(sel).text();
+		temp["type"] = "jira";
+		item.children.push(temp);
+	});
+
+	update(treeData);
+}
+
 function d3Update() {
 	if (
 		typeof treeData.children == "undefined" ||

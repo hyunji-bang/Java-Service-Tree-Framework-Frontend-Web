@@ -1,6 +1,5 @@
 let selectId; // 제품 아이디
 let selectName; // 제품 이름
-let versionList; // 선택한 제품 리스트
 let selectVersion; // 선택한 버전 아이디
 
 // --- 에디터 설정 --- //
@@ -184,7 +183,6 @@ function dataLoad(getSelectedText, selectedText) {
 		.done(function (json) {
 			console.log("dataLoad :: success -> ", json);
 			$("#versionAccordion").jsonMenu("set", json, { speed: 5000 });
-			versionList = json;
 			//version text setting
 			$(".list-group-item").text(selectedText);
 			$("#tooltip-enabled-service-name").val(selectedText);
