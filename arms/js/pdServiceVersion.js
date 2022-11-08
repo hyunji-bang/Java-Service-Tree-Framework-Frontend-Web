@@ -84,7 +84,7 @@ $(function () {
 		{ data: "c_title" },
 	];
 	var rowsGroupList = [];
-	dataTableBuild("#pdserviceTable", "pdservice", columnList, rowsGroupList);
+	dataTableBuild("#pdserviceTable", "pdservice", "/getMonitor.do", columnList, rowsGroupList);
 
 	// ----- 데이터 테이블 빌드 이후 별도 스타일 구성 ------ //
 	//datatable 좌상단 datarow combobox style
