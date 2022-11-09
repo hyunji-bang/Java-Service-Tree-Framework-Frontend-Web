@@ -112,12 +112,145 @@ function modalPopup(id) {
 
 // 데이터 테이블 구성 이후 꼭 구현해야 할 메소드 : 열 클릭시 이벤트
 function dataTableClick(selectedData) {
+	// 
+	selectedIndex = selectedData.selectedIndex;
+	selectedPage = selectedData.selectedPage;
+	selectId = selectedData.c_id;
+	//pdServiceVersionDataTableClick(selectedData.c_id);
+	//pdServiceName/
+	// 
+
 	$("#versionContents").html("");
 	selectId = selectedData.c_id;
 	selectName = selectedData.c_title;
 	console.log('selectedData.c_id : ', selectedData.c_id);
 	dataLoad(selectedData.c_id, selectedData.c_title);
 }
+
+//제품(서비스) 클릭할 때 동작하는 함수
+//1. 상세보기 데이터 바인딩
+//2. 편집하기 데이터 바인딩
+function pdServiceVersionDataTableClick(c_id) {
+
+	selectVersion = c_id;
+
+	$.ajax({
+		url: "/auth-user/api/arms/pdservice/getNode.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+		data: { c_id: c_id }, // HTTP 요청과 함께 서버로 보낼 데이터
+		method: "GET", // HTTP 요청 메소드(GET, POST 등)
+		dataType: "json", // 서버에서 보내줄 데이터의 타입
+	})
+		// HTTP 요청이 성공하면 요청한 데이터가 done() 메소드로 전달됨.
+		.done(function (json) {
+
+			$("#detailView-pdService-name").text(json.c_title);
+			if (json.c_owner == null || json.c_owner == "none") {
+				$("#detailView-pdService-owner").text("책임자가 존재하지 않습니다.");
+			} else {
+				$("#detailView-pdService-owner").text(json.c_owner);
+			}
+
+			if (json.c_reviewer01 == null || json.c_reviewer01 == "none") {
+				$("#detailView-pdService-reviewer01").text("리뷰어(연대책임자)가 존재하지 않습니다.");
+			} else {
+				$("#detailView-pdService-reviewer01").text(json.c_reviewer01);
+			}
+
+			if (json.c_reviewer02 == null || json.c_reviewer02 == "none") {
+			} else {
+				$("#detailView-pdService-reviewer02").text(json.c_reviewer02);
+			}
+
+			if (json.c_reviewer03 == null || json.c_reviewer03 == "none") {
+			} else {
+				$("#detailView-pdService-reviewer03").text(json.c_reviewer03);
+			}
+
+			if (json.c_reviewer04 == null || json.c_reviewer04 == "none") {
+			} else {
+				$("#detailView-pdService-reviewer04").text(json.c_reviewer04);
+			}
+
+			if (json.c_reviewer05 == null || json.c_reviewer05 == "none") {
+			} else {
+				$("#detailView-pdService-reviewer05").text(json.c_reviewer05);
+			}
+			$("#detailView-pdService-contents").html(json.c_contents);
+
+			$("#editView-pdService-name").val(json.c_title);
+
+			//clear
+			$('#editView-pdService-owner').val(null).trigger('change');
+
+			if (json.c_owner == null || json.c_owner == "none") {
+				console.log("pdServiceDataTableClick :: json.c_owner empty");
+			} else {
+				var newOption = new Option(json.c_owner, json.c_owner, true, true);
+				$('#editView-pdService-owner').append(newOption).trigger('change');
+			}
+			//clear
+			$('#editView-pdService-reviewers').val(null).trigger('change');
+
+			var reviewer01Option = new Option(json.c_reviewer01, json.c_reviewer01, true, true);
+			var reviewer02Option = new Option(json.c_reviewer02, json.c_reviewer02, true, true);
+			var reviewer03Option = new Option(json.c_reviewer03, json.c_reviewer03, true, true);
+			var reviewer04Option = new Option(json.c_reviewer04, json.c_reviewer04, true, true);
+			var reviewer05Option = new Option(json.c_reviewer05, json.c_reviewer05, true, true);
+
+			var multifyValue = 1;
+			if (json.c_reviewer01 == null || json.c_reviewer01 == "none") {
+				console.log("pdServiceDataTableClick :: json.c_reviewer01 empty");
+			} else {
+				multifyValue = multifyValue + 1;
+				$('#editView-pdService-reviewers').append(reviewer01Option);
+			}
+			if (json.c_reviewer02 == null || json.c_reviewer02 == "none") {
+				console.log("pdServiceDataTableClick :: json.c_reviewer02 empty");
+			} else {
+				multifyValue = multifyValue + 1;
+				$('#editView-pdService-reviewers').append(reviewer02Option);
+			}
+			if (json.c_reviewer03 == null || json.c_reviewer03 == "none") {
+				console.log("pdServiceDataTableClick :: json.c_reviewer03 empty");
+			} else {
+				multifyValue = multifyValue + 1;
+				$('#editView-pdService-reviewers').append(reviewer03Option);
+			}
+			if (json.c_reviewer04 == null || json.c_reviewer04 == "none") {
+				console.log("pdServiceDataTableClick :: json.c_reviewer04 empty");
+			} else {
+				multifyValue = multifyValue + 1;
+				$('#editView-pdService-reviewers').append(reviewer04Option);
+			}
+			if (json.c_reviewer05 == null || json.c_reviewer05 == "none") {
+				console.log("pdServiceDataTableClick :: json.c_reviewer05 empty");
+			} else {
+				multifyValue = multifyValue + 1;
+				$('#editView-pdService-reviewers').append(reviewer05Option);
+			}
+
+			$('#editView-pdService-reviewers').trigger('change');
+
+			CKEDITOR.instances.input_pdservice_editor.setData(json.c_contents);
+
+			$('#editView-pdService-reviewer').css('height', '20px');
+			setTimeout(function () {
+				var heightValue = $('#editView-pdService-reviewer').height();
+				var resultValue = heightValue + (20 * multifyValue);
+				$('#editView-pdService-reviewer').css('height', resultValue + 'px');
+			}, 250);
+		})
+		// HTTP 요청이 실패하면 오류와 상태에 관한 정보가 fail() 메소드로 전달됨.
+		.fail(function (xhr, status, errorThrown) {
+			console.log(xhr + status + errorThrown);
+		})
+		//
+		.always(function (xhr, status) {
+			$("#text").html("요청이 완료되었습니다!");
+			console.log(xhr + status);
+		});
+}
+
 
 // 버전 삭제 버튼
 $("#delVersion").click(function () {
@@ -266,7 +399,6 @@ function draw(main, menu) {
 //1. 상세보기 데이터 바인딩
 //2. 편집하기 데이터 바인딩
 function versionClick(c_id) {
-
 	selectVersion = c_id;
 
 	$.ajax({
