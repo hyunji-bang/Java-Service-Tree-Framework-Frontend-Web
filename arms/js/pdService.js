@@ -485,7 +485,7 @@ $("#regist-pdService").click(function () {
 	}
 
 	$.ajax({
-		url: "/auth-user/api/arms/pdservice/addNode.do",
+		url: "/auth-user/api/arms/pdservice/addPdServiceNode.do",
 		type: "POST",
 		data: {
 			ref: 2,
