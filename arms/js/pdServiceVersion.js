@@ -6,31 +6,6 @@ let selectVersion; // 선택한 버전 아이디
 CKEDITOR.replace("input_pdservice_editor");
 CKEDITOR.replace("modal-editor");
 
-// --- 팝업 띄울때 사이즈 조정 -- //
-$("#modalPopupId").click(function () {
-	// alert()
-	// $("#modalTitle").text('제품(서비스) 신규 버전 등록 팝업');
-	// $("#modalSub").text('선택한 제품(서비스)에 버전을 등록합니다.');
-
-	// var height = $(document).height() - 400;
-	// $(".modal-body")
-	// 	.find(".cke_contents:eq(0)")
-	// 	.css("height", height + "px");
-});
-
-$("#versionPopup").click(function () {
-	// 편집하기 내의 팝업창 css 수정 		
-	$("#modalTitle").text('제품(서비스) 버전 등록 / 변경');
-	$("#modalSub").text('선택한 제품(서비스)에 버전을 등록/변경 합니다.');
-	var height = $(document).height() - 400;
-	$(".modal-body")
-		.find(".cke_contents:eq(0)")
-		.css("height", height + "px");
-
-	// modal - title
-});
-
-
 
 
 
@@ -90,6 +65,50 @@ $(function () {
 	$("body").find("[aria-controls='pdserviceTable']").css("width", "100px");
 	$("select[name=pdserviceTable_length]").css("width", "50px");
 });
+
+
+// --- 팝업 띄울때 사이즈 조정 -- //
+
+function modalPopup(id) {
+	// modalPopupId = 신규버전 
+	if (id === 'modalPopupId') {
+		$("#modalTitle").text('제품(서비스) 신규 버전 등록 팝업');
+		$("#modalSub").text('선택한 제품(서비스)에 버전을 등록합니다.');
+	} else {
+		$("#modalTitle").text('제품(서비스) 버전 등록 / 변경');
+		$("#modalSub").text('선택한 제품(서비스)에 버전을 등록/변경 합니다.');
+	}
+
+	var height = $(document).height() - 800;
+	$(".modal-body")
+		.find(".cke_contents:eq(0)")
+		.css("height", height + "px");
+}
+
+// 신규버전 등록 팝업
+// $("#modalPopupId").click(function () {
+// 	$("#modalTitle").text('제품(서비스) 신규 버전 등록 팝업');
+// 	$("#modalSub").text('선택한 제품(서비스)에 버전을 등록합니다.');
+
+// 	var height = $(document).height() - 800;
+// 	$(".modal-body")
+// 		.find(".cke_contents:eq(0)")
+// 		.css("height", height + "px");
+// });
+
+
+// 편집하기 팝업창으로 보기 팝업
+// $("#versionPopup").click(function () {
+
+// 	var height = $(document).height() - 800;
+// 	console.log('height', height)
+// 	$(".modal-body")
+// 		.find(".cke_contents:eq(0)")
+// 		.css("height", height + "px");
+// });
+
+
+
 
 // 데이터 테이블 구성 이후 꼭 구현해야 할 메소드 : 열 클릭시 이벤트
 function dataTableClick(selectedData) {
@@ -222,10 +241,11 @@ function draw(main, menu) {
 			   </li>
 			   <button
 					type="button"
-					class="btn btn-danger btn-block"
+					class="btn btn-primary btn-block"
 					id="modalPopupId"
 					data-toggle="modal"
-					data-target="#myModal2"
+					data-target="#myModal2"	
+					onClick="modalPopup(modalPopupId)"								
 				>신규 버전 등록하기</button>`;
 
 	for (let i = 0; i < menu.length; i++) {
