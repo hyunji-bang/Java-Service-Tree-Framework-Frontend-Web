@@ -36,6 +36,15 @@ module.exports = function (grunt) { // jshint ignore:line
             changeOrigin: true
           }
         ]
+        // proxies: [
+        //   {
+        //     context: ['/auth-anon', '/auth-user', '/auth-admin', '/auth-check', '/sso', '/dwr', '/logout'],
+        //     host: 'www.313.co.kr',            
+        //     port: 80,
+        //     https: false,
+        //     changeOrigin: true
+        //   }
+        // ]
       },
     },
     watch: {
