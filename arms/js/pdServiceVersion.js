@@ -70,9 +70,9 @@ $(function () {
 // --- 팝업 띄울때 사이즈 조정 -- //
 
 function modalPopup(popupName) {
-	// modalPopupId = 신규버전
 
 	if (popupName === 'modalPopupId') {
+		// modalPopupId = 신규버전 등록하기
 		$("#modalTitle").text('제품(서비스) 신규 버전 등록 팝업');
 		$("#modalSub").text('선택한 제품(서비스)에 버전을 등록합니다.');
 		$('#extendUpdate-pdService-version').attr('onClick', 'modalPopupNewUpdate()')
@@ -85,18 +85,19 @@ function modalPopup(popupName) {
 		CKEDITOR.instances["extendModalEditor"].setData('');
 
 	} else {
+		// 편집하기 버튼의 팝업으로 보기
 		$("#modalTitle").text('제품(서비스) 버전 등록 / 변경');
 		$("#modalSub").text('선택한 제품(서비스)에 버전을 등록/변경 합니다.');
 		$('#extendUpdate-pdService-version').attr('onClick', 'modalPopupUpdate()')
 		$('#extendUpdate-pdService-version').text('Save Changes');
 
-		//팝업			
+		//팝업 데이터
 		$("#tooltip-enabled-service-version").val($("#input_pdserviceVersion").val());
 		$("#btn-enabled-date").val($("#input_pdservice_start_date").val());
 		$("#btn-end-date").val($("#input_pdservice_end_date").val());
-		CKEDITOR.instances["instances.input_pdservice_editor"].getData();
-
-
+		var editorData = CKEDITOR.instances["input_pdservice_editor"].getData();
+		console.log('ddd', editorData)
+		CKEDITOR.instances.extendModalEditor.setData(editorData);
 	}
 
 	var height = $(document).height() - 800;
@@ -188,7 +189,7 @@ $("#versionUpdate").click(function () {
 	});
 });
 
-//버전 팝업 신규 업데이트 
+//버전 팝업 신규 업데이트
 function modalPopupNewUpdate() {
 	console.log("save btn");
 	$.ajax({

@@ -27,6 +27,7 @@ module.exports = function (grunt) { // jshint ignore:line
           }
         },
         proxies: [
+         // 선생님용
           {
             context: ['/auth-anon', '/auth-user', '/auth-admin', '/auth-check', '/sso', '/dwr', '/logout'],
             host: 'www.313.co.kr',
@@ -36,10 +37,12 @@ module.exports = function (grunt) { // jshint ignore:line
             changeOrigin: true
           }
         ]
+
         // proxies: [
+        //   // 주희 용
         //   {
         //     context: ['/auth-anon', '/auth-user', '/auth-admin', '/auth-check', '/sso', '/dwr', '/logout'],
-        //     host: 'www.313.co.kr',            
+        //     host: 'www.313.co.kr',
         //     port: 80,
         //     https: false,
         //     changeOrigin: true
