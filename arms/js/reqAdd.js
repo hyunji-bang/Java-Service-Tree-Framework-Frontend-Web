@@ -4,7 +4,7 @@ $(function () {
 		"sidebar_menu_requirement_regist",
 		"requirement-elements-collapse"
 	);
-	jsTreeBuild("#productTree", "pdservice");
+	jsTreeBuild("#productTree", "reqAdd/T_ARMS_REQADD_131");
 });
 
 // --- 에디터 설정 --- //
@@ -24,6 +24,16 @@ function jsTreeClick(selectedNodeID) {
 	console.log(selectedNodeID);
 }
 
+// --- select2 (사용자 자동완성 검색 ) 선택하고 나면 선택된 데이터 공간을 벌리기위한 설정 --- //
+$('#country').on('select2:selecting', function (e) {
+	console.log("check -> " + $('#country').val());
+	if( $('#country').val() == "1"){
+		jsTreeBuild("#productTree", "reqAdd/T_ARMS_REQADD_131");
+	}else{
+		jsTreeBuild("#productTree", "reqAdd");
+	}
+
+});
 
 // 신규 제품(서비스) 등록 버튼
 $("#openall").click(function () {
