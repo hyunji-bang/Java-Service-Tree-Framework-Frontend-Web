@@ -23,3 +23,9 @@ $("#modalPopupId").click(function () {
 function jsTreeClick(selectedNodeID) {
 	console.log(selectedNodeID);
 }
+
+
+// 신규 제품(서비스) 등록 버튼
+$("#openall").click(function () {
+	$('#productTree').jstree('open_all');
+});
