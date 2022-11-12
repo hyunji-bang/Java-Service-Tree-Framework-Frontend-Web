@@ -18,12 +18,12 @@
                 <div class="control-group" class="darkBack" style="padding-bottom: 10px; border: 0; border-bottom: 1px dashed #e5e5e5;">
                     <div class="controls form-group" class="darkBack" style="margin-bottom: 5px !important;">
                         <select id="country" required="required"
-                                data-placeholder="Select country" class="select-block-level chzn-select"
+                                data-placeholder="버전선택" class="select-block-level chzn-select"
                                 tabindex="-1"
-                                name="country"  class="darkBack">
-                            <option value=""></option>
-                            <option value="1">United States</option>
-                            <option value="2">Korea</option>
+                                name="country"  class="darkBack" style="margin-bottom:10px">
+                            <option value="">버전1</option>
+                            <option value="1">버전2</option>
+                            <option value="2">버전3</option>
                         </select>
                     </div>
                     <div class="controls form-group" class="darkBack" style="margin-bottom: 5px !important;">
@@ -89,6 +89,97 @@
             <blockquote class="font13">2. 요구사항 세부 내용 조회</blockquote>
             <div class="row">
                 <div class="col-md-12">
+
+                    <section class="widget widget-tabs">
+
+                        <div class="form-group">
+                            <select id="requirementView" required="required"
+                                    data-placeholder="View all requirements" 
+                                    class="ms-choice" style="width:140px; float:left; margin-right:10px"
+                                    name="requirementView">
+                                <option value="">requirementView</option>
+                                <option value="">View all requirements</option>
+                                <option value="">My requirements</option>
+                                <option value="">Reporting view</option>
+                                <option value="">Reporting view test</option>
+                            </select>
+
+                            <button class="btn btn-default btn-xs">Setting 드롭다운버튼</button>
+                            <button class="btn btn-default btn-xs">정렬버튼같은데 뭔지모르겠음</button>
+                            <button class="btn btn-default btn-xs">필터버튼</button>
+
+                            <button class="btn btn-default btn-xs"><i class="fa fa-plus"></i></button>
+                            <button class="btn btn-default btn-xs" style="float:right">더보기 드롭다운버튼</button>
+                        </div>
+                        <header>
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#reqList" data-toggle="tab"><strong>Requirements List</strong></a>
+                                </li>
+                                <li>
+                                    <a href="#docView" data-toggle="tab"><strong>Document View</strong></a>
+                                </li>
+                            </ul>
+                        </header>
+
+                        <div class="body tab-content">
+                            <div id="stats" class="tab-pane active clearfix" style="padding-top: 10px !important">
+                                <table id="folder-view" class="folder-view table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="4" class="total-pages">
+                                                1-30 of 1,421
+                                                <button class="btn btn-default btn-xs">
+                                                    <i class="fa fa-angle-left fa-lg"></i>
+                                                </button>
+                                                <button class="btn btn-default btn-xs">
+                                                    <i class="fa fa-angle-right fa-lg"></i>
+                                                </button>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="review-list">
+                                        <tr data-id="1">
+                                            <th class=""><input type="checkbox"></th>
+                                            <td><a href="">DetailView 이동</a></td>
+                                            <td>첨부파일</td>
+                                            <td>ID</td>
+                                            <td>제목</td>
+                                            <td>Hierarchy Level</td>
+                                            <td>Subsystem</td>
+                                            <td>Priority</td>
+                                            <td>Status</td>
+                                            <td>Reviewer</td>
+                                        </tr>
+                                        <tr data-id="2">
+                                            <td class=""><input type="checkbox"></td>
+                                            <td><a href="">DetailView 이동</a></td>
+                                            <td>첨부파일</td>
+                                            <td>ID</td>
+                                            <td>제목</td>
+                                            <td>Hierarchy Level</td>
+                                            <td>-</td>
+                                            <td>Must/Should/Could</td>
+                                            <td>Proposed/Approved/In progress/Implemented</td>
+                                            <td>Reviewer</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="report" class="tab-pane" style="padding-top: 10px !important">
+                                <div>
+                                    Document View
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+
+
+
+
+
                     <section class="widget widget-tabs">
                         <header>
                             <ul class="nav nav-tabs">
