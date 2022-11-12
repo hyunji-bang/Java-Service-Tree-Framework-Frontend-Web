@@ -279,64 +279,7 @@
     //<![CDATA[
 
     // 초기 개발 및 확인 용도
-    (function( $ ){
-
-        let menu;
-
-        function draw(main){
-
-            main.html("");
-
-            let data = `
-                            <li class='list-group-item json-menu-header'>
-                                product name
-                            </li>
-                        `;
-
-            for(let i = 0; i < menu.length; i++){
-
-                data += `
-                            <div class="panel">
-                                <div class="panel-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" href="#jsonItem${i}">
-                                        ${menu[i].c_title}
-                                    </a>
-                                </div>
-                                <div id="jsonItem${i}" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        ${menu[i].c_type}
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-
-            }
-
-            main.html(data);
-
-        }
-
-        $.fn.jsonMenu = function(action, items, options){
-            $(this).addClass("json-menu")
-            if(action == "add"){
-                menu.body.push(items);
-                draw($(this));
-            } else if(action == "set"){
-                menu = items;
-                draw($(this));
-            }
-            return this;
-        }
-     })( jQuery );
-
-    // 초기 개발 및 확인 용도
     $(function () {
-
-        $(".chzn-select").each(function(){
-            $(this).select2($(this).data());
-        });
-
-        $('.multiple-select').multipleSelect();
 
     });
 

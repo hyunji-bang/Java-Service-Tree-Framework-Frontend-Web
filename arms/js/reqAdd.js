@@ -4,12 +4,40 @@ $(function () {
 		"sidebar_menu_requirement_regist",
 		"requirement-elements-collapse"
 	);
-	jsTreeBuild("#productTree", "reqAdd/T_ARMS_REQADD_131");
+
+	$(".chzn-select").each(function(){
+		$(this).select2($(this).data());
+	});
+
+	$.ajax({
+		url: "/auth-user/api/arms/pdservice/getPdServiceMonitor.do",
+		type: "GET",
+		contentType: "application/json;charset=UTF-8",
+		dataType : "json",
+		progress: true
+	}).done(function(data) {
+
+		for(var k in data){
+			var obj = data[k];
+			//var jira_name = obj.c_title;
+			selectConnectID = obj.c_id;
+			console.log(selectConnectID);
+			var newOption = new Option(obj.c_title, obj.c_id, false, false);
+			$('#country').append(newOption).trigger('change');
+		}
+	}).fail(function(e) {
+		console.log("fail call");
+	}).always(function() {
+		console.log("always call");
+	});
+
+	$('.multiple-select').multipleSelect();
+
 });
 
 // --- 에디터 설정 --- //
-CKEDITOR.replace("editor");
-CKEDITOR.replace("modal-editor");
+//CKEDITOR.replace("editor");
+//CKEDITOR.replace("modal-editor");
 
 // --- 팝업 띄울때 사이즈 조정 -- //
 $("#modalPopupId").click(function () {
@@ -24,15 +52,13 @@ function jsTreeClick(selectedNodeID) {
 	console.log(selectedNodeID);
 }
 
-// --- select2 (사용자 자동완성 검색 ) 선택하고 나면 선택된 데이터 공간을 벌리기위한 설정 --- //
+// --- select2 ( 제품(서비스) 검색 및 선택 ) --- //
 $('#country').on('select2:selecting', function (e) {
-	console.log("check -> " + $('#country').val());
-	if( $('#country').val() == "1"){
-		jsTreeBuild("#productTree", "reqAdd/T_ARMS_REQADD_131");
-	}else{
-		jsTreeBuild("#productTree", "reqAdd");
-	}
+	// 제품( 서비스 ) 선택했으니까 자동으로 버전을 선택할 수 있게 유도
+	// 디폴트는 base version 을 선택하게 하고 ( select all )
 
+	console.log("check -> " + $('#country').val());
+	jsTreeBuild("#productTree", "reqAdd/T_ARMS_REQADD_" + $('#country').val());
 });
 
 // 신규 제품(서비스) 등록 버튼
